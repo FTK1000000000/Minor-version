@@ -1,0 +1,190 @@
+[gd_scene load_steps=12 format=3 uid="uid://3duby8tq03p5"]
+
+[ext_resource type="Script" path="res://scripts/characters/eneity/Enemy.gd" id="1_j1a01"]
+[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_v2f0g"]
+[ext_resource type="Texture2D" uid="uid://26hhl2lrcmvm" path="res://textures/effect/dead_fog.png" id="3_4sw1y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3scdc"]
+size = Vector2(50, 50)
+
+[sub_resource type="Animation" id="Animation_sgq4x"]
+resource_name = "dead"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Textrule/DeadEffect:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Textrule/Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Textrule/DeadEffect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_7rxus"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Textrule/DeadEffect:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Textrule/Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Textrule/DeadEffect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jovug"]
+_data = {
+"RESET": SubResource("Animation_7rxus"),
+"dead_fog": SubResource("Animation_sgq4x")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mf8co"]
+size = Vector2(28, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j81j0"]
+size = Vector2(24.0656, 24.5853)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oyppk"]
+radius = 200.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_djl7y"]
+radius = 300.0
+
+[node name="Enemy" type="CharacterBody2D"]
+z_index = 100
+collision_layer = 2
+collision_mask = 0
+input_pickable = true
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_j1a01")
+
+[node name="Textrule" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Textrule"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_v2f0g")
+
+[node name="DeadEffect" type="Sprite2D" parent="Textrule"]
+visible = false
+texture = ExtResource("3_4sw1y")
+hframes = 4
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_3scdc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_jovug")
+}
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_mf8co")
+
+[node name="HitBox" type="Area2D" parent="."]
+scale = Vector2(0.997275, 0.976194)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-1.91256e-06, -8.24286e-07)
+shape = SubResource("RectangleShape2D_j81j0")
+
+[node name="Nav" type="Node2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Nav"]
+path_postprocessing = 1
+path_metadata_flags = 0
+avoidance_enabled = true
+radius = 20.0
+avoidance_layers = 2
+avoidance_mask = 2
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="Nav"]
+wait_time = 0.1
+autostart = true
+
+[node name="Aggro" type="Node2D" parent="."]
+
+[node name="AggroRange" type="Area2D" parent="Aggro"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange"]
+shape = SubResource("CircleShape2D_oyppk")
+debug_color = Color(0.756863, 0, 0.152941, 0.45098)
+
+[node name="DeAggroRange" type="Area2D" parent="Aggro"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange"]
+shape = SubResource("CircleShape2D_djl7y")
+debug_color = Color(0, 0.627451, 0.494118, 0.313726)
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="velocity_computed" from="Nav/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Nav/Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="Aggro/AggroRange" to="." method="_on_aggro_range_area_entered"]
+[connection signal="area_exited" from="Aggro/DeAggroRange" to="." method="_on_de_aggro_range_area_exited"]
