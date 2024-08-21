@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dn44q6v0m2jyu" path="res://textures/UI/inventory2.png" id="1_dxliq"]
 [ext_resource type="Script" path="res://scripts/ui/slot.gd" id="1_shl1x"]
 
-[node name="Slot" type="Panel"]
+[node name="Slot" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 100)
 offset_right = 100.0
@@ -19,18 +19,3 @@ centered = false
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
-
-[node name="Panel" type="Panel" parent="CenterContainer"]
-layout_mode = 2
-
-[node name="Item" type="Sprite2D" parent="CenterContainer/Panel"]
-scale = Vector2(3, 3)
-
-[node name="Label" type="Label" parent="CenterContainer/Panel"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 15.0
-offset_right = 38.0
-offset_bottom = 38.0
-text = "999"
-horizontal_alignment = 2
