@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://scripts/ui/ProgressBar.gd" id="6_dnlyc"]
 [ext_resource type="Texture2D" uid="uid://buc2u0kx23beg" path="res://textures/UI/health_bar/playerHealthBar1.png" id="7_8w60g"]
 [ext_resource type="Texture2D" uid="uid://bqcey0kwg1rx0" path="res://textures/UI/health_bar/playerHealthBar2.png" id="8_2k5jr"]
-[ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory.tscn" id="11_d7puq"]
+[ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory/inventory.tscn" id="11_d7puq"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_i35su"]
 resource_name = "collectibles"
