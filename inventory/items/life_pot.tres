@@ -7,3 +7,4 @@
 script = ExtResource("1_16gda")
 name = "FivePot"
 texture = ExtResource("2_h5ehp")
+max_amount_stack = 5

@@ -7,3 +7,4 @@
 script = ExtResource("1_de2vr")
 name = "Axe"
 texture = ExtResource("2_m1gtr")
+max_amount_stack = 2
