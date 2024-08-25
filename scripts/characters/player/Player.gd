@@ -23,8 +23,8 @@ var dead : bool = false
 var direction : Vector2 = Vector2.ZERO
 var towards : Vector2 = Vector2.ZERO
 
-@export var move_speed : float = 100
-@export var max_health : int = 100
+var move_speed : float = 100
+var max_health : int = 100
 var current_health : int
 
 @export var knockback_power : int = 300

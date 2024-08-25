@@ -7,9 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://cg3gt7i4bfmk3" path="res://textures/tileMap/tile.png" id="3_updwy"]
 [ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/player/Player.tscn" id="4_8c17k"]
 [ext_resource type="PackedScene" uid="uid://3duby8tq03p5" path="res://characters/enemy/Enemy.tscn" id="5_po0aw"]
-[ext_resource type="Script" path="res://scripts/ui/ProgressBar.gd" id="6_dnlyc"]
-[ext_resource type="Texture2D" uid="uid://buc2u0kx23beg" path="res://textures/UI/health_bar/playerHealthBar1.png" id="7_8w60g"]
-[ext_resource type="Texture2D" uid="uid://bqcey0kwg1rx0" path="res://textures/UI/health_bar/playerHealthBar2.png" id="8_2k5jr"]
+[ext_resource type="Script" path="res://scripts/ui/player_health.gd" id="6_dnlyc"]
+[ext_resource type="Texture2D" uid="uid://buc2u0kx23beg" path="res://textures/ui/health_bar/playerHealthBar1.png" id="7_8w60g"]
+[ext_resource type="Texture2D" uid="uid://bqcey0kwg1rx0" path="res://textures/ui/health_bar/playerHealthBar2.png" id="8_2k5jr"]
 [ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory/inventory.tscn" id="11_d7puq"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_i35su"]
@@ -83,13 +83,70 @@ position = Vector2(127, 559)
 position = Vector2(171, 606)
 
 [node name="Enemy3" parent="TileMap" instance=ExtResource("5_po0aw")]
-position = Vector2(144, 410)
+position = Vector2(89, 462)
 
 [node name="Enemy4" parent="TileMap" instance=ExtResource("5_po0aw")]
-position = Vector2(144, 410)
+position = Vector2(89, 461)
 
 [node name="Enemy5" parent="TileMap" instance=ExtResource("5_po0aw")]
-position = Vector2(144, 410)
+position = Vector2(85, 460)
+
+[node name="Enemy6" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy7" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy8" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy9" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy10" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy11" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy12" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy13" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy14" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy15" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy16" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy17" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy18" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy19" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy20" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy21" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy22" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy23" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
+
+[node name="Enemy24" parent="TileMap" instance=ExtResource("5_po0aw")]
+position = Vector2(85, 460)
 
 [node name="UI" parent="." instance=ExtResource("2_owpjw")]
 process_mode = 3

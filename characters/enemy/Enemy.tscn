@@ -1,8 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://3duby8tq03p5"]
+[gd_scene load_steps=18 format=3 uid="uid://3duby8tq03p5"]
 
 [ext_resource type="Script" path="res://scripts/characters/eneity/Enemy.gd" id="1_j1a01"]
 [ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_v2f0g"]
 [ext_resource type="Texture2D" uid="uid://26hhl2lrcmvm" path="res://textures/effect/dead_fog.png" id="3_4sw1y"]
+[ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://textures/ui/health_bar/enemyHealthBar1.png" id="4_f3rwt"]
+[ext_resource type="Script" path="res://scripts/ui/enemy_health.gd" id="4_rehc5"]
+[ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://textures/ui/health_bar/enemyHealthBar2.png" id="5_sssxq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3scdc"]
 size = Vector2(50, 50)
@@ -24,7 +27,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Textrule/Sprite2D:visible")
+tracks/1/path = NodePath("Textrule/Body:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -65,7 +68,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Textrule/Sprite2D:visible")
+tracks/1/path = NodePath("Textrule/Body:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -93,6 +96,45 @@ _data = {
 "dead_fog": SubResource("Animation_sgq4x")
 }
 
+[sub_resource type="Animation" id="Animation_82twu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Textrule/Body/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_arpku"]
+resource_name = "hurt_blink"
+length = 0.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Textrule/Body/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.670588, 0, 0, 0.498039), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hifb3"]
+_data = {
+"RESET": SubResource("Animation_82twu"),
+"hurt_blink": SubResource("Animation_arpku")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mf8co"]
 size = Vector2(28, 28)
 
@@ -116,15 +158,48 @@ script = ExtResource("1_j1a01")
 
 [node name="Textrule" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Textrule"]
+[node name="Body" type="Sprite2D" parent="Textrule"]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_v2f0g")
+
+[node name="ColorRect" type="ColorRect" parent="Textrule/Body"]
+offset_left = -65.0
+offset_top = -65.0
+offset_right = 65.0
+offset_bottom = 65.0
+color = Color(1, 1, 1, 0)
 
 [node name="DeadEffect" type="Sprite2D" parent="Textrule"]
 visible = false
 texture = ExtResource("3_4sw1y")
 hframes = 4
-frame = 3
+
+[node name="Cling" type="Node2D" parent="Textrule"]
+position = Vector2(0, -15)
+scale = Vector2(0.5, 0.5)
+
+[node name="health_bar" type="TextureProgressBar" parent="Textrule/Cling"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -4.0
+offset_right = 18.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("4_f3rwt")
+texture_progress = ExtResource("5_sssxq")
+script = ExtResource("4_rehc5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -135,6 +210,16 @@ reset_on_save = false
 libraries = {
 "": SubResource("AnimationLibrary_jovug")
 }
+
+[node name="HurtEffect" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimationPlayer")
+libraries = {
+"": SubResource("AnimationLibrary_hifb3")
+}
+
+[node name="HurtEffectTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 0
@@ -168,6 +253,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="Aggro" type="Node2D" parent="."]
+visible = false
 
 [node name="AggroRange" type="Area2D" parent="Aggro"]
 collision_layer = 0
