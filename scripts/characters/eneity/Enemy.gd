@@ -81,7 +81,7 @@ func _on_navigation_agent_2d_velocity_computed(_safe_velocity):
 	velocity = _safe_velocity
 	move_and_slide()
 
-func hurt_by_enemy(area):
+func hurt_by_enemy(_area):
 	current_health -= 10
 	health_changed.emit()
 	is_hurt = true
@@ -112,4 +112,3 @@ func handle_health():
 		animation_player.play("dead_fog")
 		await animation_player.animation_finished
 		queue_free()
-

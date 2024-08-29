@@ -1,11 +1,11 @@
 [gd_scene load_steps=18 format=3 uid="uid://3duby8tq03p5"]
 
-[ext_resource type="Script" path="res://scripts/characters/eneity/Enemy.gd" id="1_j1a01"]
-[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_v2f0g"]
-[ext_resource type="Texture2D" uid="uid://26hhl2lrcmvm" path="res://textures/effect/dead_fog.png" id="3_4sw1y"]
-[ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://textures/ui/health_bar/enemyHealthBar1.png" id="4_f3rwt"]
-[ext_resource type="Script" path="res://scripts/ui/enemy_health.gd" id="4_rehc5"]
-[ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://textures/ui/health_bar/enemyHealthBar2.png" id="5_sssxq"]
+[ext_resource type="Script" path="res://scripts/characters/eneity/Enemy.gd" id="1_50yox"]
+[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_tpfx7"]
+[ext_resource type="Texture2D" uid="uid://26hhl2lrcmvm" path="res://textures/effect/dead_fog.png" id="3_ihwnp"]
+[ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://textures/ui/health_bar/enemyHealthBar1.png" id="4_kabjk"]
+[ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://textures/ui/health_bar/enemyHealthBar2.png" id="5_ot7j0"]
+[ext_resource type="Script" path="res://scripts/ui/enemy_health.gd" id="6_ftrbv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3scdc"]
 size = Vector2(50, 50)
@@ -148,19 +148,18 @@ radius = 200.0
 radius = 300.0
 
 [node name="Enemy" type="CharacterBody2D"]
-z_index = 100
 collision_layer = 2
-collision_mask = 0
+collision_mask = 33
 input_pickable = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_j1a01")
+script = ExtResource("1_50yox")
 
 [node name="Textrule" type="Node2D" parent="."]
 
 [node name="Body" type="Sprite2D" parent="Textrule"]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_v2f0g")
+texture = ExtResource("2_tpfx7")
 
 [node name="ColorRect" type="ColorRect" parent="Textrule/Body"]
 offset_left = -65.0
@@ -171,7 +170,7 @@ color = Color(1, 1, 1, 0)
 
 [node name="DeadEffect" type="Sprite2D" parent="Textrule"]
 visible = false
-texture = ExtResource("3_4sw1y")
+texture = ExtResource("3_ihwnp")
 hframes = 4
 
 [node name="Cling" type="Node2D" parent="Textrule"]
@@ -197,9 +196,9 @@ stretch_margin_left = 3
 stretch_margin_top = 3
 stretch_margin_right = 3
 stretch_margin_bottom = 3
-texture_under = ExtResource("4_f3rwt")
-texture_progress = ExtResource("5_sssxq")
-script = ExtResource("4_rehc5")
+texture_under = ExtResource("4_kabjk")
+texture_progress = ExtResource("5_ot7j0")
+script = ExtResource("6_ftrbv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)

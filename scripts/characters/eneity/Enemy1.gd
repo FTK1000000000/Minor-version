@@ -5,4 +5,3 @@ enum Action_State {
 	RUNING,
 	ATTACK
 }
-

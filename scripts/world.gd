@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var player = $TileMap/player
+@onready var player = $player
 
 
 func _ready():

@@ -13,12 +13,13 @@ enum Action_State {
 @onready var hurt_effect = $HurtEffect
 @onready var hurt_effect_timer = $HurtEffectTimer
 @onready var hurt_box = $HurtBox
+@onready var weapon: Node2D = $Weapon
 
 @export var inventory : Inventory
 
 @export var state : Action_State
 @export var attack : bool = false
-var dead : bool = false
+@export var dead : bool = false
 
 var direction : Vector2 = Vector2.ZERO
 var towards : Vector2 = Vector2.ZERO
@@ -30,38 +31,28 @@ var current_health : int
 @export var knockback_power : int = 300
 var is_hurt : bool = false
 
-var is_forward : bool = true
+var is_forward: bool = true
+var weapon_flip: bool = true
+
 
 func _ready():
 	antimation_tree.active = true
 	
 	current_health = max_health
+	health_changed.emit()
 	
 	hurt_effect.play("RESET")
 
 func _process(_delta):
 	move_and_slide()
-	set_ordering()
 	move_direction()
 	update_actio_state(_delta)
 	update_animation_parametrs(Vector2.ZERO)
+	set_ordering()
 	weapon_attack_signal()
+	collison_detect()
 	handle_health()
-	towards = get_local_mouse_position()
 	
-	if !is_hurt:
-		for area in hurt_box.get_overlapping_areas():
-			if area.name == "HitBox":
-				hurt_by_enemy(area)
-
-
-func set_ordering():
-	if towards.y > 0:
-		is_forward = true
-		z_index = 100+1
-	else:
-		is_forward = false
-		z_index = 100-1
 
 
 func move_direction():
@@ -70,7 +61,6 @@ func move_direction():
 		velocity = direction * move_speed
 	else:
 		velocity = Vector2.ZERO
-
 
 func update_actio_state(_delta):
 	var is_still = velocity == Vector2.ZERO
@@ -86,8 +76,12 @@ func update_actio_state(_delta):
 		move_speed = 100
 #动作判定
 
-
 func update_animation_parametrs(_move_input : Vector2):
+	towards = get_local_mouse_position()
+	if towards.x <= 0:
+		weapon_flip = true
+	else:
+		weapon_flip = false
 	
 	antimation_tree["parameters/idle/blend_position"] = towards
 	antimation_tree["parameters/run/blend_position"] = towards
@@ -102,11 +96,23 @@ func update_animation_parametrs(_move_input : Vector2):
 		
 #动画绑定
 
+func set_ordering():
+	if towards.y > 0:
+		is_forward = true
+		z_index = 100+1
+	else:
+		is_forward = false
+		z_index = 100-1
 
 func weapon_attack_signal():
 	if Input.is_action_pressed("attack"):
 		weapon_attack.emit()
 
+func collison_detect():
+	if !is_hurt:
+		for area in hurt_box.get_overlapping_areas():
+			if area.name == "HitBox":
+				hurt_by_enemy(area)
 
 func hurt_by_enemy(area):
 	current_health -= 10
@@ -119,7 +125,6 @@ func hurt_by_enemy(area):
 	hurt_effect.play("RESET")
 	is_hurt = false
 
-
 func handle_health():
 	if current_health <= 0 :
 		dead = true
@@ -130,17 +135,14 @@ func handle_health():
 		print(name)
 		current_health = 100
 
-
 func _on_hurt_box_area_entered(area):
 	if area.has_method("collect"):
 		area.collect(inventory)
-
 
 func knockback(enemy_velocity : Vector2):
 	var knockback_direction = (enemy_velocity - velocity).normalized() * knockback_power
 	velocity = knockback_direction
 	move_and_slide()
-
 
 @warning_ignore("unused_parameter")
 func _on_hurt_box_area_exited(area):pass
