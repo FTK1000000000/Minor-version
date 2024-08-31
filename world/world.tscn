@@ -1,13 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://evjri63xmru4"]
+[gd_scene load_steps=9 format=3 uid="uid://evjri63xmru4"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_lt2u8"]
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/ui_layer.tscn" id="2_owpjw"]
-[ext_resource type="Script" path="res://scripts/camera/player_camera.gd" id="3_6hdyh"]
 [ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/player/Player.tscn" id="4_8c17k"]
 [ext_resource type="Script" path="res://scripts/ui/player_health.gd" id="6_dnlyc"]
+[ext_resource type="Script" path="res://world/rooms.gd" id="7_8e2mg"]
 [ext_resource type="Texture2D" uid="uid://buc2u0kx23beg" path="res://textures/ui/health_bar/playerHealthBar1.png" id="7_8w60g"]
 [ext_resource type="Texture2D" uid="uid://bqcey0kwg1rx0" path="res://textures/ui/health_bar/playerHealthBar2.png" id="8_2k5jr"]
-[ext_resource type="PackedScene" uid="uid://c20dircnc6l3w" path="res://rooms/room_0.tscn" id="9_o4xkf"]
 [ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory/inventory.tscn" id="11_d7puq"]
 
 [node name="World" type="Node2D"]
@@ -31,20 +30,11 @@ player = NodePath("../../player")
 
 [node name="Inventory" parent="UI" instance=ExtResource("11_d7puq")]
 
-[node name="Rooms" type="Node2D" parent="."]
-
-[node name="Room0" parent="Rooms" instance=ExtResource("9_o4xkf")]
+[node name="Rooms" type="NavigationObstacle2D" parent="."]
+script = ExtResource("7_8e2mg")
 
 [node name="player" parent="." instance=ExtResource("4_8c17k")]
-position = Vector2(-19, 265)
-scale = Vector2(0.990008, 1.00486)
-
-[node name="Camera2D" type="Camera2D" parent="player"]
-position = Vector2(8.08075, -43.7872)
-rotation = 3.14159
-scale = Vector2(1.01009, 0.995164)
-zoom = Vector2(2, 2)
-script = ExtResource("3_6hdyh")
+position = Vector2(-79, 87)
 
 [connection signal="closeed" from="UI/Inventory" to="." method="_on_inventory_closeed"]
 [connection signal="opened" from="UI/Inventory" to="." method="_on_inventory_opened"]

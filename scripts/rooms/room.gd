@@ -6,7 +6,7 @@ const ENEMY_SCENE: Dictionary = {
 	"enemy_demo": preload("res://characters/enemy/enemy.tscn")
 }
 
-@onready var tile_map: TileMapLayer = get_node("TileMap/wall")
+@onready var tile_map: Node2D = get_node("TileMap")
 @onready var entrance: Node2D = get_node("Entrance")
 @onready var door_container: Node2D = get_node("Doors")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
@@ -30,7 +30,7 @@ func open_doors():
 
 func close_entrance():
 	for entry_position in entrance.get_children():
-		tile_map.set_cell(tile_map.local_to_map(entry_position.position) + Vector2i.DOWN, 0, Vector2i(1, 0))
+		tile_map.get_node("Wall").set_cell(tile_map.get_node("Wall").local_to_map(entry_position.position) + Vector2i(0, 0), 0, Vector2i(1, 0))
 
 func spawn_entity():
 	for enemy_positions in enemy_positions_container.get_children():

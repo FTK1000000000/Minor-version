@@ -1,21 +1,55 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctse64pdbs7se"]
+[gd_scene load_steps=8 format=3 uid="uid://ctse64pdbs7se"]
 
 [ext_resource type="Script" path="res://scripts/rooms/room.gd" id="1_thym4"]
+[ext_resource type="Texture2D" uid="uid://cg3gt7i4bfmk3" path="res://textures/tileMap/tile.png" id="2_2qaj8"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_hdwpe"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eiqt0"]
+texture = ExtResource("2_2qaj8")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_hdwpe")
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7pjw8"]
+tile_size = Vector2i(32, 32)
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_eiqt0")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g8o53"]
+texture = ExtResource("2_2qaj8")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_yj8r6"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 32
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_g8o53")
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_thym4")
 
-[node name="TileMap" type="NavigationAgent2D" parent="."]
+[node name="TileMap" type="Node2D" parent="."]
 
-[node name="floor" type="TileMapLayer" parent="TileMap"]
+[node name="Floor" type="TileMapLayer" parent="TileMap"]
+tile_set = SubResource("TileSet_7pjw8")
 
-[node name="wall" type="TileMapLayer" parent="TileMap"]
+[node name="Wall" type="TileMapLayer" parent="TileMap"]
+tile_set = SubResource("TileSet_yj8r6")
 
 [node name="Doors" type="Node2D" parent="."]
 
-[node name="Entrance" type="Node2D" parent="."]
-
 [node name="EnemyPositions" type="Node2D" parent="."]
+
+[node name="Entrance" type="Node2D" parent="."]
 
 [node name="PlayerDetector" type="Area2D" parent="."]
 
