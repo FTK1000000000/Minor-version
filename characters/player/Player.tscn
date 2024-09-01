@@ -6,21 +6,25 @@
 [ext_resource type="Script" path="res://scripts/characters/player/Weapon.gd" id="4_p4n5v"]
 [ext_resource type="Texture2D" uid="uid://chb060livauhm" path="res://textures/collectible/weapons/axe.png" id="5_15ax4"]
 [ext_resource type="Script" path="res://scripts/camera/player_camera.gd" id="6_xxrik"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_dbqc7"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_q78is"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_8lig6"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="10_2mpht"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wgeok"]
 size = Vector2(25.6647, 8.67084)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d4dtb"]
-animation = &"player_idle_up-left"
+animation = &"player_idle_up"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pdnjf"]
-animation = &"player_idle_up-right"
+animation = &"player_idle_up"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rax1i"]
-animation = &"player_idle_down-left"
+animation = &"player_idle_down"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c077g"]
-animation = &"player_idle_down-right"
+animation = &"player_idle_down"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_bmj77"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_d4dtb")
@@ -37,16 +41,16 @@ blend_mode = 1
 sync = true
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yrooj"]
-animation = &"player_run_up-left"
+animation = &"player_run_up"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o00d3"]
-animation = &"player_run_up-right"
+animation = &"player_run_up"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hi7n1"]
-animation = &"player_run_down-left"
+animation = &"player_run_down"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8rqvk"]
-animation = &"player_run_down-right"
+animation = &"player_run_down"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ycdoj"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_yrooj")
@@ -84,23 +88,6 @@ states/run/position = Vector2(356, 91)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_t2i83"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_q1bbe"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_4faye")]
 graph_offset = Vector2(-497.157, -32.3309)
 
-[sub_resource type="Animation" id="Animation_6vfys"]
-resource_name = "player_idle_down-left"
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/Body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
 [sub_resource type="Animation" id="Animation_srxmy"]
 resource_name = "player_idle_down-right"
 loop_mode = 1
@@ -108,7 +95,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/Body:frame")
+tracks/0/path = NodePath("Texturse/Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -118,23 +105,6 @@ tracks/0/keys = {
 "values": [4, 5, 6, 7]
 }
 
-[sub_resource type="Animation" id="Animation_08dvi"]
-resource_name = "player_idle_up-left"
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/Body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [8, 9, 10, 11]
-}
-
 [sub_resource type="Animation" id="Animation_et1sn"]
 resource_name = "player_idle_up-right"
 loop_mode = 1
@@ -142,7 +112,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/Body:frame")
+tracks/0/path = NodePath("Texturse/Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -150,24 +120,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [12, 13, 14, 15]
-}
-
-[sub_resource type="Animation" id="Animation_lk26o"]
-resource_name = "player_run_down-left"
-length = 0.5
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/Body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [16, 17, 18, 19, 20]
 }
 
 [sub_resource type="Animation" id="Animation_e46vs"]
@@ -178,7 +130,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/Body:frame")
+tracks/0/path = NodePath("Texturse/Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -186,24 +138,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [21, 22, 23, 24, 25]
-}
-
-[sub_resource type="Animation" id="Animation_4w3jo"]
-resource_name = "player_run_up-left"
-length = 0.5
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/Body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [26, 27, 28, 29, 30]
 }
 
 [sub_resource type="Animation" id="Animation_5lck4"]
@@ -214,7 +148,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/Body:frame")
+tracks/0/path = NodePath("Texturse/Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -226,14 +160,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ickhe"]
 _data = {
-"player_idle_down-left": SubResource("Animation_6vfys"),
-"player_idle_down-right": SubResource("Animation_srxmy"),
-"player_idle_up-left": SubResource("Animation_08dvi"),
-"player_idle_up-right": SubResource("Animation_et1sn"),
-"player_run_down-left": SubResource("Animation_lk26o"),
-"player_run_down-right": SubResource("Animation_e46vs"),
-"player_run_up-left": SubResource("Animation_4w3jo"),
-"player_run_up-right": SubResource("Animation_5lck4")
+"player_idle_down": SubResource("Animation_srxmy"),
+"player_idle_up": SubResource("Animation_et1sn"),
+"player_run_down": SubResource("Animation_e46vs"),
+"player_run_up": SubResource("Animation_5lck4")
 }
 
 [sub_resource type="Animation" id="Animation_82twu"]
@@ -241,7 +171,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/Body/ColorRect:color")
+tracks/0/path = NodePath("Texturse/Body/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -259,7 +189,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/Body/ColorRect:color")
+tracks/0/path = NodePath("Texturse/Body/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -384,21 +314,22 @@ script = ExtResource("1_7sr4c")
 inventory = ExtResource("2_jav7l")
 knockback_power = 500
 
-[node name="Textrule" type="Node2D" parent="."]
+[node name="Texturse" type="Node2D" parent="."]
 
-[node name="Body" type="Sprite2D" parent="Textrule"]
+[node name="Body" type="Sprite2D" parent="Texturse"]
 clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 10
+frame = 7
 
-[node name="ColorRect" type="ColorRect" parent="Textrule/Body"]
+[node name="ColorRect" type="ColorRect" parent="Texturse/Body"]
 offset_left = -20.0
 offset_top = -21.0
 offset_right = 20.0
 offset_bottom = 19.0
 color = Color(1, 1, 1, 0)
+metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 12.4862)
@@ -411,7 +342,7 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_idle = false
 parameters/conditions/is_run = false
-parameters/idle/blend_position = Vector2(0, 0)
+parameters/idle/blend_position = Vector2(-0.986896, 1.08824)
 parameters/run/blend_position = Vector2(0.196049, -0.436508)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -474,10 +405,56 @@ scale = Vector2(2.7917, 1.27377)
 shape = SubResource("RectangleShape2D_sl01i")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-12, -353)
-zoom = Vector2(0.2, 0.2)
+zoom = Vector2(2, 2)
 script = ExtResource("6_xxrik")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("7_dbqc7")
+
+[node name="Idle" type="Node" parent="StateChart"]
+script = ExtResource("8_q78is")
+initial_state = NodePath("AtomicState")
+
+[node name="AtomicState" type="Node" parent="StateChart/Idle"]
+script = ExtResource("9_8lig6")
+
+[node name="Walk" type="Node" parent="StateChart/Idle/AtomicState"]
+script = ExtResource("10_2mpht")
+to = NodePath("../../WalkStack/Walk")
+event = &"walk"
+delay_in_seconds = "0.0"
+
+[node name="Run" type="Node" parent="StateChart/Idle/AtomicState"]
+script = ExtResource("10_2mpht")
+to = NodePath("../../WalkStack/Run")
+event = &"run"
+delay_in_seconds = "0.0"
+
+[node name="WalkStack" type="Node" parent="StateChart/Idle"]
+script = ExtResource("8_q78is")
+initial_state = NodePath("Walk")
+
+[node name="Walk" type="Node" parent="StateChart/Idle/WalkStack"]
+script = ExtResource("9_8lig6")
+
+[node name="Idle" type="Node" parent="StateChart/Idle/WalkStack/Walk"]
+script = ExtResource("10_2mpht")
+to = NodePath("../../..")
+event = &"idle"
+delay_in_seconds = "0.0"
+
+[node name="Run" type="Node" parent="StateChart/Idle/WalkStack"]
+script = ExtResource("9_8lig6")
+
+[node name="Idle" type="Node" parent="StateChart/Idle/WalkStack/Run"]
+script = ExtResource("10_2mpht")
+to = NodePath("../../..")
+event = &"idle"
+delay_in_seconds = "0.0"
 
 [connection signal="weapon_attack" from="." to="Weapon" method="_on_player_weapon_attack"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
-[connection signal="area_exited" from="HurtBox" to="." method="_on_hurt_box_area_exited"]
+[connection signal="state_entered" from="StateChart/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_entered" from="StateChart/Idle/WalkStack" to="." method="_on_walk_stack_state_entered"]
+[connection signal="state_entered" from="StateChart/Idle/WalkStack/Run" to="." method="_on_run_state_entered"]
+[connection signal="state_exited" from="StateChart/Idle/WalkStack/Run" to="." method="_on_run_state_exited"]

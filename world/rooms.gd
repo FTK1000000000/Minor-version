@@ -1,4 +1,4 @@
-extends NavigationObstacle2D
+extends Node2D
 
 const FROM_ROOMS: Array = [
 	preload("res://rooms/room_from_0.tscn"),

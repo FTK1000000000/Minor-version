@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://qbvc3qdmmyt2"]
+
+[ext_resource type="PackedScene" uid="uid://3duby8tq03p5" path="res://characters/enemy/enemy.tscn" id="1_7u4wb"]
+[ext_resource type="Script" path="res://scripts/characters/eneity/ranged_enemy.gd" id="2_50250"]
+
+[node name="Enemy" instance=ExtResource("1_7u4wb")]
+script = ExtResource("2_50250")
+
+[node name="NavigationAgent2D" parent="Nav" index="0"]
+target_desired_distance = 60.0

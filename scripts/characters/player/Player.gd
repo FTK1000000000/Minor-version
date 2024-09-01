@@ -9,6 +9,8 @@ enum Action_State {
 	RUNING
 }
 
+@onready var state_chart: StateChart = $StateChart
+@onready var body_texturse: Node2D = $Texturse/Body
 @onready var antimation_tree : AnimationTree = $AnimationTree
 @onready var hurt_effect = $HurtEffect
 @onready var hurt_effect_timer = $HurtEffectTimer
@@ -45,64 +47,52 @@ func _ready():
 
 func _process(_delta):
 	move_and_slide()
-	move_direction()
-	update_actio_state(_delta)
+	get_move_direction()
 	update_animation_parametrs(Vector2.ZERO)
-	set_ordering()
 	weapon_attack_signal()
 	collison_detect()
 	handle_health()
-	
+	update_state()
 
 
-func move_direction():
+func update_state():
+	var is_still = velocity == Vector2.ZERO
+	var switch: bool = false
+	if Input.is_action_pressed("switch"):
+		if switch: switch = false
+		else: switch = true
+	print(switch)
+	if is_still: state_chart.send_event("idle")
+	if !is_still:
+		if !is_still && !switch: state_chart.send_event("walk")
+		else: state_chart.send_event("run")
+		
+
+func get_move_direction():
 	direction = Input.get_vector("left", "right", "up", "down").normalized()
 	if direction:
 		velocity = direction * move_speed
 	else:
 		velocity = Vector2.ZERO
 
-func update_actio_state(_delta):
-	var is_still = velocity == Vector2.ZERO
-	
-	if is_still:
-		state = Action_State.IDLE
-	if !is_still:
-		state = Action_State.RUNING
-	
-	if Input.is_action_pressed("run"):
-		move_speed = 150
-	else:
-		move_speed = 100
-#动作判定
-
 func update_animation_parametrs(_move_input : Vector2):
 	towards = get_local_mouse_position()
-	if towards.x <= 0:
+	if towards.x < 0:
 		weapon_flip = true
+		body_texturse.flip_h = true
 	else:
 		weapon_flip = false
+		body_texturse.flip_h = false
+	if towards.y > 0:
+		is_forward = true
+		z_index + 1
+	else:
+		is_forward = false
+		z_index - 1
 	
 	antimation_tree["parameters/idle/blend_position"] = towards
 	antimation_tree["parameters/run/blend_position"] = towards
-	
-	if state == 0:
-		antimation_tree["parameters/conditions/is_idle"] = true
-		antimation_tree["parameters/conditions/is_run"] = false
-		
-	if state == 1:
-		antimation_tree["parameters/conditions/is_idle"] = false
-		antimation_tree["parameters/conditions/is_run"] = true
-		
-#动画绑定
-
-func set_ordering():
-	if towards.y > 0:
-		is_forward = true
-		z_index = 100+1
-	else:
-		is_forward = false
-		z_index = 100-1
+	#纹理朝向和渲染索引
 
 func weapon_attack_signal():
 	if Input.is_action_pressed("attack"):
@@ -144,5 +134,25 @@ func knockback(enemy_velocity : Vector2):
 	velocity = knockback_direction
 	move_and_slide()
 
-@warning_ignore("unused_parameter")
-func _on_hurt_box_area_exited(area):pass
+
+func _on_idle_state_entered() -> void:
+	#print("idle")
+	antimation_tree["parameters/conditions/is_idle"] = true
+	antimation_tree["parameters/conditions/is_run"] = false
+
+
+func _on_walk_stack_state_entered() -> void:
+	#print("walk")
+	antimation_tree["parameters/conditions/is_idle"] = false
+	antimation_tree["parameters/conditions/is_run"] = true
+
+
+func _on_run_state_entered() -> void:
+	#print("run")
+	move_speed = 150
+	antimation_tree["parameters/conditions/is_idle"] = false
+	antimation_tree["parameters/conditions/is_run"] = true
+
+
+func _on_run_state_exited() -> void:
+	move_speed = 100

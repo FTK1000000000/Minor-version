@@ -29,7 +29,7 @@ var towards : Vector2 = Vector2.ZERO
 var move_speed : float = 75
 var knockback_power : int = 300
 var max_health : int = 20
-@export var current_health : int = 20
+var current_health : int = 20
 
 var is_hurt : bool = false
 
