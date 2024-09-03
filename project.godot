@@ -86,6 +86,7 @@ locale/locale_filter_mode=0
 2d_physics/layer_4="enemyHitBox"
 2d_physics/layer_5="playerhurtbox"
 2d_physics/layer_6="world"
+2d_physics/layer_7="ammo"
 2d_physics/layer_8="collectible"
 avoidance/layer_1="player"
 avoidance/layer_2="enemy"

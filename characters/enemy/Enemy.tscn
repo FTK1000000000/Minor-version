@@ -1,15 +1,17 @@
-[gd_scene load_steps=22 format=3 uid="uid://3duby8tq03p5"]
+[gd_scene load_steps=24 format=3 uid="uid://3duby8tq03p5"]
 
-[ext_resource type="Script" path="res://scripts/characters/eneity/Enemy.gd" id="1_50yox"]
+[ext_resource type="Script" path="res://scripts/characters/eneity/enemy.gd" id="1_50yox"]
 [ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_tpfx7"]
 [ext_resource type="Texture2D" uid="uid://26hhl2lrcmvm" path="res://textures/effect/dead_fog.png" id="3_ihwnp"]
 [ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://textures/ui/health_bar/enemyHealthBar1.png" id="4_kabjk"]
 [ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://textures/ui/health_bar/enemyHealthBar2.png" id="5_ot7j0"]
 [ext_resource type="Script" path="res://scripts/ui/enemy_health_bar.gd" id="6_ftrbv"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_6i27b"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_p5k6v"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_6vr5a"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="10_hqqlh"]
+[ext_resource type="Script" path="res://scripts/characters/hurtbox.gd" id="7_3ngc4"]
+[ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="7_gq8kw"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_tq82l"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_77sd5"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_qbyyu"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="10_tlpf7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3scdc"]
 size = Vector2(50, 50)
@@ -19,7 +21,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/DeadEffect:frame")
+tracks/0/path = NodePath("Texture/DeadEffect:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -31,7 +33,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Textrule/Body:visible")
+tracks/1/path = NodePath("Texture/Body:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -43,7 +45,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Textrule/DeadEffect:visible")
+tracks/2/path = NodePath("Texture/DeadEffect:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -60,7 +62,7 @@ step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Textrule/DeadEffect:frame")
+tracks/0/path = NodePath("Texture/DeadEffect:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -72,7 +74,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Textrule/Body:visible")
+tracks/1/path = NodePath("Texture/Body:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -84,7 +86,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Textrule/DeadEffect:visible")
+tracks/2/path = NodePath("Texture/DeadEffect:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -105,7 +107,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Textrule/Body/ColorRect:color")
+tracks/0/path = NodePath("../Texture/Body/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -123,7 +125,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Textrule/Body/ColorRect:color")
+tracks/0/path = NodePath("../Texture/Body/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -152,6 +154,7 @@ radius = 200.0
 radius = 300.0
 
 [node name="Enemy" type="CharacterBody2D"]
+z_index = 10
 collision_layer = 2
 collision_mask = 33
 input_pickable = true
@@ -159,29 +162,33 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_50yox")
 
-[node name="Textrule" type="Node2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_3scdc")
 
-[node name="Body" type="Sprite2D" parent="Textrule"]
+[node name="Texture" type="Node2D" parent="."]
+
+[node name="Body" type="Sprite2D" parent="Texture"]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_tpfx7")
 
-[node name="ColorRect" type="ColorRect" parent="Textrule/Body"]
+[node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 offset_left = -65.0
 offset_top = -65.0
 offset_right = 65.0
 offset_bottom = 65.0
 color = Color(1, 1, 1, 0)
 
-[node name="DeadEffect" type="Sprite2D" parent="Textrule"]
+[node name="DeadEffect" type="Sprite2D" parent="Texture"]
 visible = false
 texture = ExtResource("3_ihwnp")
 hframes = 4
 
-[node name="Cling" type="Node2D" parent="Textrule"]
+[node name="UI" type="Node2D" parent="Texture"]
 position = Vector2(0, -15)
 scale = Vector2(0.5, 0.5)
 
-[node name="health_bar" type="TextureProgressBar" parent="Textrule/Cling"]
+[node name="health_bar" type="TextureProgressBar" parent="Texture/UI"]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -204,18 +211,14 @@ texture_under = ExtResource("4_kabjk")
 texture_progress = ExtResource("5_ot7j0")
 script = ExtResource("6_ftrbv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.5, 0.5)
-shape = SubResource("RectangleShape2D_3scdc")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="ActionPlayer" type="AnimationPlayer" parent="."]
 reset_on_save = false
 libraries = {
 "": SubResource("AnimationLibrary_jovug")
 }
 
-[node name="HurtEffect" type="AnimationPlayer" parent="."]
-root_node = NodePath("../AnimationPlayer")
+[node name="HurtEffectPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../ActionPlayer")
 libraries = {
 "": SubResource("AnimationLibrary_hifb3")
 }
@@ -227,16 +230,18 @@ one_shot = true
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
+script = ExtResource("7_3ngc4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_mf8co")
 
 [node name="HitBox" type="Area2D" parent="."]
 scale = Vector2(0.997275, 0.976194)
-collision_layer = 8
-collision_mask = 0
+collision_layer = 9
+collision_mask = 16
+script = ExtResource("7_gq8kw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+[node name="CollisionShape2Daaaaaa" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-1.91256e-06, -8.24286e-07)
 shape = SubResource("RectangleShape2D_j81j0")
 
@@ -247,6 +252,7 @@ path_postprocessing = 1
 path_metadata_flags = 0
 avoidance_enabled = true
 radius = 20.0
+max_speed = 100000.0
 avoidance_layers = 2
 avoidance_mask = 2
 debug_enabled = true
@@ -273,28 +279,51 @@ shape = SubResource("CircleShape2D_djl7y")
 debug_color = Color(0, 0.627451, 0.494118, 0.313726)
 
 [node name="StateChart" type="Node" parent="."]
-script = ExtResource("7_6i27b")
+script = ExtResource("7_tq82l")
 
 [node name="CompoundState" type="Node" parent="StateChart"]
-script = ExtResource("8_p5k6v")
-initial_state = NodePath("AtomicState")
+script = ExtResource("8_77sd5")
+initial_state = NodePath("Idle")
 
-[node name="AtomicState" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("9_6vr5a")
+[node name="Idle" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("9_qbyyu")
 
-[node name="Transition" type="Node" parent="StateChart/CompoundState/AtomicState"]
-script = ExtResource("10_hqqlh")
+[node name="chase" type="Node" parent="StateChart/CompoundState/Idle"]
+script = ExtResource("10_tlpf7")
+to = NodePath("../../Chase")
+event = &"chase"
 delay_in_seconds = "0.0"
 
-[node name="AtomicState2" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("9_6vr5a")
+[node name="Chase" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("9_qbyyu")
 
-[node name="Transition" type="Node" parent="StateChart/CompoundState/AtomicState2"]
-script = ExtResource("10_hqqlh")
+[node name="idle" type="Node" parent="StateChart/CompoundState/Chase"]
+script = ExtResource("10_tlpf7")
+to = NodePath("../../Idle")
+event = &"idle"
 delay_in_seconds = "0.0"
 
-[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[node name="Hurt" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("9_qbyyu")
+
+[node name="idle" type="Node" parent="StateChart/CompoundState/Hurt"]
+script = ExtResource("10_tlpf7")
+to = NodePath("../../Idle")
+event = &"idle"
+delay_in_seconds = "0.0"
+
+[node name="hurt" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("10_tlpf7")
+to = NodePath("../Hurt")
+event = &"hurt"
+delay_in_seconds = "0.0"
+
+[connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
+[connection signal="area_exited" from="HitBox" to="HitBox" method="_on_area_exited"]
 [connection signal="velocity_computed" from="Nav/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Nav/PathTimer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="Aggro/AggroRange" to="." method="_on_aggro_range_area_entered"]
 [connection signal="area_exited" from="Aggro/DeAggroRange" to="." method="_on_de_aggro_range_area_exited"]
+[connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/Chase" to="." method="_on_chase_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_entered"]

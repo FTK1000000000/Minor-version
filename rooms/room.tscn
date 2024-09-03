@@ -9,7 +9,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
 agent_radius = 0.0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eiqt0"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lct12"]
 texture = ExtResource("2_2qaj8")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -19,9 +19,9 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_7pjw8"]
 tile_size = Vector2i(32, 32)
 navigation_layer_0/layers = 1
-sources/0 = SubResource("TileSetAtlasSource_eiqt0")
+sources/0 = SubResource("TileSetAtlasSource_lct12")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g8o53"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m3x5m"]
 texture = ExtResource("2_2qaj8")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -32,7 +32,7 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 32
 physics_layer_0/collision_mask = 0
-sources/0 = SubResource("TileSetAtlasSource_g8o53")
+sources/0 = SubResource("TileSetAtlasSource_m3x5m")
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_thym4")

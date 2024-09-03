@@ -1,9 +1,10 @@
 extends Node2D
 
 
-const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://characters/enemy/spawn_expansion.tscn")
+const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://characters/spawn_expansion.tscn")
 const ENEMY_SCENE: Dictionary = {
-	"enemy_demo": preload("res://characters/enemy/enemy.tscn")
+	"enemy_demo": preload("res://characters/enemy/enemy.tscn"),
+	"enemy_demo2": preload("res://characters/enemy/ranged_enemy.tscn")
 }
 
 @onready var tile_map: Node2D = get_node("TileMap")
@@ -34,7 +35,10 @@ func close_entrance():
 
 func spawn_entity():
 	for enemy_positions in enemy_positions_container.get_children():
-		var enemy: CharacterBody2D = ENEMY_SCENE.enemy_demo.instantiate()
+		var enemy: CharacterBody2D
+		if randi() % 2 == 0: enemy = ENEMY_SCENE.enemy_demo.instantiate()
+		else: enemy = ENEMY_SCENE.enemy_demo2.instantiate()
+		
 		var __ = enemy.connect("tree_exited", on_enemy_killed)
 		enemy.position = enemy_positions.position
 		call_deferred("add_child", enemy)

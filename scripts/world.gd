@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var player = $player
+@onready var player = get_node("Player")
 
 
 func _ready():

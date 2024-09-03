@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://djj4jvughdd1u"]
 
 [ext_resource type="PackedScene" uid="uid://3duby8tq03p5" path="res://characters/enemy/enemy.tscn" id="1_dqqr5"]
-[ext_resource type="Script" path="res://scripts/characters/eneity/Enemy1.gd" id="2_rngc0"]
+[ext_resource type="Script" path="res://scripts/characters/eneity/enemy1.gd" id="2_rngc0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ehcxk"]
 size = Vector2(20, 26)

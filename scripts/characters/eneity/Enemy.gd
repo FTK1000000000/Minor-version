@@ -1,32 +1,26 @@
 extends CharacterBody2D
-
 class_name Enemy
 
 signal health_changed
 
-enum Direction {
-	LEFT,
-	RIGHT
-}
 
-@onready var animation_player = $AnimationPlayer
-@onready var textrule : Node2D = $Textrule
-@onready var nav_agent : NavigationAgent2D = $Nav/NavigationAgent2D
-@onready var cling = $Textrule/Cling
-@onready var health_bar = $Textrule/Cling/health_bar
-@onready var hurt_effect = $HurtEffect
-@onready var hurt_effect_timer = $HurtEffectTimer
-@onready var hurt_box = $HurtBox
-@onready var hit_box = $HitBox
+@onready var textrule : Node2D = $Texture
+@onready var UI: Node2D = $Texture/UI
+@onready var health_bar: TextureProgressBar = $Texture/UI/health_bar
+@onready var AAP: AnimationPlayer = $ActionPlayer
+@onready var HEAP: AnimationPlayer = $HurtEffectPlayer
+@onready var hurt_effect_timer: Timer = $HurtEffectTimer
+@onready var hitbox: Area2D = $HitBox
+@onready var navigation_agent : NavigationAgent2D = $Nav/NavigationAgent2D
+@onready var path_timer: Timer = $Nav/PathTimer
+@onready var state_chart: StateChart = $StateChart
 
-@export var direction :  Direction
-
-@export var target_node : Node2D
+@export var target_node: CharacterBody2D
 var home_pos = Vector2.ZERO
 
 var towards : Vector2 = Vector2.ZERO
 
-var move_speed : float = 75
+@export var move_speed : float = 75
 var knockback_power : int = 300
 var max_health : int = 20
 var current_health : int = 20
@@ -35,33 +29,56 @@ var is_hurt : bool = false
 
 var is_dead : bool = false
 
+
 func _ready():
-	nav_agent.path_desired_distance = 4
-	nav_agent.target_desired_distance = 4
+	navigation_agent.path_desired_distance = 4
+	navigation_agent.target_desired_distance = 1
+	
+	hitbox.damage = 10
 
 
 func _process(_delta):
+	update_state()
 	handle_health()
 	
-	if nav_agent.is_navigation_finished():
+	if navigation_agent.is_navigation_finished():
 		return
 		
-	var axis = to_local(nav_agent.get_next_path_position()).normalized()
+	var axis = to_local(navigation_agent.get_next_path_position()).normalized()
 	var intended_velocity = axis * move_speed
-	nav_agent.set_velocity(intended_velocity)
+	navigation_agent.set_velocity(intended_velocity)
 	
 	if is_dead: return
-	
-	if !is_hurt:
-		for area in hurt_box.get_overlapping_areas():
-			if area.name == "HitBox":
-				hurt_by_enemy(area)
+
+
+func update_state():
+	if !target_node: state_chart.send_event("idle")
+	elif target_node: state_chart.send_event("chase")
+#更新状态
+
+func handle_health():
+	if current_health != max_health:
+		health_bar.visible = true
+	if current_health <= 0 :
+		is_dead = true
+	if is_dead:
+		UI.visible = false
+		move_speed = 0
+		hitbox.set_deferred("monitorable", false)
+		AAP.play("dead_fog")
+		
+		await AAP.animation_finished
+		queue_free()
+#血量操作
 
 func recalc_path():
 	if target_node:
-		nav_agent.target_position = target_node.global_position
+		get_path_to_player()
 	else:
-		nav_agent.target_position = position
+		navigation_agent.target_position = position
+
+func get_path_to_player():
+	navigation_agent.target_position = target_node.global_position
 
 
 func _on_timer_timeout():
@@ -81,34 +98,21 @@ func _on_navigation_agent_2d_velocity_computed(_safe_velocity):
 	velocity = _safe_velocity
 	move_and_slide()
 
-func hurt_by_enemy(_area):
-	current_health -= 10
+
+func _on_idle_state_entered() -> void:
+	pass
+
+
+func _on_chase_state_entered() -> void:
+	pass
+
+
+func _on_hurt_state_entered() -> void:
 	health_changed.emit()
 	is_hurt = true
-	#knockback(area.get_parent().velocity)
-	hurt_effect.play("hurt_blink")
+	HEAP.play("hurt_blink")
 	hurt_effect_timer.start()
-	await hurt_effect_timer.timeout
-	hurt_effect.play("RESET")
-	is_hurt = false
-
-func knockback(node_velocity : Vector2):
-	var knockback_direction = (node_velocity - velocity).normalized() * knockback_power
-	velocity = knockback_direction
-	move_and_slide()
-
-func handle_health():
-	if current_health != max_health:
-		health_bar.visible = true
-	if current_health <= 0 :
-		is_dead = true
 	
-	if is_dead:
-		cling.visible = false
-		
-		move_speed = 0
-		
-		hit_box.set_deferred("monitorable", false)
-		animation_player.play("dead_fog")
-		await animation_player.animation_finished
-		queue_free()
+	await hurt_effect_timer.timeout
+	HEAP.play("RESET")
+	is_hurt = false

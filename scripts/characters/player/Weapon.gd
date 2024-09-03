@@ -3,7 +3,7 @@ extends Node2D
 @onready var animation_weapon = $AnimationWeapon
 @onready var weapon_attack_ready_timer = $WeaponAttackReadyTimer
 @onready var player = $".."
-@onready var collision = $HitBox/CollisionShape2D
+@onready var collision = $Sprite2D/Hitbox/CollisionShape2D
 @onready var textruse: Sprite2D = $Sprite2D
 
 var is_attack : bool = false

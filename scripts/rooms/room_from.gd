@@ -1,7 +1,7 @@
 extends Node2D
 
 
-const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://characters/enemy/spawn_expansion.tscn")
+const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://characters/spawn_expansion.tscn")
 
 @onready var door_container: Node2D = get_node("Doors")
 @onready var player_detector: Area2D = get_node("PlayerDetector")

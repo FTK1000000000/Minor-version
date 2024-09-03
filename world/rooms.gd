@@ -20,7 +20,7 @@ const LEFT_WALL_TILE_INDEX: Vector2i = Vector2i(1, 0)
 
 @export var num_levels: int = 5
 
-@onready var player: CharacterBody2D = get_node("../player")
+@onready var player: CharacterBody2D = get_node("../Player")
 
 
 func _ready() -> void:
