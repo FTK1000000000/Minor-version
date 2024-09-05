@@ -22,6 +22,10 @@ tile_map_data = PackedByteArray("AAAAAAAAAAABAAAAAAAAAAEAAAABAAAAAAABAAAAAAABAAA
 [node name="Door" parent="Doors" index="0" instance=ExtResource("2_wj6i0")]
 position = Vector2(176, 48)
 
+[node name="PlayerDetector" parent="." index="4"]
+collision_layer = 0
+collision_mask = 4
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" index="0"]
 position = Vector2(160, 96)
 shape = SubResource("RectangleShape2D_o4vp4")

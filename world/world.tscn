@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://evjri63xmru4"]
+[gd_scene load_steps=15 format=4 uid="uid://evjri63xmru4"]
 
 [ext_resource type="Script" path="res://scripts/world/world.gd" id="1_lt2u8"]
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/ui_layer.tscn" id="2_owpjw"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://buc2u0kx23beg" path="res://textures/ui/health_bar/playerHealthBar1.png" id="7_8w60g"]
 [ext_resource type="Texture2D" uid="uid://bqcey0kwg1rx0" path="res://textures/ui/health_bar/playerHealthBar2.png" id="8_2k5jr"]
 [ext_resource type="PackedScene" uid="uid://qbvc3qdmmyt2" path="res://characters/enemy/ranged_enemy.tscn" id="8_xtruh"]
+[ext_resource type="Script" path="res://scripts/world/rooms.gd" id="9_gydns"]
 [ext_resource type="PackedScene" uid="uid://3duby8tq03p5" path="res://characters/enemy/enemy.tscn" id="10_68tb1"]
 [ext_resource type="Script" path="res://scripts/camera/player_camera.gd" id="10_yv64u"]
 [ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory/inventory.tscn" id="11_d7puq"]
@@ -45,6 +46,7 @@ script = ExtResource("6_dnlyc")
 [node name="Inventory" parent="UI" instance=ExtResource("11_d7puq")]
 
 [node name="Rooms" type="Node2D" parent="."]
+script = ExtResource("9_gydns")
 
 [node name="Player" parent="." instance=ExtResource("4_8c17k")]
 position = Vector2(-931, -67)
