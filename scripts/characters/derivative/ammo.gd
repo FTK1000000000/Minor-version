@@ -1,5 +1,8 @@
 extends Hitbox
+class_name Ammo
 
+
+const HIT_EXPLOSION_SCENE: PackedScene = preload("res://characters/spawn_expansion.tscn")
 
 var collision_exited: bool = false
 
@@ -32,4 +35,13 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int):
 
 func _on_area_entered(area: Area2D) -> void:
 	area.take_damage(damage, knockback_direction, knockback_force)
+	
+	queue_free()
+
+
+func _on_body_entered(body: TileMapLayer) -> void:
+	var hit_explosion_scene = HIT_EXPLOSION_SCENE.instantiate()
+	body.add_child(hit_explosion_scene)
+	hit_explosion_scene.position = position
+	
 	queue_free()

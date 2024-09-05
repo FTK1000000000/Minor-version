@@ -2,11 +2,12 @@ extends Node2D
 
 @onready var animation_weapon = $AnimationWeapon
 @onready var weapon_attack_ready_timer = $WeaponAttackReadyTimer
-@onready var player = $".."
-@onready var collision = $Sprite2D/Hitbox/CollisionShape2D
+@onready var player: Player = $".."
+@onready var collision = $Hitbox/CollisionShape2D
 @onready var textruse: Sprite2D = $Sprite2D
 
 var is_attack : bool = false
+
 
 func _ready():
 	animation_weapon.play("RESET")
@@ -31,6 +32,7 @@ func texturse_flip():
 	else:
 		textruse.flip_h = false
 		textruse.offset.x = 10
+
 
 func _on_player_weapon_attack():
 	is_attack = true

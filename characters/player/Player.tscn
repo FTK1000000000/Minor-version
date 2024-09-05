@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://c76kqdervowc5"]
+[gd_scene load_steps=41 format=3 uid="uid://c76kqdervowc5"]
 
 [ext_resource type="Script" path="res://scripts/characters/player/player.gd" id="1_7sr4c"]
 [ext_resource type="Texture2D" uid="uid://baalc1jtnday8" path="res://textures/characters/player/Sprite player.png" id="2_53s0l"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://scripts/characters/hurtbox.gd" id="4_xth6r"]
 [ext_resource type="Texture2D" uid="uid://chb060livauhm" path="res://textures/collectible/weapons/axe.png" id="5_15ax4"]
 [ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="6_vdfkt"]
-[ext_resource type="Script" path="res://scripts/camera/player_camera.gd" id="6_xxrik"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_dbqc7"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_q78is"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_8lig6"]
@@ -207,11 +206,8 @@ _data = {
 "hurt_blink": SubResource("Animation_arpku")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_br26j"]
-size = Vector2(20, 26)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1utas"]
-size = Vector2(20, 26)
+size = Vector2(22, 28)
 
 [sub_resource type="Animation" id="Animation_84p2f"]
 length = 0.001
@@ -222,6 +218,18 @@ tracks/0/path = NodePath("Weapon/Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon/Hitbox:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -244,6 +252,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, -3.14159, 1.0472, 0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon/Hitbox:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -3.14159, 1.0472, 0.0]
+}
 
 [sub_resource type="Animation" id="Animation_o8f3n"]
 resource_name = "attack"
@@ -261,6 +281,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, 3.14159, -1.0472, 0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon/Hitbox:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, -1.0472, 0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_epy2l"]
 _data = {
@@ -270,11 +302,15 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sl01i"]
-size = Vector2(5.14803, 11.9528)
+size = Vector2(5.63311, 14.978)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_br26j"]
+size = Vector2(20, 26)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 10
-collision_mask = 33
+collision_layer = 4
+collision_mask = 9
 platform_floor_layers = 4294901761
 script = ExtResource("1_7sr4c")
 knockback_power = 500
@@ -292,7 +328,7 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 4
+frame = 7
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 offset_left = -20.0
@@ -326,17 +362,9 @@ libraries = {
 wait_time = 0.4
 one_shot = true
 
-[node name="NavArea" type="Area2D" parent="."]
-visible = false
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NavArea"]
-position = Vector2(0, 3)
-shape = SubResource("RectangleShape2D_br26j")
-
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 16
-collision_mask = 128
+collision_mask = 0
 script = ExtResource("4_xth6r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
@@ -345,6 +373,12 @@ shape = SubResource("RectangleShape2D_1utas")
 
 [node name="Weapon" type="Node2D" parent="."]
 script = ExtResource("4_p4n5v")
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon"]
+position = Vector2(1.31134e-07, -3)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_15ax4")
+offset = Vector2(10, -10)
 
 [node name="AnimationWeapon" type="AnimationPlayer" parent="Weapon"]
 root_node = NodePath("../..")
@@ -356,26 +390,27 @@ libraries = {
 wait_time = 0.3
 one_shot = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Weapon"]
+[node name="Hitbox" type="Area2D" parent="Weapon"]
 position = Vector2(1.31134e-07, -3)
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("5_15ax4")
-offset = Vector2(10, -10)
-
-[node name="Hitbox" type="Area2D" parent="Weapon/Sprite2D"]
-collision_layer = 4
-collision_mask = 0
+collision_layer = 0
+collision_mask = 32
 script = ExtResource("6_vdfkt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Sprite2D/Hitbox"]
-position = Vector2(18.5038, -15.8225)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Hitbox"]
+position = Vector2(17.7968, -16.9887)
 rotation = -2.29143
 scale = Vector2(2.32642, 1.06147)
 shape = SubResource("RectangleShape2D_sl01i")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-script = ExtResource("6_xxrik")
+[node name="NavArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavArea"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_br26j")
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("7_dbqc7")
@@ -438,8 +473,8 @@ delay_in_seconds = "0.0"
 
 [connection signal="weapon_attack" from="." to="Weapon" method="_on_player_weapon_attack"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurt_box_area_entered"]
-[connection signal="area_entered" from="Weapon/Sprite2D/Hitbox" to="Weapon/Sprite2D/Hitbox" method="_on_area_entered"]
-[connection signal="area_exited" from="Weapon/Sprite2D/Hitbox" to="Weapon/Sprite2D/Hitbox" method="_on_area_exited"]
+[connection signal="area_entered" from="Weapon/Hitbox" to="Weapon/Hitbox" method="_on_area_entered"]
+[connection signal="area_exited" from="Weapon/Hitbox" to="Weapon/Hitbox" method="_on_area_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack" to="." method="_on_walk_stack_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_entered"]

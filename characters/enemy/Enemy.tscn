@@ -155,8 +155,8 @@ radius = 300.0
 
 [node name="Enemy" type="CharacterBody2D"]
 z_index = 10
-collision_layer = 2
-collision_mask = 33
+collision_layer = 8
+collision_mask = 5
 input_pickable = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
@@ -228,8 +228,8 @@ wait_time = 0.4
 one_shot = true
 
 [node name="HurtBox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
+collision_layer = 32
+collision_mask = 0
 script = ExtResource("7_3ngc4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
@@ -237,7 +237,7 @@ shape = SubResource("RectangleShape2D_mf8co")
 
 [node name="HitBox" type="Area2D" parent="."]
 scale = Vector2(0.997275, 0.976194)
-collision_layer = 9
+collision_layer = 0
 collision_mask = 16
 script = ExtResource("7_gq8kw")
 
@@ -251,7 +251,6 @@ shape = SubResource("RectangleShape2D_j81j0")
 path_postprocessing = 1
 path_metadata_flags = 0
 avoidance_enabled = true
-radius = 20.0
 max_speed = 100000.0
 avoidance_layers = 2
 avoidance_mask = 2
@@ -266,6 +265,7 @@ visible = false
 
 [node name="AggroRange" type="Area2D" parent="Aggro"]
 collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange"]
 shape = SubResource("CircleShape2D_oyppk")
@@ -273,6 +273,7 @@ debug_color = Color(0.756863, 0, 0.152941, 0.45098)
 
 [node name="DeAggroRange" type="Area2D" parent="Aggro"]
 collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange"]
 shape = SubResource("CircleShape2D_djl7y")
