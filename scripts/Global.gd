@@ -4,6 +4,8 @@ extends Node2D
 const BGM_IDX = 1
 const SFX_IDX = 2
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 var bgm_enabled:
 	set = set_bgm_enabled, get = is_bgm_enabled
 var sfx_enabled:
@@ -23,8 +25,15 @@ func back_to_title():
 func start_game():
 	go_to_world("res://world/world.tscn")
 
-func go_to_world(to):
-	pass
+func reload_world():
+	animation_player.play_backwards("fade")
+	await animation_player.animation_finished
+	
+	get_tree().reload_current_scene()
+	animation_player.play("fade")
+
+func go_to_world(path):
+	get_tree().change_scene_to_file(path)
 
 func is_bgm_enabled():
 	return not AudioServer.is_bus_mute(BGM_IDX)

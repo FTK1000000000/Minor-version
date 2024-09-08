@@ -328,7 +328,7 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 4
+frame = 6
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 offset_left = -20.0
@@ -419,6 +419,9 @@ script = ExtResource("7_dbqc7")
 script = ExtResource("8_q78is")
 initial_state = NodePath("Idle")
 
+[node name="Dead" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("9_8lig6")
+
 [node name="Idle" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("9_8lig6")
 
@@ -465,6 +468,12 @@ to = NodePath("../../Idle")
 event = &"idle"
 delay_in_seconds = "0.0"
 
+[node name="dead" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("10_2mpht")
+to = NodePath("../Dead")
+event = &"dead"
+delay_in_seconds = "0.0"
+
 [node name="hurt" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("10_2mpht")
 to = NodePath("../Hurt")
@@ -475,6 +484,7 @@ delay_in_seconds = "0.0"
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="Weapon/Hitbox" to="Weapon/Hitbox" method="_on_area_entered"]
 [connection signal="area_exited" from="Weapon/Hitbox" to="Weapon/Hitbox" method="_on_area_exited"]
+[connection signal="state_entered" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack" to="." method="_on_walk_stack_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_entered"]

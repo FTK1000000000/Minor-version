@@ -15,7 +15,7 @@ signal weapon_attack
 @onready var inventory: Inventory = preload("res://inventory/player_inventory.tres")
 
 @export var attack : bool = false
-@export var dead : bool = false
+@export var is_dead : bool = false
 
 var direction : Vector2 = Vector2.ZERO
 var towards : Vector2 = Vector2.ZERO
@@ -49,6 +49,8 @@ func _process(_delta):
 
 
 func update_state():
+	if is_dead: state_chart.send_event("dead")
+	
 	var is_still = velocity == Vector2.ZERO
 	var switch: bool = false
 	
@@ -65,16 +67,19 @@ func update_state():
 
 func handle_health():
 	if current_health <= 0 :
-		dead = true
+		is_dead = true
 		print(current_health)
 		print("out is")
-		print(dead)
+		print(is_dead)
 		print("for")
 		print(name)
 		current_health = 100
 #血量操作
 
 func get_move_direction():
+	if is_dead:
+		return
+	
 	direction = Input.get_vector("left", "right", "up", "down").normalized()
 	if direction:
 		velocity = direction * move_speed
@@ -83,6 +88,9 @@ func get_move_direction():
 #移动
 
 func update_animation_parametrs(_move_input : Vector2):
+	if is_dead:
+		return
+	
 	towards = get_local_mouse_position()
 	if towards.x < 0:
 		weapon_flip = true
@@ -101,11 +109,6 @@ func update_animation_parametrs(_move_input : Vector2):
 	antimation_tree["parameters/run/blend_position"] = towards
 	#纹理朝向和渲染索引
 
-func _on_hurt_box_area_entered(area):
-	if area.has_method("collect"):
-		area.collect(inventory)
-#拾取物品
-
 func knockback(enemy_velocity : Vector2):
 	var knockback_direction = (enemy_velocity - velocity).normalized() * knockback_power
 	velocity = knockback_direction
@@ -114,6 +117,15 @@ func knockback(enemy_velocity : Vector2):
 func weapon_attack_signal():
 	if Input.is_action_pressed("attack"):
 		weapon_attack.emit()
+
+
+func _on_hurt_box_area_entered(area):
+	if area.has_method("collect"):
+		area.collect(inventory)
+#拾取物品
+
+func _on_dead_state_entered() -> void:
+	Global.reload_world()
 
 func _on_idle_state_entered() -> void:
 	#print("idle")

@@ -21,7 +21,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://scripts/global.gd"
+Global="*res://global.tscn"
 
 [display]
 
@@ -98,6 +98,8 @@ locale/locale_filter_mode=0
 2d_physics/layer_6="enemyhurtbox"
 2d_physics/layer_7="playerammo"
 2d_physics/layer_8="enemyammo"
+2d_physics/layer_9="playerammohurtbox"
+2d_physics/layer_10="enemyammohurtbox"
 avoidance/layer_1="player"
 avoidance/layer_2="enemy"
 
