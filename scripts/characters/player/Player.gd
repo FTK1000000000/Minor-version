@@ -32,6 +32,8 @@ var weapon_flip: bool = true
 
 
 func _ready():
+	Global.player = self
+	
 	antimation_tree.active = true
 	
 	current_health = max_health
@@ -125,7 +127,8 @@ func _on_hurt_box_area_entered(area):
 #拾取物品
 
 func _on_dead_state_entered() -> void:
-	Global.reload_world()
+	#Global.reload_world()
+	pass
 
 func _on_idle_state_entered() -> void:
 	#print("idle")

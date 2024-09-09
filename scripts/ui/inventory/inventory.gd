@@ -1,7 +1,8 @@
 extends Control
 
-signal opened
-signal closeed
+#signal opened
+#signal closeed
+
 
 @onready var inventory : Inventory = preload("res://inventory/player_inventory.tres")
 @onready var items_stack_class : = preload("res://ui/inventory/items_stack.tscn")
@@ -46,12 +47,12 @@ func update():
 func open():
 	visible = true
 	is_open = true
-	opened.emit()
+	#opened.emit()
 
 func close():
 	visible = false
 	is_open = false
-	closeed.emit()
+	#closeed.emit()
 
 func slot_click(slot):
 	if locked: return

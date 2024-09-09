@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://cak2vpn16lujs"]
+
+[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_0wxeb"]
+[ext_resource type="Texture2D" uid="uid://buc2u0kx23beg" path="res://textures/ui/health_bar/playerHealthBar1.png" id="2_loevm"]
+[ext_resource type="Texture2D" uid="uid://bqcey0kwg1rx0" path="res://textures/ui/health_bar/playerHealthBar2.png" id="3_sdw3l"]
+[ext_resource type="Script" path="res://scripts/ui/player_health_bar.gd" id="4_ksf7c"]
+[ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory/inventory.tscn" id="5_ua3kp"]
+[ext_resource type="PackedScene" uid="uid://cfykf5o0g2omm" path="res://ui/options_menu.tscn" id="6_mw57f"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_0wxeb")
+
+[node name="PlayerHealthBar" type="TextureProgressBar" parent="."]
+offset_right = 320.0
+offset_bottom = 32.0
+scale = Vector2(1.03373, 1.27764)
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = ExtResource("2_loevm")
+texture_progress = ExtResource("3_sdw3l")
+script = ExtResource("4_ksf7c")
+
+[node name="Inventory" parent="." instance=ExtResource("5_ua3kp")]
+
+[node name="Pause" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Pause"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.498039)
+
+[node name="Label" type="Label" parent="Pause"]
+offset_right = 51.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 50
+text = "PUASE"
+
+[node name="OptionsMenu" parent="." instance=ExtResource("6_mw57f")]
+visible = false

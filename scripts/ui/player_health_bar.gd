@@ -1,11 +1,13 @@
 extends TextureProgressBar
 
 
-@onready var player: Player = get_node("../../Player")
+@onready var hud: CanvasLayer = $".."
+@onready var target: Player = $"../../Player"
+
 
 func _ready():
-	player.health_changed.connect(update)
+	target.health_changed.connect(update)
 	update()
 
 func update():
-	value = player.current_health * 100.0 / player.max_health
+	value = target.current_health * 100.0 / target.max_health

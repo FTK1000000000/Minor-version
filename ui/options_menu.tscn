@@ -44,9 +44,36 @@ text = "BGM"
 layout_mode = 2
 text = "SFX"
 
-[node name="Back" type="Button" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = -568.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_rwgej")
+
+[node name="Back" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 text = "Back"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 576.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_rwgej")
+alignment = 2
+
+[node name="QuitTitle" type="Button" parent="HBoxContainer2"]
+layout_mode = 2
+text = "Quit Title"
 
 [node name="MouseEnteredSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamOggVorbis_i7six")
@@ -58,4 +85,5 @@ bus = &"SFX"
 
 [connection signal="pressed" from="VBoxContainer/BGM" to="." method="_on_bgm_pressed"]
 [connection signal="pressed" from="VBoxContainer/SFX" to="." method="_on_sfx_pressed"]
-[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="HBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="HBoxContainer2/QuitTitle" to="." method="_on_quit_title_pressed"]

@@ -11,6 +11,7 @@ var bgm_enabled:
 var sfx_enabled:
 	set = set_sfx_enabled, get = is_sfx_enabled
 
+var player: Player = null
 var player_max_health : int = 100
 var player_current_health : int
 
@@ -33,7 +34,11 @@ func reload_world():
 	animation_player.play("fade")
 
 func go_to_world(path):
+	animation_player.play_backwards("fade")
+	await animation_player.animation_finished
+	
 	get_tree().change_scene_to_file(path)
+	animation_player.play("fade")
 
 func is_bgm_enabled():
 	return not AudioServer.is_bus_mute(BGM_IDX)
@@ -46,3 +51,9 @@ func is_sfx_enabled():
 
 func set_sfx_enabled(value):
 	AudioServer.set_bus_mute(SFX_IDX, not value)
+
+func game_pause():
+	get_tree().paused = true
+
+func game_keep():
+	get_tree().paused = false

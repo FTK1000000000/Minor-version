@@ -1,17 +1,13 @@
-[gd_scene load_steps=15 format=4 uid="uid://evjri63xmru4"]
+[gd_scene load_steps=11 format=4 uid="uid://evjri63xmru4"]
 
 [ext_resource type="Script" path="res://scripts/world/world.gd" id="1_lt2u8"]
-[ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/ui_layer.tscn" id="2_owpjw"]
+[ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="2_owpjw"]
 [ext_resource type="TileSet" uid="uid://ci1uajtoh821t" path="res://world/floor.tres" id="2_ykfmf"]
 [ext_resource type="TileSet" uid="uid://b6j71jbl0oqt3" path="res://world/wall.tres" id="3_p7st0"]
 [ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/player/Player.tscn" id="4_8c17k"]
-[ext_resource type="Script" path="res://scripts/ui/player_health_bar.gd" id="6_dnlyc"]
-[ext_resource type="Texture2D" uid="uid://buc2u0kx23beg" path="res://textures/ui/health_bar/playerHealthBar1.png" id="7_8w60g"]
-[ext_resource type="Texture2D" uid="uid://bqcey0kwg1rx0" path="res://textures/ui/health_bar/playerHealthBar2.png" id="8_2k5jr"]
 [ext_resource type="PackedScene" uid="uid://qbvc3qdmmyt2" path="res://characters/enemy/ranged_enemy.tscn" id="8_xtruh"]
 [ext_resource type="PackedScene" uid="uid://3duby8tq03p5" path="res://characters/enemy/enemy.tscn" id="10_68tb1"]
 [ext_resource type="Script" path="res://scripts/camera/player_camera.gd" id="10_yv64u"]
-[ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory/inventory.tscn" id="11_d7puq"]
 [ext_resource type="PackedScene" uid="uid://cvrm5ma7lgtxg" path="res://characters/derivative/ammo.tscn" id="11_drpnt"]
 [ext_resource type="PackedScene" uid="uid://b285px04xj0ei" path="res://rooms/exit.tscn" id="14_5ddn5"]
 
@@ -27,23 +23,6 @@ tile_set = ExtResource("2_ykfmf")
 [node name="Wall" type="TileMapLayer" parent="TileMap"]
 tile_map_data = PackedByteArray("AADd/+n/AAABAAAAAADd/+r/AAABAAAAAADd/+v/AAABAAAAAADd/+z/AAABAAAAAADd/+3/AAABAAAAAADd/+7/AAABAAAAAADd/+//AAABAAAAAADd//D/AAABAAAAAADd//H/AAABAAAAAADd//L/AAABAAAAAADd//P/AAABAAAAAADd//T/AAABAAAAAADd//X/AAABAAAAAADd//b/AAABAAAAAADd//f/AAABAAAAAADd//j/AAABAAAAAADd//n/AAABAAAAAADd//r/AAABAAAAAADd//v/AAABAAAAAADd//z/AAABAAAAAADd//3/AAABAAAAAADd//7/AAABAAAAAADd////AAABAAAAAADd/wAAAAABAAAAAADd/wEAAAABAAAAAADd/wIAAAABAAAAAADe/+n/AAABAAAAAADf/+n/AAABAAAAAADg/+n/AAABAAAAAADh/+n/AAABAAAAAADi/+n/AAABAAAAAADj/+n/AAABAAAAAADk/+n/AAABAAAAAADl/+n/AAABAAAAAADm/+n/AAABAAAAAADn/+n/AAABAAAAAADo/+n/AAABAAAAAADp/+n/AAABAAAAAADq/+n/AAABAAAAAADr/+n/AAABAAAAAADr/+r/AAABAAAAAADr/+v/AAABAAAAAADr/+z/AAABAAAAAADr/+3/AAABAAAAAADr/+7/AAABAAAAAADr/+//AAABAAAAAADr//D/AAABAAAAAADr//H/AAABAAAAAADr//L/AAABAAAAAADr//P/AAABAAAAAADr//T/AAABAAAAAADr//X/AAABAAAAAADr//b/AAABAAAAAADr//f/AAABAAAAAADr//j/AAABAAAAAADr//n/AAABAAAAAADr//r/AAABAAAAAADr//v/AAABAAAAAADr//z/AAABAAAAAADr//3/AAABAAAAAADr//7/AAABAAAAAADr////AAABAAAAAADr/wAAAAABAAAAAADr/wEAAAABAAAAAADr/wIAAAABAAAAAADe/wIAAAABAAAAAADf/wIAAAABAAAAAADg/wIAAAABAAAAAADh/wIAAAABAAAAAADi/wIAAAABAAAAAADj/wIAAAABAAAAAADk/wIAAAABAAAAAADl/wIAAAABAAAAAADm/wIAAAABAAAAAADn/wIAAAABAAAAAADo/wIAAAABAAAAAADp/wIAAAABAAAAAADq/wIAAAABAAAAAAA=")
 tile_set = ExtResource("3_p7st0")
-
-[node name="UI" parent="." instance=ExtResource("2_owpjw")]
-process_mode = 3
-
-[node name="PlayerHealthBar" type="TextureProgressBar" parent="UI"]
-offset_right = 320.0
-offset_bottom = 32.0
-scale = Vector2(1.03373, 1.27764)
-stretch_margin_left = 4
-stretch_margin_top = 4
-stretch_margin_right = 4
-stretch_margin_bottom = 4
-texture_under = ExtResource("7_8w60g")
-texture_progress = ExtResource("8_2k5jr")
-script = ExtResource("6_dnlyc")
-
-[node name="Inventory" parent="UI" instance=ExtResource("11_d7puq")]
 
 [node name="Rooms" type="Node2D" parent="."]
 
@@ -66,5 +45,5 @@ position = Vector2(-800, -162)
 [node name="Exit" parent="." instance=ExtResource("14_5ddn5")]
 position = Vector2(-968, -226)
 
-[connection signal="closeed" from="UI/Inventory" to="." method="_on_inventory_closeed"]
-[connection signal="opened" from="UI/Inventory" to="." method="_on_inventory_opened"]
+[node name="HUD" parent="." instance=ExtResource("2_owpjw")]
+process_mode = 3

@@ -21,7 +21,7 @@ func hook_button_sound(node):
 
 
 func _on_new_game_pressed() -> void:
-	get_tree().change_scene_to_file("res://world/world.tscn")
+	Global.start_game()
 
 
 func _on_load_game_button_pressed() -> void:

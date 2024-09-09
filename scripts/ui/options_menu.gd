@@ -38,3 +38,7 @@ func _on_sfx_pressed() -> void:
 
 func _on_back_pressed() -> void:
 	visible = false
+
+
+func _on_quit_title_pressed() -> void:
+	Global.go_to_world("res://ui/title_screen.tscn")

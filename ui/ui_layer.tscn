@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cak2vpn16lujs"]
-
-[ext_resource type="Script" path="res://scripts/ui/ui_layer.gd" id="1_0wxeb"]
-
-[node name="UiLayer" type="CanvasLayer"]
-script = ExtResource("1_0wxeb")
