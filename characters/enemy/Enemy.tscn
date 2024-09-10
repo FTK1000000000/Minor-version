@@ -286,6 +286,9 @@ script = ExtResource("7_tq82l")
 script = ExtResource("8_77sd5")
 initial_state = NodePath("Idle")
 
+[node name="Dead" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("9_qbyyu")
+
 [node name="Idle" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("9_qbyyu")
 
@@ -319,12 +322,22 @@ to = NodePath("../Hurt")
 event = &"hurt"
 delay_in_seconds = "0.0"
 
+[node name="dead" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("10_tlpf7")
+to = NodePath("../Dead")
+event = &"dead"
+delay_in_seconds = "0.0"
+
+[node name="AtomicState" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("9_qbyyu")
+
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
 [connection signal="area_exited" from="HitBox" to="HitBox" method="_on_area_exited"]
 [connection signal="velocity_computed" from="Nav/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Nav/PathTimer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="Aggro/AggroRange" to="." method="_on_aggro_range_area_entered"]
 [connection signal="area_exited" from="Aggro/DeAggroRange" to="." method="_on_de_aggro_range_area_exited"]
+[connection signal="state_entered" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Chase" to="." method="_on_chase_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_entered"]

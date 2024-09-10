@@ -5,4 +5,7 @@ extends Area2D
 
 
 func _on_body_entered(_body: Player) -> void:
-	Global.go_to_world(path)
+	if path:
+		Global.go_to_world(path)
+	else:
+		Global.complete_game()

@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
+signal player_dead
 signal health_changed
 signal weapon_attack
 
@@ -24,7 +25,7 @@ var move_speed : float = 100
 var max_health : int = 100
 var current_health : int
 
-@export var knockback_power : int = 300
+@export var knockback_power : int = 3000
 var is_hurt : bool = false
 
 @export var is_forward: bool = true
@@ -51,8 +52,7 @@ func _process(_delta):
 
 
 func update_state():
-	if is_dead: state_chart.send_event("dead")
-	
+	print(Global.player_dead)
 	var is_still = velocity == Vector2.ZERO
 	var switch: bool = false
 	
@@ -60,6 +60,7 @@ func update_state():
 		if switch: switch = false
 		else: switch = true
 	
+	if is_dead: state_chart.send_event("dead")
 	if is_still: state_chart.send_event("idle")
 	if !is_still:
 		if !is_still && !switch: state_chart.send_event("walk")
@@ -70,12 +71,9 @@ func update_state():
 func handle_health():
 	if current_health <= 0 :
 		is_dead = true
-		print(current_health)
-		print("out is")
-		print(is_dead)
-		print("for")
-		print(name)
-		current_health = 100
+		Global.player_dead = true
+		player_dead.emit()
+		
 #血量操作
 
 func get_move_direction():
@@ -129,6 +127,7 @@ func _on_hurt_box_area_entered(area):
 func _on_dead_state_entered() -> void:
 	#Global.reload_world()
 	pass
+	
 
 func _on_idle_state_entered() -> void:
 	#print("idle")
@@ -157,7 +156,7 @@ func _on_hurt_state_entered() -> void:
 	is_hurt = true
 	HEAP.play("hurt_blink")
 	hurt_effect_timer.start()
-	
 	await hurt_effect_timer.timeout
+	
 	HEAP.play("RESET")
 	is_hurt = false

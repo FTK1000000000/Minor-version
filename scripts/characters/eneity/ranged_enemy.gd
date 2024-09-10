@@ -20,11 +20,6 @@ func _ready():
 	navigation_agent.target_desired_distance = 4
 	move_speed = 175
 
-
-func update_state():
-	if !target_node: state_chart.send_event("idle")
-	elif target_node: state_chart.send_event("chase")
-
 func recalc_path():
 	if target_node:
 		distance_to_player = (target_node.position - global_position).length()

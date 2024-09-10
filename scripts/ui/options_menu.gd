@@ -28,11 +28,13 @@ func update_button_text():
 
 func _on_bgm_pressed() -> void:
 	Global.bgm_enabled = not Global.bgm_enabled
+	Global.save_config()
 	update_button_text()
 
 
 func _on_sfx_pressed() -> void:
 	Global.sfx_enabled = not Global.sfx_enabled
+	Global.save_config()
 	update_button_text()
 
 

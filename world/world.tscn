@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=4 uid="uid://evjri63xmru4"]
+[gd_scene load_steps=13 format=4 uid="uid://evjri63xmru4"]
 
 [ext_resource type="Script" path="res://scripts/world/world.gd" id="1_lt2u8"]
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="2_owpjw"]
 [ext_resource type="TileSet" uid="uid://ci1uajtoh821t" path="res://world/floor.tres" id="2_ykfmf"]
 [ext_resource type="TileSet" uid="uid://b6j71jbl0oqt3" path="res://world/wall.tres" id="3_p7st0"]
 [ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/player/Player.tscn" id="4_8c17k"]
+[ext_resource type="Script" path="res://scripts/world/rooms_generators/one_way_DTU.gd" id="4_8p44m"]
+[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="7_hdrr4"]
 [ext_resource type="PackedScene" uid="uid://qbvc3qdmmyt2" path="res://characters/enemy/ranged_enemy.tscn" id="8_xtruh"]
 [ext_resource type="PackedScene" uid="uid://3duby8tq03p5" path="res://characters/enemy/enemy.tscn" id="10_68tb1"]
 [ext_resource type="Script" path="res://scripts/camera/player_camera.gd" id="10_yv64u"]
@@ -25,6 +27,7 @@ tile_map_data = PackedByteArray("AADd/+n/AAABAAAAAADd/+r/AAABAAAAAADd/+v/AAABAAA
 tile_set = ExtResource("3_p7st0")
 
 [node name="Rooms" type="Node2D" parent="."]
+script = ExtResource("4_8p44m")
 
 [node name="Player" parent="." instance=ExtResource("4_8c17k")]
 position = Vector2(-931, -67)
@@ -32,6 +35,10 @@ position = Vector2(-931, -67)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
 script = ExtResource("10_yv64u")
+
+[node name="LightOccluder2D" type="PointLight2D" parent="Player"]
+visible = false
+texture = ExtResource("7_hdrr4")
 
 [node name="Enemy" parent="." instance=ExtResource("10_68tb1")]
 position = Vector2(-957, -364)
@@ -47,3 +54,13 @@ position = Vector2(-968, -226)
 
 [node name="HUD" parent="." instance=ExtResource("2_owpjw")]
 process_mode = 3
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Parallax2D"]
+position = Vector2(-119, -232)
+scale = Vector2(10, 10)
+texture = ExtResource("7_hdrr4")
+centered = false

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=4 uid="uid://bskg22rlwbqjc"]
+[gd_scene load_steps=3 format=4 uid="uid://bqq4g3lc7yjap"]
 
 [ext_resource type="PackedScene" uid="uid://ctse64pdbs7se" path="res://rooms/room.tscn" id="1_ftx5j"]
+[ext_resource type="PackedScene" uid="uid://b285px04xj0ei" path="res://rooms/exit.tscn" id="2_s00jw"]
 
 [node name="Room" instance=ExtResource("1_ftx5j")]
 
@@ -15,3 +16,6 @@ position = Vector2(272, 304)
 
 [node name="Marker2D2" type="Marker2D" parent="Entrance" index="1"]
 position = Vector2(304, 304)
+
+[node name="Exit" parent="." index="5" instance=ExtResource("2_s00jw")]
+position = Vector2(80, 176)

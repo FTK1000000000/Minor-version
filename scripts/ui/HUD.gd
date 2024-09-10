@@ -2,13 +2,16 @@ extends CanvasLayer
 
 
 @onready var options_menu: CanvasLayer = $OptionsMenu
+@onready var pause_layer: CanvasLayer = $Pause
+@onready var game_over_screen: CanvasLayer = $GameOverScreen
 @onready var player_health_bar: TextureProgressBar = $PlayerHealthBar
 @onready var inventory = $Inventory
 @onready var player: Player = Global.player
-@onready var pause_layer: CanvasLayer = $Pause
 
 
 func _ready():
+	player.player_dead.connect(game_over)
+	
 	inventory.close()
 
 
@@ -38,3 +41,9 @@ func _input(event):
 			options_menu.visible = true
 			player_health_bar.visible = false
 			Global.game_pause()
+
+
+func game_over():
+	if Global.player_dead && !game_over_screen.visible:
+		game_over_screen.game_over()
+		player_health_bar.visible = false

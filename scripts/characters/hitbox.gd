@@ -14,8 +14,8 @@ func _process(_delta: float) -> void:
 	if collision_ready && target:
 		hit(target)
 		collision_ready = false
-		
 		await get_tree().create_timer(ready_time).timeout
+		
 		collision_ready = true
 
 
