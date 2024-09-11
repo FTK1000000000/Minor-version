@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://b0doaimn3yw0i"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://b0doaimn3yw0i"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ypwp"]
 
@@ -7,6 +7,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oalir"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t5gj7"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_th0nm"]
 
 [resource]
 Button/colors/font_color = Color(1, 1, 1, 1)
@@ -20,3 +22,4 @@ Button/styles/pressed = SubResource("StyleBoxEmpty_t5gj7")
 GridContainer/constants/h_separation = 50
 GridContainer/constants/v_separation = 30
 VBoxContainer/constants/separation = 30
+VSlider/styles/slider = SubResource("StyleBoxTexture_th0nm")

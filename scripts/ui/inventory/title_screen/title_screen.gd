@@ -3,21 +3,18 @@ extends Control
 
 @onready var options_menu = $OptionsMenu
 @onready var world = preload("res://world/world.tscn")
-@onready var mouse_entered_sound: AudioStreamPlayer2D = $MouseEnteredSound
-@onready var click_sound: AudioStreamPlayer2D = $ClickSound
+@onready var error: Label = $Error
+
+var error_life_time: float = 1.6
+
+@export var bgm: AudioStream
 
 
 func _ready() -> void:
-	hook_button_sound(self)
-
-
-func hook_button_sound(node):
-	for child in node.get_children():
-		if child is Button:
-			child.mouse_entered.connect(mouse_entered_sound.play)
-			child.pressed.connect(click_sound.play)
-		else:
-			hook_button_sound(child)
+	SoundManager.setup_ui_sounds(self)
+	
+	if bgm:
+		SoundManager.play_bgm(bgm)
 
 
 func _on_new_game_pressed() -> void:
@@ -25,7 +22,10 @@ func _on_new_game_pressed() -> void:
 
 
 func _on_load_game_button_pressed() -> void:
-	pass # Replace with function body.
+	error.text = "Save is not supported"
+	await get_tree().create_timer(error_life_time).timeout
+	
+	error.text = ""
 
 
 func _on_options_button_pressed() -> void:

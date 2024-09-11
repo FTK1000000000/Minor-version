@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://global.tscn"
+SoundManager="*res://sound_manager.tscn"
 
 [display]
 

@@ -1,9 +1,11 @@
 extends Node2D
 
 
-const CONFIG_PATH = "user://settings.cfg"
-const BGM_IDX = 1
-const SFX_IDX = 2
+const CONFIG_PATH = "user://config.ini"
+const SFX_IDX = 1
+const BGM_IDX = 2
+
+#const SAVE_PATH = "user://data.sav"
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -11,6 +13,8 @@ var bgm_enabled:
 	set = set_bgm_enabled, get = is_bgm_enabled
 var sfx_enabled:
 	set = set_sfx_enabled, get = is_sfx_enabled
+
+var world_states: Dictionary = {}
 
 var player: Player = null
 var player_dead: bool = false
@@ -72,20 +76,89 @@ func game_keep():
 	get_tree().paused = false
 
 func save_config():
-	var file = ConfigFile.new()
-	file.set_value("audio", "bgm_enabled", is_bgm_enabled())
-	file.set_value("audio", "sfx_enabled", is_sfx_enabled())
-	var err = file.save(CONFIG_PATH)
-	if err != OK:
-		push_error("Failed to save config: %d" % err)
+	var config = ConfigFile.new()
+	
+	config.set_value("audio", "sfx_enabled", is_sfx_enabled())
+	config.set_value("audio", "bgm_enabled", is_bgm_enabled())
+	
+	config.set_value("audio", "master", SoundManager.get_volume(SoundManager.Bus.MASTER))
+	config.set_value("audio", "sfx", SoundManager.get_volume(SoundManager.Bus.SFX))
+	config.set_value("audio", "bgm", SoundManager.get_volume(SoundManager.Bus.BGM))
+	
+	config.save(CONFIG_PATH)
 
 func load_config():
-	var file = ConfigFile.new()
-	var err = file.load(CONFIG_PATH)
-	if err == OK:
-		set_bgm_enabled(file.get_value("audio", "bgm_enabled", true))
-		set_sfx_enabled(file.get_value("audio", "sfx_enabled", true))
-	else:
-		push_warning("Failed to save config: %d" % err)
-		set_bgm_enabled(true)
-		set_sfx_enabled(true)
+	var config = ConfigFile.new()
+	config.load(CONFIG_PATH)
+	
+	set_bgm_enabled(config.get_value("audio", "bgm_enabled", true))
+	set_sfx_enabled(config.get_value("audio", "sfx_enabled", true))
+	
+	SoundManager.set_volume(
+		SoundManager.Bus.MASTER,
+		config.get_value("audio", "master", 0.5)
+	)
+	SoundManager.set_volume(
+		SoundManager.Bus.SFX,
+		config.get_value("audio", "sfx", 0.5)
+	)
+	SoundManager.set_volume(
+		SoundManager.Bus.BGM,
+		config.get_value("audio", "bgm", 0.5)
+	)
+
+#func change_screen(path: String, params: Dictionary = {}):
+	#var tree = get_tree()
+	#
+	#var old_name = tree.current_scene.scene_file_path.get_file().get_basename()
+	#world_states[old_name] = tree.current_scene.to_dict()
+	#
+	#tree.change_scene_to_file(path)
+	#await tree.tree_changed
+	#
+	#var new_name = tree.current_scene.scene_file_path.get_file().get_basename()
+	#if new_name in world_states:
+		#tree.current_scene.from_dict(world_states[new_name])
+	#
+	#if "position" in params:
+		#tree.current_scene.update_player(params.position)
+
+#func save_game():
+	#var scene = get_tree().current_scene
+	#var scene_name = scene.scene_file_path.get_file().get_basename()
+	#world_states[scene_name] = scene.to_dict()
+	#
+	#var data = {
+		#world_states = world_states,
+		#stats = player.to_dict(),
+		#scene = scene.scene_file_path,
+		#player = {
+			#position = {
+				#x = scene.player.global_position.x,
+				#y = scene.player.global_position.y,
+			#}
+		#}
+	#}
+	#var json = JSON.stringify(data)
+	#var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	#if not file:
+		#return
+	#file.store_string(json)
+
+#func load_game():
+	#var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	#if not file:
+		#return
+	#
+	#var json = file.get_as_text()
+	#var data = JSON.parse_string(json) as Dictionary
+	#
+	#world_states = data.world_states
+	#player.from_dict(data.stats)
+	#
+	#change_screen(data.scene, {
+		#position = Vector2(
+			#data.player.position.x,
+			#data.player.position.y,
+		#)
+	#})

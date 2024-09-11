@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dpvwrryfdgbfg"]
 
 [ext_resource type="Script" path="res://scripts/global.gd" id="1_ug4ua"]
-[ext_resource type="AudioStream" uid="uid://maro012yem4p" path="res://sound/Click.ogg" id="2_posmg"]
+[ext_resource type="AudioStream" uid="uid://maro012yem4p" path="res://sound/press.ogg" id="2_posmg"]
 [ext_resource type="Shader" path="res://shader/transition.gdshader" id="3_j4sao"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_884qf"]

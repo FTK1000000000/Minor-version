@@ -52,7 +52,6 @@ func _process(_delta):
 
 
 func update_state():
-	print(Global.player_dead)
 	var is_still = velocity == Vector2.ZERO
 	var switch: bool = false
 	
@@ -118,6 +117,16 @@ func weapon_attack_signal():
 	if Input.is_action_pressed("attack"):
 		weapon_attack.emit()
 
+#func to_dict() -> Dictionary:
+	#return {
+		#max_health = max_health,
+		#current_health = current_health
+	#}
+#
+#func from_dict(dict: Dictionary):
+	#max_health = dict.max_health
+	#current_health = dict.current_health
+
 
 func _on_hurt_box_area_entered(area):
 	if area.has_method("collect"):
@@ -139,6 +148,7 @@ func _on_walk_stack_state_entered() -> void:
 	#print("walk")
 	antimation_tree["parameters/conditions/is_idle"] = false
 	antimation_tree["parameters/conditions/is_run"] = true
+	SoundManager.play_sfx("aa")
 
 
 func _on_run_state_entered() -> void:
