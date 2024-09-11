@@ -1,13 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfykf5o0g2omm"]
+[gd_scene load_steps=5 format=3 uid="uid://cfykf5o0g2omm"]
 
 [ext_resource type="Script" path="res://scripts/ui/options_menu.gd" id="1_81t47"]
 [ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_kib5x"]
-[ext_resource type="Theme" uid="uid://b0doaimn3yw0i" path="res://theme/main_theme.tres" id="3_rwgej"]
+[ext_resource type="Theme" uid="uid://coxpadtq655g" path="res://theme/options_menu.tres" id="2_miu68"]
+[ext_resource type="PackedScene" uid="uid://c3vpg0lxr2su" path="res://ui/v_slider.tscn" id="4_q0ma3"]
 
 [node name="OptionsMenu" type="CanvasLayer"]
 script = ExtResource("1_81t47")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_miu68")
+
+[node name="Background" type="TextureRect" parent="Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,56 +28,118 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("2_kib5x")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-theme = ExtResource("3_rwgej")
+size_flags_vertical = 4
 
-[node name="BGM" type="Button" parent="VBoxContainer"]
+[node name="Title" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
-text = "BGM"
+theme_override_font_sizes/font_size = 30
+text = "OptionsMenu"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="SFX" type="Button" parent="VBoxContainer"]
+[node name="Main" type="PanelContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GridContainer" type="GridContainer" parent="Control/VBoxContainer/Main"]
+layout_mode = 2
+columns = 2
+
+[node name="SFX" type="Label" parent="Control/VBoxContainer/Main/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "FSX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SFXValue" type="Button" parent="Control/VBoxContainer/Main/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "SFX"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-offset_right = -568.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("3_rwgej")
-
-[node name="Back" type="Button" parent="HBoxContainer"]
+[node name="BGM" type="Label" parent="Control/VBoxContainer/Main/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 6
+text = "BGM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BGMValue" type="Button" parent="Control/VBoxContainer/Main/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "BGM"
+
+[node name="MainSize" type="Label" parent="Control/VBoxContainer/Main/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "main size"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSlider" parent="Control/VBoxContainer/Main/GridContainer" instance=ExtResource("4_q0ma3")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="SFXSize" type="Label" parent="Control/VBoxContainer/Main/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "SFX size"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSlider2" parent="Control/VBoxContainer/Main/GridContainer" instance=ExtResource("4_q0ma3")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bus = &"SFX"
+
+[node name="BGMSize" type="Label" parent="Control/VBoxContainer/Main/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "BGM size"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSlider3" parent="Control/VBoxContainer/Main/GridContainer" instance=ExtResource("4_q0ma3")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bus = &"BGM"
+
+[node name="Botto" type="PanelContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Back" type="Button" parent="Control/VBoxContainer/Botto"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_right = NodePath("../QuitTitle")
 text = "Back"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 576.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("3_rwgej")
-alignment = 2
-
-[node name="QuitTitle" type="Button" parent="HBoxContainer2"]
+[node name="QuitTitle" type="Button" parent="Control/VBoxContainer/Botto"]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+size_flags_horizontal = 8
+focus_neighbor_left = NodePath("../Back")
 text = "Quit Title"
 
-[connection signal="pressed" from="VBoxContainer/BGM" to="." method="_on_bgm_pressed"]
-[connection signal="pressed" from="VBoxContainer/SFX" to="." method="_on_sfx_pressed"]
-[connection signal="pressed" from="HBoxContainer/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="HBoxContainer2/QuitTitle" to="." method="_on_quit_title_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Main/GridContainer/SFXValue" to="." method="_on_sfx_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Main/GridContainer/BGMValue" to="." method="_on_bgm_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Botto/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Botto/QuitTitle" to="." method="_on_quit_title_pressed"]

@@ -12,8 +12,8 @@
 
 [resource]
 Button/colors/font_color = Color(1, 1, 1, 1)
-Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-Button/colors/font_hover_color = Color(0.497474, 0.497474, 0.497474, 1)
+Button/colors/font_focus_color = Color(0.498039, 0.498039, 0.498039, 1)
+Button/colors/font_hover_color = Color(0.498039, 0.498039, 0.498039, 1)
 Button/colors/font_pressed_color = Color(0.498039, 0.498039, 0.498039, 1)
 Button/styles/focus = SubResource("StyleBoxEmpty_8ypwp")
 Button/styles/hover = SubResource("StyleBoxEmpty_3wod3")

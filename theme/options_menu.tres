@@ -1,3 +1,28 @@
-[gd_resource type="Theme" format=3 uid="uid://bpkijqvlblkvd"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://coxpadtq655g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ypwp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3wod3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oalir"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t5gj7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ml52g"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_th0nm"]
 
 [resource]
+Button/colors/font_color = Color(0.498039, 0.498039, 0.498039, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(0.498039, 0.498039, 0.498039, 1)
+Button/styles/focus = SubResource("StyleBoxEmpty_8ypwp")
+Button/styles/hover = SubResource("StyleBoxEmpty_3wod3")
+Button/styles/normal = SubResource("StyleBoxEmpty_oalir")
+Button/styles/pressed = SubResource("StyleBoxEmpty_t5gj7")
+GridContainer/constants/h_separation = 50
+GridContainer/constants/v_separation = 30
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_ml52g")
+VBoxContainer/constants/separation = 30
+VSlider/styles/slider = SubResource("StyleBoxTexture_th0nm")
