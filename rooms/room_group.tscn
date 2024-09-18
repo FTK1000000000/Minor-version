@@ -1,0 +1,117 @@
+[gd_scene load_steps=11 format=3 uid="uid://ctse64pdbs7se"]
+
+[ext_resource type="Script" path="res://scripts/rooms/room_group.gd" id="1_0lvnh"]
+[ext_resource type="Script" path="res://scripts/rooms/room_from.gd" id="1_1tbrv"]
+[ext_resource type="Script" path="res://scripts/rooms/room.gd" id="1_ffjle"]
+[ext_resource type="Texture2D" uid="uid://8c1a6l3w4h31" path="res://foor.png" id="2_btu45"]
+[ext_resource type="TileSet" uid="uid://ci1uajtoh821t" path="res://tile/floor.tres" id="2_w6o82"]
+[ext_resource type="TileSet" uid="uid://b6j71jbl0oqt3" path="res://tile/wall.tres" id="3_y0cpc"]
+[ext_resource type="PackedScene" uid="uid://b285px04xj0ei" path="res://rooms/exit.tscn" id="5_clwwq"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_jbdgo"]
+vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6mi4r"]
+texture = ExtResource("2_btu45")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+0:1/0 = 0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+2:1/0 = 0
+2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+3:1/0 = 0
+3:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+0:2/0 = 0
+0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+1:2/0 = 0
+1:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+2:2/0 = 0
+2:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+3:2/0 = 0
+3:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+0:3/0 = 0
+0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+1:3/0 = 0
+1:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+2:3/0 = 0
+2:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+3:3/0 = 0
+3:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+0:4/0 = 0
+0:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+1:4/0 = 0
+1:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+2:4/0 = 0
+2:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+3:4/0 = 0
+3:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_jbdgo")
+
+[sub_resource type="TileSet" id="TileSet_5vckm"]
+tile_size = Vector2i(32, 32)
+navigation_layer_0/layers = 1
+sources/2 = SubResource("TileSetAtlasSource_6mi4r")
+
+[node name="RoomGroup" type="Node2D"]
+script = ExtResource("1_0lvnh")
+
+[node name="corridors" type="Node2D" parent="."]
+
+[node name="Floor" type="TileMapLayer" parent="corridors"]
+tile_set = ExtResource("2_w6o82")
+
+[node name="Wall" type="TileMapLayer" parent="corridors"]
+tile_set = ExtResource("3_y0cpc")
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="RoomFrom" type="Node2D" parent="Rooms"]
+script = ExtResource("1_1tbrv")
+
+[node name="TileMap" type="Node2D" parent="Rooms/RoomFrom"]
+
+[node name="Floor" type="TileMapLayer" parent="Rooms/RoomFrom/TileMap"]
+tile_set = ExtResource("2_w6o82")
+
+[node name="Wall" type="TileMapLayer" parent="Rooms/RoomFrom/TileMap"]
+tile_set = ExtResource("3_y0cpc")
+
+[node name="PlayerSpawn" type="Marker2D" parent="Rooms/RoomFrom"]
+
+[node name="Room0" type="Node2D" parent="Rooms"]
+script = ExtResource("1_ffjle")
+
+[node name="TileMap" type="Node2D" parent="Rooms/Room0"]
+
+[node name="Floor" type="TileMapLayer" parent="Rooms/Room0/TileMap"]
+tile_set = SubResource("TileSet_5vckm")
+
+[node name="Wall" type="TileMapLayer" parent="Rooms/Room0/TileMap"]
+tile_set = ExtResource("3_y0cpc")
+
+[node name="Doors" type="Node2D" parent="Rooms/Room0"]
+
+[node name="EnemyPositions" type="Node2D" parent="Rooms/Room0"]
+
+[node name="PlayerDetector" type="Area2D" parent="Rooms/Room0"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="RoomEnd" type="Node2D" parent="Rooms"]
+
+[node name="TileMap" type="Node2D" parent="Rooms/RoomEnd"]
+
+[node name="Floor" type="TileMapLayer" parent="Rooms/RoomEnd/TileMap"]
+tile_set = SubResource("TileSet_5vckm")
+
+[node name="Wall" type="TileMapLayer" parent="Rooms/RoomEnd/TileMap"]
+tile_set = ExtResource("3_y0cpc")
+
+[node name="Exit" parent="Rooms/RoomEnd" instance=ExtResource("5_clwwq")]
+
+[connection signal="body_entered" from="Rooms/Room0/PlayerDetector" to="Rooms/Room0" method="_on_player_detector_body_entered"]

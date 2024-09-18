@@ -32,6 +32,18 @@ func _ready():
 	player_current_health = player_max_health
 
 
+func visibled(node):
+	if node.visible:
+		node.visible = false
+	else:
+		node.visible = true
+
+func disabledd(node):
+	if !node.disabled:
+		node.set_disabled(true)
+	else:
+		node.set_disabled(false)
+
 func back_to_title():
 	go_to_world("res://ui/title_screen.tscn")
 

@@ -8,7 +8,8 @@ const ENEMY_SCENE: Dictionary = {
 }
 
 @onready var tile_map: Node2D = get_node("TileMap")
-@onready var entrance: Node2D = get_node("Entrance")
+@onready var tile_floor: Node2D = get_node("TileMap/Floor")
+@onready var tile_wall: Node2D = get_node("TileMap/Wall")
 @onready var door_container: Node2D = get_node("Doors")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
 @onready var player_detector: Area2D = get_node("PlayerDetector")
@@ -17,6 +18,7 @@ var num_enemy: int
 
 
 func _ready() -> void:
+	open_doors()
 	num_enemy = enemy_positions_container.get_child_count()
 
 
@@ -29,9 +31,9 @@ func open_doors():
 	for door in door_container.get_children():
 		door.open()
 
-func close_entrance():
-	for entry_position in entrance.get_children():
-		tile_map.get_node("Wall").set_cell(tile_map.get_node("Wall").local_to_map(entry_position.position) + Vector2i(0, 0), 0, Vector2i(1, 0))
+func close_doors():
+	for door in door_container.get_children():
+		door.close()
 
 func spawn_entity():
 	for enemy_positions in enemy_positions_container.get_children():
@@ -50,5 +52,5 @@ func spawn_entity():
 
 func _on_player_detector_body_entered(_body: CharacterBody2D) -> void:
 	player_detector.queue_free()
-	close_entrance()
+	close_doors()
 	spawn_entity()
