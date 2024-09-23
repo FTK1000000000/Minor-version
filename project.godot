@@ -108,6 +108,7 @@ locale/locale_filter_mode=0
 
 [layer_names]
 
+2d_render/layer_1="playerlight"
 2d_physics/layer_1="world"
 2d_navigation/layer_1="to_player"
 2d_physics/layer_2="collectible"

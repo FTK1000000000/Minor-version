@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtlihw17p7wbp"]
+
+[ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/fight_rooms/fight_room.tscn" id="1_17y3j"]
+[ext_resource type="PackedScene" uid="uid://bqrkndx6b0j15" path="res://rooms/doors/up_door.tscn" id="2_jsu2v"]
+[ext_resource type="Script" path="res://godot_state_charts_examples/ant_hill/marker/marker.gd" id="4_qnydw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fy7am"]
+size = Vector2(64, 176)
+
+[node name="FightRoom0" instance=ExtResource("1_17y3j")]
+
+[node name="Door" parent="Doors" index="0"]
+position = Vector2(0, 128)
+
+[node name="Door2" parent="Doors" index="1" instance=ExtResource("2_jsu2v")]
+position = Vector2(736, 384)
+scale = Vector2(0.5, 3)
+
+[node name="CollisionShape2D" parent="PlayerDetector" index="0"]
+position = Vector2(64, 216)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerDetector" index="1"]
+position = Vector2(704, 472)
+shape = SubResource("RectangleShape2D_fy7am")
+
+[node name="Marker2" type="Marker2D" parent="EnemyPositions" index="1"]
+position = Vector2(224, 160)
+script = ExtResource("4_qnydw")
+
+[node name="Marker3" type="Marker2D" parent="EnemyPositions" index="2"]
+position = Vector2(544, 224)
+script = ExtResource("4_qnydw")
+
+[node name="Marker4" type="Marker2D" parent="EnemyPositions" index="3"]
+position = Vector2(480, 480)
+script = ExtResource("4_qnydw")

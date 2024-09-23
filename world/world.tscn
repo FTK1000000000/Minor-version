@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="2_owpjw"]
 [ext_resource type="Script" path="res://scripts/world/rooms_generators/room_group.gd" id="2_pumrp"]
 [ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/player/Player.tscn" id="4_8c17k"]
-[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="7_hdrr4"]
+[ext_resource type="PackedScene" uid="uid://daqytvy7sw1uw" path="res://light/player_light.tscn" id="5_noxit"]
 [ext_resource type="Script" path="res://scripts/camera/player_camera.gd" id="10_yv64u"]
 
 [node name="World" type="Node2D"]
@@ -19,18 +19,10 @@ script = ExtResource("2_pumrp")
 zoom = Vector2(2, 2)
 script = ExtResource("10_yv64u")
 
-[node name="LightOccluder2D" type="PointLight2D" parent="Player"]
-visible = false
-texture = ExtResource("7_hdrr4")
+[node name="PlayerLight" parent="Player" instance=ExtResource("5_noxit")]
 
 [node name="HUD" parent="." instance=ExtResource("2_owpjw")]
 process_mode = 3
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="Parallax2D" type="Parallax2D" parent="ParallaxBackground"]
-
-[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/Parallax2D"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctse64pdbs7se"]
+
+[ext_resource type="Script" path="res://scripts/rooms/room_group.gd" id="1_0lvnh"]
+[ext_resource type="TileSet" uid="uid://xylhprfe8g5d" path="res://tile/main.tres" id="2_4oac3"]
+
+[node name="RoomGroup" type="Node2D"]
+script = ExtResource("1_0lvnh")
+
+[node name="Void" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2_4oac3")
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="FromRoom" type="Node2D" parent="Rooms"]
+
+[node name="FightRoom" type="Node2D" parent="Rooms"]
+
+[node name="EndRoom" type="Node2D" parent="Rooms"]

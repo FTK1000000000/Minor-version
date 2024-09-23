@@ -2,7 +2,8 @@ extends Node2D
 
 
 const FROM_ROOMS: Array = [
-	preload("res://rooms/room_group_0.tscn")
+	preload("res://rooms/room_groups/room_group_0.tscn"),
+	preload("res://rooms/room_groups/room_group_1.tscn")
 ]
 
 @onready var player: Player = $"../Player"
@@ -18,5 +19,5 @@ func spawn_rooms():
 	
 	add_child(room_group)
 	
-	var player_spawn_position = room_group.room_from.player_spawn_position
+	var player_spawn_position = room_group.from_room.player_spawn_position
 	player.position = player_spawn_position

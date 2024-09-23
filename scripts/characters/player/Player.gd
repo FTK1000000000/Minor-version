@@ -11,6 +11,7 @@ signal weapon_attack
 @onready var HEAP: AnimationPlayer = $HurtEffectPlayer
 @onready var hurt_effect_timer: Timer = $HurtEffectTimer
 @onready var hurt_box: Area2D = $Hurtbox
+@onready var hitbox: Hitbox = $Weapon/Hitbox
 @onready var weapon: Node2D = $Weapon
 @onready var state_chart: StateChart = $StateChart
 @onready var inventory: Inventory = preload("res://inventory/player_inventory.tres")

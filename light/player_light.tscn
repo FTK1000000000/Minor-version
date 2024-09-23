@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://daqytvy7sw1uw"]
+
+[ext_resource type="Texture2D" uid="uid://bgj50wwv4yxjc" path="res://light/radial.tres" id="1_6ioaa"]
+
+[node name="PlayerLight" type="Node2D"]
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+scale = Vector2(2.98439, 3.03906)
+energy = 0.1
+texture = ExtResource("1_6ioaa")
+texture_scale = 0.1
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+scale = Vector2(2.98439, 3.03906)
+energy = 0.1
+texture = ExtResource("1_6ioaa")
+texture_scale = 0.13
+
+[node name="PointLight2D4" type="PointLight2D" parent="."]
+scale = Vector2(2.98439, 3.03906)
+energy = 0.1
+texture = ExtResource("1_6ioaa")
+texture_scale = 0.15
+
+[node name="PointLight2D5" type="PointLight2D" parent="."]
+scale = Vector2(2.98439, 3.03906)
+energy = 0.1
+texture = ExtResource("1_6ioaa")
+texture_scale = 0.17
+
+[node name="PointLight2D6" type="PointLight2D" parent="."]
+scale = Vector2(2.98439, 3.03906)
+energy = 0.1
+texture = ExtResource("1_6ioaa")
+texture_scale = 0.2
+
+[node name="PointLight2D7" type="PointLight2D" parent="."]
+scale = Vector2(2.98439, 3.03906)
+energy = 0.1
+texture = ExtResource("1_6ioaa")
+texture_scale = 0.4
+
+[node name="PointLight2D8" type="PointLight2D" parent="."]
+scale = Vector2(2.98439, 3.03906)
+energy = 0.1
+texture = ExtResource("1_6ioaa")
+texture_scale = 0.6
