@@ -1,6 +1,6 @@
 [gd_scene load_steps=32 format=4 uid="uid://cdh4j5y6skb2l"]
 
-[ext_resource type="Texture2D" uid="uid://bxj8j2fi4uy54" path="res://resource/main.png" id="1_58f5c"]
+[ext_resource type="Texture2D" uid="uid://bxj8j2fi4uy54" path="res://main.png" id="1_58f5c"]
 [ext_resource type="PackedScene" uid="uid://b285px04xj0ei" path="res://rooms/exit.tscn" id="3_r2hy0"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bkh2r"]

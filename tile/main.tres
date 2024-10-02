@@ -1,13 +1,9 @@
-[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://xylhprfe8g5d"]
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://xylhprfe8g5d"]
 
-[ext_resource type="Texture2D" uid="uid://bxj8j2fi4uy54" path="res://resource/main.png" id="1_h06tn"]
-[ext_resource type="PackedScene" uid="uid://u04khf3gp2st" path="res://collectible/weapons/axe.tscn" id="2_w6ci3"]
-[ext_resource type="PackedScene" uid="uid://b206wlen0bkw3" path="res://collectible/collectible.tscn" id="3_syusd"]
-[ext_resource type="PackedScene" uid="uid://g60u21fdrpc6" path="res://collectible/life_pot.tscn" id="4_nbksc"]
-[ext_resource type="PackedScene" uid="uid://c5xtqyrxj4rpw" path="res://tile/destructible_cover/destructible_cover.tscn" id="5_o35q1"]
+[ext_resource type="Texture2D" uid="uid://bxj8j2fi4uy54" path="res://main.png" id="1_ovcla"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l1f7f"]
-texture = ExtResource("1_h06tn")
+texture = ExtResource("1_ovcla")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -33,6 +29,8 @@ texture_region_size = Vector2i(32, 32)
 11:1/0 = 0
 12:1/0 = 0
 13:1/0 = 0
+4:2/0 = 0
+5:2/0 = 0
 6:2/0 = 0
 7:2/0 = 0
 8:2/0 = 0
@@ -41,9 +39,19 @@ texture_region_size = Vector2i(32, 32)
 11:2/0 = 0
 12:2/0 = 0
 13:2/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
 11:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
 12:4/0 = 0
 13:4/0 = 0
+<<<<<<< HEAD
 2:0/0 = 0
 2:1/0 = 0
 3:0/0 = 0
@@ -65,9 +73,27 @@ scenes/3/scene = ExtResource("4_nbksc")
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_vuj0x"]
 resource_name = "destructible_cover"
 scenes/1/scene = ExtResource("5_o35q1")
+=======
+12:5/0 = 0
+13:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+3:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+12:9/0 = 0
+13:9/0 = 0
+>>>>>>> parent of 32cc75c (可破坏掩体)
 
 [resource]
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_l1f7f")
-sources/1 = SubResource("TileSetScenesCollectionSource_njkh4")
-sources/2 = SubResource("TileSetScenesCollectionSource_vuj0x")

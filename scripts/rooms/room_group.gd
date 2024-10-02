@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@onready var root: WORLD = $"../.."
+@onready var root: world = $"../.."
 @onready var end_room_container: Node2D = $Rooms/EndRoom
 @onready var from_room_container: Node2D = $Rooms/FromRoom
 

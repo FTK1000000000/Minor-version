@@ -24,7 +24,6 @@ var towards: Vector2 = Vector2.ZERO
 
 @export var move_speed: float = 100
 @export var current_health: int
-@export var weapon_attack_damage: int = 10
 var knockback_power: int = 3000
 var is_hurt: bool = false
 
@@ -33,11 +32,11 @@ var weapon_flip: bool = true
 
 
 func _ready():
-	if get_tree().current_scene is WORLD: Global.game_save()
+	Global.game_save()
 	current_health = Global.player_current_health
 	health_changed.emit()
 	
-	hitbox.damage = weapon_attack_damage
+	hitbox.damage = 100
 
 func _process(_delta):
 	move_and_slide()

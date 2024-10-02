@@ -125,7 +125,7 @@ func config_load():
 	)
 
 func game_save():
-	var scene: WORLD = get_tree().current_scene
+	var scene: world = get_tree().current_scene
 	var scene_name = scene.scene_file_path.get_file().get_basename()
 	
 	var data = {
