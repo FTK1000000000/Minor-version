@@ -236,3 +236,4 @@ tile_set = SubResource("TileSet_2w0ve")
 
 [node name="Exit" parent="." instance=ExtResource("3_r2hy0")]
 position = Vector2(640, 448)
+path = "res://game_scene/main.tscn"

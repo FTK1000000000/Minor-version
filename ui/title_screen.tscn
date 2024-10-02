@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dm1miq1v72n8u"]
+[gd_scene load_steps=6 format=3 uid="uid://dm1miq1v72n8u"]
 
 [ext_resource type="Script" path="res://scripts/ui/inventory/title_screen/title_screen.gd" id="1_uxqlq"]
-[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_fs78q"]
+[ext_resource type="Texture2D" uid="uid://bo0e2iemoe6yr" path="res://214468.png" id="2_knji7"]
+[ext_resource type="Texture2D" uid="uid://dm7kkptjkhrvh" path="res://title.png" id="3_8pwip"]
 [ext_resource type="Theme" uid="uid://b0doaimn3yw0i" path="res://theme/main_theme.tres" id="4_v8vy5"]
 [ext_resource type="PackedScene" uid="uid://cfykf5o0g2omm" path="res://ui/options_menu.tscn" id="5_6gpyt"]
 
@@ -12,8 +13,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_uxqlq")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -21,9 +22,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -420.0
+offset_top = -180.0
+offset_right = 420.0
+offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_fs78q")
+texture = ExtResource("2_knji7")
 
 [node name="UI" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -34,15 +39,17 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Title" type="TextureRect" parent="UI"]
+clip_contents = true
+custom_minimum_size = Vector2(640, 320)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 size_flags_vertical = 0
-texture = ExtResource("2_fs78q")
+texture = ExtResource("3_8pwip")
 
 [node name="MainMenu" type="VBoxContainer" parent="UI"]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
+size_flags_horizontal = 4
+size_flags_vertical = 10
 theme = ExtResource("4_v8vy5")
 
 [node name="NewGame" type="Button" parent="UI/MainMenu"]

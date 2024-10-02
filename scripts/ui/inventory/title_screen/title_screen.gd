@@ -2,7 +2,6 @@ extends Control
 
 
 @onready var options_menu = $OptionsMenu
-@onready var world = preload("res://world/world.tscn")
 @onready var error: Label = $Error
 
 var error_life_time: float = 1.6
@@ -22,10 +21,10 @@ func _on_new_game_pressed() -> void:
 
 
 func _on_load_game_button_pressed() -> void:
-	error.text = "Save is not supported"
-	await get_tree().create_timer(error_life_time).timeout
+	#error.text = "Save is not supported"
+	#await get_tree().create_timer(error_life_time).timeout
 	
-	error.text = ""
+	Global.game_load()
 
 
 func _on_options_button_pressed() -> void:

@@ -6,7 +6,7 @@ extends CanvasLayer
 @onready var game_over_screen: CanvasLayer = $GameOverScreen
 @onready var player_health_bar: TextureProgressBar = $PlayerHealthBar
 @onready var inventory = $Inventory
-@onready var player: Player = Global.player
+@onready var player: Player = $"../Player"
 
 
 func _ready():

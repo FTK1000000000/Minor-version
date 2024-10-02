@@ -1,17 +1,17 @@
-[gd_scene load_steps=24 format=3 uid="uid://3duby8tq03p5"]
+[gd_scene load_steps=24 format=3 uid="uid://0ug3e0fiv41v"]
 
-[ext_resource type="Script" path="res://scripts/characters/eneity/enemy.gd" id="1_50yox"]
-[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_tpfx7"]
-[ext_resource type="Texture2D" uid="uid://26hhl2lrcmvm" path="res://textures/effect/dead_fog.png" id="3_ihwnp"]
-[ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://textures/ui/health_bar/enemyHealthBar1.png" id="4_kabjk"]
-[ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://textures/ui/health_bar/enemyHealthBar2.png" id="5_ot7j0"]
-[ext_resource type="Script" path="res://scripts/ui/enemy_health_bar.gd" id="6_ftrbv"]
-[ext_resource type="Script" path="res://scripts/characters/hurtbox.gd" id="7_3ngc4"]
-[ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="7_gq8kw"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_tq82l"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_77sd5"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_qbyyu"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="10_tlpf7"]
+[ext_resource type="Script" path="res://scripts/characters/eneity/enemy.gd" id="1_1dxbb"]
+[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_77qhd"]
+[ext_resource type="Texture2D" uid="uid://26hhl2lrcmvm" path="res://textures/effect/dead_fog.png" id="3_fmnim"]
+[ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://textures/ui/health_bar/enemyHealthBar1.png" id="4_kecpt"]
+[ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://textures/ui/health_bar/enemyHealthBar2.png" id="5_b7cgw"]
+[ext_resource type="Script" path="res://scripts/ui/enemy_health_bar.gd" id="6_qbrjp"]
+[ext_resource type="Script" path="res://scripts/characters/hurtbox.gd" id="7_qjokr"]
+[ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="8_stlgv"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="9_epdmq"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="10_cahyk"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="11_xkpml"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="12_vd6a8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3scdc"]
 size = Vector2(50, 50)
@@ -160,7 +160,7 @@ collision_mask = 5
 input_pickable = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_50yox")
+script = ExtResource("1_1dxbb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -170,7 +170,7 @@ shape = SubResource("RectangleShape2D_3scdc")
 
 [node name="Body" type="Sprite2D" parent="Texture"]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_tpfx7")
+texture = ExtResource("2_77qhd")
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 offset_left = -65.0
@@ -181,7 +181,7 @@ color = Color(1, 1, 1, 0)
 
 [node name="DeadEffect" type="Sprite2D" parent="Texture"]
 visible = false
-texture = ExtResource("3_ihwnp")
+texture = ExtResource("3_fmnim")
 hframes = 4
 
 [node name="UI" type="Node2D" parent="Texture"]
@@ -207,9 +207,9 @@ stretch_margin_left = 3
 stretch_margin_top = 3
 stretch_margin_right = 3
 stretch_margin_bottom = 3
-texture_under = ExtResource("4_kabjk")
-texture_progress = ExtResource("5_ot7j0")
-script = ExtResource("6_ftrbv")
+texture_under = ExtResource("4_kecpt")
+texture_progress = ExtResource("5_b7cgw")
+script = ExtResource("6_qbrjp")
 
 [node name="ActionPlayer" type="AnimationPlayer" parent="."]
 reset_on_save = false
@@ -230,7 +230,7 @@ one_shot = true
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 0
-script = ExtResource("7_3ngc4")
+script = ExtResource("7_qjokr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_mf8co")
@@ -239,7 +239,7 @@ shape = SubResource("RectangleShape2D_mf8co")
 scale = Vector2(0.997275, 0.976194)
 collision_layer = 0
 collision_mask = 16
-script = ExtResource("7_gq8kw")
+script = ExtResource("8_stlgv")
 
 [node name="CollisionShape2Daaaaaa" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-1.91256e-06, -8.24286e-07)
@@ -280,56 +280,56 @@ shape = SubResource("CircleShape2D_djl7y")
 debug_color = Color(0, 0.627451, 0.494118, 0.313726)
 
 [node name="StateChart" type="Node" parent="."]
-script = ExtResource("7_tq82l")
+script = ExtResource("9_epdmq")
 
 [node name="CompoundState" type="Node" parent="StateChart"]
-script = ExtResource("8_77sd5")
+script = ExtResource("10_cahyk")
 initial_state = NodePath("Idle")
 
 [node name="Dead" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("9_qbyyu")
+script = ExtResource("11_xkpml")
 
 [node name="Idle" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("9_qbyyu")
+script = ExtResource("11_xkpml")
 
 [node name="chase" type="Node" parent="StateChart/CompoundState/Idle"]
-script = ExtResource("10_tlpf7")
+script = ExtResource("12_vd6a8")
 to = NodePath("../../Chase")
 event = &"chase"
 delay_in_seconds = "0.0"
 
 [node name="Chase" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("9_qbyyu")
+script = ExtResource("11_xkpml")
 
 [node name="idle" type="Node" parent="StateChart/CompoundState/Chase"]
-script = ExtResource("10_tlpf7")
+script = ExtResource("12_vd6a8")
 to = NodePath("../../Idle")
 event = &"idle"
 delay_in_seconds = "0.0"
 
 [node name="Hurt" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("9_qbyyu")
+script = ExtResource("11_xkpml")
 
 [node name="idle" type="Node" parent="StateChart/CompoundState/Hurt"]
-script = ExtResource("10_tlpf7")
+script = ExtResource("12_vd6a8")
 to = NodePath("../../Idle")
 event = &"idle"
 delay_in_seconds = "0.0"
 
 [node name="hurt" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("10_tlpf7")
+script = ExtResource("12_vd6a8")
 to = NodePath("../Hurt")
 event = &"hurt"
 delay_in_seconds = "0.0"
 
 [node name="dead" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("10_tlpf7")
+script = ExtResource("12_vd6a8")
 to = NodePath("../Dead")
 event = &"dead"
 delay_in_seconds = "0.0"
 
 [node name="AtomicState" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("9_qbyyu")
+script = ExtResource("11_xkpml")
 
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
 [connection signal="area_exited" from="HitBox" to="HitBox" method="_on_area_exited"]

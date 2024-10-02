@@ -1,18 +1,16 @@
 extends Node2D
+class_name world
 
-
-@export var bgm: AudioStream
 
 @onready var player = get_node("Player")
 
+@export var bgm: AudioStream
+
+var room_group_index: int
+
 
 func _ready() -> void:
+	room_group_index = Global.room_group_index
+	
 	if bgm:
 		SoundManager.play_bgm(bgm)
-
-
-#func to_dict():
-	#pass
-#
-#func from_dict(dict: Dictionary):
-	#pass

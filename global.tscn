@@ -95,7 +95,7 @@ _data = {
 "fade": SubResource("Animation_ba6mx")
 }
 
-[node name="Global" type="Node2D"]
+[node name="Global" type="Node"]
 script = ExtResource("1_ug4ua")
 
 [node name="BGM" type="AudioStreamPlayer2D" parent="."]

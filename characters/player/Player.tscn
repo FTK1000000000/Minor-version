@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c76kqdervowc5"]
+[gd_scene load_steps=42 format=3 uid="uid://c76kqdervowc5"]
 
 [ext_resource type="Script" path="res://scripts/characters/player/player.gd" id="1_7sr4c"]
 [ext_resource type="Texture2D" uid="uid://baalc1jtnday8" path="res://textures/characters/player/Sprite player.png" id="2_53s0l"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_q78is"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_8lig6"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="10_2mpht"]
+[ext_resource type="Script" path="res://scripts/camera/player_camera.gd" id="11_bwohd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bgyxn"]
 radius = 8.95605
@@ -313,7 +314,6 @@ collision_layer = 4
 collision_mask = 9
 platform_floor_layers = 4294901761
 script = ExtResource("1_7sr4c")
-knockback_power = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9)
@@ -328,7 +328,7 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 6
+frame = 5
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 offset_left = -20.0
@@ -411,6 +411,10 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavArea"]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_br26j")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+script = ExtResource("11_bwohd")
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("7_dbqc7")

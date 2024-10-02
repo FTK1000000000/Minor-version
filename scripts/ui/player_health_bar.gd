@@ -10,4 +10,4 @@ func _ready():
 	update()
 
 func update():
-	value = target.current_health * 100.0 / target.max_health
+	value = Global.player_current_health * 100.0 / Global.player_max_health

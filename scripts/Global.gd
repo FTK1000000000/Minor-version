@@ -1,11 +1,12 @@
-extends Node2D
+extends Node
 
 
 const CONFIG_PATH = "user://config.ini"
+const SAVE_PATH = "user://save.json"
+
 const SFX_IDX = 1
 const BGM_IDX = 2
 
-#const SAVE_PATH = "user://data.sav"
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -14,20 +15,21 @@ var bgm_enabled:
 var sfx_enabled:
 	set = set_sfx_enabled, get = is_sfx_enabled
 
-var world_states: Dictionary = {}
-
-var player: Player = null
+var player = preload("res://characters/player/Player.tscn").instantiate()
 var player_dead: bool = false
-var player_max_health : int = 100
-var player_current_health : int
+var player_max_health: int = 100
+var player_current_health: int
 var player_kill: int = 0
 
 var started_at: int = Time.get_unix_time_from_system()
 var completed_at: int = Time.get_unix_time_from_system()
 
+@export var room_group_level: int
+@export var room_group_index: int
+
 
 func _ready():
-	load_config()
+	config_load()
 	
 	player_current_health = player_max_health
 
@@ -45,13 +47,16 @@ func disabledd(node):
 		node.set_disabled(false)
 
 func back_to_title():
+	room_group_level = 0
 	go_to_world("res://ui/title_screen.tscn")
 
 func start_game():
+	room_group_level = 0
 	started_at = Time.get_unix_time_from_system()
-	go_to_world("res://world/world.tscn")
+	go_to_world("res://game_scene/main.tscn")
 
 func complete_game():
+	room_group_level = 0
 	completed_at = Time.get_unix_time_from_system()
 	go_to_world("res://ui/game_complete.tscn")
 
@@ -87,90 +92,70 @@ func game_pause():
 func game_keep():
 	get_tree().paused = false
 
-func save_config():
-	var config = ConfigFile.new()
+func config_save():
+	var file = ConfigFile.new()
 	
-	config.set_value("audio", "sfx_enabled", is_sfx_enabled())
-	config.set_value("audio", "bgm_enabled", is_bgm_enabled())
+	file.set_value("audio", "sfx_enabled", is_sfx_enabled())
+	file.set_value("audio", "bgm_enabled", is_bgm_enabled())
 	
-	config.set_value("audio", "master", SoundManager.get_volume(SoundManager.Bus.MASTER))
-	config.set_value("audio", "sfx", SoundManager.get_volume(SoundManager.Bus.SFX))
-	config.set_value("audio", "bgm", SoundManager.get_volume(SoundManager.Bus.BGM))
+	file.set_value("audio", "master", SoundManager.get_volume(SoundManager.Bus.MASTER))
+	file.set_value("audio", "sfx", SoundManager.get_volume(SoundManager.Bus.SFX))
+	file.set_value("audio", "bgm", SoundManager.get_volume(SoundManager.Bus.BGM))
 	
-	config.save(CONFIG_PATH)
+	file.save(CONFIG_PATH)
 
-func load_config():
-	var config = ConfigFile.new()
-	config.load(CONFIG_PATH)
+func config_load():
+	var file = ConfigFile.new()
+	file.load(CONFIG_PATH)
 	
-	set_bgm_enabled(config.get_value("audio", "bgm_enabled", true))
-	set_sfx_enabled(config.get_value("audio", "sfx_enabled", true))
+	set_bgm_enabled(file.get_value("audio", "bgm_enabled", true))
+	set_sfx_enabled(file.get_value("audio", "sfx_enabled", true))
 	
 	SoundManager.set_volume(
 		SoundManager.Bus.MASTER,
-		config.get_value("audio", "master", 0.5)
+		file.get_value("audio", "master", 0.5)
 	)
 	SoundManager.set_volume(
 		SoundManager.Bus.SFX,
-		config.get_value("audio", "sfx", 0.5)
+		file.get_value("audio", "sfx", 0.5)
 	)
 	SoundManager.set_volume(
 		SoundManager.Bus.BGM,
-		config.get_value("audio", "bgm", 0.5)
+		file.get_value("audio", "bgm", 0.5)
 	)
 
-#func change_screen(path: String, params: Dictionary = {}):
-	#var tree = get_tree()
-	#
-	#var old_name = tree.current_scene.scene_file_path.get_file().get_basename()
-	#world_states[old_name] = tree.current_scene.to_dict()
-	#
-	#tree.change_scene_to_file(path)
-	#await tree.tree_changed
-	#
-	#var new_name = tree.current_scene.scene_file_path.get_file().get_basename()
-	#if new_name in world_states:
-		#tree.current_scene.from_dict(world_states[new_name])
-	#
-	#if "position" in params:
-		#tree.current_scene.update_player(params.position)
+func game_save():
+	var scene: world = get_tree().current_scene
+	var scene_name = scene.scene_file_path.get_file().get_basename()
+	
+	var data = {
+		player = {
+			max_health = player_max_health,
+			current_health = player_current_health
+		},
+		world = {
+			room_group_level = room_group_level,
+			room_group_index = scene.room_group_index
+		}
+	}
+	
+	var json = JSON.stringify(data)
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if not file: return
+	file.store_string(json)
 
-#func save_game():
-	#var scene = get_tree().current_scene
-	#var scene_name = scene.scene_file_path.get_file().get_basename()
-	#world_states[scene_name] = scene.to_dict()
-	#
-	#var data = {
-		#world_states = world_states,
-		#stats = player.to_dict(),
-		#scene = scene.scene_file_path,
-		#player = {
-			#position = {
-				#x = scene.player.global_position.x,
-				#y = scene.player.global_position.y,
-			#}
-		#}
-	#}
-	#var json = JSON.stringify(data)
-	#var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	#if not file:
-		#return
-	#file.store_string(json)
-
-#func load_game():
-	#var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
-	#if not file:
-		#return
-	#
-	#var json = file.get_as_text()
-	#var data = JSON.parse_string(json) as Dictionary
-	#
-	#world_states = data.world_states
-	#player.from_dict(data.stats)
-	#
-	#change_screen(data.scene, {
-		#position = Vector2(
-			#data.player.position.x,
-			#data.player.position.y,
-		#)
-	#})
+func game_load():
+	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if not file: return
+	
+	var json = file.get_as_text()
+	var data = JSON.parse_string(json) as Dictionary
+	
+	player_max_health = data.player.max_health
+	player_current_health = data.player.current_health
+	
+	go_to_world("res://game_scene/main.tscn")
+	var scene = get_tree().current_scene
+	room_group_level = data.world.room_group_level
+	room_group_index = data.world.room_group_index
+	

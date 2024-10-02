@@ -10,38 +10,33 @@ signal weapon_attack
 @onready var antimation_tree: AnimationTree = $AnimationTree
 @onready var HEAP: AnimationPlayer = $HurtEffectPlayer
 @onready var hurt_effect_timer: Timer = $HurtEffectTimer
-@onready var hurt_box: Area2D = $Hurtbox
+@onready var hurt_box: Hurtbox = $Hurtbox
 @onready var hitbox: Hitbox = $Weapon/Hitbox
 @onready var weapon: Node2D = $Weapon
 @onready var state_chart: StateChart = $StateChart
 @onready var inventory: Inventory = preload("res://inventory/player_inventory.tres")
 
-@export var attack : bool = false
-@export var is_dead : bool = false
+@export var attack: bool = false
+@export var is_dead: bool = false
 
-var direction : Vector2 = Vector2.ZERO
-var towards : Vector2 = Vector2.ZERO
+var direction: Vector2 = Vector2.ZERO
+var towards: Vector2 = Vector2.ZERO
 
-var move_speed : float = 100
-var max_health : int = 100
-var current_health : int
+@export var move_speed: float = 100
+@export var current_health: int
+var knockback_power: int = 3000
+var is_hurt: bool = false
 
-@export var knockback_power : int = 3000
-var is_hurt : bool = false
-
-@export var is_forward: bool = true
+var is_forward: bool = true
 var weapon_flip: bool = true
 
 
 func _ready():
-	Global.player = self
-	
-	antimation_tree.active = true
-	
-	current_health = max_health
+	Global.game_save()
+	current_health = Global.player_current_health
 	health_changed.emit()
 	
-	HEAP.play("RESET")
+	hitbox.damage = 100
 
 func _process(_delta):
 	move_and_slide()
@@ -69,11 +64,10 @@ func update_state():
 #更新状态
 
 func handle_health():
-	if current_health <= 0 :
+	if Global.player_current_health <= 0 :
 		is_dead = true
 		Global.player_dead = true
 		player_dead.emit()
-		
 #血量操作
 
 func get_move_direction():
@@ -118,15 +112,15 @@ func weapon_attack_signal():
 	if Input.is_action_pressed("attack"):
 		weapon_attack.emit()
 
-#func to_dict() -> Dictionary:
-	#return {
-		#max_health = max_health,
-		#current_health = current_health
-	#}
-#
-#func from_dict(dict: Dictionary):
-	#max_health = dict.max_health
-	#current_health = dict.current_health
+func to_dict() -> Dictionary:
+	return {
+		max_health = Global.player_max_health,
+		current_health = Global.player_current_health
+	}
+
+func from_dict(dict: Dictionary):
+	Global.player_max_health = dict.max_health
+	Global.player_current_health = dict.current_health
 
 
 func _on_hurt_box_area_entered(area):
@@ -163,6 +157,7 @@ func _on_run_state_exited() -> void:
 
 func _on_hurt_state_entered() -> void:
 	#print("hurt")
+	Global.player_current_health = current_health
 	health_changed.emit()
 	is_hurt = true
 	HEAP.play("hurt_blink")

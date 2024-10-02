@@ -25,13 +25,13 @@ func back():
 
 func _on_bgm_pressed() -> void:
 	Global.bgm_enabled = not Global.bgm_enabled
-	Global.save_config()
+	Global.config_save()
 	update_button_text()
 
 
 func _on_sfx_pressed() -> void:
 	Global.sfx_enabled = not Global.sfx_enabled
-	Global.save_config()
+	Global.config_save()
 	update_button_text()
 
 
@@ -40,4 +40,5 @@ func _on_back_pressed() -> void:
 
 
 func _on_quit_title_pressed() -> void:
+	Global.game_keep()
 	Global.go_to_world("res://ui/title_screen.tscn")
