@@ -6,7 +6,7 @@ extends Control
 
 @onready var inventory : Inventory = preload("res://inventory/player_inventory.tres")
 @onready var items_stack_class : = preload("res://ui/inventory/items_stack.tscn")
-@onready var slots : Array = $NinePatchRect/GridContainer.get_children()
+@onready var slots : Array = $HBoxContainer.get_children()
 
 var is_open : bool = false
 

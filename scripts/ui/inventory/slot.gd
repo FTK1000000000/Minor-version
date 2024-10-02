@@ -1,6 +1,6 @@
 extends Button
 
-@onready var background_sprite : Sprite2D = $Background
+@onready var background_sprite : TextureRect = $TextureRect
 @onready var container = $CenterContainer
 @onready var inventory = preload("res://inventory/player_inventory.tres")
 
@@ -9,7 +9,6 @@ var index : int
 
 func insert(isg : ItemsStack):
 	items_stack = isg
-	background_sprite.frame = 1
 	container.add_child(items_stack)
 	
 	if !items_stack.inventory_slot || inventory.slots[index] == items_stack.inventory_slot:
@@ -24,7 +23,6 @@ func take_item():
 	
 	container.remove_child(items_stack)
 	items_stack = null
-	background_sprite.frame = 0
 	
 	return item
 
