@@ -328,7 +328,7 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 5
+frame = 4
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 offset_left = -20.0
@@ -394,7 +394,7 @@ one_shot = true
 position = Vector2(1.31134e-07, -3)
 scale = Vector2(1.2, 1.2)
 collision_layer = 0
-collision_mask = 32
+collision_mask = 1056
 script = ExtResource("6_vdfkt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Hitbox"]
