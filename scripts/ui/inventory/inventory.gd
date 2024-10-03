@@ -1,24 +1,22 @@
 extends Control
 
-#signal opened
-#signal closeed
 
+@onready var inventory: Inventory = preload("res://inventory/player_inventory.tres")
+@onready var items_stack_class: = preload("res://ui/inventory/items_stack.tscn")
+@onready var slots: Array = $InventoryBar.get_children()
+@onready var bin: Button = $InventoryBar/SlotBin
 
-@onready var inventory : Inventory = preload("res://inventory/player_inventory.tres")
-@onready var items_stack_class : = preload("res://ui/inventory/items_stack.tscn")
-@onready var slots : Array = $NinePatchRect/GridContainer.get_children()
+var item_in_hand: ItemsStack
+var locked: bool = false
 
-var is_open : bool = false
-
-var item_in_hand : ItemsStack
-#var old_index : int = -1
-var locked : bool = false
+var bin_is_open: bool
 
 
 func _ready():
 	connect_slot()
 	inventory.update.connect(update)
 	update()
+	bin_close()
 
 
 func connect_slot():
@@ -44,15 +42,13 @@ func update():
 		items_stack.inventory_slot = inventory_slot
 		items_stack.update()
 
-func open():
-	visible = true
-	is_open = true
-	#opened.emit()
+func bin_open():
+	bin.visible = true
+	bin_is_open = true
 
-func close():
-	visible = false
-	is_open = false
-	#closeed.emit()
+func bin_close():
+	bin.visible = false
+	bin_is_open = false
 
 func slot_click(slot):
 	if locked: return
@@ -95,7 +91,6 @@ func stack_item(slot):
 		remove_child(item_in_hand)
 		item_in_hand = null
 		
-		#old_index = -1
 	else:
 		slot_item.inventory_slot.amount = max_amount
 		item_in_hand.inventory_slot.amount = total_amount - max_amount
@@ -107,8 +102,6 @@ func take_item_from_slot(slot):
 	item_in_hand = slot.take_item()
 	add_child(item_in_hand)
 	update_item_in_hand()
-	
-	#old_index = slot.index
 
 func insert_item_in_slot(slot):
 	var item = item_in_hand
@@ -117,31 +110,11 @@ func insert_item_in_slot(slot):
 	item_in_hand = null
 	
 	slot.insert(item)
-	
-	#old_index = -1
 
 func update_item_in_hand():
 	if !item_in_hand : return
 	item_in_hand.global_position = get_global_mouse_position() - item_in_hand.size / 2
 
-#func put_item_back():
-	#locked = true
-	#if old_index < 1:
-		#var empty_slots = slots.filter(func (s): return s.is_empty())
-		#if empty_slots.is_empty(): return
-		#
-		#old_index = empty_slots[0].index
-	#
-	#var target_slot = slots[old_index]
-	#var tween = create_tween()
-	#var target_position = target_slot.global_position + target_slot.size / 2
-	#tween.tween_property(item_in_hand, "global_position", target_position, 0.2)
-	#await tween.finished
-	#
-	#insert_item_in_slot(target_slot)
-	#locked = false
 
 func _input(_event):
-	#if item_in_hand && !locked && Input.is_action_just_pressed("right_click"):
-		#put_item_back()
 	update_item_in_hand()

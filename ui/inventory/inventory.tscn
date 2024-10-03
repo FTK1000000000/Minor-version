@@ -1,72 +1,31 @@
 [gd_scene load_steps=4 format=3 uid="uid://bnlwgpqinumnw"]
 
 [ext_resource type="Script" path="res://scripts/ui/inventory/inventory.gd" id="1_3kwr6"]
-[ext_resource type="Texture2D" uid="uid://cf85hfigv55h5" path="res://textures/ui/inventory1.png" id="1_tydfl"]
 [ext_resource type="PackedScene" uid="uid://1vhwnqa5g1p3" path="res://ui/inventory/slot.tscn" id="2_sfs4u"]
+[ext_resource type="PackedScene" uid="uid://cr88mi1nkxors" path="res://ui/inventory/slot_bin.tscn" id="3_574gt"]
 
 [node name="Inventory" type="Control"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -384.0
-offset_top = -324.0
-offset_right = 384.0
-offset_bottom = 324.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3kwr6")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-layout_mode = 0
-offset_right = 768.0
-offset_bottom = 648.0
-texture = ExtResource("1_tydfl")
-patch_margin_left = 5
-patch_margin_top = 5
-patch_margin_right = 5
-patch_margin_bottom = 5
+[node name="InventoryBar" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_top = 656.0
+offset_bottom = 720.0
 
-[node name="GridContainer" type="GridContainer" parent="NinePatchRect"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -384.0
-offset_top = -324.0
-offset_right = 384.0
-offset_bottom = 324.0
-grow_horizontal = 2
-grow_vertical = 2
-columns = 7
-
-[node name="Slot" parent="NinePatchRect/GridContainer" instance=ExtResource("2_sfs4u")]
+[node name="Slot" parent="InventoryBar" instance=ExtResource("2_sfs4u")]
 layout_mode = 2
 
-[node name="Slot2" parent="NinePatchRect/GridContainer" instance=ExtResource("2_sfs4u")]
+[node name="Slot2" parent="InventoryBar" instance=ExtResource("2_sfs4u")]
 layout_mode = 2
 
-[node name="Slot3" parent="NinePatchRect/GridContainer" instance=ExtResource("2_sfs4u")]
+[node name="Slot3" parent="InventoryBar" instance=ExtResource("2_sfs4u")]
 layout_mode = 2
 
-[node name="Slot4" parent="NinePatchRect/GridContainer" instance=ExtResource("2_sfs4u")]
-layout_mode = 2
-
-[node name="Slot5" parent="NinePatchRect/GridContainer" instance=ExtResource("2_sfs4u")]
-layout_mode = 2
-
-[node name="Slot6" parent="NinePatchRect/GridContainer" instance=ExtResource("2_sfs4u")]
-layout_mode = 2
-
-[node name="Slot7" parent="NinePatchRect/GridContainer" instance=ExtResource("2_sfs4u")]
-layout_mode = 2
-
-[node name="Slot8" parent="NinePatchRect/GridContainer" instance=ExtResource("2_sfs4u")]
-layout_mode = 2
-
-[node name="Slot9" parent="NinePatchRect/GridContainer" instance=ExtResource("2_sfs4u")]
+[node name="SlotBin" parent="InventoryBar" instance=ExtResource("3_574gt")]
 layout_mode = 2

@@ -11,16 +11,14 @@ extends CanvasLayer
 
 func _ready():
 	player.player_dead.connect(game_over)
-	
-	inventory.close()
 
 
 func _input(event):
-	if event.is_action_pressed("toggle_inventory"):
-		if inventory.is_open:
-			inventory.close()
+	if event.is_action_pressed("open_bin_from_inventory"):
+		if inventory.bin_is_open:
+			inventory.bin_close()
 		else:
-			inventory.open()
+			inventory.bin_open()
 	
 	if event.is_action_pressed("pause"):
 		if pause_layer.visible && !options_menu.visible:

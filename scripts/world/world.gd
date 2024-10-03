@@ -1,5 +1,5 @@
 extends Node2D
-class_name world
+class_name WORLD
 
 
 @onready var player = get_node("Player")

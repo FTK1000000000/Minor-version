@@ -1,10 +1,10 @@
 [gd_scene load_steps=42 format=3 uid="uid://c76kqdervowc5"]
 
 [ext_resource type="Script" path="res://scripts/characters/player/player.gd" id="1_7sr4c"]
-[ext_resource type="Texture2D" uid="uid://baalc1jtnday8" path="res://textures/characters/player/Sprite player.png" id="2_53s0l"]
+[ext_resource type="Texture2D" uid="uid://baalc1jtnday8" path="res://resource/characters/player/Sprite player.png" id="2_53s0l"]
 [ext_resource type="Script" path="res://scripts/characters/player/Weapon.gd" id="4_p4n5v"]
 [ext_resource type="Script" path="res://scripts/characters/hurtbox.gd" id="4_xth6r"]
-[ext_resource type="Texture2D" uid="uid://chb060livauhm" path="res://textures/collectible/weapons/axe.png" id="5_15ax4"]
+[ext_resource type="Texture2D" uid="uid://chb060livauhm" path="res://resource/collectible/weapons/axe.png" id="5_15ax4"]
 [ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="6_vdfkt"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_dbqc7"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_q78is"]
@@ -328,7 +328,7 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 4
+frame = 7
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 offset_left = -20.0
@@ -364,7 +364,7 @@ one_shot = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 16
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("4_xth6r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]

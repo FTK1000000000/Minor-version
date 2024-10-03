@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr88mi1nkxors"]
+
+[ext_resource type="Script" path="res://scripts/ui/inventory/slot_bin.gd" id="1_i70bo"]
+[ext_resource type="Texture2D" uid="uid://d33fho8ieq2s8" path="res://resource/ui/inventory_bar/bin.png" id="2_v0cwr"]
+
+[node name="SlotBin" type="Button"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+script = ExtResource("1_i70bo")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_v0cwr")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

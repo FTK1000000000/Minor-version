@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtlihw17p7wbp"]
+[gd_scene load_steps=5 format=3 uid="uid://gbsofg47210y"]
 
 [ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/fight_rooms/fight_room.tscn" id="1_17y3j"]
 [ext_resource type="PackedScene" uid="uid://bqrkndx6b0j15" path="res://rooms/doors/up_door.tscn" id="2_jsu2v"]

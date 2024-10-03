@@ -1,5 +1,5 @@
 extends Button
-class_name InventorySlotFromHUD
+class_name SlotBin
 
 
 @onready var container = $CenterContainer
@@ -25,7 +25,7 @@ func take_item():
 	container.remove_child(items_stack)
 	items_stack = null
 	
-	return item
+	return null
 
 func is_empty():
 	return !items_stack

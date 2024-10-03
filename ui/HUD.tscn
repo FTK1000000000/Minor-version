@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://cak2vpn16lujs"]
 
 [ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_0wxeb"]
-[ext_resource type="Texture2D" uid="uid://buc2u0kx23beg" path="res://textures/ui/health_bar/playerHealthBar1.png" id="2_loevm"]
-[ext_resource type="Texture2D" uid="uid://bqcey0kwg1rx0" path="res://textures/ui/health_bar/playerHealthBar2.png" id="3_sdw3l"]
+[ext_resource type="Texture2D" uid="uid://buc2u0kx23beg" path="res://resource/ui/health_bar/playerHealthBar1.png" id="2_fnd6t"]
+[ext_resource type="Texture2D" uid="uid://bqcey0kwg1rx0" path="res://resource/ui/health_bar/playerHealthBar2.png" id="3_yrmce"]
 [ext_resource type="Script" path="res://scripts/ui/player_health_bar.gd" id="4_ksf7c"]
 [ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory/inventory.tscn" id="5_ua3kp"]
 [ext_resource type="PackedScene" uid="uid://cfykf5o0g2omm" path="res://ui/options_menu.tscn" id="6_mw57f"]
@@ -19,8 +19,8 @@ stretch_margin_left = 4
 stretch_margin_top = 4
 stretch_margin_right = 4
 stretch_margin_bottom = 4
-texture_under = ExtResource("2_loevm")
-texture_progress = ExtResource("3_sdw3l")
+texture_under = ExtResource("2_fnd6t")
+texture_progress = ExtResource("3_yrmce")
 script = ExtResource("4_ksf7c")
 
 [node name="Inventory" parent="." instance=ExtResource("5_ua3kp")]

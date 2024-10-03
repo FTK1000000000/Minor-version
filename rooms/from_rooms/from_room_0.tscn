@@ -1,5 +1,5 @@
-[gd_scene load_steps=2 format=3 uid="uid://067d0jkuxeme"]
+[gd_scene load_steps=2 format=3 uid="uid://bfd0f68a4gew"]
 
-[ext_resource type="PackedScene" uid="uid://bpnytx3rtpcbx" path="res://rooms/from_rooms/from_room.tscn" id="1_qjyn6"]
+[ext_resource type="PackedScene" uid="uid://bpnytx3rtpcbx" path="res://rooms/from_rooms/from_room.tscn" id="1_nccjo"]
 
-[node name="FromRoom0" instance=ExtResource("1_qjyn6")]
+[node name="FromRoom" instance=ExtResource("1_nccjo")]
