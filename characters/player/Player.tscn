@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/characters/player/player.gd" id="1_7sr4c"]
 [ext_resource type="Texture2D" uid="uid://baalc1jtnday8" path="res://resource/characters/player/Sprite player.png" id="2_53s0l"]
 [ext_resource type="Script" path="res://scripts/characters/player/weapon.gd" id="4_536cd"]
-[ext_resource type="PackedScene" uid="uid://d3gvaw81qlatn" path="res://characters/player/weapon.tscn" id="4_gf45q"]
 [ext_resource type="Script" path="res://scripts/characters/hurtbox.gd" id="4_xth6r"]
+[ext_resource type="PackedScene" uid="uid://dxd81bb0b3efb" path="res://characters/player/weapons/swrod.tscn" id="5_b5qmu"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_dbqc7"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_q78is"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_8lig6"]
@@ -233,7 +233,7 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 6
+frame = 7
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 offset_left = -20.0
@@ -279,8 +279,7 @@ shape = SubResource("RectangleShape2D_1utas")
 [node name="Weapon" type="Node2D" parent="."]
 script = ExtResource("4_536cd")
 
-[node name="Weapon" parent="Weapon" instance=ExtResource("4_gf45q")]
-position = Vector2(0, -9.53674e-07)
+[node name="Weapon" parent="Weapon" instance=ExtResource("5_b5qmu")]
 
 [node name="NavArea" type="Area2D" parent="."]
 visible = false
@@ -326,6 +325,12 @@ delay_in_seconds = "0.0"
 
 [node name="Run" type="Node" parent="StateChart/CompoundState/WalkStack"]
 script = ExtResource("9_8lig6")
+
+[node name="ToAttack" type="Node" parent="StateChart/CompoundState/WalkStack/Run"]
+script = ExtResource("10_2mpht")
+to = NodePath("../../../WeaponAttack")
+event = &"weapon_attack"
+delay_in_seconds = "0.0"
 
 [node name="WeaponAttack" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("9_8lig6")

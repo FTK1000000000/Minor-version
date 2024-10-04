@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3gvaw81qlatn"]
+[gd_scene load_steps=8 format=3 uid="uid://dxd81bb0b3efb"]
 
-[ext_resource type="Script" path="res://scripts/characters/player/weapons/Weapon.gd" id="1_6nf3y"]
-[ext_resource type="Texture2D" uid="uid://chb060livauhm" path="res://resource/collectible/weapons/axe.png" id="2_asnnw"]
-[ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="3_mlga5"]
+[ext_resource type="Script" path="res://scripts/characters/player/weapons/Weapon.gd" id="1_t7j87"]
+[ext_resource type="Texture2D" uid="uid://keslc74tlaan" path="res://resource/collectible/weapons/monado_1.png" id="2_jqst0"]
+[ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="3_6n50n"]
+[ext_resource type="Shape2D" uid="uid://bwx2jtl40ppxq" path="res://5.tres" id="4_io4tc"]
 
 [sub_resource type="Animation" id="Animation_84p2f"]
 length = 0.001
@@ -28,13 +29,13 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_o8f3n"]
 resource_name = "attack"
 length = 0.3
-step = 0.05
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -42,10 +43,10 @@ tracks/0/path = NodePath("Weapon:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.15, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.05, 0.3),
+"transitions": PackedFloat32Array(1, 1, 2),
 "update": 0,
-"values": [0.0, 3.14159, -1.0472, 0.0]
+"values": [-1.5708, 2.0944, -1.5708]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -56,8 +57,8 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
+"update": 0,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_epy2l"]
@@ -66,16 +67,14 @@ _data = {
 "attack": SubResource("Animation_o8f3n")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sl01i"]
-size = Vector2(6.62353, 17.9726)
-
 [node name="Weapon" type="Node2D"]
-script = ExtResource("1_6nf3y")
+script = ExtResource("1_t7j87")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("2_asnnw")
-offset = Vector2(10, -10)
+rotation = -1.5708
+texture = ExtResource("2_jqst0")
+offset = Vector2(17.5, 17.5)
+flip_v = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")
@@ -92,13 +91,14 @@ position = Vector2(1.31134e-07, -3)
 scale = Vector2(1.2, 1.2)
 collision_layer = 0
 collision_mask = 1056
-script = ExtResource("3_mlga5")
+script = ExtResource("3_6n50n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(17.9167, -13.75)
-rotation = -2.29143
-scale = Vector2(2.32642, 1.06147)
-shape = SubResource("RectangleShape2D_sl01i")
+position = Vector2(30.8333, -31.6667)
+rotation = 0.790631
+scale = Vector2(0.996535, 0.952744)
+shape = ExtResource("4_io4tc")
+disabled = true
 
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="Hitbox" method="_on_area_exited"]
