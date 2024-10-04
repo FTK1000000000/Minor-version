@@ -3,7 +3,6 @@ class_name Player
 
 signal player_dead
 signal health_changed
-signal weapon_attack
 
 
 @onready var body_texture: Node2D = $Texture/Body
@@ -11,8 +10,11 @@ signal weapon_attack
 @onready var HEAP: AnimationPlayer = $HurtEffectPlayer
 @onready var hurt_effect_timer: Timer = $HurtEffectTimer
 @onready var hurt_box: Hurtbox = $Hurtbox
-@onready var hitbox: Hitbox = $Weapon/Hitbox
-@onready var weapon: Node2D = $Weapon
+
+@onready var weapon_node: Node2D = $Weapon
+@onready var weapon_hitbox: Hitbox = $Weapon.weapon.hitbox
+var weapon_is_attack: bool = false
+
 @onready var state_chart: StateChart = $StateChart
 @onready var inventory: Inventory = preload("res://inventory/player_inventory.tres")
 
@@ -20,7 +22,6 @@ signal weapon_attack
 @export var is_dead: bool = false
 
 var direction: Vector2 = Vector2.ZERO
-var towards: Vector2 = Vector2.ZERO
 
 @export var move_speed: float = 100
 @export var current_health: int
@@ -37,13 +38,16 @@ func _ready():
 	current_health = Global.player_current_health
 	health_changed.emit()
 	
-	hitbox.damage = weapon_attack_damage
+	weapon_node.weapon.animation_player.play("RESET")
+	weapon_hitbox.damage = weapon_attack_damage
 
 func _process(_delta):
 	move_and_slide()
 	get_move_direction()
 	update_animation_parametrs(Vector2.ZERO)
-	weapon_attack_signal()
+	
+	weapon_node.weapon_transform()
+	
 	handle_health()
 	update_state()
 
@@ -53,16 +57,26 @@ func update_state():
 	var switch: bool = false
 	
 	if Input.is_action_pressed("switch"):
-		if switch: switch = false
-		else: switch = true
+		if switch:
+			switch = false
+		else:
+			switch = true
 	
-	if is_dead: state_chart.send_event("dead")
-	if is_still: state_chart.send_event("idle")
+	if is_still:
+		state_chart.send_event("idle")
 	if !is_still:
-		if !is_still && !switch: state_chart.send_event("walk")
-		else: state_chart.send_event("run")
-	#受伤状态由 $HurtBox 发起
+		if !is_still && !switch:
+			state_chart.send_event("walk")
+		else:
+			state_chart.send_event("run")
+	
+	if Input.is_action_pressed("attack"):
+		state_chart.send_event("weapon_attack")
+	
+	if is_dead:
+		state_chart.send_event("dead")
 #更新状态
+#受伤状态由 $HurtBox 发起
 
 func handle_health():
 	if Global.player_current_health <= 0 :
@@ -72,8 +86,7 @@ func handle_health():
 #血量操作
 
 func get_move_direction():
-	if is_dead:
-		return
+	if is_dead: return
 	
 	direction = Input.get_vector("left", "right", "up", "down").normalized()
 	if direction:
@@ -83,25 +96,18 @@ func get_move_direction():
 #移动
 
 func update_animation_parametrs(_move_input : Vector2):
-	if is_dead:
-		return
+	if is_dead: return
 	
-	towards = get_local_mouse_position()
-	if towards.x < 0:
+	var m = get_local_mouse_position()
+	if m.x < 0:
 		weapon_flip = true
 		body_texture.flip_h = true
 	else:
 		weapon_flip = false
 		body_texture.flip_h = false
-	if towards.y > 0:
-		is_forward = true
-		set_z_index(10 + 1)
-	else:
-		is_forward = false
-		set_z_index(10 - 1)
 	
-	antimation_tree["parameters/idle/blend_position"] = towards
-	antimation_tree["parameters/run/blend_position"] = towards
+	antimation_tree["parameters/idle/blend_position"] = m
+	antimation_tree["parameters/run/blend_position"] = m
 	#纹理朝向和渲染索引
 
 func knockback(enemy_velocity : Vector2):
@@ -109,9 +115,6 @@ func knockback(enemy_velocity : Vector2):
 	velocity = knockback_direction
 	move_and_slide()
 
-func weapon_attack_signal():
-	if Input.is_action_pressed("attack"):
-		weapon_attack.emit()
 
 func to_dict() -> Dictionary:
 	return {
@@ -127,28 +130,26 @@ func from_dict(dict: Dictionary):
 func _on_hurt_box_area_entered(area):
 	if area.has_method("collect"):
 		area.collect(inventory)
+	
+	print(name, " pickup: ", area.name, " -> ", area)
 #拾取物品
 
-func _on_dead_state_entered() -> void:
-	#Global.reload_world()
-	pass
-	
 
 func _on_idle_state_entered() -> void:
-	#print("idle")
+	print(name, " state: idle")
 	antimation_tree["parameters/conditions/is_idle"] = true
 	antimation_tree["parameters/conditions/is_run"] = false
 
 
 func _on_walk_stack_state_entered() -> void:
-	#print("walk")
+	print(name, " state: walk.walk")
 	antimation_tree["parameters/conditions/is_idle"] = false
 	antimation_tree["parameters/conditions/is_run"] = true
 	SoundManager.play_sfx("aa")
 
 
 func _on_run_state_entered() -> void:
-	#print("run")
+	print(name, " state: walk.run")
 	move_speed = 150
 
 
@@ -156,8 +157,13 @@ func _on_run_state_exited() -> void:
 	move_speed = 100
 
 
+func _on_weapon_attack_state_entered() -> void:
+	print(name, " state: weapon_attack")
+	weapon_node.weapon_attack()
+
+
 func _on_hurt_state_entered() -> void:
-	#print("hurt")
+	print(name, " state: hurt")
 	Global.player_current_health = current_health
 	health_changed.emit()
 	is_hurt = true
@@ -167,3 +173,8 @@ func _on_hurt_state_entered() -> void:
 	
 	HEAP.play("RESET")
 	is_hurt = false
+
+
+func _on_dead_state_entered() -> void:
+	print(name, " state: dead")
+	pass

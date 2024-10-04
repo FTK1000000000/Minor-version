@@ -216,7 +216,6 @@ size = Vector2(20, 26)
 z_index = 10
 collision_layer = 4
 collision_mask = 9
-floor_constant_speed = true
 platform_floor_layers = 4294901761
 script = ExtResource("1_7sr4c")
 
@@ -233,7 +232,7 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 6
+frame = 5
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 offset_left = -20.0
@@ -280,7 +279,6 @@ shape = SubResource("RectangleShape2D_1utas")
 script = ExtResource("4_536cd")
 
 [node name="Weapon" parent="Weapon" instance=ExtResource("4_gf45q")]
-position = Vector2(0, -9.53674e-07)
 
 [node name="NavArea" type="Area2D" parent="."]
 visible = false
@@ -302,13 +300,22 @@ script = ExtResource("7_dbqc7")
 script = ExtResource("8_q78is")
 initial_state = NodePath("Idle")
 
+[node name="Dead" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("9_8lig6")
+
 [node name="Idle" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("9_8lig6")
 
-[node name="ToAttack" type="Node" parent="StateChart/CompoundState/Idle"]
+[node name="walk" type="Node" parent="StateChart/CompoundState/Idle"]
 script = ExtResource("10_2mpht")
-to = NodePath("../../WeaponAttack")
-event = &"weapon_attack"
+to = NodePath("../../WalkStack/Walk")
+event = &"walk"
+delay_in_seconds = "0.0"
+
+[node name="run" type="Node" parent="StateChart/CompoundState/Idle"]
+script = ExtResource("10_2mpht")
+to = NodePath("../../WalkStack/Run")
+event = &"run"
 delay_in_seconds = "0.0"
 
 [node name="WalkStack" type="Node" parent="StateChart/CompoundState"]
@@ -318,65 +325,46 @@ initial_state = NodePath("Walk")
 [node name="Walk" type="Node" parent="StateChart/CompoundState/WalkStack"]
 script = ExtResource("9_8lig6")
 
-[node name="ToAttack" type="Node" parent="StateChart/CompoundState/WalkStack/Walk"]
+[node name="idle" type="Node" parent="StateChart/CompoundState/WalkStack/Walk"]
 script = ExtResource("10_2mpht")
-to = NodePath("../../../WeaponAttack")
-event = &"weapon_attack"
+to = NodePath("../../../Idle")
+event = &"idle"
 delay_in_seconds = "0.0"
 
 [node name="Run" type="Node" parent="StateChart/CompoundState/WalkStack"]
 script = ExtResource("9_8lig6")
 
-[node name="WeaponAttack" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("9_8lig6")
-
-[node name="ToHurt" type="Node" parent="StateChart/CompoundState/WeaponAttack"]
+[node name="idle" type="Node" parent="StateChart/CompoundState/WalkStack/Run"]
 script = ExtResource("10_2mpht")
-to = NodePath("../../Hurt")
-event = &"hurt"
+to = NodePath("../../../Idle")
+event = &"idle"
 delay_in_seconds = "0.0"
 
 [node name="Hurt" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("9_8lig6")
 
-[node name="Dead" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("9_8lig6")
-
-[node name="ToIdle" type="Node" parent="StateChart/CompoundState"]
+[node name="idle" type="Node" parent="StateChart/CompoundState/Hurt"]
 script = ExtResource("10_2mpht")
-to = NodePath("../Idle")
+to = NodePath("../../Idle")
 event = &"idle"
 delay_in_seconds = "0.0"
 
-[node name="ToWalk" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("10_2mpht")
-to = NodePath("../WalkStack/Walk")
-event = &"walk"
-delay_in_seconds = "0.0"
-
-[node name="ToRun" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("10_2mpht")
-to = NodePath("../WalkStack/Run")
-event = &"run"
-delay_in_seconds = "0.0"
-
-[node name="ToHurt" type="Node" parent="StateChart/CompoundState"]
-script = ExtResource("10_2mpht")
-to = NodePath("../Hurt")
-event = &"hurt"
-delay_in_seconds = "0.0"
-
-[node name="ToDead" type="Node" parent="StateChart/CompoundState"]
+[node name="dead" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("10_2mpht")
 to = NodePath("../Dead")
 event = &"dead"
 delay_in_seconds = "0.0"
 
+[node name="hurt" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("10_2mpht")
+to = NodePath("../Hurt")
+event = &"hurt"
+delay_in_seconds = "0.0"
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack" to="." method="_on_walk_stack_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_exited"]
-[connection signal="state_entered" from="StateChart/CompoundState/WeaponAttack" to="." method="_on_weapon_attack_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_entered"]
-[connection signal="state_entered" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]

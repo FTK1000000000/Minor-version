@@ -1,0 +1,104 @@
+[gd_scene load_steps=8 format=3 uid="uid://d3gvaw81qlatn"]
+
+[ext_resource type="Script" path="res://scripts/characters/player/weapons/Weapon.gd" id="1_6nf3y"]
+[ext_resource type="Texture2D" uid="uid://chb060livauhm" path="res://resource/collectible/weapons/axe.png" id="2_asnnw"]
+[ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="3_mlga5"]
+
+[sub_resource type="Animation" id="Animation_84p2f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_o8f3n"]
+resource_name = "attack"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, -1.0472, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_epy2l"]
+_data = {
+"RESET": SubResource("Animation_84p2f"),
+"attack": SubResource("Animation_o8f3n")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sl01i"]
+size = Vector2(6.62353, 17.9726)
+
+[node name="Weapon" type="Node2D"]
+script = ExtResource("1_6nf3y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_asnnw")
+offset = Vector2(10, -10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_epy2l")
+}
+
+[node name="WeaponAttackReadyTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(1.31134e-07, -3)
+scale = Vector2(1.2, 1.2)
+collision_layer = 0
+collision_mask = 1056
+script = ExtResource("3_mlga5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(17.9167, -13.75)
+rotation = -2.29143
+scale = Vector2(2.32642, 1.06147)
+shape = SubResource("RectangleShape2D_sl01i")
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="Hitbox" method="_on_area_exited"]
