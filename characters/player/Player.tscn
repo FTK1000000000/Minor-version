@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://baalc1jtnday8" path="res://resource/characters/player/Sprite player.png" id="2_53s0l"]
 [ext_resource type="Script" path="res://scripts/characters/player/weapon.gd" id="4_536cd"]
 [ext_resource type="Script" path="res://scripts/characters/hurtbox.gd" id="4_xth6r"]
-[ext_resource type="PackedScene" uid="uid://dxd81bb0b3efb" path="res://characters/player/weapons/swrod.tscn" id="5_b5qmu"]
+[ext_resource type="PackedScene" uid="uid://dxd81bb0b3efb" path="res://weapon/swrod.tscn" id="5_b5qmu"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_dbqc7"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_q78is"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_8lig6"]
@@ -233,15 +233,19 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 7
+frame = 5
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
-offset_left = -20.0
-offset_top = -21.0
-offset_right = 20.0
-offset_bottom = 19.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(1, 1, 1, 0)
-metadata/_edit_use_anchors_ = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_2brwx")
@@ -304,9 +308,9 @@ initial_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("9_8lig6")
 
-[node name="ToAttack" type="Node" parent="StateChart/CompoundState/Idle"]
+[node name="ToWAttack" type="Node" parent="StateChart/CompoundState/Idle"]
 script = ExtResource("10_2mpht")
-to = NodePath("../../WeaponAttack")
+to = NodePath("../../Attack/WeaponAttack")
 event = &"weapon_attack"
 delay_in_seconds = "0.0"
 
@@ -317,27 +321,25 @@ initial_state = NodePath("Walk")
 [node name="Walk" type="Node" parent="StateChart/CompoundState/WalkStack"]
 script = ExtResource("9_8lig6")
 
-[node name="ToAttack" type="Node" parent="StateChart/CompoundState/WalkStack/Walk"]
-script = ExtResource("10_2mpht")
-to = NodePath("../../../WeaponAttack")
-event = &"weapon_attack"
-delay_in_seconds = "0.0"
-
 [node name="Run" type="Node" parent="StateChart/CompoundState/WalkStack"]
 script = ExtResource("9_8lig6")
 
-[node name="ToAttack" type="Node" parent="StateChart/CompoundState/WalkStack/Run"]
+[node name="ToWAttack" type="Node" parent="StateChart/CompoundState/WalkStack"]
 script = ExtResource("10_2mpht")
-to = NodePath("../../../WeaponAttack")
+to = NodePath("../../Attack/WeaponAttack")
 event = &"weapon_attack"
 delay_in_seconds = "0.0"
 
-[node name="WeaponAttack" type="Node" parent="StateChart/CompoundState"]
+[node name="Attack" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("8_q78is")
+initial_state = NodePath("WeaponAttack")
+
+[node name="WeaponAttack" type="Node" parent="StateChart/CompoundState/Attack"]
 script = ExtResource("9_8lig6")
 
-[node name="ToHurt" type="Node" parent="StateChart/CompoundState/WeaponAttack"]
+[node name="ToHurt" type="Node" parent="StateChart/CompoundState/Attack/WeaponAttack"]
 script = ExtResource("10_2mpht")
-to = NodePath("../../Hurt")
+to = NodePath("../../../Hurt")
 event = &"hurt"
 delay_in_seconds = "0.0"
 
@@ -382,6 +384,6 @@ delay_in_seconds = "0.0"
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack" to="." method="_on_walk_stack_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_exited"]
-[connection signal="state_entered" from="StateChart/CompoundState/WeaponAttack" to="." method="_on_weapon_attack_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/Attack/WeaponAttack" to="." method="_on_weapon_attack_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]

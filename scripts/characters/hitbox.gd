@@ -3,12 +3,12 @@ class_name Hitbox
 
 
 var collision_ready: bool = true
-var ready_time: int = 1
+var target: Area2D = null
+
 var damage: int = 10
 var knockback_force: int = 300
 var knockback_direction: Vector2 = Vector2.ZERO
-var target: Area2D = null
-
+var ready_time: int = 1
 
 func _process(_delta: float) -> void:
 	if collision_ready && target:

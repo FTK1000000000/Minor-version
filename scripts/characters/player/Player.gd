@@ -13,7 +13,7 @@ signal health_changed
 
 @onready var weapon_node: Node2D = $Weapon
 @onready var weapon_hitbox: Hitbox = $Weapon.weapon.hitbox
-var weapon_is_attack: bool = false
+var is_weapon_attack: bool = false
 
 @onready var state_chart: StateChart = $StateChart
 @onready var inventory: Inventory = preload("res://inventory/player_inventory.tres")
@@ -34,22 +34,26 @@ var weapon_flip: bool = true
 
 
 func _ready():
-	if get_tree().current_scene is WORLD: Global.game_save()
+	if get_tree().current_scene is WORLD:
+		Global.game_save()
 	current_health = Global.player_current_health
 	health_changed.emit()
 	
 	weapon_node.weapon.animation_player.play("RESET")
-	weapon_hitbox.damage = weapon_attack_damage
+	if weapon_attack_damage != 0:
+		weapon_hitbox.damage = weapon_attack_damage
 
 func _process(_delta):
 	move_and_slide()
 	get_move_direction()
-	update_animation_parametrs(Vector2.ZERO)
 	
-	weapon_node.weapon_transform()
+	update_state()
+	update_animation_parametrs()
 	
 	handle_health()
-	update_state()
+	
+	weapon_node.weapon_transform()
+	weapon_node.weapon_special_attack()
 
 
 func update_state():
@@ -70,8 +74,10 @@ func update_state():
 		else:
 			state_chart.send_event("run")
 	
-	if Input.is_action_pressed("attack"):
+	if Input.is_action_just_pressed("attack"):
 		state_chart.send_event("weapon_attack")
+	elif Input.is_action_pressed("attack_special"):
+		state_chart.send_event("weapon_special_attack")
 	
 	if is_dead:
 		state_chart.send_event("dead")
@@ -95,7 +101,7 @@ func get_move_direction():
 		velocity = Vector2.ZERO
 #移动
 
-func update_animation_parametrs(_move_input : Vector2):
+func update_animation_parametrs():
 	if is_dead: return
 	
 	var m = get_local_mouse_position()
@@ -136,7 +142,7 @@ func _on_hurt_box_area_entered(area):
 
 
 func _on_idle_state_entered() -> void:
-	print(name, " state: idle")
+	#print(name, " state: idle")
 	antimation_tree["parameters/conditions/is_idle"] = true
 	antimation_tree["parameters/conditions/is_run"] = false
 
@@ -145,7 +151,7 @@ func _on_walk_stack_state_entered() -> void:
 	print(name, " state: walk.walk")
 	antimation_tree["parameters/conditions/is_idle"] = false
 	antimation_tree["parameters/conditions/is_run"] = true
-	SoundManager.play_sfx("aa")
+	#SoundManager.play_sfx("aa")
 
 
 func _on_run_state_entered() -> void:
@@ -160,6 +166,11 @@ func _on_run_state_exited() -> void:
 func _on_weapon_attack_state_entered() -> void:
 	print(name, " state: weapon_attack")
 	weapon_node.weapon_attack()
+
+
+func _on_weapon_special_attack_state_entered() -> void:
+	print(name, " state: weapon_special_attack")
+	weapon_node.weapon_special_attack()
 
 
 func _on_hurt_state_entered() -> void:

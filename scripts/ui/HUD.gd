@@ -4,8 +4,11 @@ extends CanvasLayer
 @onready var options_menu: CanvasLayer = $OptionsMenu
 @onready var pause_layer: CanvasLayer = $Pause
 @onready var game_over_screen: CanvasLayer = $GameOverScreen
+
 @onready var player_health_bar: TextureProgressBar = $PlayerHealthBar
-@onready var inventory = $Inventory
+@onready var weapon_attack_ready_bar: TextureProgressBar = $WeaponAttackReadyBar
+@onready var inventory: Control = $Inventory
+
 @onready var player: Player = $"../Player"
 
 

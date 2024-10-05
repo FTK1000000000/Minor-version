@@ -23,12 +23,15 @@ func weapon_transform(
 			weapon.scale.y = 1
 
 func weapon_attack():
-	player.weapon_is_attack = true
-	if player.weapon_is_attack && weapon.attack_ready_timer.time_left == 0:
+	player.is_weapon_attack = true
+	if player.is_weapon_attack && weapon.attack_ready_timer.time_left == 0:
 		weapon.attack_ready_timer.start()
 		weapon.animation_player.play("attack")
 		
 		await weapon.attack_ready_timer.timeout
 		
-		player.weapon_is_attack = false
+		player.is_weapon_attack = false
 		weapon.animation_player.play("RESET")
+
+func weapon_special_attack():
+	weapon.special_attack()

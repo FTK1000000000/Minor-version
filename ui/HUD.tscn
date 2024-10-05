@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cak2vpn16lujs"]
+[gd_scene load_steps=11 format=3 uid="uid://cak2vpn16lujs"]
 
 [ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_0wxeb"]
 [ext_resource type="Texture2D" uid="uid://buc2u0kx23beg" path="res://resource/ui/health_bar/playerHealthBar1.png" id="2_fnd6t"]
@@ -7,6 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory/inventory.tscn" id="5_ua3kp"]
 [ext_resource type="PackedScene" uid="uid://cfykf5o0g2omm" path="res://ui/options_menu.tscn" id="6_mw57f"]
 [ext_resource type="PackedScene" uid="uid://b6frd381y8jx3" path="res://ui/game_over_screen.tscn" id="7_b6b1u"]
+[ext_resource type="Texture2D" uid="uid://blucbbnnidaro" path="res://resource/ui/cursor/weapon_attack_ready_bar.png" id="8_obqo4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wa7yi"]
+atlas = ExtResource("8_obqo4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t68yo"]
+atlas = ExtResource("8_obqo4")
+region = Rect2(16, 0, 16, 16)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_0wxeb")
@@ -23,7 +32,24 @@ texture_under = ExtResource("2_fnd6t")
 texture_progress = ExtResource("3_yrmce")
 script = ExtResource("4_ksf7c")
 
+[node name="WeaponAttackReadyBar" type="TextureProgressBar" parent="."]
+offset_right = 16.0
+offset_bottom = 16.0
+scale = Vector2(10, 10)
+texture_under = SubResource("AtlasTexture_wa7yi")
+texture_progress = SubResource("AtlasTexture_t68yo")
+
 [node name="Inventory" parent="." instance=ExtResource("5_ua3kp")]
+offset_left = 1.0
+offset_top = 6.0
+offset_right = 1.0
+offset_bottom = 6.0
+
+[node name="GameOverScreen" parent="." instance=ExtResource("7_b6b1u")]
+visible = false
+
+[node name="OptionsMenu" parent="." instance=ExtResource("6_mw57f")]
+visible = false
 
 [node name="Pause" type="CanvasLayer" parent="."]
 visible = false
@@ -41,9 +67,3 @@ offset_right = 51.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 50
 text = "PUASE"
-
-[node name="GameOverScreen" parent="." instance=ExtResource("7_b6b1u")]
-visible = false
-
-[node name="OptionsMenu" parent="." instance=ExtResource("6_mw57f")]
-visible = false
