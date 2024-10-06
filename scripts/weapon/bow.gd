@@ -2,7 +2,7 @@ extends Weapon
 class_name Bow
 
 
-var ammo = preload("res://characters/ammo/arrow.tscn")
+var ammo = preload("res://ammo/arrow/arrow.tscn")
 @export var arrow_speed: int = 400
 
 
@@ -28,6 +28,7 @@ func shoot():
 	elif Input.is_action_just_released("attack_special") && current_charge <= need_charge:
 		current_charge = 0
 		animation_player.play("charge_complete")
+		launch()
 
 func launch():
 	var projectile = ammo.instantiate()

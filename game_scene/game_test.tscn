@@ -57,9 +57,9 @@ path = "res://game_scene/main.tscn"
 position = Vector2(183, 502)
 
 [node name="Enemy" parent="." instance=ExtResource("5_737s5")]
-position = Vector2(352, 473)
+position = Vector2(513, 655)
 
 [node name="RangedEnemy" parent="." instance=ExtResource("6_864b8")]
-position = Vector2(346, 454)
+position = Vector2(580, 597)
 
 [node name="HUD" parent="." instance=ExtResource("7_orqs7")]

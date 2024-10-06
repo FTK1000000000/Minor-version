@@ -5,6 +5,9 @@ class_name Ammo
 const HIT_EXPLOSION_SCENE: PackedScene = preload("res://characters/spawn_expansion.tscn")
 
 
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var sprite_2d: Sprite2D = $Sprite2D
+
 var collision_exited: bool = false
 
 var direction: Vector2 = Vector2.ZERO
@@ -34,6 +37,10 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int):
 
 
 func _on_area_entered(area: Area2D) -> void:
+	var hit_explosion_scene = HIT_EXPLOSION_SCENE.instantiate()
+	area.add_child(hit_explosion_scene)
+	hit_explosion_scene.position = position
+	
 	area.take_damage(damage, knockback_direction, knockback_force)
 	
 	queue_free()
