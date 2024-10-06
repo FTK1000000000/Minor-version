@@ -4,6 +4,7 @@ class_name Ammo
 
 const HIT_EXPLOSION_SCENE: PackedScene = preload("res://characters/spawn_expansion.tscn")
 
+
 var collision_exited: bool = false
 
 var direction: Vector2 = Vector2.ZERO
@@ -26,11 +27,10 @@ func dead():
 
 func launch(initial_position: Vector2, dir: Vector2, speed: int):
 	position = initial_position
+	rotation = dir.angle()
 	direction = dir
 	knockback_direction = dir
 	knife_speed = speed
-	
-	rotation += dir.angle() + PI/4
 
 
 func _on_area_entered(area: Area2D) -> void:

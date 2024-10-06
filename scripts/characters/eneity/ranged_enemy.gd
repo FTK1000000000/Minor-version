@@ -5,7 +5,7 @@ class_name RangedEnemy
 
 @onready var ranged_attack_timer: Timer = $RangedAttackTimer
 
-var ammo = preload("res://characters/derivative/ammo.tscn")
+var ammo = preload("res://characters/ammo/ammo.tscn")
 
 var max_distance_to_player: int = 160
 var min_distance_to_player: int = 128

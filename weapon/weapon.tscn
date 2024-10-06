@@ -1,12 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3gvaw81qlatn"]
+[gd_scene load_steps=4 format=3 uid="uid://d3gvaw81qlatn"]
 
 [ext_resource type="Script" path="res://scripts/weapon/weapon.gd" id="1_cwbe8"]
-[ext_resource type="Texture2D" uid="uid://keslc74tlaan" path="res://resource/collectible/weapons/monado_1.png" id="2_1rnyv"]
+[ext_resource type="Texture2D" uid="uid://keslc74tlaan" path="res://resource/weapons/monado_1.png" id="2_1rnyv"]
 [ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="3_58pre"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0xkt5"]
-radius = 7.77817
-height = 61.2267
 
 [node name="Weapon" type="Node2D"]
 script = ExtResource("1_cwbe8")
@@ -34,14 +30,11 @@ collision_layer = 0
 collision_mask = 1056
 script = ExtResource("3_58pre")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(21, 26)
-rotation = 8.61845
-shape = SubResource("CapsuleShape2D_0xkt5")
-disabled = true
-
 [node name="AttackReadyTimer" type="Timer" parent="."]
 wait_time = 0.3
+one_shot = true
+
+[node name="ChargeAttackReadyTimer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]

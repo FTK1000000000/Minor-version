@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://baalc1jtnday8" path="res://resource/characters/player/Sprite player.png" id="2_53s0l"]
 [ext_resource type="Script" path="res://scripts/characters/player/weapon.gd" id="4_536cd"]
 [ext_resource type="Script" path="res://scripts/characters/hurtbox.gd" id="4_xth6r"]
-[ext_resource type="PackedScene" uid="uid://dxd81bb0b3efb" path="res://weapon/swrod.tscn" id="5_b5qmu"]
+[ext_resource type="PackedScene" uid="uid://byelhp6djwkr" path="res://weapon/bow.tscn" id="5_sf1sm"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_dbqc7"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_q78is"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_8lig6"]
@@ -233,7 +233,7 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 5
+frame = 6
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
@@ -283,7 +283,8 @@ shape = SubResource("RectangleShape2D_1utas")
 [node name="Weapon" type="Node2D" parent="."]
 script = ExtResource("4_536cd")
 
-[node name="Weapon" parent="Weapon" instance=ExtResource("5_b5qmu")]
+[node name="Bow" parent="Weapon" instance=ExtResource("5_sf1sm")]
+arrow_speed = 400
 
 [node name="NavArea" type="Area2D" parent="."]
 visible = false

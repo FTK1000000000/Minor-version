@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://keslc74tlaan"
-path="res://.godot/imported/monado_1.png-776ba43ac2683922ced17ecbc62ee57a.ctex"
+uid="uid://jkaj0og55jy"
+path="res://.godot/imported/bow.png-ed5e29d1a9a4543bda99e71b97a0e9f1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resource/collectible/weapons/monado_1.png"
-dest_files=["res://.godot/imported/monado_1.png-776ba43ac2683922ced17ecbc62ee57a.ctex"]
+source_file="res://resource/weapons/bow.png"
+dest_files=["res://.godot/imported/bow.png-ed5e29d1a9a4543bda99e71b97a0e9f1.ctex"]
 
 [params]
 

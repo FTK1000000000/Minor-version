@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjpiml3a6o0ss"]
+
+[ext_resource type="PackedScene" uid="uid://cvrm5ma7lgtxg" path="res://characters/ammo/ammo.tscn" id="1_5y5gd"]
+[ext_resource type="Texture2D" uid="uid://bnxnr7iccdcoa" path="res://resource/ammo/arrow.png" id="2_wemrw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l8uup"]
+radius = 5.0
+height = 36.0
+
+[node name="Ammo" instance=ExtResource("1_5y5gd")]
+scale = Vector2(1, 1)
+collision_layer = 64
+collision_mask = 33
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(1, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_l8uup")
+
+[node name="Sprite2D" parent="." index="1"]
+modulate = Color(1, 1, 1, 1)
+rotation = 0.785398
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("2_wemrw")

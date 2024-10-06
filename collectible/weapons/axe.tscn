@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b206wlen0bkw3" path="res://collectible/collectible.tscn" id="1_ksun1"]
 [ext_resource type="Script" path="res://scripts/collectibles/weapons/axe.gd" id="2_6c0qr"]
 [ext_resource type="Resource" uid="uid://csxvrwbnhg5p3" path="res://inventory/items/weapons/axe.tres" id="3_737qg"]
-[ext_resource type="Texture2D" uid="uid://chb060livauhm" path="res://textures/collectible/weapons/axe.png" id="3_uffbl"]
+[ext_resource type="Texture2D" uid="uid://chb060livauhm" path="res://resource/weapons/axe.png" id="3_uffbl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqu4p"]
 resource_local_to_scene = true
