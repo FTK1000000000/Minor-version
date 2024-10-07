@@ -1,10 +1,11 @@
-[gd_scene load_steps=36 format=3 uid="uid://c76kqdervowc5"]
+[gd_scene load_steps=37 format=3 uid="uid://c76kqdervowc5"]
 
 [ext_resource type="Script" path="res://scripts/characters/player/player.gd" id="1_7sr4c"]
 [ext_resource type="Texture2D" uid="uid://baalc1jtnday8" path="res://resource/characters/player/Sprite player.png" id="2_53s0l"]
 [ext_resource type="Script" path="res://scripts/characters/player/weapon.gd" id="4_536cd"]
 [ext_resource type="Script" path="res://scripts/characters/hurtbox.gd" id="4_xth6r"]
 [ext_resource type="PackedScene" uid="uid://byelhp6djwkr" path="res://weapon/bow.tscn" id="5_sf1sm"]
+[ext_resource type="PackedScene" uid="uid://dxd81bb0b3efb" path="res://weapon/swrod.tscn" id="6_xqiga"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_dbqc7"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_q78is"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_8lig6"]
@@ -233,7 +234,7 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 6
+frame = 7
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
@@ -271,6 +272,9 @@ libraries = {
 wait_time = 0.4
 one_shot = true
 
+[node name="EnduranceRecoverTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 2
@@ -284,7 +288,8 @@ shape = SubResource("RectangleShape2D_1utas")
 script = ExtResource("4_536cd")
 
 [node name="Bow" parent="Weapon" instance=ExtResource("5_sf1sm")]
-arrow_speed = 400
+
+[node name="Swrod" parent="Weapon" instance=ExtResource("6_xqiga")]
 
 [node name="NavArea" type="Area2D" parent="."]
 visible = false

@@ -8,16 +8,14 @@ const HIT_EXPLOSION_SCENE: PackedScene = preload("res://characters/spawn_expansi
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
-var collision_exited: bool = false
+@export var collision_exited: bool = false
 
-var direction: Vector2 = Vector2.ZERO
-var knife_speed: int
-var life_cycle: float = 5
+@export var direction: Vector2 = Vector2.ZERO
+@export var knife_speed: int
+@export var life_cycle: float = 5
 
 
 func _ready() -> void:
-	damage = 25
-	
 	dead()
 
 func _physics_process(delta: float) -> void:

@@ -18,7 +18,10 @@ var sfx_enabled:
 var player = preload("res://characters/player/Player.tscn").instantiate()
 var player_dead: bool = false
 var player_max_health: int = 100
+var player_max_endurance: int = 50
+
 var player_current_health: int
+var player_current_endurance: int
 var player_kill: int = 0
 
 var started_at: int = Time.get_unix_time_from_system()
@@ -32,6 +35,7 @@ func _ready():
 	config_load()
 	
 	player_current_health = player_max_health
+	player_current_endurance = player_max_endurance
 
 
 func visibled(node):
@@ -131,7 +135,8 @@ func game_save():
 	var data = {
 		player = {
 			max_health = player_max_health,
-			current_health = player_current_health
+			current_health = player_current_health,
+			max_endurance = player_max_endurance
 		},
 		world = {
 			room_group_level = room_group_level,
@@ -153,6 +158,7 @@ func game_load():
 	
 	player_max_health = data.player.max_health
 	player_current_health = data.player.current_health
+	player_max_endurance = data.player.max_endurance
 	
 	go_to_world("res://game_scene/main.tscn")
 	var scene = get_tree().current_scene

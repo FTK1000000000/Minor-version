@@ -1,12 +1,14 @@
 extends CanvasLayer
+class_name HUD
 
 
 @onready var options_menu: CanvasLayer = $OptionsMenu
 @onready var pause_layer: CanvasLayer = $Pause
 @onready var game_over_screen: CanvasLayer = $GameOverScreen
 
-@onready var player_health_bar: TextureProgressBar = $PlayerHealthBar
-@onready var weapon_attack_ready_bar: TextureProgressBar = $WeaponAttackReadyBar
+@onready var player_variable_container: VBoxContainer = $PlayerVariable
+@onready var player_health_bar: TextureProgressBar = $PlayerVariable/PlayerHealthBar
+@onready var player_endurance_bar: TextureProgressBar = $PlayerVariable/PlayerEnduranceBar
 @onready var inventory: Control = $Inventory
 
 @onready var player: Player = $"../Player"

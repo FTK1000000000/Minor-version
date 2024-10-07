@@ -1,13 +1,29 @@
-[gd_scene load_steps=11 format=3 uid="uid://cak2vpn16lujs"]
+[gd_scene load_steps=15 format=3 uid="uid://cak2vpn16lujs"]
 
-[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_0wxeb"]
-[ext_resource type="Texture2D" uid="uid://buc2u0kx23beg" path="res://resource/ui/health_bar/playerHealthBar1.png" id="2_fnd6t"]
-[ext_resource type="Texture2D" uid="uid://bqcey0kwg1rx0" path="res://resource/ui/health_bar/playerHealthBar2.png" id="3_yrmce"]
-[ext_resource type="Script" path="res://scripts/ui/player_health_bar.gd" id="4_ksf7c"]
+[ext_resource type="Script" path="res://scripts/ui/hud/HUD.gd" id="1_0wxeb"]
+[ext_resource type="Texture2D" uid="uid://yyucri88rf6y" path="res://resource/ui/hud/player_variable_bar/player_variable_bar.png" id="2_w56ye"]
+[ext_resource type="Script" path="res://scripts/ui/hud/player_endurance_bar.gd" id="4_g22ej"]
+[ext_resource type="Script" path="res://scripts/ui/hud/player_health_bar.gd" id="4_ksf7c"]
 [ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory/inventory.tscn" id="5_ua3kp"]
 [ext_resource type="PackedScene" uid="uid://cfykf5o0g2omm" path="res://ui/options_menu.tscn" id="6_mw57f"]
 [ext_resource type="PackedScene" uid="uid://b6frd381y8jx3" path="res://ui/game_over_screen.tscn" id="7_b6b1u"]
 [ext_resource type="Texture2D" uid="uid://blucbbnnidaro" path="res://resource/ui/cursor/weapon_attack_ready_bar.png" id="8_obqo4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qroae"]
+atlas = ExtResource("2_w56ye")
+region = Rect2(0, 0, 320, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ludgh"]
+atlas = ExtResource("2_w56ye")
+region = Rect2(0, 32, 320, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfauq"]
+atlas = ExtResource("2_w56ye")
+region = Rect2(0, 0, 320, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eibq4"]
+atlas = ExtResource("2_w56ye")
+region = Rect2(0, 64, 320, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wa7yi"]
 atlas = ExtResource("8_obqo4")
@@ -20,17 +36,29 @@ region = Rect2(16, 0, 16, 16)
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_0wxeb")
 
-[node name="PlayerHealthBar" type="TextureProgressBar" parent="."]
+[node name="PlayerVariable" type="VBoxContainer" parent="."]
 offset_right = 320.0
-offset_bottom = 32.0
-scale = Vector2(1.03373, 1.27764)
+offset_bottom = 68.0
+
+[node name="PlayerHealthBar" type="TextureProgressBar" parent="PlayerVariable"]
+layout_mode = 2
 stretch_margin_left = 4
 stretch_margin_top = 4
 stretch_margin_right = 4
 stretch_margin_bottom = 4
-texture_under = ExtResource("2_fnd6t")
-texture_progress = ExtResource("3_yrmce")
+texture_under = SubResource("AtlasTexture_qroae")
+texture_progress = SubResource("AtlasTexture_ludgh")
 script = ExtResource("4_ksf7c")
+
+[node name="PlayerEnduranceBar" type="TextureProgressBar" parent="PlayerVariable"]
+layout_mode = 2
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = SubResource("AtlasTexture_qfauq")
+texture_progress = SubResource("AtlasTexture_eibq4")
+script = ExtResource("4_g22ej")
 
 [node name="WeaponAttackReadyBar" type="TextureProgressBar" parent="."]
 offset_right = 16.0

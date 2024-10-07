@@ -24,14 +24,20 @@ func weapon_transform(
 
 func weapon_attack():
 	player.is_weapon_attack = true
-	if player.is_weapon_attack && weapon.attack_ready_timer.time_left == 0:
-		weapon.attack_ready_timer.start()
-		weapon.animation_player.play("attack")
-		
-		await weapon.attack_ready_timer.timeout
-		
-		player.is_weapon_attack = false
-		weapon.animation_player.play("RESET")
+	if (
+		player.is_weapon_attack &&
+		player.current_endurance >= weapon.attack_consume_endurance &&
+		weapon.attack_ready_timer.time_left == 0
+		):
+			weapon.attack_ready_timer.start()
+			weapon.animation_player.play("attack")
+			player.current_endurance -= weapon.attack_consume_endurance
+			player.endurance_changed.emit()
+			player.is_endurance_consume = true
+			await weapon.attack_ready_timer.timeout
+			
+			player.is_weapon_attack = false
+			weapon.animation_player.play("RESET")
 
 func weapon_special_attack():
 	weapon.special_attack()

@@ -1,47 +1,56 @@
 extends CharacterBody2D
 class_name Player
 
-signal player_dead
 signal health_changed
+signal endurance_changed
+signal player_dead
 
 
 @onready var body_texture: Node2D = $Texture/Body
 @onready var antimation_tree: AnimationTree = $AnimationTree
 @onready var HEAP: AnimationPlayer = $HurtEffectPlayer
+@onready var endurance_recover_timer: Timer = $EnduranceRecoverTimer
 @onready var hurt_effect_timer: Timer = $HurtEffectTimer
 @onready var hurt_box: Hurtbox = $Hurtbox
 
 @onready var weapon_node: Node2D = $Weapon
 @onready var weapon_hitbox: Hitbox = $Weapon.weapon.hitbox
-var is_weapon_attack: bool = false
 
 @onready var state_chart: StateChart = $StateChart
 @onready var inventory: Inventory = preload("res://inventory/player_inventory.tres")
 
-@export var attack: bool = false
-@export var is_dead: bool = false
+@export var direction: Vector2 = Vector2.ZERO
 
-var direction: Vector2 = Vector2.ZERO
-
-@export var move_speed: float = 100
+@export var walk_move_speed: int = 100
+@export var run_move_speed: int = 200
+@export var current_move_speed: int
 @export var current_health: int
-@export var weapon_attack_damage: int = 10
-var knockback_power: int = 3000
-var is_hurt: bool = false
+@export var current_endurance: int
+@export var endurance_recover_amount: int = 10
+@export var endurance_recover_speed: float = 0.2
+@export var knockback_power: int = 3000
 
-var is_forward: bool = true
-var weapon_flip: bool = true
+@export var is_weapon_attack: bool = false
+@export var is_endurance_consume: bool = false
+@export var is_hurt: bool = false
+
+@export var is_forward: bool = true
+@export var weapon_flip: bool = true
+@export var is_dead: bool = false
 
 
 func _ready():
 	if get_tree().current_scene is WORLD:
 		Global.game_save()
 	current_health = Global.player_current_health
-	health_changed.emit()
+	current_endurance = Global.player_current_endurance
 	
+	current_move_speed = walk_move_speed
+	endurance_recover_timer.wait_time = endurance_recover_speed
+	
+	health_changed.emit()
+	endurance_changed.emit()
 	weapon_node.weapon.animation_player.play("RESET")
-	if weapon_attack_damage != 0:
-		weapon_hitbox.damage = weapon_attack_damage
 
 func _process(_delta):
 	move_and_slide()
@@ -51,6 +60,7 @@ func _process(_delta):
 	update_animation_parametrs()
 	
 	handle_health()
+	headle_endurance()
 	
 	weapon_node.weapon_transform()
 	weapon_node.weapon_special_attack()
@@ -71,13 +81,11 @@ func update_state():
 	if !is_still:
 		if !is_still && !switch:
 			state_chart.send_event("walk")
-		else:
+		elif !is_still && switch && current_endurance != 0:
 			state_chart.send_event("run")
 	
 	if Input.is_action_just_pressed("attack"):
 		state_chart.send_event("weapon_attack")
-	elif Input.is_action_pressed("attack_special"):
-		state_chart.send_event("weapon_special_attack")
 	
 	if is_dead:
 		state_chart.send_event("dead")
@@ -85,18 +93,37 @@ func update_state():
 #受伤状态由 $HurtBox 发起
 
 func handle_health():
-	if Global.player_current_health <= 0 :
+	if Global.player_current_health <= 0:
 		is_dead = true
 		Global.player_dead = true
 		player_dead.emit()
 #血量操作
+
+func headle_endurance():
+	if current_endurance < -10:
+		current_endurance = -10
+	endurance_recover()
+
+func endurance_recover():
+	if current_endurance >= Global.player_max_endurance:
+		current_endurance = Global.player_max_endurance
+		endurance_changed.emit()
+		return
+	
+	elif endurance_recover_timer.time_left == 0 && !is_endurance_consume:
+		endurance_recover_timer.start()
+		await endurance_recover_timer.timeout
+		
+		current_endurance += endurance_recover_amount
+		endurance_changed.emit()
+		endurance_recover()
 
 func get_move_direction():
 	if is_dead: return
 	
 	direction = Input.get_vector("left", "right", "up", "down").normalized()
 	if direction:
-		velocity = direction * move_speed
+		velocity = direction * current_move_speed
 	else:
 		velocity = Vector2.ZERO
 #移动
@@ -122,17 +149,6 @@ func knockback(enemy_velocity : Vector2):
 	move_and_slide()
 
 
-func to_dict() -> Dictionary:
-	return {
-		max_health = Global.player_max_health,
-		current_health = Global.player_current_health
-	}
-
-func from_dict(dict: Dictionary):
-	Global.player_max_health = dict.max_health
-	Global.player_current_health = dict.current_health
-
-
 func _on_hurt_box_area_entered(area):
 	if area.has_method("collect"):
 		area.collect(inventory)
@@ -145,6 +161,9 @@ func _on_idle_state_entered() -> void:
 	#print(name, " state: idle")
 	antimation_tree["parameters/conditions/is_idle"] = true
 	antimation_tree["parameters/conditions/is_run"] = false
+	
+	if !is_weapon_attack:
+		is_endurance_consume = false
 
 
 func _on_walk_stack_state_entered() -> void:
@@ -156,21 +175,23 @@ func _on_walk_stack_state_entered() -> void:
 
 func _on_run_state_entered() -> void:
 	print(name, " state: walk.run")
-	move_speed = 150
+	current_move_speed = run_move_speed
+	
+	current_endurance -= 1
+	endurance_changed.emit()
+	is_endurance_consume = true
+	
+	if current_endurance <= 0:
+		state_chart.send_event("walk")
 
 
 func _on_run_state_exited() -> void:
-	move_speed = 100
+	current_move_speed = walk_move_speed
 
 
 func _on_weapon_attack_state_entered() -> void:
 	print(name, " state: weapon_attack")
 	weapon_node.weapon_attack()
-
-
-func _on_weapon_special_attack_state_entered() -> void:
-	print(name, " state: weapon_special_attack")
-	weapon_node.weapon_special_attack()
 
 
 func _on_hurt_state_entered() -> void:
