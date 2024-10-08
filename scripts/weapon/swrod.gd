@@ -12,18 +12,20 @@ func windmill():
 		player.current_endurance >= special_attack_consume_endurance
 		):
 			player.current_endurance -= special_attack_consume_endurance
-			if Input.is_action_pressed("attack_special"):
-				if current_charge >= max_charge:
-					current_charge = 0
-					animation_player.play("charge_complete")
-				
-				charge_timer()
-				animation_player.play("charge")
+			player.endurance_changed.emit()
+			player.is_endurance_disable = true
+			is_special_charge = true
+			animation_player.play("charge")
+			charge_timer()
+	
+	elif Input.is_action_pressed("attack_special") && current_charge >= max_charge:
+		charge_comlete()
 	
 	elif Input.is_action_just_released("attack_special") && current_charge >= need_charge:
-		current_charge = 0
-		animation_player.play("charge_complete")
+		charge_comlete()
 	
 	elif Input.is_action_just_released("attack_special") && current_charge <= need_charge:
+		player.is_endurance_disable = false
+		is_special_charge = false
 		current_charge = 0
 		animation_player.play("RESET")

@@ -4,22 +4,22 @@
 [ext_resource type="PackedScene" uid="uid://d3gvaw81qlatn" path="res://weapon/weapon.tscn" id="1_ha3n7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_agu5p"]
-radius = 7.77817
-height = 61.2267
+radius = 11.4015
+height = 76.6522
 
 [sub_resource type="Animation" id="Animation_84p2f"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Swrod/Hitbox/CollisionShape2D:disabled")
+tracks/0/path = NodePath("Swrod/Sprite2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -31,7 +31,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [-2.0944]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -48,14 +48,38 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Swrod/Hitbox:rotation")
+tracks/3/path = NodePath("Swrod/Hitbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Swrod/Hitbox:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-2.0944]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Swrod/Hitbox/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_o8f3n"]
@@ -72,7 +96,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.3),
 "transitions": PackedFloat32Array(1, 1, 2),
 "update": 0,
-"values": [0.0, 2.0944, 0.0]
+"values": [-2.0944, 2.0944, -2.0944]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -84,7 +108,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.3),
 "transitions": PackedFloat32Array(1, 1, 2),
 "update": 0,
-"values": [0.0, 2.0944, 0.0]
+"values": [-2.0944, 2.0944, -2.0944]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -113,7 +137,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [-2.0944]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -137,7 +161,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [-2.0944]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -154,51 +178,75 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_havho"]
 resource_name = "charge_complete"
-length = 0.2
-step = 0.1
+length = 0.46
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Swrod/Sprite2D:rotation")
+tracks/0/path = NodePath("Swrod/Sprite2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.14, 0.2, 0.3, 0.4, 0.44, 0.46),
+"transitions": PackedFloat32Array(1, 0.5, 1, 1, 2, 1, 1),
 "update": 0,
-"values": [0.0, 6.28319]
+"values": [Vector2(0, 0), Vector2(-16, 10), Vector2(-12, 0.844), Vector2(0, 0), Vector2(20, -12), Vector2(20, -12), Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Swrod/Sprite2D/ColorRect:color")
+tracks/1/path = NodePath("Swrod/Sprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.3, 0.46),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-2.0944, 5.23599, 4.18879, -2.0944]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Swrod/Sprite2D/ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Swrod/Hitbox:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 6.28319]
-}
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Swrod/Hitbox/CollisionShape2D:disabled")
+tracks/3/path = NodePath("Swrod/Hitbox:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.2, 0.3, 0.4, 0.44, 0.46),
+"transitions": PackedFloat32Array(1, 0.5, 1, 1, 2, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-16, 10), Vector2(-12, 0.844), Vector2(0, 0), Vector2(20, -12), Vector2(20, -12), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Swrod/Hitbox:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.3, 0.46),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-2.0944, 5.23599, 4.18879, -2.0944]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Swrod/Hitbox/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -218,12 +266,28 @@ script = ExtResource("1_ccjo8")
 hit_damage = 20
 hit_ready_time = 0.3
 
+[node name="Sprite2D" parent="." index="0"]
+rotation = -2.0944
+offset = Vector2(22.4842, 23.8911)
+
+[node name="ColorRect" parent="Sprite2D" index="0"]
+offset_left = -9.51582
+offset_top = -8.1089
+offset_right = -9.51582
+offset_bottom = -8.1089
+
+[node name="Hitbox" parent="." index="1"]
+rotation = -2.0944
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(3, 9)
-rotation = 8.61845
+position = Vector2(22.0788, 27.7583)
+rotation = 11.7918
 shape = SubResource("CapsuleShape2D_agu5p")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+[node name="AttackReadyTimer" parent="." index="2"]
+wait_time = 0.4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_epy2l")

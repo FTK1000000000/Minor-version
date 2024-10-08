@@ -18,7 +18,7 @@ var sfx_enabled:
 var player = preload("res://characters/player/Player.tscn").instantiate()
 var player_dead: bool = false
 var player_max_health: int = 100
-var player_max_endurance: int = 50
+var player_max_endurance: int = 100
 
 var player_current_health: int
 var player_current_endurance: int

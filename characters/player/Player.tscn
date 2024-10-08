@@ -1,12 +1,10 @@
-[gd_scene load_steps=38 format=3 uid="uid://c76kqdervowc5"]
+[gd_scene load_steps=36 format=3 uid="uid://c76kqdervowc5"]
 
 [ext_resource type="Script" path="res://scripts/characters/player/player.gd" id="1_7sr4c"]
 [ext_resource type="Texture2D" uid="uid://baalc1jtnday8" path="res://resource/characters/player/Sprite player.png" id="2_53s0l"]
 [ext_resource type="Script" path="res://scripts/characters/player/weapon.gd" id="4_536cd"]
 [ext_resource type="Script" path="res://scripts/characters/hurtbox.gd" id="4_xth6r"]
-[ext_resource type="PackedScene" uid="uid://04qrwbfkufoa" path="res://weapon/shield.tscn" id="5_enqba"]
-[ext_resource type="PackedScene" uid="uid://byelhp6djwkr" path="res://weapon/bow.tscn" id="5_sf1sm"]
-[ext_resource type="PackedScene" uid="uid://dxd81bb0b3efb" path="res://weapon/swrod.tscn" id="6_xqiga"]
+[ext_resource type="PackedScene" uid="uid://dxd81bb0b3efb" path="res://weapon/swrod.tscn" id="6_lhqvr"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_dbqc7"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_q78is"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_8lig6"]
@@ -16,6 +14,12 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bgyxn"]
 radius = 8.95605
 height = 27.3591
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1utas"]
+size = Vector2(22, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_br26j"]
+size = Vector2(20, 26)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d4dtb"]
 animation = &"player_idle_up"
@@ -208,12 +212,6 @@ _data = {
 "hurt_blink": SubResource("Animation_arpku")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1utas"]
-size = Vector2(22, 28)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_br26j"]
-size = Vector2(20, 26)
-
 [node name="Player" type="CharacterBody2D"]
 z_index = 10
 collision_layer = 4
@@ -235,7 +233,7 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_53s0l")
 hframes = 36
-frame = 5
+frame = 7
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
@@ -248,6 +246,33 @@ offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("4_xth6r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_1utas")
+
+[node name="NavArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavArea"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_br26j")
+
+[node name="Weapon" type="Node2D" parent="."]
+script = ExtResource("4_536cd")
+
+[node name="Swrod" parent="Weapon" instance=ExtResource("6_lhqvr")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+script = ExtResource("11_bwohd")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_2brwx")
@@ -276,39 +301,8 @@ one_shot = true
 [node name="EnduranceRecoverTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 16
-collision_mask = 2
-script = ExtResource("4_xth6r")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, 3)
-shape = SubResource("RectangleShape2D_1utas")
-
-[node name="Weapon" type="Node2D" parent="."]
-script = ExtResource("4_536cd")
-
-[node name="Shield" parent="Weapon" instance=ExtResource("5_enqba")]
-resist_damage = 5
-
-[node name="Bow" parent="Weapon" instance=ExtResource("5_sf1sm")]
-visible = false
-
-[node name="Swrod" parent="Weapon" instance=ExtResource("6_xqiga")]
-visible = false
-
-[node name="NavArea" type="Area2D" parent="."]
-visible = false
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NavArea"]
-position = Vector2(0, 3)
-shape = SubResource("RectangleShape2D_br26j")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-script = ExtResource("11_bwohd")
+[node name="EndRecoverReadyTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("7_dbqc7")
@@ -320,12 +314,6 @@ initial_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("9_8lig6")
 
-[node name="ToWAttack" type="Node" parent="StateChart/CompoundState/Idle"]
-script = ExtResource("10_2mpht")
-to = NodePath("../../Attack/WeaponAttack")
-event = &"weapon_attack"
-delay_in_seconds = "0.0"
-
 [node name="WalkStack" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("8_q78is")
 initial_state = NodePath("Walk")
@@ -335,12 +323,6 @@ script = ExtResource("9_8lig6")
 
 [node name="Run" type="Node" parent="StateChart/CompoundState/WalkStack"]
 script = ExtResource("9_8lig6")
-
-[node name="ToWAttack" type="Node" parent="StateChart/CompoundState/WalkStack"]
-script = ExtResource("10_2mpht")
-to = NodePath("../../Attack/WeaponAttack")
-event = &"weapon_attack"
-delay_in_seconds = "0.0"
 
 [node name="Attack" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("8_q78is")
@@ -355,11 +337,20 @@ to = NodePath("../../../Hurt")
 event = &"hurt"
 delay_in_seconds = "0.0"
 
-[node name="Hurt" type="Node" parent="StateChart/CompoundState"]
+[node name="AtomicState" type="Node" parent="StateChart/CompoundState/Attack"]
 script = ExtResource("9_8lig6")
 
 [node name="Dead" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("9_8lig6")
+
+[node name="Hurt" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("9_8lig6")
+
+[node name="ToWAttack" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("10_2mpht")
+to = NodePath("../Attack/WeaponAttack")
+event = &"weapon_attack"
+delay_in_seconds = "0.0"
 
 [node name="ToIdle" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("10_2mpht")
@@ -397,5 +388,5 @@ delay_in_seconds = "0.0"
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/Attack/WeaponAttack" to="." method="_on_weapon_attack_state_entered"]
-[connection signal="state_entered" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_entered"]

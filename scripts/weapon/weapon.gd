@@ -5,6 +5,7 @@ class_name Weapon
 @onready var player: Player = $"../.."
 @onready var hitbox: Hitbox = $Hitbox
 @onready var collision: CollisionShape2D = $Hitbox/CollisionShape2D
+@onready var effect_player: AnimationPlayer = $EffectPlayer
 @onready var textruse: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var attack_ready_timer: Timer = $AttackReadyTimer
@@ -20,6 +21,8 @@ class_name Weapon
 @export var need_charge: int = 3
 @export var current_charge: int = 0
 
+@export var is_special_charge: bool = false
+
 
 func _ready() -> void:
 	hitbox.damage = hit_damage
@@ -30,11 +33,18 @@ func special_attack():
 	pass
 
 func charge_timer():
-	if charge_attack_ready_timer.time_left == 0:
+	if charge_attack_ready_timer.is_stopped():
 		charge_attack_ready_timer.start()
 		await charge_attack_ready_timer.timeout
 		
-		if current_charge >= max_charge || !Input.is_action_pressed("attack_special"):
-			return
 		current_charge += 1
+		print("current_charge: ", current_charge)
+		if current_charge >= max_charge || !is_special_charge:
+			return
 		charge_timer()
+
+func charge_comlete():
+	player.is_endurance_disable = false
+	is_special_charge = false
+	current_charge = 0
+	animation_player.play("charge_complete")

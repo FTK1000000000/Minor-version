@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://bhdtxcecrb677"]
+[gd_scene load_steps=7 format=4 uid="uid://bhdtxcecrb677"]
 
 [ext_resource type="TileSet" uid="uid://xylhprfe8g5d" path="res://tile/main.tres" id="1_mge0c"]
 [ext_resource type="Script" path="res://scripts/rooms/from_room.gd" id="2_rwhxk"]
 [ext_resource type="PackedScene" uid="uid://b285px04xj0ei" path="res://rooms/exit.tscn" id="3_54g77"]
 [ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/player/Player.tscn" id="4_3d0xp"]
 [ext_resource type="PackedScene" uid="uid://0ug3e0fiv41v" path="res://characters/enemy/enemy.tscn" id="5_737s5"]
-[ext_resource type="PackedScene" uid="uid://qbvc3qdmmyt2" path="res://characters/enemy/ranged_enemy.tscn" id="6_864b8"]
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="7_orqs7"]
 
 [node name="Node2D" type="Node2D"]
@@ -56,10 +55,13 @@ path = "res://game_scene/main.tscn"
 [node name="Player" parent="." instance=ExtResource("4_3d0xp")]
 position = Vector2(183, 502)
 
-[node name="Enemy" parent="." instance=ExtResource("5_737s5")]
-position = Vector2(513, 655)
-
-[node name="RangedEnemy" parent="." instance=ExtResource("6_864b8")]
-position = Vector2(580, 597)
-
 [node name="HUD" parent="." instance=ExtResource("7_orqs7")]
+
+[node name="Enemy" parent="." instance=ExtResource("5_737s5")]
+position = Vector2(471, 535)
+
+[node name="Enemy2" parent="." instance=ExtResource("5_737s5")]
+position = Vector2(471, 535)
+
+[node name="Enemy3" parent="." instance=ExtResource("5_737s5")]
+position = Vector2(471, 535)

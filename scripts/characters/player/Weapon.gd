@@ -8,7 +8,8 @@ extends Node2D
 func weapon_transform(
 	gm = get_global_mouse_position(),
 	 lm = get_local_mouse_position(),
-	 g = global_position):
+	 g = global_position
+	):
 		var mouse_direction: Vector2 = (gm - g).normalized()
 		weapon.rotation = mouse_direction.angle()
 		
@@ -21,23 +22,39 @@ func weapon_transform(
 			weapon.scale.y = -1
 		else:
 			weapon.scale.y = 1
+		
+		if player.is_flip && weapon is Shield:
+			weapon.textruse.frame = 1
+		elif !player.is_flip && weapon is Shield:
+			weapon.textruse.frame = 0
+			
 
 func weapon_attack():
-	player.is_weapon_attack = true
 	if (
-		player.is_weapon_attack &&
+		!player.is_weapon_attack &&
 		player.current_endurance >= weapon.attack_consume_endurance &&
-		weapon.attack_ready_timer.time_left == 0
+		weapon.attack_ready_timer.is_stopped()
 		):
+			if weapon is Shield && player.is_flip:
+				weapon.animation_player.play("attack_flip")
+			else:
+				weapon.animation_player.play("attack")
+			
 			weapon.attack_ready_timer.start()
-			weapon.animation_player.play("attack")
 			player.current_endurance -= weapon.attack_consume_endurance
 			player.endurance_changed.emit()
-			player.is_endurance_consume = true
+			player.is_weapon_attack = true
+			player.is_endurance_disable = true
 			await weapon.attack_ready_timer.timeout
 			
+			if weapon is Shield && player.is_flip:
+				weapon.animation_player.play("RESET_flip")
+			else:
+				weapon.animation_player.play("RESET")
+			
+			if !player.is_walk:
+				player.is_endurance_disable = false
 			player.is_weapon_attack = false
-			weapon.animation_player.play("RESET")
 
 func weapon_special_attack():
 	weapon.special_attack()
