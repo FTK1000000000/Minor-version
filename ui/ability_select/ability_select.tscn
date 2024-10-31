@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddowyikvuhgjn"]
+
+[ext_resource type="Script" path="res://scripts/ui/ability_select/ability_select.gd" id="1_8m23d"]
+[ext_resource type="PackedScene" uid="uid://mphpkx2kp3it" path="res://ui/ability_select/ability_select_slot.tscn" id="1_kt7et"]
+[ext_resource type="Theme" uid="uid://dke80ydpw44no" path="res://theme/classes_select.tres" id="1_la7g0"]
+
+[node name="Ability_select" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_la7g0")
+script = ExtResource("1_8m23d")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="GridContainer" parent="Panel/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+columns = 5
+
+[node name="AbilityOptionSlot" parent="Panel/VBoxContainer/HBoxContainer" instance=ExtResource("1_kt7et")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="AbilityOptionSlot2" parent="Panel/VBoxContainer/HBoxContainer" instance=ExtResource("1_kt7et")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="AbilityOptionSlot3" parent="Panel/VBoxContainer/HBoxContainer" instance=ExtResource("1_kt7et")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.17
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="Panel/VBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="button_up" from="Panel/VBoxContainer/HBoxContainer/AbilityOptionSlot" to="." method="_on_ability_option_slot_button_up"]
+[connection signal="button_up" from="Panel/VBoxContainer/HBoxContainer/AbilityOptionSlot2" to="." method="_on_ability_option_slot_button_up"]
+[connection signal="button_up" from="Panel/VBoxContainer/HBoxContainer/AbilityOptionSlot3" to="." method="_on_ability_option_slot_button_up"]

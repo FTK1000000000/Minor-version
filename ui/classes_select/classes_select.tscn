@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://du67jchxdk4et"]
+
+[ext_resource type="PackedScene" uid="uid://bffk84tub3365" path="res://ui/classes_select/classes_option_slot.tscn" id="1_uh3md"]
+[ext_resource type="Theme" uid="uid://dke80ydpw44no" path="res://theme/classes_select.tres" id="1_y1h3g"]
+[ext_resource type="Script" path="res://scripts/ui/class_selection/classes_select.gd" id="2_132ia"]
+
+[node name="ClassesSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_y1h3g")
+script = ExtResource("2_132ia")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -388.0
+offset_top = -232.0
+offset_right = 388.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ClassesOptionSlot" parent="Panel/HBoxContainer" instance=ExtResource("1_uh3md")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="ClassesOptionSlot2" parent="Panel/HBoxContainer" instance=ExtResource("1_uh3md")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+classes_option = 1
+
+[node name="ClassesOptionSlot3" parent="Panel/HBoxContainer" instance=ExtResource("1_uh3md")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+classes_option = 2
+
+[connection signal="button_up" from="Panel/HBoxContainer/ClassesOptionSlot" to="." method="_on_classes_option_slot_button_up"]
+[connection signal="button_up" from="Panel/HBoxContainer/ClassesOptionSlot2" to="." method="_on_classes_option_slot_button_up"]
+[connection signal="button_up" from="Panel/HBoxContainer/ClassesOptionSlot3" to="." method="_on_classes_option_slot_button_up"]

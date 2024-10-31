@@ -7,6 +7,8 @@ class_name Hurtbox
 
 func take_damage(damage: int, direction: Vector2, force: int):
 	if parent is Player:
+		if GlobalPlayerState.sturdy_shield:
+				damage = damage * 0.75 as int
 		if parent.is_resist && parent.current_endurance >= damage:
 			parent.current_endurance -= damage
 			parent.velocity += direction * force

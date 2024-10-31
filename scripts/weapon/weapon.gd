@@ -4,6 +4,7 @@ class_name Weapon
 
 @onready var player: Player = $"../.."
 @onready var hitbox: Hitbox = $Hitbox
+@onready var hitbox_collision: CollisionShape2D = $Hitbox/CollisionShape2D
 @onready var collision: CollisionShape2D = $Hitbox/CollisionShape2D
 @onready var effect_player: AnimationPlayer = $EffectPlayer
 @onready var textruse: Sprite2D = $Sprite2D
@@ -26,7 +27,9 @@ class_name Weapon
 
 func _ready() -> void:
 	hitbox.damage = hit_damage
-	hitbox.ready_time = hit_ready_time
+	hitbox.ready_time = hit_ready_time as float
+	
+	hitbox_collision.disabled = true
 
 
 func special_attack():

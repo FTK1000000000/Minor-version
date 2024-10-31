@@ -1,59 +1,81 @@
 extends Enemy
 
-class_name RangedEnemy
 
+const AMMO = preload("res://ammo/ammo.tscn")
 
-@onready var ranged_attack_timer: Timer = $RangedAttackTimer
+@export var max_distance_to_player: int = 160
+@export var min_distance_to_player: int = 128
+@export var distance_to_player: float
 
-var ammo = preload("res://ammo/ammo.tscn")
-
-var max_distance_to_player: int = 160
-var min_distance_to_player: int = 128
-var distance_to_player: float
-
-var projectile_speed: int = 200
-var can_attack: bool = true
+@export var projectile_speed: int = 200
 
 
 func _ready():
-	navigation_agent.path_desired_distance = 4
-	navigation_agent.target_desired_distance = 4
-	move_speed = 175
+	super()
+	var v = 10
+	navigation_agent.target_desired_distance = v
+
+func update_state():
+	if is_dead:
+		state_chart.send_event("dead")
+		is_dead = false
+	
+	if !aggro_target:
+		state_chart.send_event("idle")
+	
+	elif aggro_target:
+		if attack_target && is_can_attack:
+			state_chart.send_event("attack")
+		elif attack_is_ready:
+			state_chart.send_event("chase")
 
 func recalc_path():
-	if target_node:
-		distance_to_player = (target_node.position - global_position).length()
+	if aggro_target:
+		distance_to_player = (aggro_target.position - global_position).length()
 		if distance_to_player > max_distance_to_player:
+			is_can_attack = false
 			get_path_to_player()
-		elif  distance_to_player < min_distance_to_player:
+		elif distance_to_player < min_distance_to_player:
+			is_can_attack = false
 			get_path_to_move_away_from_player()
 		else:
-			if can_attack:
-				can_attack = false
-				ranged_attack()
-				ranged_attack_timer.start()
+			is_can_attack = true
 #寻路
 
 func get_path_to_move_away_from_player():
-	var dir: Vector2 = (global_position - target_node.position).normalized()
-	navigation_agent.target_position = target_node.global_position + dir * min_distance_to_player
+	var dir: Vector2 = (global_position - aggro_target.position).normalized()
+	navigation_agent.target_position = aggro_target.global_position + dir * min_distance_to_player
 
-func ranged_attack():
-	var projectile: Area2D = ammo.instantiate()
+func shoot():
+	var projectile = AMMO.instantiate()
 	
-	projectile.launch(global_position, (target_node.position - global_position).normalized(), projectile_speed)
+	projectile.launch(global_position, (target_position - global_position).normalized(), projectile_speed)
 	get_tree().current_scene.add_child(projectile)
 
 
-func _on_ranged_attack_timer_timeout() -> void:
-	can_attack = true
-
-
 func _on_idle_state_entered() -> void:
-	if distance_to_player > max_distance_to_player || distance_to_player < min_distance_to_player:
-		state_chart.send_event("chase")
+	animation_player.play("RESET")
 
 
 func _on_chase_state_entered() -> void:
-	if distance_to_player < max_distance_to_player && distance_to_player > min_distance_to_player:
-		state_chart.send_event("idle")
+	#animation_player.play("walk")
+	pass
+
+
+func _on_ranged_state_entered() -> void:
+	aimline_rotation()
+	
+	if attack_is_ready:
+		current_move_speed = 0
+		target_position = attack_target.global_position
+		
+		animation_player.play("ranged")
+		await animation_player.animation_finished
+		
+		attack_is_ready = false
+		if attack_timer.is_stopped():
+			attack_timer.start()
+			await attack_timer.timeout
+			
+			attack_is_ready = true
+		current_move_speed = move_speed

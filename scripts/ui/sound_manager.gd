@@ -1,7 +1,7 @@
 extends Node
 
 
-enum Bus {
+enum BUS {
 	MASTER,
 	SFX,
 	BGM

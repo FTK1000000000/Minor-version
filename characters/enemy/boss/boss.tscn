@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7r35kw8ayagu"]
+
+[ext_resource type="PackedScene" uid="uid://0ug3e0fiv41v" path="res://characters/enemy/enemy.tscn" id="1_1t488"]
+[ext_resource type="Script" path="res://scripts/characters/eneity/boss/boss.gd" id="2_bqk0s"]
+[ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar1.png" id="3_stgfj"]
+[ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar2.png" id="4_axqf1"]
+[ext_resource type="Script" path="res://scripts/ui/hud/boss_health_bar.gd" id="5_65gsw"]
+
+[node name="Boss" instance=ExtResource("1_1t488")]
+script = ExtResource("2_bqk0s")
+
+[node name="BossHealthBar" type="CanvasLayer" parent="Texture/HUD" index="1"]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Texture/HUD/BossHealthBar" index="0"]
+custom_minimum_size = Vector2(0, 16)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+nine_patch_stretch = true
+texture_under = ExtResource("3_stgfj")
+texture_progress = ExtResource("4_axqf1")
+script = ExtResource("5_65gsw")

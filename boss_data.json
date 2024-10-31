@@ -1,0 +1,9 @@
+{
+	"slime": {
+		"name": "Slime",
+		"move_speed": 70,
+		"max_health": 200,
+		"attack_damage": 20,
+		"attack_ready_time": 1.75,
+	}
+}

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://evjri63xmru4"]
+
+[ext_resource type="Script" path="res://scripts/world/level.gd" id="1_3273o"]
+[ext_resource type="Script" path="res://scripts/world/rooms_generators/level_rooms.gd" id="2_gk65a"]
+[ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/player/Player.tscn" id="3_6pk2g"]
+[ext_resource type="PackedScene" uid="uid://daqytvy7sw1uw" path="res://light/player_light.tscn" id="4_1cpv5"]
+[ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="5_x3b58"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_3273o")
+
+[node name="RoomsGenerator" type="Node2D" parent="."]
+script = ExtResource("2_gk65a")
+
+[node name="Player" parent="." instance=ExtResource("3_6pk2g")]
+
+[node name="PlayerLight" parent="Player" instance=ExtResource("4_1cpv5")]
+
+[node name="TemporaryUI" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 5
+
+[node name="HUD" parent="." instance=ExtResource("5_x3b58")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)

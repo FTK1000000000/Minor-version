@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dlu70n1ob7k2"]
 
 [ext_resource type="Script" path="res://scripts/weapon/swrod.gd" id="1_fc07l"]
-[ext_resource type="Texture2D" uid="uid://chb060livauhm" path="res://resource/weapons/axe.png" id="2_eagyu"]
+[ext_resource type="Texture2D" uid="uid://chb060livauhm" path="res://texture/weapons/axe.png" id="2_eagyu"]
 [ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="3_11q8c"]
 
 [sub_resource type="Animation" id="Animation_84p2f"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://cdh4j5y6skb2l"]
+[gd_scene load_steps=4 format=4 uid="uid://cdh4j5y6skb2l"]
 
 [ext_resource type="TileSet" uid="uid://xylhprfe8g5d" path="res://tile/main.tres" id="1_rpngr"]
-[ext_resource type="PackedScene" uid="uid://b285px04xj0ei" path="res://rooms/exit.tscn" id="3_r2hy0"]
+[ext_resource type="Script" path="res://scripts/interactable/level_exit.gd" id="3_68haq"]
+[ext_resource type="PackedScene" uid="uid://b285px04xj0ei" path="res://interactable/exit.tscn" id="3_r2hy0"]
 
 [node name="EndRoom" type="Node2D"]
 
@@ -28,4 +29,5 @@ tile_set = ExtResource("1_rpngr")
 
 [node name="Exit" parent="." instance=ExtResource("3_r2hy0")]
 position = Vector2(640, 448)
-path = "res://game_scene/main.tscn"
+script = ExtResource("3_68haq")
+path = "res://world/level.tscn"

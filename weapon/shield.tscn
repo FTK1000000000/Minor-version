@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d3gvaw81qlatn" path="res://weapon/weapon.tscn" id="1_wd54a"]
 [ext_resource type="Script" path="res://scripts/weapon/shield.gd" id="2_cro3t"]
-[ext_resource type="Texture2D" uid="uid://dfngidvacqu8f" path="res://resource/weapons/shield.png" id="3_jjsqh"]
+[ext_resource type="Texture2D" uid="uid://dfngidvacqu8f" path="res://texture/weapons/shield.png" id="3_jjsqh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pogdj"]
 radius = 13.0

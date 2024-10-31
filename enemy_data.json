@@ -1,0 +1,23 @@
+{
+	"goblin": {
+		"name": "Goblin",
+		"move_speed": 75,
+		"max_health": 50,
+		"attack_damage": 15,
+		"attack_ready_time": 1.5
+	},
+	"goblin_bowman": {
+		"name": "Goblin Bowman",
+		"move_speed": 125,
+		"max_health": 50,
+		"attack_damage": 15,
+		"attack_ready_time": 1.5
+	},
+	"orc": {
+		"name": "Orc",
+		"move_speed": 60,
+		"max_health": 55,
+		"attack_damage": 20,
+		"attack_ready_time": 1.75
+	}
+}

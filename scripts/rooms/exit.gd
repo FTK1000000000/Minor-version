@@ -7,6 +7,6 @@ extends Area2D
 func _on_body_entered(_body: Player) -> void:
 	if path:
 		Global.room_group_level += 1
-		Global.go_to_world(path)
+		Global.load_world(path)
 	else:
 		Global.complete_game()

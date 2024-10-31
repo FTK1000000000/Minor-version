@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4tpqk8s847bn"]
+
+[ext_resource type="Texture2D" uid="uid://be7j47totc1bk" path="res://texture/ui/classes_selection/396px-Garrosh_Heart_of_War.jpg" id="1_esxur"]
+[ext_resource type="Script" path="res://scripts/ui/player_panel/ability_slot.gd" id="1_yeg8p"]
+[ext_resource type="Theme" uid="uid://dke80ydpw44no" path="res://theme/classes_select.tres" id="2_4i76p"]
+
+[node name="AbilitySlot" type="Panel"]
+custom_minimum_size = Vector2(256, 256)
+offset_right = 256.0
+offset_bottom = 256.0
+size_flags_horizontal = 3
+script = ExtResource("1_yeg8p")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 8.17
+color = Color(0.215902, 0.215902, 0.215902, 1)
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+texture = ExtResource("1_esxur")
+expand_mode = 1
+
+[node name="Name" type="Label" parent="Icon"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_right = 128.0
+offset_bottom = 28.0
+grow_horizontal = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 14.5
+theme = ExtResource("2_4i76p")
+theme_override_font_sizes/font_size = 20
+text = "BARBARIAN"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://dhipmf7vpf1db"]
+
+[ext_resource type="Script" path="res://scripts/game_sc/start_world.gd" id="1_hud6m"]
+[ext_resource type="Script" path="res://scripts/world/rooms_generators/start_world_room.gd" id="2_ppc50"]
+[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="3_b1xcr"]
+[ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/player/Player.tscn" id="3_yvaqw"]
+[ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="4_kt6cs"]
+[ext_resource type="Script" path="res://scripts/interactable/classes_select.gd" id="4_xxmex"]
+[ext_resource type="PackedScene" uid="uid://du67jchxdk4et" path="res://ui/classes_selection/classes_select.tscn" id="5_3k3ja"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkljl"]
+size = Vector2(128, 128)
+
+[node name="StartWorld" type="Node2D"]
+script = ExtResource("1_hud6m")
+
+[node name="RoomsGenerator" type="Node2D" parent="."]
+script = ExtResource("2_ppc50")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(448, 192)
+texture = ExtResource("3_b1xcr")
+
+[node name="ClassesSelect" type="Area2D" parent="Sprite2D"]
+script = ExtResource("4_xxmex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/ClassesSelect"]
+shape = SubResource("RectangleShape2D_tkljl")
+
+[node name="Player" parent="." instance=ExtResource("3_yvaqw")]
+
+[node name="HUD" parent="." instance=ExtResource("4_kt6cs")]
+process_mode = 3
+
+[node name="Button" type="Button" parent="HUD"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -80.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 23
+text = "i am ready"
+
+[node name="Label" type="Label" parent="HUD"]
+offset_left = 352.0
+offset_right = 543.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 20
+text = "< this your health bar"
+
+[node name="Label4" type="Label" parent="HUD"]
+offset_top = 512.0
+offset_right = 208.0
+offset_bottom = 540.0
+theme_override_font_sizes/font_size = 20
+text = "used \"w\", \"a\", \"s\", \"d\" to walk
+meantime use \"shift\" to run"
+
+[node name="Label2" type="Label" parent="HUD"]
+offset_left = 352.0
+offset_top = 32.0
+offset_right = 803.0
+offset_bottom = 91.0
+theme_override_font_sizes/font_size = 20
+text = "< and your endurance bar
+run and weapon attack will drain endurance 
+if endurance bar is empty your can't do that
+pay your endurance drain
+"
+
+[node name="Label6" type="Label" parent="HUD"]
+offset_left = 32.0
+offset_top = 96.0
+offset_right = 288.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 20
+text = "need recover endurance when you have to stop"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Label5" type="Label" parent="HUD"]
+offset_top = 608.0
+offset_right = 384.0
+offset_bottom = 640.0
+theme_override_font_sizes/font_size = 20
+text = "use mouse key left to weapon do attack"
+
+[node name="ClassesSelect" parent="HUD" instance=ExtResource("5_3k3ja")]
+visible = false
+
+[connection signal="button_up" from="HUD/Button" to="." method="_on_button_button_up"]

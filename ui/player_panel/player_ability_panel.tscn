@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhyx3rctm72og"]
+
+[ext_resource type="Script" path="res://scripts/ui/player_panel/player_ability_panel.gd" id="1_fee4y"]
+
+[node name="PlayerAbilityPanel" type="Panel"]
+anchors_preset = -1
+anchor_left = 0.237
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.039978
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fee4y")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5

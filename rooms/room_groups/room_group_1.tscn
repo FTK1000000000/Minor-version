@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=4 uid="uid://3a3odbu8fb8s"]
 
 [ext_resource type="PackedScene" uid="uid://ctse64pdbs7se" path="res://rooms/room_groups/room_group.tscn" id="1_4pfgn"]
-[ext_resource type="PackedScene" uid="uid://067d0jkuxeme" path="res://rooms/from_rooms/from_room_0.tscn" id="2_886hd"]
-[ext_resource type="PackedScene" uid="uid://dtlihw17p7wbp" path="res://rooms/fight_rooms/fight_room_0.tscn" id="3_pyeht"]
+[ext_resource type="PackedScene" uid="uid://bfd0f68a4gew" path="res://rooms/from_rooms/from_room_0.tscn" id="2_886hd"]
+[ext_resource type="PackedScene" uid="uid://gbsofg47210y" path="res://rooms/fight_rooms/fight_room_0.tscn" id="3_pyeht"]
 [ext_resource type="PackedScene" uid="uid://bxsf514xcoah3" path="res://rooms/fight_rooms/fight_room_1.tscn" id="4_ocmf2"]
 [ext_resource type="PackedScene" uid="uid://cmd8r837gowkb" path="res://rooms/end_rooms/end_room_1.tscn" id="5_00uy4"]
 

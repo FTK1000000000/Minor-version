@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://gkp1b35de8qp"]
+[gd_scene load_steps=6 format=4 uid="uid://gkp1b35de8qp"]
 
 [ext_resource type="Script" path="res://scripts/rooms/from_room.gd" id="1_172f5"]
 [ext_resource type="Script" path="res://scripts/rooms/room_group.gd" id="1_ri0sy"]
 [ext_resource type="TileSet" uid="uid://xylhprfe8g5d" path="res://tile/main.tres" id="2_43mur"]
-[ext_resource type="PackedScene" uid="uid://b285px04xj0ei" path="res://rooms/exit.tscn" id="3_37ls4"]
+[ext_resource type="PackedScene" uid="uid://b285px04xj0ei" path="res://interactable/exit.tscn" id="3_37ls4"]
+[ext_resource type="PackedScene" uid="uid://lwop5d7oso6m" path="res://interactable/level_exit.tscn" id="5_r5pqk"]
 
 [node name="RoomGroup" type="Node2D"]
 script = ExtResource("1_ri0sy")
@@ -47,5 +48,8 @@ tile_set = ExtResource("2_43mur")
 position = Vector2(480, 224)
 
 [node name="Exit" parent="Rooms/FromRoom/Node2D" instance=ExtResource("3_37ls4")]
-position = Vector2(800, 224)
-path = "res://game_scene/main.tscn"
+position = Vector2(544, 224)
+path = "res://world/level.tscn"
+
+[node name="LevelExit" parent="Rooms/FromRoom/Node2D" instance=ExtResource("5_r5pqk")]
+position = Vector2(448, 352)

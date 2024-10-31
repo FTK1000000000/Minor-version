@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3gvaw81qlatn"]
 
 [ext_resource type="Script" path="res://scripts/weapon/weapon.gd" id="1_cwbe8"]
-[ext_resource type="Texture2D" uid="uid://keslc74tlaan" path="res://resource/weapons/monado_1.png" id="2_1rnyv"]
+[ext_resource type="Texture2D" uid="uid://keslc74tlaan" path="res://texture/weapons/monado_1.png" id="2_1rnyv"]
 [ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="3_58pre"]
 
 [node name="Weapon" type="Node2D"]

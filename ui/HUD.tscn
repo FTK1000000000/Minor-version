@@ -1,13 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://cak2vpn16lujs"]
+[gd_scene load_steps=13 format=3 uid="uid://cak2vpn16lujs"]
 
 [ext_resource type="Script" path="res://scripts/ui/hud/HUD.gd" id="1_0wxeb"]
-[ext_resource type="Texture2D" uid="uid://yyucri88rf6y" path="res://resource/ui/hud/player_variable_bar/player_variable_bar.png" id="2_w56ye"]
-[ext_resource type="Script" path="res://scripts/ui/hud/player_endurance_bar.gd" id="4_g22ej"]
-[ext_resource type="Script" path="res://scripts/ui/hud/player_health_bar.gd" id="4_ksf7c"]
+[ext_resource type="Script" path="res://scripts/ui/hud/player_variable.gd" id="2_0qfap"]
+[ext_resource type="Texture2D" uid="uid://yyucri88rf6y" path="res://texture/ui/hud/player_variable_bar/player_variable_bar.png" id="2_w56ye"]
 [ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory/inventory.tscn" id="5_ua3kp"]
 [ext_resource type="PackedScene" uid="uid://cfykf5o0g2omm" path="res://ui/options_menu.tscn" id="6_mw57f"]
 [ext_resource type="PackedScene" uid="uid://b6frd381y8jx3" path="res://ui/game_over_screen.tscn" id="7_b6b1u"]
-[ext_resource type="Texture2D" uid="uid://blucbbnnidaro" path="res://resource/ui/cursor/weapon_attack_ready_bar.png" id="8_obqo4"]
+[ext_resource type="PackedScene" uid="uid://cv0ssxjh5kky6" path="res://ui/player_panel/player_property_panel.tscn" id="7_eqcvx"]
+[ext_resource type="PackedScene" uid="uid://dhyx3rctm72og" path="res://ui/player_panel/player_ability_panel.tscn" id="8_v7d4u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qroae"]
 atlas = ExtResource("2_w56ye")
@@ -25,20 +25,14 @@ region = Rect2(0, 0, 320, 32)
 atlas = ExtResource("2_w56ye")
 region = Rect2(0, 64, 320, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wa7yi"]
-atlas = ExtResource("8_obqo4")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t68yo"]
-atlas = ExtResource("8_obqo4")
-region = Rect2(16, 0, 16, 16)
-
 [node name="HUD" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_0wxeb")
 
 [node name="PlayerVariable" type="VBoxContainer" parent="."]
 offset_right = 320.0
 offset_bottom = 68.0
+script = ExtResource("2_0qfap")
 
 [node name="PlayerHealthBar" type="TextureProgressBar" parent="PlayerVariable"]
 layout_mode = 2
@@ -48,7 +42,15 @@ stretch_margin_right = 4
 stretch_margin_bottom = 4
 texture_under = SubResource("AtlasTexture_qroae")
 texture_progress = SubResource("AtlasTexture_ludgh")
-script = ExtResource("4_ksf7c")
+
+[node name="Label" type="Label" parent="PlayerVariable/PlayerHealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
 
 [node name="PlayerEnduranceBar" type="TextureProgressBar" parent="PlayerVariable"]
 layout_mode = 2
@@ -58,16 +60,18 @@ stretch_margin_right = 4
 stretch_margin_bottom = 4
 texture_under = SubResource("AtlasTexture_qfauq")
 texture_progress = SubResource("AtlasTexture_eibq4")
-script = ExtResource("4_g22ej")
 
-[node name="WeaponAttackReadyBar" type="TextureProgressBar" parent="."]
-offset_right = 16.0
-offset_bottom = 16.0
-scale = Vector2(10, 10)
-texture_under = SubResource("AtlasTexture_wa7yi")
-texture_progress = SubResource("AtlasTexture_t68yo")
+[node name="Label" type="Label" parent="PlayerVariable/PlayerEnduranceBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
 
 [node name="Inventory" parent="." instance=ExtResource("5_ua3kp")]
+visible = false
 offset_left = 1.0
 offset_top = 6.0
 offset_right = 1.0
@@ -95,3 +99,71 @@ offset_right = 51.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 50
 text = "PUASE"
+
+[node name="TipsLabel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="TipsLabel"]
+layout_mode = 0
+offset_left = 328.0
+offset_right = 536.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 20
+text = "< this your health bar"
+
+[node name="Label2" type="Label" parent="TipsLabel"]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 40.0
+offset_right = 790.0
+offset_bottom = 192.0
+theme_override_font_sizes/font_size = 20
+text = "< and your endurance bar
+run and weapon attack will drain endurance 
+if endurance bar is empty your can't do that
+pay your endurance drain
+need recover endurance when you need to stop"
+
+[node name="Label3" type="Label" parent="TipsLabel"]
+layout_mode = 0
+offset_top = 96.0
+offset_right = 288.0
+offset_bottom = 124.0
+theme_override_font_sizes/font_size = 20
+text = "do use key \"t\" to on or off tips"
+
+[node name="Label4" type="Label" parent="TipsLabel"]
+layout_mode = 0
+offset_top = 576.0
+offset_right = 428.0
+offset_bottom = 635.0
+theme_override_font_sizes/font_size = 20
+text = "used \"w\", \"a\", \"s\", \"d\" to walk
+meantime use \"shift\" to run"
+
+[node name="Label5" type="Label" parent="TipsLabel"]
+layout_mode = 0
+offset_top = 512.0
+offset_right = 384.0
+offset_bottom = 540.0
+theme_override_font_sizes/font_size = 20
+text = "use mouse key left to weapon do attack"
+
+[node name="Label6" type="Label" parent="TipsLabel"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 72.0
+offset_right = 280.0
+offset_bottom = 131.0
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="PlayerPropertyPanel" parent="." instance=ExtResource("7_eqcvx")]
+
+[node name="PlayerAbilityPanel" parent="." instance=ExtResource("8_v7d4u")]

@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://dhipmf7vpf1db"]
+
+[ext_resource type="Script" path="res://scripts/world/main.gd" id="1_mqshf"]
+[ext_resource type="Script" path="res://scripts/world/rooms_generators/main_rooms.gd" id="2_fg0k8"]
+[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="3_bropb"]
+[ext_resource type="Script" path="res://scripts/interactable/classes_select.gd" id="4_6toju"]
+[ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/player/Player.tscn" id="5_mwb6i"]
+[ext_resource type="Script" path="res://scripts/ui/temporary_ui.gd" id="6_cp0lg"]
+[ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="7_tgnu7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkljl"]
+size = Vector2(128, 128)
+
+[node name="StartWorld" type="Node2D"]
+script = ExtResource("1_mqshf")
+
+[node name="RoomsGenerator" type="Node2D" parent="."]
+script = ExtResource("2_fg0k8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(448, 192)
+texture = ExtResource("3_bropb")
+
+[node name="ClassesSelect" type="Area2D" parent="Sprite2D"]
+script = ExtResource("4_6toju")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/ClassesSelect"]
+shape = SubResource("RectangleShape2D_tkljl")
+
+[node name="Player" parent="." instance=ExtResource("5_mwb6i")]
+
+[node name="TemporaryUI" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 5
+script = ExtResource("6_cp0lg")
+
+[node name="HUD" parent="." instance=ExtResource("7_tgnu7")]
+
+[node name="Button" type="Button" parent="HUD"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -80.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 23
+text = "skip guidance"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="button_up" from="HUD/Button" to="." method="_on_button_button_up"]

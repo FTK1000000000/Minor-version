@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=7 format=3 uid="uid://xylhprfe8g5d"]
 
-[ext_resource type="Texture2D" uid="uid://bsfqwu8uwfl3g" path="res://resource/tile/main.png" id="1_ovcla"]
+[ext_resource type="Texture2D" uid="uid://bsfqwu8uwfl3g" path="res://texture/tile/main.png" id="1_ovcla"]
 [ext_resource type="PackedScene" uid="uid://u04khf3gp2st" path="res://collectible/weapons/axe.tscn" id="2_tb02y"]
 [ext_resource type="PackedScene" uid="uid://g60u21fdrpc6" path="res://collectible/life_pot.tscn" id="3_w1516"]
 

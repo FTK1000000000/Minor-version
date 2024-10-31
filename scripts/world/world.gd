@@ -1,16 +1,17 @@
 extends Node2D
-class_name WORLD
+class_name World
 
 
+@onready var temporary_ui: CanvasLayer = $TemporaryUI
+@onready var hud: CanvasLayer = $HUD
 @onready var player = get_node("Player")
 
 @export var bgm: AudioStream
 
-var room_group_index: int
-
 
 func _ready() -> void:
-	room_group_index = Global.room_group_index
-	
 	if bgm:
 		SoundManager.play_bgm(bgm)
+	
+	Global.temporary_ui = temporary_ui
+	Global.HUD = hud

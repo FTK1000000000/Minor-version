@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b206wlen0bkw3" path="res://collectible/collectible.tscn" id="1_c12st"]
 [ext_resource type="Resource" uid="uid://lmmul360j1aw" path="res://inventory/items/life_pot.tres" id="2_3ht6p"]
-[ext_resource type="Texture2D" uid="uid://bjrh5gwavnx7s" path="res://textures/collectible/life_pot.png" id="2_auslq"]
+[ext_resource type="Texture2D" uid="uid://bjrh5gwavnx7s" path="res://texture/collectible/life_pot.png" id="2_auslq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_knbmg"]
 resource_local_to_scene = true

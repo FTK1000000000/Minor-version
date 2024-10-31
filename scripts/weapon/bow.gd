@@ -6,6 +6,11 @@ var ammo = preload("res://ammo/arrow/arrow.tscn")
 @export var arrow_speed: int = 400
 
 
+func _ready() -> void:
+	super()
+	if GlobalPlayerState.rapid_fire:
+		charge_attack_ready_timer.wait_time / 2
+
 func special_attack():
 	shoot()
 
@@ -32,7 +37,6 @@ func shoot():
 	
 	elif Input.is_action_just_released("attack_special") && current_charge < need_charge:
 		charge_comlete()
-		launch()
 
 func launch():
 	var projectile = ammo.instantiate()

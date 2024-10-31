@@ -3,7 +3,7 @@ extends Node2D
 
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://characters/spawn_expansion.tscn")
 const ENEMY_SCENE: Dictionary = {
-	"enemy_demo": preload("res://characters/enemy/enemy.tscn"),
+	"enemy_demo": preload("res://characters/enemy/goblin.tscn"),
 	"enemy_demo2": preload("res://characters/enemy/ranged_enemy.tscn")
 }
 
@@ -37,7 +37,7 @@ func close_doors():
 
 func spawn_entity():
 	for enemy_positions in enemy_positions_container.get_children():
-		var enemy: CharacterBody2D
+		var enemy: Enemy
 		if randi() % 2 == 0: enemy = ENEMY_SCENE.enemy_demo.instantiate()
 		else: enemy = ENEMY_SCENE.enemy_demo2.instantiate()
 		
@@ -50,7 +50,7 @@ func spawn_entity():
 		call_deferred("add_child", spawn_explosion)
 
 
-func _on_player_detector_body_entered(_body: CharacterBody2D) -> void:
+func _on_player_detector_body_entered(_body: Player) -> void:
 	player_detector.queue_free()
 	close_doors()
 	spawn_entity()

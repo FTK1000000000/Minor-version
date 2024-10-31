@@ -39,14 +39,6 @@ position = Vector2(352, 352)
 position = Vector2(352, 544)
 script = ExtResource("3_c3wna")
 
-[node name="Marker3" type="Marker2D" parent="EnemyPositions" index="2"]
-position = Vector2(800, 352)
-script = ExtResource("3_c3wna")
-
-[node name="Marker4" type="Marker2D" parent="EnemyPositions" index="3"]
+[node name="Marker4" type="Marker2D" parent="EnemyPositions" index="2"]
 position = Vector2(480, 416)
-script = ExtResource("3_c3wna")
-
-[node name="Marker5" type="Marker2D" parent="EnemyPositions" index="4"]
-position = Vector2(608, 672)
 script = ExtResource("3_c3wna")

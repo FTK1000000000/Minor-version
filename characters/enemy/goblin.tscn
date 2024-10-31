@@ -1,0 +1,186 @@
+[gd_scene load_steps=13 format=3 uid="uid://djj4jvughdd1u"]
+
+[ext_resource type="PackedScene" uid="uid://0ug3e0fiv41v" path="res://characters/enemy/enemy.tscn" id="1_dqqr5"]
+[ext_resource type="Script" path="res://scripts/characters/eneity/goblin.gd" id="2_rngc0"]
+[ext_resource type="Texture2D" uid="uid://bl4q401x2er3d" path="res://tg_abomination-sheet.png" id="3_bmrml"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_thexk"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ky0h"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j6e2t"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7vfvq"]
+radius = 128.0
+
+[sub_resource type="Animation" id="Animation_5fgmv"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture/Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture/AimLine:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Texture/AimLine:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.5, 0, 0, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_t74iu"]
+resource_name = "player_idle_down-right"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture/Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_yuh6m"]
+resource_name = "walk_down"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture/Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_2den7"]
+resource_name = "melee"
+length = 1.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture/AimLine:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture/AimLine:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.5, 0, 0, 0.2), Color(0.5, 0, 0, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"melee_animaction"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bkb2c"]
+_data = {
+"RESET": SubResource("Animation_5fgmv"),
+"idle": SubResource("Animation_t74iu"),
+"melee": SubResource("Animation_2den7"),
+"walk": SubResource("Animation_yuh6m")
+}
+
+[node name="Goblin" instance=ExtResource("1_dqqr5")]
+script = ExtResource("2_rngc0")
+data_name = "goblin"
+
+[node name="AimLine" parent="Texture" index="0"]
+visible = false
+
+[node name="Body" parent="Texture" index="1"]
+position = Vector2(-9.53674e-07, 9.53674e-07)
+scale = Vector2(1, 1.063)
+texture = ExtResource("3_bmrml")
+hframes = 8
+
+[node name="ColorRect" parent="Texture/Body" index="0"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_thexk")
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("CircleShape2D_4ky0h")
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(-3.8147e-06, 0)
+shape = SubResource("CircleShape2D_j6e2t")
+
+[node name="CollisionShape2D" parent="AttackRange" index="0"]
+shape = SubResource("CircleShape2D_7vfvq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+libraries = {
+"": SubResource("AnimationLibrary_bkb2c")
+}
+
+[connection signal="state_entered" from="EnemyStateChart/CompoundState/Attack/Melee" to="." method="_on_melee_state_entered"]
