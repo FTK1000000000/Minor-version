@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Because Omission"
+config/name="trials of king"
 config/name_localized={
 "cn": "头盔骑士",
 "en": "Knight of Helmet"

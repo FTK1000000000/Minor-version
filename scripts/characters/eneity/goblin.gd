@@ -5,14 +5,6 @@ func melee_animaction():
 	create_tween().tween_property(self, "position", target_position, 0.6)
 
 
-func _on_idle_state_entered() -> void:
-	animation_player.play("RESET")
-
-
-func _on_chase_state_entered() -> void:
-	animation_player.play("walk")
-
-
 func _on_melee_state_entered() -> void:
 	aimline_rotation()
 	
@@ -30,4 +22,4 @@ func _on_melee_state_entered() -> void:
 			await attack_timer.timeout
 			
 			attack_is_ready = true
-		current_move_speed = move_speed
+		state_chart.send_event("idle")

@@ -4,7 +4,7 @@ extends Node2D
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://characters/spawn_expansion.tscn")
 const ENEMY_SCENE: Dictionary = {
 	"enemy_demo": preload("res://characters/enemy/goblin.tscn"),
-	"enemy_demo2": preload("res://characters/enemy/ranged_enemy.tscn")
+	"enemy_demo2": preload("res://characters/enemy/goblin_bowman.tscn")
 }
 
 @onready var tile_map: Node2D = get_node("TileMap")

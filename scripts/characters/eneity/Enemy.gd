@@ -35,6 +35,7 @@ var target_position: Vector2
 @export var is_can_attack: bool = false
 
 @export var is_chase: bool = false
+@export var is_attack: bool = false
 
 var is_flip: bool = false
 var is_dead: bool = false
@@ -44,18 +45,19 @@ var deading: bool = false
 func _ready():
 	read_data()
 	current_move_speed = move_speed
-	print(current_move_speed)
 	current_health = max_health
 	hitbox.damage = attack_damage
 	aim_line.size.x = attack_ranged_collision.shape.radius
+	attack_is_ready = true
 	
-	var v = attack_ranged_collision.shape.radius - body_collision.shape.radius
+	var v = attack_ranged_collision.shape.radius - body_collision.shape.radius * 2
 	navigation_agent.target_desired_distance = v
 	navigation_agent.path_desired_distance = 10
 
 
 func _process(_delta):
 	update_state()
+	update_animation()
 	handle_health()
 	
 	if navigation_agent.is_navigation_finished():
@@ -74,7 +76,7 @@ func update_state():
 	if !aggro_target:
 		state_chart.send_event("idle")
 	
-	elif aggro_target:
+	else:
 		if attack_target:
 			state_chart.send_event("attack")
 		elif attack_is_ready:
@@ -84,15 +86,13 @@ func update_state():
 func update_animation():
 	if is_dead: return
 	
-	var m = get_local_mouse_position()
-	if m.x < 0:
-		body_texture.flip_h = true
-	else:
-		body_texture.flip_h = false
-	
-	if m.y < 0: is_flip = true
-	else: is_flip = false
-	
+	if aggro_target:
+		var m = (global_position - aggro_target.position).normalized()
+		
+		if m.x > 0:
+			body_texture.flip_h = true
+		else:
+			body_texture.flip_h = false
 #纹理朝向和渲染索引
 
 func handle_health():
@@ -166,11 +166,13 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 
 func _on_idle_state_entered() -> void:
 	animation_player.play("idle")
+	current_move_speed = 0
 
 
 func _on_chase_state_entered() -> void:
+	animation_player.play("walk")
+	current_move_speed = move_speed
 	is_chase = true
-	animation_player.play("chase")
 
 
 func _on_chase_state_exited() -> void:

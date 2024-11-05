@@ -137,6 +137,7 @@ script = ExtResource("1_1dxbb")
 [node name="Texture" type="Node2D" parent="."]
 
 [node name="AimLine" type="ColorRect" parent="Texture"]
+z_index = -5
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -149,7 +150,6 @@ color = Color(0.5, 0, 0, 0.5)
 
 [node name="Body" type="Sprite2D" parent="Texture"]
 clip_children = 2
-scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_77qhd")
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
@@ -218,22 +218,6 @@ collision_mask = 16
 shape = SubResource("CircleShape2D_kjbmy")
 debug_color = Color(0.725, 0.152, 0.257, 0.346)
 
-[node name="Nav" type="Node2D" parent="."]
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Nav"]
-path_postprocessing = 1
-path_metadata_flags = 0
-simplify_path = true
-avoidance_enabled = true
-max_speed = 100000.0
-avoidance_layers = 2
-avoidance_mask = 2
-debug_enabled = true
-
-[node name="PathTimer" type="Timer" parent="Nav"]
-wait_time = 0.1
-autostart = true
-
 [node name="Aggro" type="Node2D" parent="."]
 visible = false
 
@@ -252,6 +236,22 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange"]
 shape = SubResource("CircleShape2D_djl7y")
 debug_color = Color(0, 0.627451, 0.494118, 0.313726)
+
+[node name="Nav" type="Node2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Nav"]
+path_postprocessing = 1
+path_metadata_flags = 0
+simplify_path = true
+avoidance_enabled = true
+max_speed = 100000.0
+avoidance_layers = 2
+avoidance_mask = 2
+debug_enabled = true
+
+[node name="PathTimer" type="Timer" parent="Nav"]
+wait_time = 0.1
+autostart = true
 
 [node name="EnemyStateChart" type="Node" parent="."]
 script = ExtResource("9_epdmq")
@@ -340,10 +340,10 @@ libraries = {
 [connection signal="area_exited" from="HitBox" to="HitBox" method="_on_area_exited"]
 [connection signal="area_entered" from="AttackRange" to="." method="_on_attack_range_area_entered"]
 [connection signal="area_exited" from="AttackRange" to="." method="_on_attack_range_area_exited"]
-[connection signal="velocity_computed" from="Nav/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
-[connection signal="timeout" from="Nav/PathTimer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="Aggro/AggroRange" to="." method="_on_aggro_range_area_entered"]
 [connection signal="area_exited" from="Aggro/DeAggroRange" to="." method="_on_de_aggro_range_area_exited"]
+[connection signal="velocity_computed" from="Nav/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Nav/PathTimer" to="." method="_on_timer_timeout"]
 [connection signal="state_entered" from="EnemyStateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_entered" from="EnemyStateChart/CompoundState/Chase" to="." method="_on_chase_state_entered"]
 [connection signal="state_exited" from="EnemyStateChart/CompoundState/Chase" to="." method="_on_chase_state_exited"]

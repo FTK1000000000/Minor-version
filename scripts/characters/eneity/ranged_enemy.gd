@@ -1,7 +1,7 @@
 extends Enemy
 
 
-const AMMO = preload("res://ammo/ammo.tscn")
+const AMMO = preload("res://ammo/goblin_arrow.tscn")
 
 @export var max_distance_to_player: int = 160
 @export var min_distance_to_player: int = 128
@@ -23,14 +23,17 @@ func update_state():
 	if !aggro_target:
 		state_chart.send_event("idle")
 	
-	elif aggro_target:
+	else:
+		current_move_speed = move_speed
 		if attack_target && is_can_attack:
 			state_chart.send_event("attack")
 		elif attack_is_ready:
 			state_chart.send_event("chase")
+		else:
+			current_move_speed = 0
 
 func recalc_path():
-	if aggro_target:
+	if aggro_target && !is_attack:
 		distance_to_player = (aggro_target.position - global_position).length()
 		if distance_to_player > max_distance_to_player:
 			is_can_attack = false
@@ -44,7 +47,8 @@ func recalc_path():
 
 func get_path_to_move_away_from_player():
 	var dir: Vector2 = (global_position - aggro_target.position).normalized()
-	navigation_agent.target_position = aggro_target.global_position + dir * min_distance_to_player
+	var v = aggro_target.global_position + dir * (min_distance_to_player + body_collision.shape.radius * 2)
+	navigation_agent.target_position = v
 
 func shoot():
 	var projectile = AMMO.instantiate()
@@ -53,21 +57,13 @@ func shoot():
 	get_tree().current_scene.add_child(projectile)
 
 
-func _on_idle_state_entered() -> void:
-	animation_player.play("RESET")
-
-
-func _on_chase_state_entered() -> void:
-	#animation_player.play("walk")
-	pass
-
-
 func _on_ranged_state_entered() -> void:
 	aimline_rotation()
 	
 	if attack_is_ready:
 		current_move_speed = 0
 		target_position = attack_target.global_position
+		is_attack = true
 		
 		animation_player.play("ranged")
 		await animation_player.animation_finished
@@ -79,3 +75,5 @@ func _on_ranged_state_entered() -> void:
 			
 			attack_is_ready = true
 		current_move_speed = move_speed
+		is_attack = false
+		state_chart.send_event("idle")
