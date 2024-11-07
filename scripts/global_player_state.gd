@@ -115,7 +115,7 @@ func update_ability():
 	
 	if player_ability.has("rapid_fire"):
 		rapid_fire = true
-	print(player_current_health," aaaaaaaaaaaaaaaaaaaaaa")
+	#print(player_current_health," aaaaaaaaaaaaaaaaaaaaaa")
 
 func clear_date():
 	classes_data = {}

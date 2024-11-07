@@ -1,0 +1,21 @@
+{
+	"from": {
+		"1,0": {
+			"res://rooms/t1,0;-1,0.tscn",
+			"res://rooms/t1,;-1,0.tscn"
+		},
+		"-1,0": {
+		},
+		"0,1": {
+			
+		},
+		"0.-1": {
+			"res://rooms/t0,1;0,-1.tscn",
+			"res://rooms/t0,1;1,0.tscn",
+			"res://rooms/t0,-1;0,1.tscn",
+			"res://rooms/t0,-1;0,-1.tscn"
+		}
+	},
+	"fight": {},
+	"end": {}
+}
