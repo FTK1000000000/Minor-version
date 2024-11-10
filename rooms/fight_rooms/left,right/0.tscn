@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckywsdvkd6k8j"]
+
+[ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/fight_rooms/fight_room.tscn" id="1_leyfo"]
+[ext_resource type="Script" path="res://godot_state_charts_examples/ant_hill/marker/marker.gd" id="2_gxhwh"]
+
+[node name="FightRoom" instance=ExtResource("1_leyfo")]
+
+[node name="Floor" parent="TileMap" index="1"]
+position = Vector2(0, -1)
+
+[node name="Marker" parent="EnemyPositions" index="0"]
+position = Vector2(288, 288)
+
+[node name="Marker2" type="Marker2D" parent="EnemyPositions" index="1"]
+position = Vector2(576, 288)
+script = ExtResource("2_gxhwh")

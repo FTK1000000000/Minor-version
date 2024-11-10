@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://xylhprfe8g5d" path="res://tile/main.tres" id="1_mge0c"]
 [ext_resource type="Script" path="res://scripts/rooms/from_room.gd" id="2_rwhxk"]
 [ext_resource type="PackedScene" uid="uid://b285px04xj0ei" path="res://interactable/exit.tscn" id="3_54g77"]
-[ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/player/Player.tscn" id="4_3d0xp"]
+[ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://light/Player.tscn" id="4_3d0xp"]
 [ext_resource type="PackedScene" uid="uid://djj4jvughdd1u" path="res://characters/enemy/goblin.tscn" id="6_77skx"]
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="6_yl06e"]
 [ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="7_4ftro"]

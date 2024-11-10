@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c76kqdervowc5"]
+[gd_scene load_steps=38 format=3 uid="uid://c76kqdervowc5"]
 
 [ext_resource type="Script" path="res://scripts/characters/player/player.gd" id="1_hp01b"]
 [ext_resource type="Texture2D" uid="uid://ctswab1cyx1gr" path="res://texture/characters/player/Sprite player.png" id="2_hlyr5"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_q78is"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_8lig6"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="10_2mpht"]
-[ext_resource type="Script" path="res://scripts/camera/player_camera.gd" id="11_bwohd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bgyxn"]
 radius = 11.5149
@@ -255,7 +254,7 @@ clip_children = 2
 z_index = 1
 texture = ExtResource("2_hlyr5")
 hframes = 36
-frame = 15
+frame = 14
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
@@ -289,10 +288,6 @@ shape = SubResource("RectangleShape2D_br26j")
 
 [node name="Weapon" type="Node2D" parent="."]
 script = ExtResource("4_536cd")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-script = ExtResource("11_bwohd")
 
 [node name="InteractionIcon" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)
@@ -407,6 +402,9 @@ script = ExtResource("10_2mpht")
 to = NodePath("../Dead")
 event = &"dead"
 delay_in_seconds = "0.0"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]

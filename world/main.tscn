@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/world/rooms_generators/main_rooms.gd" id="2_fg0k8"]
 [ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="3_bropb"]
 [ext_resource type="Script" path="res://scripts/interactable/classes_select.gd" id="4_6toju"]
-[ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/player/Player.tscn" id="5_mwb6i"]
+[ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://light/Player.tscn" id="5_mwb6i"]
 [ext_resource type="Script" path="res://scripts/ui/temporary_ui.gd" id="6_cp0lg"]
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="7_tgnu7"]
 
