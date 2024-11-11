@@ -2,9 +2,9 @@ extends Enemy
 
 
 func melee_animaction():
-	print(position)
+	print(global_position)
 	print(target_position)
-	create_tween().tween_property(self, "position", target_position, 0.6)
+	create_tween().tween_property(self, "global_position", target_position, 0.6)
 
 
 func _on_melee_state_entered() -> void:
@@ -12,7 +12,7 @@ func _on_melee_state_entered() -> void:
 	
 	if attack_is_ready:
 		current_move_speed = 0
-		target_position = attack_target.position
+		target_position = attack_target.global_position
 		
 		animation_player.play("melee")
 		await animation_player.animation_finished

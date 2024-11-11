@@ -60,16 +60,16 @@ const room_data = {
 	},
 	"end": {
 		"[(1, 0)]": [
-			"res://rooms/from_rooms/right/0.tscn"
+			"res://rooms/end_rooms/right/0.tscn"
 		],
 		"[(-1, 0)]": [
-			"res://rooms/from_rooms/left/0.tscn"
+			"res://rooms/end_rooms/left/0.tscn"
 		],
 		"[(0, 1)]": [
-			"res://rooms/from_rooms/down/0.tscn"
+			"res://rooms/end_rooms/down/0.tscn"
 		],
 		"[(0, -1)]": [
-			"res://rooms/from_rooms/up/0.tscn"
+			"res://rooms/end_rooms/up/0.tscn"
 		],
 	},
 }
@@ -210,35 +210,48 @@ func spawn_room_group():
 	
 	if !(room_number < max_room_number):
 		var save_room_data = room_group_data.duplicate()
-		while room_number > 1:
-			if number == max_room_number:
-				break
-			else:
-				if save_room_data.size() == 0:
-					for child in get_children():
-						remove_child(child)
-					spawn_room_group()
+		if save_room_data.size() == max_room_number:
+			while room_number > 1:
+				if number == max_room_number:
+					break
 				else:
-					print("[room_spawn]")
-					
-					var data = save_room_data.pop_front()
-					room_class = data.class
-					room_position = data.position
-					room_direction = data.direction
-					room_door_direction = data.door_direction
-					
-					var key = str(room_door_direction)
-					var path = room_data.get(room_class).get(key)
-					room = load(path[randi() % path.size()]).instantiate()
-					room.position.x = room_position.x * ROOM_SIZE
-					room.position.y = room_position.y * ROOM_SIZE
-					number += 1
-					add_child(room)
-					
-					print("number: ", number)
-					print("room_class: ", room_class)
-					print("key: ", key)
-					print("/[room_spawn]")
-					print()
+					if save_room_data.size() == 0:
+						for child in get_children():
+							remove_child(child)
+							print("(recurrence)")
+						spawn_room_group()
+						print("(/recurrence)")
+					else:
+						print("[room_spawn]")
+						
+						if number == 1:
+							player_spawn_position = room.player_spawn_position
+							GlobalPlayerState.player.position = player_spawn_position
+						
+						var data = save_room_data.pop_front()
+						room_class = data.class
+						room_position = data.position
+						room_direction = data.direction
+						room_door_direction = data.door_direction
+						
+						var key = str(room_door_direction)
+						var path = room_data.get(room_class).get(key)
+						room = load(path[randi() % path.size()]).instantiate()
+						room.position.x = room_position.x * ROOM_SIZE
+						room.position.y = room_position.y * ROOM_SIZE
+						number += 1
+						add_child(room)
+						
+						print("number: ", number)
+						print("room_class: ", room_class)
+						print("key: ", key)
+						print("/[room_spawn]")
+						print()
+		else:
+			for child in get_children():
+				remove_child(child)
+				print("(recurrence)")
+			spawn_room_group()
+			print("(/recurrence)")
 	
 	print("/{room_group_generator}")

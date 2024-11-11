@@ -22,7 +22,7 @@ signal health_changed
 
 @export var aggro_target: CharacterBody2D
 @export var attack_target: CharacterBody2D
-var target_position: Vector2
+@export var target_position: Vector2
 
 @export var data_name: String
 @export var move_speed: int = 100

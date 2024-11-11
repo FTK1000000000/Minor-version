@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://pg4ww2ank14s"]
+[gd_scene load_steps=3 format=3 uid="uid://pg4ww2ank14s"]
 
 [ext_resource type="PackedScene" uid="uid://c2m7un3utsm6x" path="res://rooms/room.tscn" id="1_0up4c"]
+[ext_resource type="Script" path="res://scripts/rooms/from_room.gd" id="2_c3obw"]
 
 [node name="FromRoom" instance=ExtResource("1_0up4c")]
+script = ExtResource("2_c3obw")
 
 [node name="PlayerSpawn" type="Marker2D" parent="." index="1"]
 position = Vector2(416, 416)

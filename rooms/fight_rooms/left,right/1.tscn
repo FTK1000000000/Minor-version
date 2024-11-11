@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=4 uid="uid://cq1nkqmui4qth"]
 
-[ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/fight_rooms/fight_room.tscn" id="1_sjgad"]
+[ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/fight_room.tscn" id="1_sjgad"]
 [ext_resource type="Script" path="res://godot_state_charts_examples/ant_hill/marker/marker.gd" id="2_sopdc"]
 
 [node name="FightRoom" instance=ExtResource("1_sjgad")]
@@ -19,5 +19,5 @@ tile_map_data = PackedByteArray("AAAAAAkAAAAIAAAAAAAAAA8AAAAIAAIAAAABAAkAAAAIAAA
 position = Vector2(288, 288)
 
 [node name="Marker2" type="Marker2D" parent="EnemyPositions" index="1"]
-position = Vector2(576, 288)
+position = Vector2(576, 352)
 script = ExtResource("2_sopdc")

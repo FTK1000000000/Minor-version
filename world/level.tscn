@@ -9,20 +9,18 @@
 [node name="World" type="Node2D"]
 script = ExtResource("1_3273o")
 
+[node name="Player" parent="." instance=ExtResource("3_6pk2g")]
+position = Vector2(284, 210)
+
+[node name="PlayerLight" parent="Player" instance=ExtResource("4_1cpv5")]
+visible = false
+
 [node name="RoomsGenerator" type="Node2D" parent="."]
 script = ExtResource("2_wtn4v")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color(0, 0, 0, 1)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.15, 0.15)
-
-[node name="Player" parent="." instance=ExtResource("3_6pk2g")]
-position = Vector2(284, 210)
-
-[node name="PlayerLight" parent="Player" instance=ExtResource("4_1cpv5")]
 
 [node name="TemporaryUI" type="CanvasLayer" parent="."]
 process_mode = 3
