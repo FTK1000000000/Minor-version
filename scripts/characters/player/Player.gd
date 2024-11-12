@@ -9,7 +9,8 @@ signal player_dead
 
 @onready var body_texture: Node2D = $Texture/Body
 @onready var animation_tree: AnimationTree = $AnimationTree
-@onready var HEAP: AnimationPlayer = $HurtEffectPlayer
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var hurt_effect_player: AnimationPlayer = $HurtEffectPlayer
 @onready var endurance_recover_timer: Timer = $EnduranceRecoverTimer
 @onready var end_recover_ready_timer: Timer = $EndRecoverReadyTimer
 @onready var hurt_effect_timer: Timer = $HurtEffectTimer
@@ -43,14 +44,18 @@ signal player_dead
 
 
 func _ready():
-	if GlobalPlayerState.player_weapon != "":
-		weapon_node.add_child(load(GlobalPlayerState.player_weapon).instantiate())
+	var gps = GlobalPlayerState
 	
-	GlobalPlayerState.player = self
-	current_health = GlobalPlayerState.player_current_health
-	current_endurance = GlobalPlayerState.player_current_endurance
+	if gps.player_classes != "":
+		body_texture.texture = load(gps.classes_data.texture.get(gps.player_classes))
+	if gps.player_weapon != "":
+		weapon_node.add_child(load(gps.player_weapon).instantiate())
 	
-	current_move_speed = GlobalPlayerState.player_walk_move_speed
+	gps.player = self
+	current_health = gps.player_current_health
+	current_endurance = gps.player_current_endurance
+	
+	current_move_speed = gps.player_walk_move_speed
 	endurance_recover_timer.wait_time = endurance_recover_speed
 	end_recover_ready_timer.wait_time = endurance_recover_ready_speed
 	
@@ -196,6 +201,7 @@ func _on_idle_state_entered() -> void:
 	print(name, " state: idle")
 	animation_tree["parameters/conditions/is_idle"] = true
 	animation_tree["parameters/conditions/is_walk"] = false
+	
 
 
 func _on_walk_stack_state_entered() -> void:
@@ -231,11 +237,11 @@ func _on_hurt_state_entered() -> void:
 	GlobalPlayerState.player_current_health = current_health
 	health_changed.emit()
 	is_hurt = true
-	HEAP.play("hurt_blink")
+	hurt_effect_player.play("hurt_blink")
 	hurt_effect_timer.start()
 	await hurt_effect_timer.timeout
 	
-	HEAP.play("RESET")
+	hurt_effect_player.play("RESET")
 	is_hurt = false
 
 

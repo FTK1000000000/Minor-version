@@ -1,23 +1,23 @@
 {
 	"classes_name": {
-		"barbarian": "barbarian",
-		"fighter": "fighter",
-		"hunters": "hunters"
+		"tank": "tank",
+		"hunter": "hunter",
+		"mage": "mage"
 	},
 	"description": {
-		"barbarian": "barbarian is vrey barbarbarbarbarbarian",
-		"fighter": "The guy who holds a shield all day long. The huge shield makes the team safer, but you don't seem to have any partners to protect",
-		"hunters": "The hunt is on!"
+		"tank": "tank is vrey tank",
+		"hunter": "The guy who holds a shield all day long. The huge shield makes the team safer, but you don't seem to have any partners to protect",
+		"mage": "The hunt is on!"
 	},
 	"weapon": {
-		"barbarian": "res://weapon/swrod.tscn",
-		"fighter": "res://weapon/shield.tscn",
-		"hunters": "res://weapon/bow.tscn"
+		"tank": "res://weapon/swrod.tscn",
+		"hunter": "res://weapon/shield.tscn",
+		"mage": "res://weapon/bow.tscn"
 	},
 	"property": {
-		"barbarian": { "max_health": 120, "max_endurance": 120, "weapon_used": "SWORD" },
-		"fighter": { "max_health": 80, "max_endurance": 100, "weapon_used": "SHIELD" },
-		"hunters": { "max_health": 100, "max_endurance": 60, "weapon_used": "BOW" },
+		"tank": { "max_health": 120, "max_endurance": 120, "weapon_used": "SWORD" },
+		"hunter": { "max_health": 80, "max_endurance": 100, "weapon_used": "SHIELD" },
+		"mage": { "max_health": 100, "max_endurance": 60, "weapon_used": "BOW" },
 	},
 	"ability": {
 		"common": {
@@ -38,19 +38,19 @@
 				"description": "Increases your run speed by 50"
 			}
 		},
-		"barbarian": {
+		"tank": {
 			"weapon_attack_twice": {
 				"name": "weapon attack twice",
 				"description": "Causes your weapon to attack again after attack, This attack not consume endurance"
 			}
 		},
-		"fighter": {
+		"hunter": {
 			"sturdy_shield": {
 				"name": "sturdy shield",
 				"description": "25% reduced endurance Lost on Shield Blocking Damage"
 			},
 		},
-		"hunters": {
+		"mage": {
 			"rapid_fire": {
 				"name": "Rapid fire",
 				"description": "Increases the speed at which you draw a bow by 50%"
@@ -70,8 +70,14 @@
 		}
 	},
 	"portraiture": {
-		"barbarian": "res://texture/ui/classes_selection/fc1f4134970a304ef4b94af9d7c8a786c9175c1e.webp",
-		"fighter": "res://texture/ui/classes_selection/396px-Garrosh_Heart_of_War.jpg",
-		"hunters": "res://texture/ui/classes_selection/620px-雷克萨和米莎.jpg",
+		"tank": "res://texture/ui/classes_selection/fc1f4134970a304ef4b94af9d7c8a786c9175c1e.webp",
+		"hunter": "res://texture/ui/classes_selection/396px-Garrosh_Heart_of_War.jpg",
+		"mage": "res://texture/ui/classes_selection/620px-雷克萨和米莎.jpg",
+	},
+	"texture": {
+		"tank": "res://texture/characters/player/tank.png",
+		"hunter": "res://texture/characters/player/hunter.png",
+		"mage": "res://texture/characters/player/mage.png",
 	}
 }
+ 

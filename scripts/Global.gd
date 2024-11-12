@@ -14,6 +14,7 @@ const CLASSES_SELECT = preload("res://ui/classes_select/classes_select.tscn")
 const SFX_IDX = 1
 const BGM_IDX = 2
 
+const COMMON_KNOKBACK_FOREC = 500
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @export var temporary_ui: CanvasLayer

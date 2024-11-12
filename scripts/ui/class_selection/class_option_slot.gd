@@ -2,9 +2,9 @@ extends Control
 
 
 enum CLASSES_OPTION {
-	barbarian,
-	fighter,
-	hunters
+	tank,
+	hunter,
+	mage
 }
 
 
@@ -21,12 +21,12 @@ enum CLASSES_OPTION {
 func _ready() -> void:
 	var classes
 	match classes_option:
-		CLASSES_OPTION.barbarian:
-			classes = "barbarian"
-		CLASSES_OPTION.fighter:
-			classes = "fighter"
-		CLASSES_OPTION.hunters:
-			classes = "hunters"
+		CLASSES_OPTION.tank:
+			classes = "tank"
+		CLASSES_OPTION.hunter:
+			classes = "hunter"
+		CLASSES_OPTION.mage:
+			classes = "mage"
 	
 	get_classes_data(classes)
 
@@ -43,12 +43,12 @@ func get_classes_data(classes):
 func _on_button_down() -> void:
 	var classes
 	match classes_option:
-		CLASSES_OPTION.barbarian:
-			classes = "barbarian"
-		CLASSES_OPTION.fighter:
-			classes = "fighter"
-		CLASSES_OPTION.hunters:
-			classes = "hunters"
+		CLASSES_OPTION.tank:
+			classes = "tank"
+		CLASSES_OPTION.hunter:
+			classes = "hunter"
+		CLASSES_OPTION.mage:
+			classes = "mage"
 	
 	var classes_name = GlobalPlayerState.classes_data.classes_name.get(classes)
 	var weapon = GlobalPlayerState.classes_data.weapon.get(classes)

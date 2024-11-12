@@ -10,13 +10,14 @@ config_version=5
 
 [application]
 
-config/name="trials of king"
+config/name="prison"
 config/name_localized={
 "cn": "头盔骑士",
 "en": "Knight of Helmet"
 }
 run/main_scene="res://ui/title_screen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
 
 [autoload]
@@ -31,6 +32,7 @@ window/size/viewport_width=1920
 window/size/viewport_height=695
 window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="res://texture/ui/cursor/cursor.png"
+window/bg_color=Color(0, 0, 0, 1)
 
 [editor_plugins]
 

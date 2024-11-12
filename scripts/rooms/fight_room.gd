@@ -43,11 +43,13 @@ func spawn_entity():
 		
 		var __ = enemy.connect("tree_exited", on_enemy_killed)
 		enemy.position = enemy_positions.position
-		call_deferred("add_child", enemy)
+		#call_deferred("add_child", enemy)
+		add_child(enemy)
 		
 		var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
 		spawn_explosion.position = enemy_positions.position
-		call_deferred("add_child", spawn_explosion)
+		#call_deferred("add_child", spawn_explosion)
+		add_child(spawn_explosion)
 
 
 func _on_player_detector_body_entered(_body: Player) -> void:

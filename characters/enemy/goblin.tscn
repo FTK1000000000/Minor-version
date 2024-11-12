@@ -1,14 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://djj4jvughdd1u"]
+[gd_scene load_steps=14 format=3 uid="uid://djj4jvughdd1u"]
 
 [ext_resource type="PackedScene" uid="uid://0ug3e0fiv41v" path="res://characters/enemy/enemy.tscn" id="1_dqqr5"]
 [ext_resource type="Script" path="res://scripts/characters/eneity/goblin.gd" id="2_rngc0"]
 [ext_resource type="Texture2D" uid="uid://c5d8i6xcn162n" path="res://texture/characters/enemy/goblin.png" id="3_havag"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_thexk"]
-radius = 16.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_4ky0h"]
-radius = 16.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_b6pv5"]
+radius = 13.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j6e2t"]
 radius = 16.0
@@ -183,10 +180,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CollisionShape2D" parent="." index="1"]
-shape = SubResource("CircleShape2D_thexk")
-
-[node name="CollisionShape2D" parent="HurtBox" index="0"]
-shape = SubResource("CircleShape2D_4ky0h")
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_b6pv5")
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(-3.8147e-06, 0)
@@ -205,7 +200,7 @@ debug_color = Color(0.796, 0.627, 0, 0.124)
 [node name="CollisionShape2D" parent="Aggro/DeAggroRange" index="0"]
 shape = SubResource("CircleShape2D_qkg84")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="11"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
 libraries = {
 "": SubResource("AnimationLibrary_bkb2c")
 }

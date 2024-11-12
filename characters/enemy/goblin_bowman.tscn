@@ -1,8 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://qbvc3qdmmyt2"]
+[gd_scene load_steps=14 format=3 uid="uid://qbvc3qdmmyt2"]
 
 [ext_resource type="PackedScene" uid="uid://0ug3e0fiv41v" path="res://characters/enemy/enemy.tscn" id="1_o28rv"]
 [ext_resource type="Script" path="res://scripts/characters/eneity/ranged_enemy.gd" id="2_4yjms"]
 [ext_resource type="Texture2D" uid="uid://cyyjcs4p0onoe" path="res://texture/characters/enemy/goblin_bowman.png" id="3_1vrm1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5iejg"]
+radius = 14.0089
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qivoj"]
 radius = 256.0
@@ -166,6 +169,10 @@ visible = false
 [node name="Body" parent="Texture" index="1"]
 texture = ExtResource("3_1vrm1")
 hframes = 9
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 3.5)
+shape = SubResource("CircleShape2D_5iejg")
 
 [node name="CollisionShape2D" parent="AttackRange" index="0"]
 shape = SubResource("CircleShape2D_qivoj")

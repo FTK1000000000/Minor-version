@@ -10,6 +10,7 @@ class_name Hitbox
 @export var knockback_direction: Vector2 = Vector2.ZERO
 @export var ready_time: int = 1
 
+
 func _process(_delta: float) -> void:
 	if collision_ready && target:
 		hit(target)
@@ -20,6 +21,7 @@ func _process(_delta: float) -> void:
 
 
 func hit(area: Area2D):
+	knockback_direction = (area.global_position - global_position).normalized()
 	area.take_damage(damage, knockback_direction, knockback_force)
 
 

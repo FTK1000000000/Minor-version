@@ -2,7 +2,13 @@ extends Area2D
 class_name Hurtbox
 
 
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
 @onready var parent = get_node("..")
+
+
+func _ready() -> void:
+	gpu_particles_2d.emitting = false
 
 
 func take_damage(damage: int, direction: Vector2, force: int):
@@ -36,3 +42,15 @@ func take_damage(damage: int, direction: Vector2, force: int):
 		parent.velocity += direction * force
 		parent.state_chart.send_event("hurt")
 	
+	var gckf = Global.COMMON_KNOKBACK_FOREC
+	gpu_particles_2d.speed_scale = force / gckf if force > gckf else 1
+	gpu_particles_2d.rotation = direction.angle()
+	gpu_particles_2d.amount = damage
+	gpu_particles_2d.restart()
+	
+	animated_sprite_2d.rotation = direction.angle()
+	animated_sprite_2d.visible = true
+	animated_sprite_2d.play("default")
+	
+	await animated_sprite_2d.animation_finished
+	animated_sprite_2d.visible = false

@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://cqu7iy2pnjdtk"]
+[gd_scene load_steps=17 format=3 uid="uid://cqu7iy2pnjdtk"]
 
-[ext_resource type="PackedScene" uid="uid://c7r35kw8ayagu" path="res://characters/enemy/boss/boss.tscn" id="1_7oqx0"]
+[ext_resource type="PackedScene" uid="uid://c7r35kw8ayagu" path="res://characters/enemy/boss.tscn" id="1_7oqx0"]
 [ext_resource type="Script" path="res://scripts/characters/eneity/boss/slime.gd" id="2_4op1a"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_xkgh0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g325p"]
 radius = 72.4431
@@ -12,6 +11,12 @@ radius = 43.1045
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mo1cl"]
 radius = 37.2282
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_trcey"]
+radius = 250.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_65k68"]
+radius = 300.0
 
 [sub_resource type="Animation" id="Animation_5fgmv"]
 length = 0.001
@@ -96,12 +101,6 @@ _data = {
 "melee": SubResource("Animation_2den7"),
 "walk": SubResource("Animation_yuh6m")
 }
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_trcey"]
-radius = 250.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_65k68"]
-radius = 300.0
 
 [sub_resource type="Animation" id="Animation_m7px5"]
 resource_name = "RESET"
@@ -223,9 +222,6 @@ offset_bottom = 2.0
 [node name="MeleeRange#CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_g325p")
 
-[node name="StateChart_CompoundState#AtomicState" type="Node" parent="." index="3"]
-script = ExtResource("6_xkgh0")
-
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource("CircleShape2D_86soo")
 
@@ -233,18 +229,18 @@ shape = SubResource("CircleShape2D_86soo")
 position = Vector2(0, 4.54747e-13)
 shape = SubResource("CircleShape2D_mo1cl")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
-libraries = {
-"": SubResource("AnimationLibrary_bkb2c")
-}
-
 [node name="CollisionShape2D" parent="Aggro/AggroRange" index="0"]
 shape = SubResource("CircleShape2D_trcey")
 
 [node name="CollisionShape2D" parent="Aggro/DeAggroRange" index="0"]
 shape = SubResource("CircleShape2D_65k68")
 
-[node name="HurtEffectPlayer" parent="." index="13"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+libraries = {
+"": SubResource("AnimationLibrary_bkb2c")
+}
+
+[node name="HurtEffectPlayer" parent="." index="12"]
 libraries = {
 "": SubResource("AnimationLibrary_hifb3")
 }

@@ -27,11 +27,11 @@ const CLASSES_DATA_PATH = "res://classes_data.json"
 @export var player_ability: Array = []
 @export var remainder_ability: Array = []
 @export var common_ability: Array = []
-#barbarian
+#tank
 @export var weapon_attack_twice = false
-#fighter
+#hunter
 @export var sturdy_shield = false
-#huntes
+#mage
 @export var rapid_fire = false
 
 @export var player_kill: int = 0
@@ -115,7 +115,6 @@ func update_ability():
 	
 	if player_ability.has("rapid_fire"):
 		rapid_fire = true
-	#print(player_current_health," aaaaaaaaaaaaaaaaaaaaaa")
 
 func clear_date():
 	classes_data = {}

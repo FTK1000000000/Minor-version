@@ -30,6 +30,7 @@ signal health_changed
 @export var attack_range: int
 @export var attack_ready_time: float
 @export var attack_damage: int
+@export var attack_knockback_force: int
 
 @export var attack_is_ready: bool = false
 @export var is_can_attack: bool = false
@@ -47,6 +48,7 @@ func _ready():
 	current_move_speed = move_speed
 	current_health = max_health
 	hitbox.damage = attack_damage
+	hitbox.knockback_force = attack_knockback_force
 	aim_line.size.x = attack_ranged_collision.shape.radius
 	attack_is_ready = true
 	
@@ -123,6 +125,7 @@ func read_data():
 	move_speed = data.move_speed
 	max_health = data.max_health
 	attack_damage = data.attack_damage
+	attack_knockback_force = data.attack_knockback_force
 	attack_ready_time = data.attack_ready_time
 	attack_timer.wait_time = attack_ready_time
 
