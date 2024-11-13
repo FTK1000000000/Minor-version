@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dhipmf7vpf1db"]
+[gd_scene load_steps=10 format=3 uid="uid://dhipmf7vpf1db"]
 
 [ext_resource type="Script" path="res://scripts/world/main.gd" id="1_mqshf"]
 [ext_resource type="Script" path="res://scripts/world/rooms_generators/main_rooms.gd" id="2_fg0k8"]
@@ -10,6 +10,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tkljl"]
 size = Vector2(128, 128)
+
+[sub_resource type="Environment" id="Environment_cbwgi"]
+glow_enabled = true
 
 [node name="StartWorld" type="Node2D"]
 script = ExtResource("1_mqshf")
@@ -49,5 +52,8 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 23
 text = "skip guidance"
 metadata/_edit_use_anchors_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cbwgi")
 
 [connection signal="button_up" from="HUD/Button" to="." method="_on_button_button_up"]

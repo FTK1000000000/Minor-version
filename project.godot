@@ -17,6 +17,7 @@ config/name_localized={
 }
 run/main_scene="res://ui/title_screen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+run/max_fps=60
 boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
 
@@ -30,9 +31,16 @@ SoundManager="*res://sound_manager.tscn"
 
 window/size/viewport_width=1920
 window/size/viewport_height=695
+window/size/initial_position_type=0
+window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="res://texture/ui/cursor/cursor.png"
 window/bg_color=Color(0, 0, 0, 1)
+
+[editor]
+
+naming/use_hidden_project_data_directory=true
+naming/use_custom_user_dir=false
 
 [editor_plugins]
 
@@ -166,3 +174,4 @@ common/max_physics_steps_per_frame=20
 
 textures/canvas_textures/default_texture_filter=0
 textures/vram_compression/import_s3tc_bptc=true
+viewport/hdr_2d=true
