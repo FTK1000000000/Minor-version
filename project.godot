@@ -29,9 +29,10 @@ SoundManager="*res://sound_manager.tscn"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=695
+window/size/viewport_width=1080
+window/size/viewport_height=720
 window/size/initial_position_type=0
+window/size/always_on_top=true
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="res://texture/ui/cursor/cursor.png"
@@ -174,4 +175,3 @@ common/max_physics_steps_per_frame=20
 
 textures/canvas_textures/default_texture_filter=0
 textures/vram_compression/import_s3tc_bptc=true
-viewport/hdr_2d=true

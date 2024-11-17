@@ -164,7 +164,6 @@ data_name = "goblin"
 visible = false
 
 [node name="Body" parent="Texture" index="1"]
-position = Vector2(-9.53674e-07, 9.53674e-07)
 texture = ExtResource("3_havag")
 hframes = 10
 

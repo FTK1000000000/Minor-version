@@ -1,11 +1,13 @@
-[gd_scene load_steps=39 format=3 uid="uid://c76kqdervowc5"]
+[gd_scene load_steps=29 format=3 uid="uid://c76kqdervowc5"]
 
 [ext_resource type="Script" path="res://scripts/characters/player/player.gd" id="1_hp01b"]
 [ext_resource type="Texture2D" uid="uid://eis7cusnmhio" path="res://texture/characters/player/tank.png" id="2_sy5qe"]
-[ext_resource type="PackedScene" uid="uid://bv885848x02vx" path="res://characters/hurtbox.tscn" id="3_u2dqi"]
+[ext_resource type="PackedScene" uid="uid://b5an3p11uidjl" path="res://characters/hurtbox/player_hurtbox.tscn" id="3_ww8by"]
 [ext_resource type="Script" path="res://scripts/characters/player/weapon.gd" id="4_536cd"]
 [ext_resource type="Texture2D" uid="uid://bqk0s6js2v1q1" path="res://texture/ui/hud/key_icon.png" id="6_qrgcn"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://dq75qdq1t3txp" path="res://Player.tres" id="6_u1auw"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_dbqc7"]
+[ext_resource type="Script" path="res://scripts/camera/shaky_camera.gd" id="7_kt3r7"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_q78is"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="9_8lig6"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="10_2mpht"]
@@ -42,79 +44,15 @@ animations = [{
 "speed": 2.0
 }]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7xl0r"]
-animation = &"back/idle"
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jcyqg"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bi8er"]
-animation = &"back/idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hpkbk"]
-animation = &"front/idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4x27a"]
-animation = &"front/idle"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_bmj77"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_7xl0r")
-blend_point_0/pos = Vector2(-1, -1.1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_bi8er")
-blend_point_1/pos = Vector2(1, -1.1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_hpkbk")
-blend_point_2/pos = Vector2(-1, 1.1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_4x27a")
-blend_point_3/pos = Vector2(1, 1.1)
-min_space = Vector2(-1, -1.11)
-max_space = Vector2(1, 1.1)
-blend_mode = 1
-sync = true
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w63x2"]
-animation = &"back/walk"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ylgsx"]
-animation = &"back/walk"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4e6b5"]
-animation = &"front/walk"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4vs4f"]
-animation = &"front/walk"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ycdoj"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_w63x2")
-blend_point_0/pos = Vector2(-1, -1.1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_ylgsx")
-blend_point_1/pos = Vector2(1, -1.1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_4e6b5")
-blend_point_2/pos = Vector2(-1, 1.1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_4vs4f")
-blend_point_3/pos = Vector2(1, 1.1)
-min_space = Vector2(-1, -1.1)
-max_space = Vector2(1, 1.1)
-blend_mode = 1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t2i83"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q1bbe"]
-advance_mode = 2
-advance_condition = &"is_walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4faye"]
-advance_mode = 2
-advance_condition = &"is_idle"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2brwx"]
-allow_transition_to_self = true
-reset_ends = true
-states/End/position = Vector2(878, 91)
-states/Start/position = Vector2(54, 91)
-states/idle/node = SubResource("AnimationNodeBlendSpace2D_bmj77")
-states/idle/position = Vector2(192, 91)
-states/walk/node = SubResource("AnimationNodeBlendSpace2D_ycdoj")
-states/walk/position = Vector2(356, 91)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_t2i83"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_q1bbe"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_4faye")]
-graph_offset = Vector2(-174.402, -32.3309)
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_2i7lp"]
+graph_offset = Vector2(-438.823, 64.0365)
+nodes/AnimationNodeStateMachine/node = ExtResource("6_u1auw")
+nodes/AnimationNodeStateMachine/position = Vector2(-180, 140)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jcyqg")
+nodes/TimeScale/position = Vector2(120, 140)
+node_connections = [&"TimeScale", 0, &"AnimationNodeStateMachine", &"output", 0, &"TimeScale"]
 
 [sub_resource type="Animation" id="Animation_o4y7v"]
 resource_name = "idle"
@@ -261,6 +199,7 @@ z_index = 1
 texture = ExtResource("2_sy5qe")
 hframes = 7
 vframes = 2
+frame = 2
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
@@ -274,11 +213,9 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="Hurtbox" parent="." instance=ExtResource("3_u2dqi")]
-collision_layer = 16
-collision_mask = 2
+[node name="PlayerHurtbox" parent="." instance=ExtResource("3_ww8by")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtbox"]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_ltwq5")
 
@@ -302,13 +239,14 @@ autoplay = "default"
 frame_progress = 0.595892
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_2brwx")
+tree_root = SubResource("AnimationNodeBlendTree_2i7lp")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/is_idle = false
-parameters/conditions/is_walk = false
-parameters/idle/blend_position = Vector2(-0.00491804, 0.0243362)
-parameters/walk/blend_position = Vector2(0.00163937, 0)
+parameters/AnimationNodeStateMachine/conditions/is_idle = false
+parameters/AnimationNodeStateMachine/conditions/is_walk = false
+parameters/AnimationNodeStateMachine/idle/blend_position = Vector2(-0.488525, 0.194952)
+parameters/AnimationNodeStateMachine/walk/blend_position = Vector2(0, 0)
+parameters/TimeScale/scale = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -330,6 +268,10 @@ one_shot = true
 
 [node name="EndRecoverReadyTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
+script = ExtResource("7_kt3r7")
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("7_dbqc7")
@@ -408,9 +350,6 @@ script = ExtResource("10_2mpht")
 to = NodePath("../Dead")
 event = &"dead"
 delay_in_seconds = "0.0"
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
 
 [connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack" to="." method="_on_walk_stack_state_entered"]

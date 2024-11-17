@@ -87,6 +87,9 @@ func back(node):
 	node.visible = false
 	game_keep()
 
+func camera_should_shake(amount: float):
+	GlobalPlayerState.player.camera.camera_should_shake(amount)
+
 func read_entity_data():
 	var enemy = JSON.parse_string(FileAccess.open(ENEMY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
 	enemy_data = enemy

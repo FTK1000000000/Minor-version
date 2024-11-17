@@ -13,7 +13,7 @@ const CLASSES_DATA_PATH = "res://classes_data.json"
 @export var player_weapon: String = ""
 @export var player_max_health: int = 100
 @export var player_max_endurance: int = 100
-@export var player_walk_move_speed: int = 120
+@export var player_walk_move_speed: int = 100
 @export var player_run_move_speed: int = 200
 
 @export var player_current_health: int

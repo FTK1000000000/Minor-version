@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar1.png" id="4_kecpt"]
 [ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar2.png" id="5_b7cgw"]
 [ext_resource type="Script" path="res://scripts/ui/hud/enemy_health_bar.gd" id="6_qbrjp"]
-[ext_resource type="PackedScene" uid="uid://bv885848x02vx" path="res://characters/hurtbox.tscn" id="7_g4yuk"]
+[ext_resource type="PackedScene" uid="uid://74b36ijn5xry" path="res://characters/hurtbox/enemy_hurtbox.tscn" id="7_57jkm"]
 [ext_resource type="PackedScene" uid="uid://b6v0g5ygjvg1h" path="res://characters/hitbox.tscn" id="8_abu40"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="9_epdmq"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="10_cahyk"]
@@ -57,6 +57,42 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Texture/Body:skew")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Texture/Body:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Texture/Body:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_xri1l"]
 resource_name = "dead"
@@ -101,9 +137,9 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_2ngdt"]
 resource_name = "hurt_blink"
-length = 0.4
+length = 0.2
 loop_mode = 1
-step = 0.2
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -111,10 +147,46 @@ tracks/0/path = NodePath("Texture/Body/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0.670588, 0, 0, 0.498039), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Texture/Body:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [0.0, -0.0872665]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Texture/Body:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1.2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("Texture/Body:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -16)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3g25r"]
@@ -191,10 +263,9 @@ script = ExtResource("6_qbrjp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4n8dm")
 
-[node name="Hurtbox" parent="." instance=ExtResource("7_g4yuk")]
-collision_layer = 32
+[node name="EnemyHurtbox" parent="." instance=ExtResource("7_57jkm")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtbox"]
 shape = SubResource("CircleShape2D_m2odl")
 
 [node name="HitBox" parent="." instance=ExtResource("8_abu40")]
@@ -321,7 +392,7 @@ delay_in_seconds = "0.0"
 one_shot = true
 
 [node name="HurtEffectTimer" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.2
 one_shot = true
 
 [node name="HurtEffectPlayer" type="AnimationPlayer" parent="."]

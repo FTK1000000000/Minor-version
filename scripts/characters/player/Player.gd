@@ -17,6 +17,7 @@ signal player_dead
 @onready var hurt_box: Hurtbox = $Hurtbox
 @onready var state_chart: StateChart = $StateChart
 @onready var interaction_icon: AnimatedSprite2D = $InteractionIcon
+@onready var camera: Camera2D = $Camera2D
 
 @onready var weapon_node: Node2D = $Weapon
 @onready var inventory: Inventory = preload("res://inventory/player_inventory.tres")
@@ -34,6 +35,7 @@ signal player_dead
 
 @export var is_idle: bool = true
 @export var is_walk: bool = false
+@export var is_run: bool = false
 @export var is_resist: bool = false
 @export var is_weapon_attack: bool = false
 @export var weapon_flip: bool = false
@@ -90,14 +92,17 @@ func update_state():
 	if is_still && is_walk:
 		is_idle = true
 		is_walk = false
+		is_run = false
 		state_chart.send_event("idle")
 	
 	if !is_still:
 		is_walk = true
 		is_idle = false
 		if !is_still && !shift:
+			is_run = false
 			state_chart.send_event("walk")
 		elif !is_still && shift && current_endurance > 0:
+			is_run = true
 			state_chart.send_event("run")
 	
 	if Input.is_action_just_pressed("attack"):
@@ -127,8 +132,13 @@ func update_animation():
 	if m.y < 0: is_flip = true
 	else: is_flip = false
 	
-	animation_tree["parameters/idle/blend_position"] = m
-	animation_tree["parameters/walk/blend_position"] = m
+	if is_run:
+		animation_tree["parameters/TimeScale/scale"] = 1 * 2
+	else:
+		animation_tree["parameters/TimeScale/scale"] = 1
+	
+	animation_tree["parameters/AnimationNodeStateMachine/idle/blend_position"] = m
+	animation_tree["parameters/AnimationNodeStateMachine/walk/blend_position"] = m
 	#纹理朝向和渲染索引
 
 func handle_health():
@@ -199,15 +209,15 @@ func _on_hurt_box_area_entered(area):
 
 func _on_idle_state_entered() -> void:
 	print(name, " state: idle")
-	animation_tree["parameters/conditions/is_idle"] = true
-	animation_tree["parameters/conditions/is_walk"] = false
+	animation_tree["parameters/AnimationNodeStateMachine/conditions/is_idle"] = true
+	animation_tree["parameters/AnimationNodeStateMachine/conditions/is_walk"] = false
 	
 
 
 func _on_walk_stack_state_entered() -> void:
 	print(name, " state: walk.walk")
-	animation_tree["parameters/conditions/is_idle"] = false
-	animation_tree["parameters/conditions/is_walk"] = true
+	animation_tree["parameters/AnimationNodeStateMachine/conditions/is_idle"] = false
+	animation_tree["parameters/AnimationNodeStateMachine/conditions/is_walk"] = true
 	#SoundManager.play_sfx("aa")
 
 
