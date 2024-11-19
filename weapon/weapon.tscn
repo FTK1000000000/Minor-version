@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/weapon/weapon.gd" id="1_cwbe8"]
 [ext_resource type="Texture2D" uid="uid://keslc74tlaan" path="res://texture/weapons/monado_1.png" id="2_1rnyv"]
-[ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="3_58pre"]
+[ext_resource type="Script" path="res://scripts/collisionbox/hitbox.gd" id="3_58pre"]
 
 [node name="Weapon" type="Node2D"]
 script = ExtResource("1_cwbe8")

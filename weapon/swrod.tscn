@@ -3,9 +3,8 @@
 [ext_resource type="Script" path="res://scripts/weapon/swrod.gd" id="1_ccjo8"]
 [ext_resource type="PackedScene" uid="uid://d3gvaw81qlatn" path="res://weapon/weapon.tscn" id="1_ha3n7"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_agu5p"]
-radius = 11.4015
-height = 76.6522
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dsdq3"]
+size = Vector2(96, 128)
 
 [sub_resource type="Animation" id="Animation_84p2f"]
 length = 0.001
@@ -48,34 +47,10 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Swrod/Hitbox:position")
+tracks/3/path = NodePath("Swrod/Hitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Swrod/Hitbox:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-2.0944]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Swrod/Hitbox/CollisionShape2D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -101,23 +76,11 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Swrod/Hitbox:rotation")
+tracks/1/path = NodePath("Swrod/Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.3),
-"transitions": PackedFloat32Array(1, 1, 2),
-"update": 0,
-"values": [-2.0944, 2.0944, -2.0944]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Swrod/Hitbox/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.05),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [false, true]
@@ -154,22 +117,10 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Swrod/Hitbox:rotation")
+tracks/2/path = NodePath("Swrod/Hitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-2.0944]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Swrod/Hitbox/CollisionShape2D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -238,7 +189,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.14, 0.3, 0.46),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [-2.0944, 5.23599, 4.18879, -2.0944]
+"values": [0.0, 5.23599, 4.18879, 0.0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -276,13 +227,9 @@ offset_top = -8.1089
 offset_right = -9.51582
 offset_bottom = -8.1089
 
-[node name="Hitbox" parent="." index="1"]
-rotation = -2.0944
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(22.0788, 27.7583)
-rotation = 11.7918
-shape = SubResource("CapsuleShape2D_agu5p")
+position = Vector2(48, 0)
+shape = SubResource("RectangleShape2D_dsdq3")
 disabled = true
 
 [node name="AttackReadyTimer" parent="." index="2"]

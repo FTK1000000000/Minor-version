@@ -34,6 +34,7 @@ const CLASSES_DATA_PATH = "res://classes_data.json"
 #mage
 @export var rapid_fire = false
 
+@export var money: int = 0
 @export var player_kill: int = 0
 @export var player_dead: bool = false
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bv885848x02vx"]
 
-[ext_resource type="Script" path="res://scripts/characters/hurtbox/hurtbox.gd" id="1_g6bxr"]
+[ext_resource type="Script" path="res://scripts/collisionbox/hurtbox/hurtbox.gd" id="1_g6bxr"]
 [ext_resource type="Material" uid="uid://bdpyrb16q4aq1" path="res://particle/hurt.tres" id="2_slylt"]
 [ext_resource type="Texture2D" uid="uid://cnh0sxbcqmmc0" path="res://texture/particle/hurt.png" id="3_6mm53"]
 

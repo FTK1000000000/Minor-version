@@ -17,6 +17,10 @@ func take_damage(damage: int, direction: Vector2, force: int):
 	if parent is StaticBody2D:
 		parent.current_health -= damage
 	
+	parent.current_health -= damage
+	parent.velocity += direction * force
+	parent.state_chart.send_event("hurt")
+	
 	mark(damage, direction, force)
 
 func bleed(damage: int, direction: Vector2, force: int):
@@ -49,10 +53,6 @@ func jitter(damage: int, direction: Vector2, force: int):
 	offset_transform.call()
 
 func mark(damage: int, direction: Vector2, force: int):
-	parent.current_health -= damage
-	parent.velocity += direction * force
-	parent.state_chart.send_event("hurt")
-	
 	animated_sprite_2d.rotation = direction.angle()
 	animated_sprite_2d.visible = true
 	animated_sprite_2d.play("default")

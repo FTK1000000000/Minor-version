@@ -123,11 +123,10 @@ enum LEVEL_SCENE {
 
 
 func _ready() -> void:
-	#if storey_level < 1 : storey_level = 1
-	spawn_room_group()
+	rooms_generator()
 
 
-func spawn_room_group():
+func rooms_generator():
 	print("{rooms_generator}")
 	
 	var current_storey_scene: String = storey_data.get(storey_level).scene
@@ -250,7 +249,7 @@ func spawn_room_group():
 							for child in get_children():
 								remove_child(child)
 								print("(recurrence)")
-							spawn_room_group()
+							rooms_generator()
 							print("(/recurrence)")
 						else:
 							print("[room_spawn]")
@@ -282,7 +281,7 @@ func spawn_room_group():
 				for child in get_children():
 					remove_child(child)
 					print("(recurrence)")
-				spawn_room_group()
+				rooms_generator()
 				print("(/recurrence)")
 	else:
 		print("[room_spawn]")

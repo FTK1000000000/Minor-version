@@ -21,6 +21,19 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	position += direction * knife_speed * delta
 
+func hit(area: Hurtbox):
+	if area == Resistbox:
+		if GlobalPlayerState.sturdy_shield:
+			queue_free()
+	
+	var hit_explosion_scene = HIT_EXPLOSION_SCENE.instantiate()
+	area.add_child(hit_explosion_scene)
+	hit_explosion_scene.position = position
+	
+	area.take_damage(damage, knockback_direction, knockback_force)
+	
+	queue_free()
+
 
 func dead():
 	await get_tree().create_timer(life_cycle).timeout
@@ -32,16 +45,6 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int):
 	direction = dir
 	knockback_direction = dir
 	knife_speed = speed
-
-
-func _on_area_entered(area: Area2D) -> void:
-	var hit_explosion_scene = HIT_EXPLOSION_SCENE.instantiate()
-	area.add_child(hit_explosion_scene)
-	hit_explosion_scene.position = position
-	
-	area.take_damage(damage, knockback_direction, knockback_force)
-	
-	queue_free()
 
 
 func _on_body_entered(body: TileMapLayer) -> void:

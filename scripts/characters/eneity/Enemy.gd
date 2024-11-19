@@ -138,12 +138,12 @@ func aimline_rotation():
 		aim_line.rotation = tr.angle()
 
 
-func _on_attack_range_area_entered(area: Area2D) -> void:
+func _on_attack_range_area_entered(area: PlayerHurtbox) -> void:
 	attack_target = area.owner
 	attack_is_ready = true
 
 
-func _on_attack_range_area_exited(area: Area2D) -> void:
+func _on_attack_range_area_exited(area: PlayerHurtbox) -> void:
 	if area.owner == attack_target:
 		attack_target = null
 	attack_is_ready = false

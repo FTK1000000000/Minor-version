@@ -3,7 +3,7 @@ class_name Hitbox
 
 
 @export var collision_ready: bool = true
-@export var target: Area2D = null
+@export var target: Hurtbox = null
 
 @export var damage: int = 10
 @export var knockback_force: int = 300
@@ -11,23 +11,20 @@ class_name Hitbox
 @export var ready_time: int = 1
 
 
-func _process(_delta: float) -> void:
-	if collision_ready && target:
-		hit(target)
-		collision_ready = false
-		await get_tree().create_timer(ready_time).timeout
-		
-		collision_ready = true
-
-
-func hit(area: Area2D):
+func hit(area: Hurtbox):
 	knockback_direction = (area.global_position - global_position).normalized()
 	area.take_damage(damage, knockback_direction, knockback_force)
 
 
-func _on_area_entered(area: Area2D) -> void:
+func _on_area_entered(area: Hurtbox) -> void:
 	target = area
+	if collision_ready:
+		hit(target)
+		collision_ready = false
+		print(collision_ready)
+		await get_tree().create_timer(ready_time).timeout
+		collision_ready = true
 
 
-func _on_area_exited(_area: Area2D) -> void:
+func _on_area_exited(_area: Hurtbox) -> void:
 	target = null

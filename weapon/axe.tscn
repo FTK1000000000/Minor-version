@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/weapon/swrod.gd" id="1_fc07l"]
 [ext_resource type="Texture2D" uid="uid://chb060livauhm" path="res://texture/weapons/axe.png" id="2_eagyu"]
-[ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="3_11q8c"]
+[ext_resource type="Script" path="res://scripts/collisionbox/hitbox.gd" id="3_11q8c"]
 
 [sub_resource type="Animation" id="Animation_84p2f"]
 length = 0.001

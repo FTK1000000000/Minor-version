@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b6v0g5ygjvg1h"]
 
-[ext_resource type="Script" path="res://scripts/characters/hitbox.gd" id="1_0yfcq"]
+[ext_resource type="Script" path="res://scripts/collisionbox/hitbox.gd" id="1_0yfcq"]
 
 [node name="HitBox" type="Area2D"]
 scale = Vector2(0.997275, 0.976194)

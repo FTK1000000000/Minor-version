@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://74b36ijn5xry"]
+
+[ext_resource type="PackedScene" uid="uid://bv885848x02vx" path="res://collisionbox/hurtbox/hurtbox.tscn" id="1_j63y3"]
+[ext_resource type="Script" path="res://scripts/collisionbox/hurtbox/enemy_hurtbox.gd" id="2_j18uq"]
+
+[node name="EnemyHurtbox" instance=ExtResource("1_j63y3")]
+collision_layer = 32
+script = ExtResource("2_j18uq")

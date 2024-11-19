@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/characters/player/player.gd" id="1_hp01b"]
 [ext_resource type="Texture2D" uid="uid://eis7cusnmhio" path="res://texture/characters/player/tank.png" id="2_sy5qe"]
-[ext_resource type="PackedScene" uid="uid://b5an3p11uidjl" path="res://characters/hurtbox/player_hurtbox.tscn" id="3_ww8by"]
+[ext_resource type="PackedScene" uid="uid://b5an3p11uidjl" path="res://collisionbox/hurtbox/player_hurtbox.tscn" id="3_ww8by"]
 [ext_resource type="Script" path="res://scripts/characters/player/weapon.gd" id="4_536cd"]
 [ext_resource type="Texture2D" uid="uid://bqk0s6js2v1q1" path="res://texture/ui/hud/key_icon.png" id="6_qrgcn"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dq75qdq1t3txp" path="res://Player.tres" id="6_u1auw"]
