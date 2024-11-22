@@ -2,11 +2,11 @@ extends Hurtbox
 class_name Resistbox
 
 
-var player = GlobalPlayerState.player
-
 func take_damage(damage: int, direction: Vector2, force: int):
+	var player = GlobalPlayerState.player
 	damage = damage * 0.75 as int
 	
+	print(player.current_endurance)
 	if player.current_endurance >= damage:
 		player.current_endurance -= damage
 		player.velocity += direction * force
