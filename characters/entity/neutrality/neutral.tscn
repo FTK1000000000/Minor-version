@@ -1,17 +1,17 @@
-[gd_scene load_steps=23 format=3 uid="uid://0ug3e0fiv41v"]
+[gd_scene load_steps=23 format=3 uid="uid://cf65rii0fou3y"]
 
-[ext_resource type="Script" path="res://scripts/characters/eneity/enemy.gd" id="1_1dxbb"]
-[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_77qhd"]
-[ext_resource type="Texture2D" uid="uid://26hhl2lrcmvm" path="res://texture/effect/dead_fog.png" id="3_fmnim"]
-[ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar1.png" id="4_kecpt"]
-[ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar2.png" id="5_b7cgw"]
-[ext_resource type="Script" path="res://scripts/ui/hud/enemy_health_bar.gd" id="6_qbrjp"]
-[ext_resource type="PackedScene" uid="uid://74b36ijn5xry" path="res://collisionbox/hurtbox/enemy_hurtbox.tscn" id="7_57jkm"]
-[ext_resource type="PackedScene" uid="uid://b6v0g5ygjvg1h" path="res://collisionbox/hitbox.tscn" id="8_abu40"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="9_epdmq"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="10_cahyk"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="11_xkpml"]
-[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="12_vd6a8"]
+[ext_resource type="Script" path="res://scripts/characters/eneity/neutrality/neutrality.gd" id="1_da1ia"]
+[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_qjdr0"]
+[ext_resource type="Texture2D" uid="uid://26hhl2lrcmvm" path="res://texture/effect/dead_fog.png" id="3_vr6er"]
+[ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar1.png" id="4_jwo7r"]
+[ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar2.png" id="5_gkyx4"]
+[ext_resource type="Script" path="res://scripts/ui/hud/enemy_health_bar.gd" id="6_auesv"]
+[ext_resource type="PackedScene" uid="uid://bu2s0crm7mdq3" path="res://collisionbox/hurtbox/neutral_hurtbox.tscn" id="7_vebp1"]
+[ext_resource type="PackedScene" uid="uid://b6v0g5ygjvg1h" path="res://collisionbox/hitbox.tscn" id="8_sxxvo"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="9_n0udu"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="10_uprji"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="11_l34xa"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="12_r43j0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4n8dm"]
 
@@ -196,14 +196,14 @@ _data = {
 "hurt_blink": SubResource("Animation_2ngdt")
 }
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Neutral" type="CharacterBody2D"]
 z_index = 10
 collision_layer = 8
 collision_mask = 5
 input_pickable = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_1dxbb")
+script = ExtResource("1_da1ia")
 
 [node name="Texture" type="Node2D" parent="."]
 
@@ -218,10 +218,11 @@ offset_bottom = 12.0
 grow_vertical = 2
 pivot_offset = Vector2(0, 12)
 color = Color(0.5, 0, 0, 0.5)
+metadata/_edit_use_anchors_ = true
 
 [node name="Body" type="Sprite2D" parent="Texture"]
 clip_children = 2
-texture = ExtResource("2_77qhd")
+texture = ExtResource("2_qjdr0")
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 offset_left = -65.0
@@ -229,10 +230,11 @@ offset_top = -65.0
 offset_right = 65.0
 offset_bottom = 65.0
 color = Color(1, 1, 1, 0)
+metadata/_edit_use_anchors_ = true
 
 [node name="DeadEffect" type="Sprite2D" parent="Texture"]
 visible = false
-texture = ExtResource("3_fmnim")
+texture = ExtResource("3_vr6er")
 hframes = 4
 
 [node name="HUD" type="Node2D" parent="Texture"]
@@ -256,19 +258,19 @@ stretch_margin_left = 3
 stretch_margin_top = 3
 stretch_margin_right = 3
 stretch_margin_bottom = 3
-texture_under = ExtResource("4_kecpt")
-texture_progress = ExtResource("5_b7cgw")
-script = ExtResource("6_qbrjp")
+texture_under = ExtResource("4_jwo7r")
+texture_progress = ExtResource("5_gkyx4")
+script = ExtResource("6_auesv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4n8dm")
 
-[node name="EnemyHurtbox" parent="." instance=ExtResource("7_57jkm")]
+[node name="NeutralHurtbox" parent="." instance=ExtResource("7_vebp1")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NeutralHurtbox"]
 shape = SubResource("CircleShape2D_m2odl")
 
-[node name="HitBox" parent="." instance=ExtResource("8_abu40")]
+[node name="HitBox" parent="." instance=ExtResource("8_sxxvo")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-2.82402e-06, -1.00746e-06)
@@ -311,79 +313,79 @@ avoidance_enabled = true
 max_speed = 100000.0
 avoidance_layers = 2
 avoidance_mask = 2
-debug_use_custom = true
+debug_enabled = true
 
 [node name="PathTimer" type="Timer" parent="Nav"]
 wait_time = 0.1
 autostart = true
 
 [node name="EnemyStateChart" type="Node" parent="."]
-script = ExtResource("9_epdmq")
+script = ExtResource("9_n0udu")
 
 [node name="CompoundState" type="Node" parent="EnemyStateChart"]
-script = ExtResource("10_cahyk")
+script = ExtResource("10_uprji")
 initial_state = NodePath("Idle")
 
 [node name="Attack" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("10_cahyk")
+script = ExtResource("10_uprji")
 initial_state = NodePath("Melee")
 
 [node name="Melee" type="Node" parent="EnemyStateChart/CompoundState/Attack"]
-script = ExtResource("11_xkpml")
+script = ExtResource("11_l34xa")
 
 [node name="Ranged" type="Node" parent="EnemyStateChart/CompoundState/Attack"]
-script = ExtResource("11_xkpml")
+script = ExtResource("11_l34xa")
 
 [node name="Idle" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("11_xkpml")
+script = ExtResource("11_l34xa")
 
 [node name="Chase" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("11_xkpml")
+script = ExtResource("11_l34xa")
 
 [node name="Hurt" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("11_xkpml")
+script = ExtResource("11_l34xa")
 
 [node name="Dead" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("11_xkpml")
+script = ExtResource("11_l34xa")
 
 [node name="attack" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("12_vd6a8")
+script = ExtResource("12_r43j0")
 to = NodePath("../Attack")
 event = &"attack"
 delay_in_seconds = "0.0"
 
 [node name="melee" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("12_vd6a8")
+script = ExtResource("12_r43j0")
 to = NodePath("../Attack/Melee")
 event = &"melee"
 delay_in_seconds = "0.0"
 
 [node name="ranged" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("12_vd6a8")
+script = ExtResource("12_r43j0")
 to = NodePath("../Attack/Ranged")
 event = &"ranged"
 delay_in_seconds = "0.0"
 
 [node name="idle" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("12_vd6a8")
+script = ExtResource("12_r43j0")
 to = NodePath("../Idle")
 event = &"idle"
 delay_in_seconds = "0.0"
 
 [node name="chase" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("12_vd6a8")
+script = ExtResource("12_r43j0")
 to = NodePath("../Chase")
 event = &"chase"
 delay_in_seconds = "0.0"
 
 [node name="hurt" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("12_vd6a8")
+script = ExtResource("12_r43j0")
 to = NodePath("../Hurt")
 event = &"hurt"
 delay_in_seconds = "0.0"
 
 [node name="dead" type="Node" parent="EnemyStateChart/CompoundState"]
-script = ExtResource("12_vd6a8")
+script = ExtResource("12_r43j0")
 to = NodePath("../Dead")
 event = &"dead"
 delay_in_seconds = "0.0"

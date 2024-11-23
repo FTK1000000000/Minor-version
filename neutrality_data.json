@@ -1,0 +1,10 @@
+{
+	"trader_goblin": {
+		"name": "TraderGoblin",
+		"move_speed": 75,
+		"max_health": 500,
+		"attack_damage": 15,
+		"attack_knockback_force": 500,
+		"attack_ready_time": 1.5
+	}
+}

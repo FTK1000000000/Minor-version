@@ -6,6 +6,7 @@ const SAVE_PATH = "user://save.json"
 
 const ENEMY_DATA_PATH = "res://enemy_data.json"
 const BOSS_DATA_PATH = "res://boss_data.json"
+const NEUTRALITY_DATA_PATH = "res://neutrality_data.json"
 
 const LEVEL_WORLD = "res://world/level.tscn"
 const ABILITY_SELECT = preload("res://ui/ability_select/ability_select.tscn")
@@ -33,6 +34,7 @@ var game_start: bool = false
 
 var enemy_data: Dictionary
 var boss_data: Dictionary
+var neutrality_data: Dictionary
 
 var boss
 
@@ -92,9 +94,11 @@ func camera_should_shake(amount: float):
 
 func read_entity_data():
 	var enemy = JSON.parse_string(FileAccess.open(ENEMY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
-	enemy_data = enemy
 	var boss = JSON.parse_string(FileAccess.open(BOSS_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
+	var neutrality = JSON.parse_string(FileAccess.open(NEUTRALITY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
+	enemy_data = enemy
 	boss_data = boss
+	neutrality_data = neutrality
 
 func config_save():
 	var file = ConfigFile.new()

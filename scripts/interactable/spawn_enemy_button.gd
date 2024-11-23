@@ -1,7 +1,7 @@
 extends Interactable
 
 
-const ENEMY_1 = preload("res://characters/enemy/goblin.tscn")
+const ENEMY_1 = preload("res://characters/entity/enemy/goblin.tscn")
 
 
 func interaction():

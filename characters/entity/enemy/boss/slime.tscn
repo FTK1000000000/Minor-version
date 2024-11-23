@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://cqu7iy2pnjdtk"]
 
-[ext_resource type="PackedScene" uid="uid://c7r35kw8ayagu" path="res://characters/enemy/boss.tscn" id="1_7oqx0"]
+[ext_resource type="PackedScene" uid="uid://c7r35kw8ayagu" path="res://characters/entity/enemy/boss.tscn" id="1_7oqx0"]
 [ext_resource type="Script" path="res://scripts/characters/eneity/boss/slime.gd" id="2_4op1a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mo1cl"]

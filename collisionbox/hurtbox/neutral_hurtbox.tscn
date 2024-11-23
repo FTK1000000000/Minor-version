@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu2s0crm7mdq3"]
+
+[ext_resource type="PackedScene" uid="uid://74b36ijn5xry" path="res://collisionbox/hurtbox/enemy_hurtbox.tscn" id="1_xlhk5"]
+[ext_resource type="Script" path="res://scripts/collisionbox/hurtbox/neutrality_hurtbox.gd" id="2_i3ugt"]
+
+[node name="NeutralHurtbox" instance=ExtResource("1_xlhk5")]
+script = ExtResource("2_i3ugt")

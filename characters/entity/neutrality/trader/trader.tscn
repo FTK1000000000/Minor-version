@@ -1,23 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://djj4jvughdd1u"]
+[gd_scene load_steps=10 format=3 uid="uid://ddqaqeng53vjw"]
 
-[ext_resource type="PackedScene" uid="uid://0ug3e0fiv41v" path="res://characters/enemy/enemy.tscn" id="1_dqqr5"]
-[ext_resource type="Script" path="res://scripts/characters/eneity/goblin.gd" id="2_rngc0"]
-[ext_resource type="Texture2D" uid="uid://c5d8i6xcn162n" path="res://texture/characters/enemy/goblin.png" id="3_havag"]
+[ext_resource type="PackedScene" uid="uid://cf65rii0fou3y" path="res://characters/entity/neutrality/neutral.tscn" id="1_xkmbq"]
+[ext_resource type="Texture2D" uid="uid://cogr4ubeeti58" path="res://texture/characters/neutrality/trader/trader_goblin.png" id="2_1iywg"]
+[ext_resource type="Script" path="res://scripts/characters/eneity/neutrality/trader/trader.gd" id="2_bjrok"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_b6pv5"]
-radius = 13.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_j6e2t"]
-radius = 16.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7vfvq"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_rhcmr"]
 radius = 128.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8gi00"]
-radius = 224.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qkg84"]
-radius = 288.0
 
 [sub_resource type="Animation" id="Animation_5fgmv"]
 resource_name = "RESET"
@@ -156,50 +144,25 @@ _data = {
 "walk": SubResource("Animation_yuh6m")
 }
 
-[node name="Goblin" instance=ExtResource("1_dqqr5")]
-script = ExtResource("2_rngc0")
-data_name = "goblin"
+[node name="Trader" node_paths=PackedStringArray("state_chart") instance=ExtResource("1_xkmbq")]
+script = ExtResource("2_bjrok")
+state_chart = NodePath("EnemyStateChart")
+data_name = "trader_goblin"
 
 [node name="AimLine" parent="Texture" index="0"]
 visible = false
 
 [node name="Body" parent="Texture" index="1"]
-texture = ExtResource("3_havag")
+texture = ExtResource("2_1iywg")
 hframes = 10
 
-[node name="ColorRect" parent="Texture/Body" index="0"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -16.0
-offset_right = -16.0
-offset_bottom = -16.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(0, 4)
-shape = SubResource("CircleShape2D_b6pv5")
-
-[node name="CollisionShape2D" parent="HitBox" index="0"]
-position = Vector2(-3.8147e-06, 0)
-shape = SubResource("CircleShape2D_j6e2t")
-
 [node name="CollisionShape2D" parent="AttackRange" index="0"]
-shape = SubResource("CircleShape2D_7vfvq")
+shape = SubResource("CircleShape2D_rhcmr")
 
 [node name="Aggro" parent="." index="5"]
 visible = true
 
-[node name="CollisionShape2D" parent="Aggro/AggroRange" index="0"]
-shape = SubResource("CircleShape2D_8gi00")
-debug_color = Color(0.796, 0.627, 0, 0.124)
-
-[node name="CollisionShape2D" parent="Aggro/DeAggroRange" index="0"]
-shape = SubResource("CircleShape2D_qkg84")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="11"]
 libraries = {
 "": SubResource("AnimationLibrary_bkb2c")
 }
