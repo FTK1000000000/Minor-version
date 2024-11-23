@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://djj4jvughdd1u"]
+[gd_scene load_steps=13 format=3 uid="uid://djj4jvughdd1u"]
 
 [ext_resource type="PackedScene" uid="uid://0ug3e0fiv41v" path="res://characters/entity/enemy/enemy.tscn" id="1_dqqr5"]
 [ext_resource type="Script" path="res://scripts/characters/eneity/goblin.gd" id="2_rngc0"]
-[ext_resource type="Texture2D" uid="uid://c5d8i6xcn162n" path="res://texture/characters/enemy/goblin.png" id="3_havag"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b6pv5"]
 radius = 13.0
@@ -164,7 +163,6 @@ data_name = "goblin"
 visible = false
 
 [node name="Body" parent="Texture" index="1"]
-texture = ExtResource("3_havag")
 hframes = 10
 
 [node name="ColorRect" parent="Texture/Body" index="0"]

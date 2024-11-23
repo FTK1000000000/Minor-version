@@ -6,18 +6,18 @@ class_name Neutral
 
 
 func _ready() -> void:
-	read_data()
-	current_move_speed = move_speed
-	current_health = max_health
-	hitbox.damage = attack_damage
-	hitbox.knockback_force = attack_knockback_force
-	aim_line.size.x = attack_ranged_collision.shape.radius
-	attack_is_ready = true
-	
-	var v = attack_ranged_collision.shape.radius - body_collision.shape.radius * 2
-	print(v)
-	navigation_agent.target_desired_distance = v
-	navigation_agent.path_desired_distance = 10
+	super()
+	#read_data()
+	#current_move_speed = move_speed
+	#current_health = max_health
+	#hitbox.damage = attack_damage
+	#hitbox.knockback_force = attack_knockback_force
+	#aim_line.size.x = attack_ranged_collision.shape.radius
+	#attack_is_ready = true
+	#
+	#var v = attack_ranged_collision.shape.radius - body_collision.shape.radius * 2
+	#navigation_agent.target_desired_distance = v
+	#navigation_agent.path_desired_distance = 10
 	
 	hitbox.monitoring = false
 
@@ -30,12 +30,9 @@ func update_state():
 		state_chart.send_event("idle")
 	
 	elif is_enemy:
-		print("not idle")
 		if attack_target:
-			print("attack")
 			state_chart.send_event("attack")
 		elif attack_is_ready:
-			print("chase")
 			state_chart.send_event("chase")
 
 func recalc_path():

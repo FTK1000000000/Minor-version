@@ -18,6 +18,7 @@ signal health_changed
 @onready var path_timer: Timer = $Nav/PathTimer
 @onready var attack_ranged_collision: CollisionShape2D = $AttackRange/CollisionShape2D
 @onready var body_collision: CollisionShape2D = $CollisionShape2D
+@onready var popup_location: Marker2D = $PopupLocation
 
 @export var state_chart: StateChart
 @export var aggro_target: CharacterBody2D

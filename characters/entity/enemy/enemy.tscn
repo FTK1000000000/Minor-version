@@ -1,13 +1,14 @@
-[gd_scene load_steps=23 format=3 uid="uid://0ug3e0fiv41v"]
+[gd_scene load_steps=24 format=3 uid="uid://0ug3e0fiv41v"]
 
 [ext_resource type="Script" path="res://scripts/characters/eneity/enemy.gd" id="1_ppt2a"]
-[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_23w6u"]
+[ext_resource type="Texture2D" uid="uid://c5d8i6xcn162n" path="res://texture/characters/enemy/goblin.png" id="2_1hi6n"]
 [ext_resource type="Texture2D" uid="uid://26hhl2lrcmvm" path="res://texture/effect/dead_fog.png" id="3_qrhbe"]
 [ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar1.png" id="4_1rh0l"]
 [ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar2.png" id="5_jsiu4"]
 [ext_resource type="Script" path="res://scripts/ui/hud/enemy_health_bar.gd" id="6_53jjb"]
 [ext_resource type="PackedScene" uid="uid://74b36ijn5xry" path="res://collisionbox/hurtbox/enemy_hurtbox.tscn" id="7_ldjus"]
 [ext_resource type="PackedScene" uid="uid://b6v0g5ygjvg1h" path="res://collisionbox/hitbox.tscn" id="8_wlvxk"]
+[ext_resource type="Script" path="res://scripts/characters/popup_location.gd" id="9_dt8ac"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="9_m83mg"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="10_pwj0v"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="11_q61hu"]
@@ -223,7 +224,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Body" type="Sprite2D" parent="Texture"]
 clip_children = 2
-texture = ExtResource("2_23w6u")
+texture = ExtResource("2_1hi6n")
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 offset_left = -65.0
@@ -402,6 +403,10 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_3g25r")
 }
+
+[node name="PopupLocation" type="Marker2D" parent="."]
+position = Vector2(0, -32)
+script = ExtResource("9_dt8ac")
 
 [connection signal="area_entered" from="AttackRange" to="." method="_on_attack_range_area_entered"]
 [connection signal="area_exited" from="AttackRange" to="." method="_on_attack_range_area_exited"]

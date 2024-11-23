@@ -3,3 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://ddqaqeng53vjw" path="res://characters/entity/neutrality/trader/trader.tscn" id="1_13uji"]
 
 [node name="TraderGoblin" instance=ExtResource("1_13uji")]
+
+[node name="PopupLocation" parent="." index="12"]
+position = Vector2(0, 0)

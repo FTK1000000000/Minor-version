@@ -3,8 +3,6 @@ class_name Trader
 
 
 func melee_animaction():
-	print(global_position)
-	print(target_position)
 	create_tween().tween_property(self, "global_position", target_position, 0.6)
 
 
