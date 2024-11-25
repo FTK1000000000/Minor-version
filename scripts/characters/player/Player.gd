@@ -20,7 +20,6 @@ signal player_dead
 @onready var camera: Camera2D = $Camera2D
 
 @onready var weapon_node: Node2D = $Weapon
-@onready var inventory: Inventory = preload("res://inventory/player_inventory.tres")
 
 @export var interactable_with: Interactable
 @export var direction: Vector2 = Vector2.ZERO
@@ -201,9 +200,9 @@ func knockback(enemy_velocity : Vector2):
 
 func _on_hurt_box_area_entered(area):
 	if area.has_method("collect"):
-		area.collect(inventory)
+		area.collect(GlobalPlayerState.player_card_inventory)
 	
-	print(name, " pickup: ", area.name, " -> ", area)
+	print(name, " pickup: ", area.name, " => ", area)
 #拾取物品
 
 

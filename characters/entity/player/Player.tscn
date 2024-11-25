@@ -199,6 +199,7 @@ z_index = 1
 texture = ExtResource("2_sy5qe")
 hframes = 7
 vframes = 2
+frame = 2
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
@@ -213,6 +214,7 @@ grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
 [node name="PlayerHurtbox" parent="." instance=ExtResource("3_ww8by")]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtbox"]
 position = Vector2(0, 3)
@@ -350,6 +352,7 @@ to = NodePath("../Dead")
 event = &"dead"
 delay_in_seconds = "0.0"
 
+[connection signal="area_entered" from="PlayerHurtbox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack" to="." method="_on_walk_stack_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_entered"]

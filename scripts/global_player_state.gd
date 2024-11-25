@@ -4,9 +4,13 @@ signal classes_select
 
 
 const CLASSES_DATA_PATH = "res://classes_data.json"
+const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
 
 
 @export var classes_data: Dictionary = {}
+@export var card_data: Dictionary = {}
+
+@export var player_card_inventory: Inventory
 
 @export var player: Player
 @export var player_classes: String = ""
@@ -45,6 +49,8 @@ func _ready() -> void:
 	
 	player_current_health = player_max_health
 	player_current_endurance = player_max_endurance
+	
+	player_card_inventory = CARD_INVENTORY.duplicate()
 
 
 func get_classes_data():

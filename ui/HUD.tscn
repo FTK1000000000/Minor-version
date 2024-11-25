@@ -1,14 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://cak2vpn16lujs"]
+[gd_scene load_steps=17 format=3 uid="uid://cak2vpn16lujs"]
 
 [ext_resource type="Script" path="res://scripts/ui/hud/HUD.gd" id="1_0wxeb"]
 [ext_resource type="Script" path="res://scripts/ui/hud/player_variable.gd" id="2_0qfap"]
 [ext_resource type="Texture2D" uid="uid://yyucri88rf6y" path="res://texture/ui/hud/player_variable_bar/player_variable_bar.png" id="2_w56ye"]
-[ext_resource type="PackedScene" uid="uid://bnlwgpqinumnw" path="res://ui/inventory/inventory.tscn" id="5_ua3kp"]
 [ext_resource type="PackedScene" uid="uid://cfykf5o0g2omm" path="res://ui/options_menu.tscn" id="6_mw57f"]
 [ext_resource type="PackedScene" uid="uid://b6frd381y8jx3" path="res://ui/game_over_screen.tscn" id="7_b6b1u"]
 [ext_resource type="PackedScene" uid="uid://cv0ssxjh5kky6" path="res://ui/player_panel/player_property_panel.tscn" id="7_eqcvx"]
 [ext_resource type="PackedScene" uid="uid://dhyx3rctm72og" path="res://ui/player_panel/player_ability_panel.tscn" id="8_v7d4u"]
 [ext_resource type="Shader" path="res://shader/vignette.gdshader" id="9_8p2i4"]
+[ext_resource type="Script" path="res://scripts/ui/card_bar.gd" id="10_dl4mr"]
+[ext_resource type="PackedScene" uid="uid://1vhwnqa5g1p3" path="res://ui/card/card_slot.tscn" id="10_hjr3f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_soh2g"]
 shader = ExtResource("9_8p2i4")
@@ -144,13 +145,6 @@ stretch_margin_bottom = 4
 texture_under = SubResource("AtlasTexture_qroae")
 texture_progress = SubResource("AtlasTexture_fs70d")
 
-[node name="Inventory" parent="." instance=ExtResource("5_ua3kp")]
-visible = false
-offset_left = 1.0
-offset_top = 6.0
-offset_right = 1.0
-offset_bottom = 6.0
-
 [node name="TipsLabel" type="Control" parent="."]
 visible = false
 layout_mode = 3
@@ -221,3 +215,31 @@ visible = false
 
 [node name="PlayerAbilityPanel" parent="." instance=ExtResource("8_v7d4u")]
 visible = false
+
+[node name="CardBar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+script = ExtResource("10_dl4mr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardBar"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 200.0
+grow_vertical = 0
+
+[node name="Slot" parent="CardBar/HBoxContainer" instance=ExtResource("10_hjr3f")]
+layout_mode = 2
+
+[node name="Slot2" parent="CardBar/HBoxContainer" instance=ExtResource("10_hjr3f")]
+layout_mode = 2
+
+[node name="Slot3" parent="CardBar/HBoxContainer" instance=ExtResource("10_hjr3f")]
+layout_mode = 2

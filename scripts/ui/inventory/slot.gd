@@ -2,30 +2,12 @@ extends Button
 class_name InventorySlotFromHUD
 
 
+@onready var inventory = GlobalPlayerState.player_card_inventory
 @onready var container = $CenterContainer
-@onready var inventory = preload("res://inventory/player_inventory.tres")
+@onready var item: Sprite2D = $CenterContainer/Panel/Item
 
-var items_stack: ItemsStack
-var index: int
+@export var inventory_slot: InventorySlot
 
-func insert(isg: ItemsStack):
-	items_stack = isg
-	container.add_child(items_stack)
-	
-	if !items_stack.inventory_slot || inventory.slots[index] == items_stack.inventory_slot:
-		return
-	
-	inventory.insert_slot(index, items_stack.inventory_slot)
 
-func take_item():
-	var item = items_stack
-	
-	inventory.remove_slot(items_stack.inventory_slot)
-	
-	container.remove_child(items_stack)
-	items_stack = null
-	
-	return item
-
-func is_empty():
-	return !items_stack
+func update(inventory_slot: InventorySlot):
+	item.texture = inventory_slot.item.icon

@@ -9,8 +9,7 @@ resource_local_to_scene = true
 size = Vector2(12, 16)
 
 [node name="LifePot" instance=ExtResource("1_c12st")]
-collision_layer = 2
-item_res = ExtResource("2_3ht6p")
+item_resource = ExtResource("2_3ht6p")
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_knbmg")
