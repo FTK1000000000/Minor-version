@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://baxurv15vtvbw"]
+
+[ext_resource type="Script" path="res://scripts/ui/card_bar.gd" id="1_kwji5"]
+[ext_resource type="PackedScene" uid="uid://1vhwnqa5g1p3" path="res://ui/card/card_slot.tscn" id="2_4snt5"]
+
+[node name="CardBar" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -96.0
+offset_right = 40.0
+offset_bottom = -56.0
+grow_vertical = 0
+script = ExtResource("1_kwji5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 200.0
+grow_vertical = 0
+
+[node name="Slot" parent="HBoxContainer" instance=ExtResource("2_4snt5")]
+layout_mode = 2
+
+[node name="Slot2" parent="HBoxContainer" instance=ExtResource("2_4snt5")]
+layout_mode = 2
+
+[node name="Slot3" parent="HBoxContainer" instance=ExtResource("2_4snt5")]
+layout_mode = 2

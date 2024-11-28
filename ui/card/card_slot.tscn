@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://1vhwnqa5g1p3"]
+[gd_scene load_steps=2 format=3 uid="uid://1vhwnqa5g1p3"]
 
 [ext_resource type="Script" path="res://scripts/ui/inventory/slot.gd" id="1_kopdt"]
-[ext_resource type="Texture2D" uid="uid://dn44q6v0m2jyu" path="res://texture/ui/hud/inventory_bar/inventory2.png" id="2_4ml0c"]
 
 [node name="Slot" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
@@ -11,15 +10,6 @@ offset_bottom = 8.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_kopdt")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_4ml0c")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

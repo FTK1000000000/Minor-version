@@ -12,7 +12,7 @@ func windmill():
 		player.current_endurance >= special_attack_consume_endurance
 		):
 			player.current_endurance -= special_attack_consume_endurance
-			player.endurance_changed.emit()
+			GlobalPlayerState.endurance_changed.emit()
 			player.is_endurance_disable = true
 			is_special_charge = true
 			animation_player.play("charge")

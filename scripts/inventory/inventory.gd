@@ -15,4 +15,4 @@ func add(item: InventoryItem):
 			return
 
 func remove(index: int):
-	slots.erase(index)
+	slots[index].item = null

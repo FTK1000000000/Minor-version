@@ -1,5 +1,8 @@
 extends Area2D
+class_name Collectible
 
+
+@onready var icon: Sprite2D = $Sprite2D
 
 @export var item_resource: InventoryItem
 

@@ -1,9 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://b206wlen0bkw3"]
+[gd_scene load_steps=6 format=3 uid="uid://b206wlen0bkw3"]
 
 [ext_resource type="Script" path="res://scripts/collectibles/collectible.gd" id="1_pgnew"]
+[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="3_ffqea"]
+[ext_resource type="Shader" path="res://shader/collectible_icon.gdshader" id="3_uw6n5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0mjqo"]
 resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mc7sm"]
+resource_local_to_scene = true
+shader = ExtResource("3_uw6n5")
+shader_parameter/highlight = true
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_speed = 3.0
+shader_parameter/shine_size = 0.01
 
 [node name="Collectible" type="Area2D"]
 collision_layer = 2
@@ -14,3 +24,5 @@ script = ExtResource("1_pgnew")
 shape = SubResource("RectangleShape2D_0mjqo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_mc7sm")
+texture = ExtResource("3_ffqea")

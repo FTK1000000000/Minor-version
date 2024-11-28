@@ -18,10 +18,10 @@ func special_attack():
 func shoot():
 	if (
 		Input.is_action_just_pressed("attack_special") &&
-		player.current_endurance >= special_attack_consume_endurance
+		GlobalPlayerState.player_current_endurance >= special_attack_consume_endurance
 		):
-			player.current_endurance -= special_attack_consume_endurance
-			player.endurance_changed.emit()
+			GlobalPlayerState.player_current_endurance -= special_attack_consume_endurance
+			GlobalPlayerState.endurance_changed.emit()
 			player.is_endurance_disable = true
 			is_special_charge = true
 			animation_player.play("charge")

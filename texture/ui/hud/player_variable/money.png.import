@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yyucri88rf6y"
-path="res://.godot/imported/player_variable_bar.png-bd668f12877d450b10ec3da422fb2cfd.ctex"
+uid="uid://bw04h43b37ct4"
+path="res://.godot/imported/money.png-4cd1677de94d45e1ce77308d584095bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://texture/ui/hud/player_variable_bar/player_variable_bar.png"
-dest_files=["res://.godot/imported/player_variable_bar.png-bd668f12877d450b10ec3da422fb2cfd.ctex"]
+source_file="res://texture/ui/hud/player_variable/money.png"
+dest_files=["res://.godot/imported/money.png-4cd1677de94d45e1ce77308d584095bc.ctex"]
 
 [params]
 

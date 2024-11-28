@@ -7,7 +7,7 @@ extends Node2D
 
 
 func _ready() -> void:
-	player.weapon_update.connect(weapon_get)
+	GlobalPlayerState.weapon_update.connect(weapon_get)
 
 
 func weapon_get():
@@ -47,13 +47,15 @@ func weapon_attack():
 	if (
 		!player.is_weapon_attack &&
 		player.current_endurance >= weapon.attack_consume_endurance &&
-		weapon.attack_ready_timer.is_stopped()
+		weapon.attack_ready_timer.is_stopped() &&
+		!Input.is_action_pressed("selected_card_slot")
 		):
 			if GlobalPlayerState.weapon_attack_twice:
 				weapon.animation_player.play("attack")
 				weapon.attack_ready_timer.start()
 				player.current_endurance -= weapon.attack_consume_endurance
-				player.endurance_changed.emit()
+				GlobalPlayerState.player_current_endurance = player.current_endurance
+				GlobalPlayerState.endurance_changed.emit()
 				player.is_weapon_attack = true
 				player.is_endurance_disable = true
 				await weapon.attack_ready_timer.timeout
@@ -78,7 +80,8 @@ func weapon_attack():
 				
 				weapon.attack_ready_timer.start()
 				player.current_endurance -= weapon.attack_consume_endurance
-				player.endurance_changed.emit()
+				GlobalPlayerState.player_current_endurance = player.current_endurance
+				GlobalPlayerState.endurance_changed.emit()
 				player.is_weapon_attack = true
 				player.is_endurance_disable = true
 				await weapon.attack_ready_timer.timeout

@@ -53,4 +53,3 @@ func read_data():
 	attack_knockback_force = data.attack_knockback_force
 	attack_ready_time = data.attack_ready_time
 	attack_timer.wait_time = attack_ready_time
-	print(data)

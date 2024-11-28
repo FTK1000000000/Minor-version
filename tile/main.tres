@@ -1,8 +1,10 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://xylhprfe8g5d"]
+[gd_resource type="TileSet" load_steps=10 format=3 uid="uid://xylhprfe8g5d"]
 
 [ext_resource type="Texture2D" uid="uid://bsfqwu8uwfl3g" path="res://texture/tile/main.png" id="1_ovcla"]
 [ext_resource type="PackedScene" uid="uid://u04khf3gp2st" path="res://collectible/weapons/axe.tscn" id="2_tb02y"]
 [ext_resource type="PackedScene" uid="uid://g60u21fdrpc6" path="res://collectible/life_pot.tscn" id="3_w1516"]
+[ext_resource type="PackedScene" uid="uid://bp3tiwvdb0vgo" path="res://card/cards/lucky_purple_shorts.tscn" id="4_q8mjm"]
+[ext_resource type="PackedScene" uid="uid://rxgg4go80tfg" path="res://card/cards/test_1.tscn" id="5_jy7ft"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_eqr1m"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -103,6 +105,11 @@ resource_name = "collectibles"
 scenes/1/scene = ExtResource("2_tb02y")
 scenes/2/scene = ExtResource("3_w1516")
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_hyqpu"]
+resource_name = "card"
+scenes/1/scene = ExtResource("4_q8mjm")
+scenes/2/scene = ExtResource("5_jy7ft")
+
 [resource]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
@@ -110,3 +117,4 @@ physics_layer_0/collision_mask = 0
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_l1f7f")
 sources/1 = SubResource("TileSetScenesCollectionSource_8gxea")
+sources/3 = SubResource("TileSetScenesCollectionSource_hyqpu")

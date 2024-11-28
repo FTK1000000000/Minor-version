@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3s75akbkf5fu"]
+
+[ext_resource type="PackedScene" uid="uid://b206wlen0bkw3" path="res://collectible/collectible.tscn" id="1_5o7ds"]
+[ext_resource type="Script" path="res://scripts/card/card.gd" id="2_0klrt"]
+[ext_resource type="Texture2D" uid="uid://bs1f5fpj78sy7" path="res://texture/card/lucky_purple_shorts.png" id="3_27mgu"]
+[ext_resource type="Shader" path="res://shader/collectible_icon.gdshader" id="3_hgc5h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eykob"]
+resource_local_to_scene = true
+size = Vector2(14, 18)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqc0u"]
+resource_local_to_scene = true
+shader = ExtResource("3_hgc5h")
+shader_parameter/highlight = true
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_speed = 3.0
+shader_parameter/shine_size = 0.01
+
+[node name="Card" instance=ExtResource("1_5o7ds")]
+script = ExtResource("2_0klrt")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_eykob")
+
+[node name="Sprite2D" parent="." index="1"]
+material = SubResource("ShaderMaterial_wqc0u")
+texture = ExtResource("3_27mgu")

@@ -17,8 +17,8 @@ extends Panel
 
 
 func _ready() -> void:
-	GlobalPlayerState.player.health_changed.connect(update_panel)
-	GlobalPlayerState.player.endurance_changed.connect(update_panel)
+	GlobalPlayerState.health_changed.connect(update_panel)
+	GlobalPlayerState.endurance_changed.connect(update_panel)
 	
 	update_style()
 	update_panel()

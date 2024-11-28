@@ -1,6 +1,11 @@
 extends Node
 
 signal classes_select
+signal weapon_update
+signal update_variable
+signal health_changed
+signal endurance_changed
+signal money_changed
 
 
 const CLASSES_DATA_PATH = "res://classes_data.json"
@@ -8,7 +13,6 @@ const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
 
 
 @export var classes_data: Dictionary = {}
-@export var card_data: Dictionary = {}
 
 @export var player_card_inventory: Inventory
 
@@ -71,9 +75,9 @@ func update_classes(classes_name, weapon, max_health, max_endurance):
 	player.current_health = player_max_health
 	player.current_endurance = player_max_endurance
 	player.weapon_node.add_child(load(player_weapon).instantiate())
-	player.weapon_update.emit()
-	player.health_changed.emit()
-	player.endurance_changed.emit()
+	weapon_update.emit()
+	health_changed.emit()
+	endurance_changed.emit()
 	
 	remainder_ability = classes_data.ability.get(player_classes).keys()
 	print("[player classes update] => ", player_classes)

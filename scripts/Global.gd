@@ -4,6 +4,7 @@ extends Node
 const CONFIG_PATH = "user://config.ini"
 const SAVE_PATH = "user://save.json"
 
+const CARD_DATA_PATH = "res://card_data.json"
 const ENEMY_DATA_PATH = "res://enemy_data.json"
 const BOSS_DATA_PATH = "res://boss_data.json"
 const NEUTRALITY_DATA_PATH = "res://neutrality_data.json"
@@ -32,6 +33,7 @@ var completed_at: int = Time.get_unix_time_from_system()
 var game_guidance: bool = true
 var game_start: bool = false
 
+var card_data: Dictionary
 var enemy_data: Dictionary
 var boss_data: Dictionary
 var neutrality_data: Dictionary
@@ -41,6 +43,7 @@ var boss
 
 func _ready():
 	config_load()
+	read_card_data()
 	read_entity_data()
 
 
@@ -91,6 +94,10 @@ func back(node):
 
 func camera_should_shake(amount: float):
 	GlobalPlayerState.player.camera.camera_should_shake(amount)
+
+func read_card_data():
+	var card = JSON.parse_string(FileAccess.open(CARD_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
+	card_data = card
 
 func read_entity_data():
 	var enemy = JSON.parse_string(FileAccess.open(ENEMY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary

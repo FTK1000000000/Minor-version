@@ -6,8 +6,10 @@ class_name InventorySlotFromHUD
 @onready var container = $CenterContainer
 @onready var item: Sprite2D = $CenterContainer/Panel/Item
 
-@export var inventory_slot: InventorySlot
-
 
 func update(inventory_slot: InventorySlot):
-	item.texture = inventory_slot.item.icon
+	if inventory_slot.item == null:
+		item.texture = null
+		print("nullp texture")
+	else:
+		item.texture = inventory_slot.item.icon
