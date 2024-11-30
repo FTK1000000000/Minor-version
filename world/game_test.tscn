@@ -20,6 +20,14 @@ size = Vector2(128, 128)
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_a4qsw")
 
+[node name="TemporaryUI" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 5
+script = ExtResource("9_08mny")
+
+[node name="HUD" parent="." instance=ExtResource("6_yl06e")]
+visible = false
+
 [node name="Rooms" type="Node2D" parent="."]
 
 [node name="FromRoom" type="Node2D" parent="Rooms"]
@@ -93,12 +101,4 @@ position = Vector2(765, 196)
 position = Vector2(745, 203)
 
 [node name="TraderGoblin" parent="." instance=ExtResource("14_3w2qv")]
-position = Vector2(779, 196)
-
-[node name="HUD" parent="." instance=ExtResource("6_yl06e")]
-visible = false
-
-[node name="TemporaryUI" type="CanvasLayer" parent="."]
-process_mode = 3
-layer = 5
-script = ExtResource("9_08mny")
+position = Vector2(181, 592)

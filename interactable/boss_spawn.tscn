@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnb88ls0dv85p"]
+[gd_scene load_steps=5 format=3 uid="uid://cnb88ls0dv85p"]
 
 [ext_resource type="Script" path="res://scripts/interactable/boss_spawn.gd" id="1_1qlqg"]
+[ext_resource type="PackedScene" uid="uid://cqu7iy2pnjdtk" path="res://characters/entity/enemy/boss/slime.tscn" id="2_0tkm4"]
 [ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_g1xef"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvxlu"]
@@ -10,6 +11,7 @@ size = Vector2(64, 64)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_1qlqg")
+boss = ExtResource("2_0tkm4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -9.53674e-07)

@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddqaqeng53vjw"]
+[gd_scene load_steps=13 format=3 uid="uid://ddqaqeng53vjw"]
 
 [ext_resource type="PackedScene" uid="uid://cf65rii0fou3y" path="res://characters/entity/neutrality/neutral.tscn" id="1_xkmbq"]
 [ext_resource type="Texture2D" uid="uid://cogr4ubeeti58" path="res://texture/characters/neutrality/trader/trader_goblin.png" id="2_1iywg"]
 [ext_resource type="Script" path="res://scripts/characters/eneity/neutrality/trader/trader.gd" id="2_bjrok"]
+[ext_resource type="Script" path="res://scripts/inventory/inventory_item.gd" id="3_5sk7k"]
+[ext_resource type="Script" path="res://scripts/interactable/trade.gd" id="4_x47lm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rhcmr"]
 radius = 128.0
@@ -144,8 +146,12 @@ _data = {
 "walk": SubResource("Animation_yuh6m")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cmhu8"]
+radius = 32.0
+
 [node name="Trader" node_paths=PackedStringArray("state_chart") instance=ExtResource("1_xkmbq")]
 script = ExtResource("2_bjrok")
+trade_item_list = Array[ExtResource("3_5sk7k")]([])
 state_chart = NodePath("EnemyStateChart")
 data_name = "trader_goblin"
 
@@ -166,5 +172,11 @@ visible = true
 libraries = {
 "": SubResource("AnimationLibrary_bkb2c")
 }
+
+[node name="Trade" type="Area2D" parent="." index="13"]
+script = ExtResource("4_x47lm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trade" index="0"]
+shape = SubResource("CircleShape2D_cmhu8")
 
 [connection signal="state_entered" from="EnemyStateChart/CompoundState/Attack/Melee" to="." method="_on_melee_state_entered"]

@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("2_mps7s")
 data_name = "test_1"
-price = 500
 name = ""
+description = "the test of the card"
+price = 0
 icon = ExtResource("1_014if")

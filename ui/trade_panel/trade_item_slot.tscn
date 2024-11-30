@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://ckfrbprx84jel"]
+
+[ext_resource type="Theme" uid="uid://buhwwhwo32uos" path="res://theme/panel.tres" id="1_1712u"]
+[ext_resource type="Texture2D" uid="uid://be7j47totc1bk" path="res://texture/ui/classes_selection/396px-Garrosh_Heart_of_War.jpg" id="1_i1nt0"]
+[ext_resource type="Script" path="res://scripts/ui/tarde_panel/trade_item_slot.gd" id="2_cge33"]
+[ext_resource type="Theme" uid="uid://dke80ydpw44no" path="res://theme/classes_select.tres" id="2_y4mg0"]
+[ext_resource type="Texture2D" uid="uid://bw04h43b37ct4" path="res://texture/ui/hud/player_variable/money.png" id="5_us08j"]
+
+[node name="TradePanelSlot" type="Button"]
+custom_minimum_size = Vector2(192, 288)
+anchors_preset = -1
+anchor_right = 0.178
+anchor_bottom = 0.4
+offset_right = -0.240005
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_1712u")
+script = ExtResource("2_cge33")
+
+[node name="Background" type="TextureRect" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.667
+offset_bottom = -0.0640106
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+texture = ExtResource("1_i1nt0")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemName" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 14.5
+theme = ExtResource("2_y4mg0")
+theme_override_font_sizes/font_size = 20
+text = "BARBARIAN"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(64, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+
+[node name="ItemPrice" type="Label" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 16)
+layout_mode = 2
+text = "11111"
+horizontal_alignment = 2
+autowrap_mode = 1
+
+[node name="MoneyIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("5_us08j")
+
+[node name="ItemDescription" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(128, 96)
+layout_mode = 2
+size_flags_vertical = 3
+text = "aaaaaaaaaaaaaaaaa"
+autowrap_mode = 1
+clip_text = true
+
+[connection signal="button_up" from="." to="." method="_on_button_up"]

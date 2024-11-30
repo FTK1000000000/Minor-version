@@ -20,18 +20,6 @@ script = ExtResource("1_mqshf")
 [node name="RoomsGenerator" type="Node2D" parent="."]
 script = ExtResource("2_fg0k8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(448, 192)
-texture = ExtResource("3_bropb")
-
-[node name="ClassesSelect" type="Area2D" parent="Sprite2D"]
-script = ExtResource("4_6toju")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/ClassesSelect"]
-shape = SubResource("RectangleShape2D_tkljl")
-
-[node name="Player" parent="." instance=ExtResource("5_mwb6i")]
-
 [node name="TemporaryUI" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 5
@@ -52,6 +40,18 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 23
 text = "skip guidance"
 metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(448, 192)
+texture = ExtResource("3_bropb")
+
+[node name="ClassesSelect" type="Area2D" parent="Sprite2D"]
+script = ExtResource("4_6toju")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/ClassesSelect"]
+shape = SubResource("RectangleShape2D_tkljl")
+
+[node name="Player" parent="." instance=ExtResource("5_mwb6i")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cbwgi")

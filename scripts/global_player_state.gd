@@ -8,7 +8,7 @@ signal endurance_changed
 signal money_changed
 
 
-const CLASSES_DATA_PATH = "res://classes_data.json"
+const CLASSES_DATA_PATH = "res://data/classes_data.json"
 const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
 
 
@@ -101,9 +101,9 @@ func get_ability(ability_name):
 	if ability_name == "more_run_speed":
 		player_run_move_speed += 50
 	
-	player.weapon_update.emit()
-	player.health_changed.emit()
-	player.endurance_changed.emit()
+	weapon_update.emit()
+	health_changed.emit()
+	endurance_changed.emit()
 
 func update_ability():
 	if player_ability.has("more_health"):

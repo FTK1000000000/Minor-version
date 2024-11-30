@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("2_yphc8")
 data_name = "lucky_purple_shorts"
+name = "Lucky Purple Shorts"
+description = "color for a the lucky for a the shorts of the purple"
 price = 500
-name = ""
 icon = ExtResource("1_fhnjb")

@@ -17,7 +17,7 @@ shader_parameter/shine_size = 0.01
 
 [node name="Collectible" type="Area2D"]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 3
 script = ExtResource("1_pgnew")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -4,7 +4,7 @@ class_name BossSummon
 
 @onready var boss_room: BossRoom = $".."
 
-@export_file() var boss
+@export var boss: PackedScene
 
 
 func interaction():

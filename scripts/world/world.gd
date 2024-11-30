@@ -13,5 +13,6 @@ func _ready() -> void:
 	if bgm:
 		SoundManager.play_bgm(bgm)
 	
+	Global.world = self
 	Global.temporary_ui = temporary_ui
 	Global.HUD = hud

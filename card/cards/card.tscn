@@ -5,9 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://bs1f5fpj78sy7" path="res://texture/card/lucky_purple_shorts.png" id="3_27mgu"]
 [ext_resource type="Shader" path="res://shader/collectible_icon.gdshader" id="3_hgc5h"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eykob"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8euu7"]
 resource_local_to_scene = true
-size = Vector2(14, 18)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wqc0u"]
 resource_local_to_scene = true
@@ -21,7 +20,7 @@ shader_parameter/shine_size = 0.01
 script = ExtResource("2_0klrt")
 
 [node name="CollisionShape2D" parent="." index="0"]
-shape = SubResource("RectangleShape2D_eykob")
+shape = SubResource("RectangleShape2D_8euu7")
 
 [node name="Sprite2D" parent="." index="1"]
 material = SubResource("ShaderMaterial_wqc0u")

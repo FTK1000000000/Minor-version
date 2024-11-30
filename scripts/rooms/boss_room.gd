@@ -24,14 +24,13 @@ func _ready() -> void:
 
 
 func spawn_boss(boss_path):
-	boss_summon.queue_free()
-	
-	var boss = load(boss_path).instantiate()
+	var boss = boss_path.instantiate()
 	
 	var __ = boss.connect("tree_exited", on_boss_killed)
 	boss.position = player_spawn_position
 	call_deferred("add_child", boss)
 	#add_child(boss)
+	boss_summon.queue_free()
 
 func on_boss_killed():
 	var exit = LEVEL_EXIT.instantiate()

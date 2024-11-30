@@ -4,23 +4,27 @@ extends Node
 const CONFIG_PATH = "user://config.ini"
 const SAVE_PATH = "user://save.json"
 
-const CARD_DATA_PATH = "res://card_data.json"
-const ENEMY_DATA_PATH = "res://enemy_data.json"
-const BOSS_DATA_PATH = "res://boss_data.json"
-const NEUTRALITY_DATA_PATH = "res://neutrality_data.json"
+const CARD_DATA_PATH = "res://data/card_data.json"
+const ENEMY_DATA_PATH = "res://data/enemy_data.json"
+const BOSS_DATA_PATH = "res://data/boss_data.json"
+const NEUTRALITY_DATA_PATH = "res://data/neutrality_data.json"
 
 const LEVEL_WORLD = "res://world/level.tscn"
 const ABILITY_SELECT = preload("res://ui/ability_select/ability_select.tscn")
 const CLASSES_SELECT = preload("res://ui/classes_select/classes_select.tscn")
+const TRADE_PANEL = preload("res://ui/trade_panel/trade_panel.tscn")
 
 const SFX_IDX = 1
 const BGM_IDX = 2
 
 const COMMON_KNOKBACK_FOREC = 500
 
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 @export var temporary_ui: CanvasLayer
 @export var HUD: CanvasLayer
+@export var world: World
 
 var bgm_enabled: set = set_bgm_enabled, get = is_bgm_enabled
 var sfx_enabled: set = set_sfx_enabled, get = is_sfx_enabled
