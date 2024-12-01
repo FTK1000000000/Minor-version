@@ -3,7 +3,9 @@ extends Control
 
 @onready var player_card_inventory: Inventory = GlobalPlayerState.player_card_inventory
 @onready var slots: Array = $HBoxContainer.get_children()
-@onready var card_description: Label = $CardDescription
+@onready var card_description: VBoxContainer = $CardDescription
+@onready var card_description_name: Label = $CardDescription/Name
+@onready var card_description_description: Label = $CardDescription/Description
 
 @export var is_selected_card_slot_index: int = 0
 @export var is_selected_card: Card
@@ -13,7 +15,8 @@ func _ready():
 	player_card_inventory.update.connect(update)
 	update()
 	
-	card_description.text = ""
+	#card_description.text = ""
+	card_description.hide()
 
 func _process(_delta: float) -> void:
 	var slot = slots[is_selected_card_slot_index]
@@ -47,8 +50,9 @@ func _process(_delta: float) -> void:
 		is_selected_card.global_position = get_global_mouse_position()
 		
 		var item = is_selected_card.item_resource
-		card_description.text = \
-			item.description if item.description else item.data_name
+		card_description_name.text = item.name if item.name else item.data_name
+		card_description_description.text = item.description if item.description else item.data_name
+		card_description.show()
 		
 		if Input.is_action_pressed("play_is_selected_card"):
 			is_selected_card.play()
@@ -58,7 +62,8 @@ func _process(_delta: float) -> void:
 			var ui_slot = slots[is_selected_card_slot_index]
 			ui_slot.update(player_card_inventory.slots[is_selected_card_slot_index])
 	else:
-		card_description.text = ""
+		#card_description.text = ""
+		card_description.hide()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("card_slot_index+"):
