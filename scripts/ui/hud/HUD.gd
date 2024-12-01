@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 
+@onready var erro_label: Label = $ErroLabel
 @onready var options_menu: CanvasLayer = $OptionsMenu
 @onready var pause_layer: CanvasLayer = $Pause
 @onready var tips_label: Control = $TipsLabel
@@ -19,6 +20,9 @@ func _ready():
 	player_property_panel.hide()
 	player_ability_panel.hide()
 	Global.HUD = self
+	Global.erro_label = erro_label
+	Global.erro_label.hide()
+	Global.erro_label.text = ""
 	
 	if Global.game_guidance:
 		tips_label.show()

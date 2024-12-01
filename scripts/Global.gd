@@ -24,6 +24,7 @@ const COMMON_KNOKBACK_FOREC = 500
 
 @export var temporary_ui: CanvasLayer
 @export var HUD: CanvasLayer
+@export var erro_label: Label
 @export var world: World
 
 var bgm_enabled: set = set_bgm_enabled, get = is_bgm_enabled
@@ -95,6 +96,15 @@ func game_keep():
 func back(node):
 	node.visible = false
 	game_keep()
+
+func erro_tip(erro_text: String):
+	print("[erro_tip] => ", erro_text)
+	erro_label.text = erro_text
+	erro_label.show()
+	
+	await get_tree().create_timer(1).timeout
+	erro_label.hide()
+	erro_label.text = ""
 
 func camera_should_shake(amount: float):
 	GlobalPlayerState.player.camera.camera_should_shake(amount)

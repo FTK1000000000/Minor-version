@@ -9,6 +9,7 @@ extends Button
 @onready var item_price_node: Label = $VBoxContainer/HBoxContainer/ItemPrice
 
 @export var item: InventoryItem
+@export var price: int
 
 
 func _ready() -> void:
@@ -28,38 +29,49 @@ func read_item_data(read_item: InventoryItem):
 		item_price_node.text = str(item.price)
 		item_icon_node.texture = item.icon
 		money_icon.show()
+		price = item.price
 	else:
 		item_name_node.text = ""
 		item_description_node.text = ""
 		item_price_node.text = ""
 		item_icon_node.texture = null
 		money_icon.hide()
+		price = 0
 
 func trade():
-	var inventory: Inventory = GlobalPlayerState.player_card_inventory
-	var empty_slot_number: int = 0
-	for slot in inventory.slots:
-		if !slot.item:
-			empty_slot_number += 1
-	
-	if empty_slot_number > 0:
-		inventory.add(item)
-		print("add item")
-	else:
-		if item as InventoryCard:
-			var path = Global.card_data.get(item.data_name)
-			var item_instantiate = load(path).instantiate()
+	if item:
+		if GlobalPlayerState.money >= price:
+			GlobalPlayerState.money -= price
+			GlobalPlayerState.money_changed.emit()
 			
-			item_instantiate.position = GlobalPlayerState.player.global_position
-			GlobalPlayerState.player.get_parent().add_child(item_instantiate)
-			print("inst")
-		
+			var inventory: Inventory = GlobalPlayerState.player_card_inventory
+			var empty_slot_number: int = 0
+			for slot in inventory.slots:
+				if !slot.item:
+					empty_slot_number += 1
+			
+			if empty_slot_number > 0:
+				inventory.add(item)
+				print("add item")
+			else:
+				if item as InventoryCard:
+					var path = Global.card_data.get(item.data_name)
+					var item_instantiate = load(path).instantiate()
+					
+					item_instantiate.position = GlobalPlayerState.player.global_position
+					GlobalPlayerState.player.get_parent().add_child(item_instantiate)
+					print("inst")
+				
+				else:
+					print("not as card")
+					return
+			
+			item = null
+			read_item_data(item)
 		else:
-			return
-			print("not as card")
-	
-	item = null
-	read_item_data(item)
+			Global.erro_tip("There is not enough money")
+	else:
+		Global.erro_tip("It's sold out")
 
 
 func _on_button_up() -> void:
