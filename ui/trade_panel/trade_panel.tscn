@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bd8yu3iuwqxwj"]
+[gd_scene load_steps=4 format=3 uid="uid://bd8yu3iuwqxwj"]
 
 [ext_resource type="Script" path="res://scripts/ui/tarde_panel/trade_panel.gd" id="1_6ja1g"]
 [ext_resource type="PackedScene" uid="uid://ckfrbprx84jel" path="res://ui/trade_panel/trade_item_slot.tscn" id="2_abtx4"]
+[ext_resource type="PackedScene" uid="uid://h6obl3ktfyaq" path="res://ui/trade_panel/sale_item_box.tscn" id="3_qt3qy"]
 
 [node name="TradePanel" type="Control"]
 layout_mode = 3
@@ -12,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6ja1g")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(576, 320)
 layout_mode = 1
 anchors_preset = 8
@@ -21,19 +22,14 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -288.0
-offset_top = -144.0
-offset_right = 288.0
-offset_bottom = 144.0
+offset_top = -160.0
+offset_right = 296.0
+offset_bottom = 164.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -67,4 +63,40 @@ size_flags_horizontal = 3
 text = "back
 "
 
+[node name="Sale" type="Button" parent="Panel/VBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "sale
+"
+
+[node name="SalePanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -224.0
+offset_top = -111.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SalePanel"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="SaleRangeListBar" type="VBoxContainer" parent="SalePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="SaleItemBox" parent="SalePanel/VBoxContainer/SaleRangeListBar" instance=ExtResource("3_qt3qy")]
+layout_mode = 2
+
+[node name="Close" type="Button" parent="SalePanel/VBoxContainer"]
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "close"
+
 [connection signal="button_up" from="Panel/VBoxContainer/Panel/HBoxContainer/Back" to="." method="_on_back_button_up"]
+[connection signal="button_up" from="Panel/VBoxContainer/Panel/HBoxContainer/Sale" to="." method="_on_sale_button_up"]
+[connection signal="button_up" from="SalePanel/VBoxContainer/Close" to="." method="_on_sale_list_close_button_up"]

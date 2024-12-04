@@ -52,7 +52,7 @@ func trade():
 			
 			if empty_slot_number > 0:
 				inventory.add(item)
-				print("add item")
+				print("[trade] add item => ", item.data_name)
 			else:
 				if item as InventoryCard:
 					var path = Global.card_data.get(item.data_name)
@@ -60,18 +60,18 @@ func trade():
 					
 					item_instantiate.position = GlobalPlayerState.player.global_position
 					GlobalPlayerState.player.get_parent().add_child(item_instantiate)
-					print("inst")
+					print("[trade] at item instantiate => ", item.data_name)
 				
 				else:
-					print("not as card")
+					print("[trade] not as card")
 					return
 			
 			item = null
 			read_item_data(item)
 		else:
-			Global.erro_tip("There is not enough money")
+			Global.erro_tip("[trade] There is not enough money")
 	else:
-		Global.erro_tip("It's sold out")
+		Global.erro_tip("[trade] It's sold out")
 
 
 func _on_button_up() -> void:

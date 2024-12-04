@@ -12,6 +12,7 @@ extends CanvasLayer
 
 @onready var player_variable_container: VBoxContainer = $PlayerVariable
 @onready var inventory: Control = $Inventory
+@onready var card_bar: Control = $CardBar
 
 @onready var player: Player = $"../Player"
 

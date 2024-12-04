@@ -84,9 +84,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func update():
-	for i in range(min(player_card_inventory.slots.size(), slots.size())):
+	for i in range(player_card_inventory.slots.size()):
 		var inventory_slot: InventorySlot = player_card_inventory.slots[i]
-		if !inventory_slot.item: continue
+		#if !inventory_slot.item: continue
 		
 		var slot = slots[i]
 		slot.update(inventory_slot)

@@ -8,7 +8,7 @@ class_name InventorySlotFromHUD
 
 
 func update(inventory_slot: InventorySlot):
-	if inventory_slot.item == null:
+	if !inventory_slot.item:
 		item.texture = null
 		print("nullp texture")
 	else:
