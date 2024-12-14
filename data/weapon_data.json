@@ -1,0 +1,35 @@
+{
+	"sword": {
+		"path": "res://weapon/sword.tscn",
+		"name": "Sword",
+		"price": 5,
+		"attack_consume_endurance": 20,
+		"special_attack_consume_endurance": 40,
+		"max_charge": 10,
+		"need_charge": 3,
+		"hit_ready_time": 0.3,
+		"hit_damage": 20
+	},
+	"shield": {
+		"path": "res://weapon/shield.tscn",
+		"name": "Shield",
+		"price": 5,
+		"attack_consume_endurance": 25,
+		"special_attack_consume_endurance": 0,
+		"max_charge": 0,
+		"need_charge": 0,
+		"hit_ready_time": 1,
+		"hit_damage": 20
+	},
+	"bow": {
+		"path": "res://weapon/bow.tscn",
+		"name": "Bow",
+		"price": 5,
+		"attack_consume_endurance": 20,
+		"special_attack_consume_endurance": 40,
+		"max_charge": 5,
+		"need_charge": 3,
+		"hit_ready_time": 0.5,
+		"hit_damage": 10
+	}
+}

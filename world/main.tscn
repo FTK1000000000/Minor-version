@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dhipmf7vpf1db"]
 
 [ext_resource type="Script" path="res://scripts/world/main.gd" id="1_mqshf"]
-[ext_resource type="Script" path="res://scripts/world/rooms_generators/main_rooms.gd" id="2_fg0k8"]
+[ext_resource type="Script" path="res://scripts/world/rooms_generators/main_rooms_generators.gd" id="2_fg0k8"]
 [ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="3_bropb"]
 [ext_resource type="Script" path="res://scripts/interactable/classes_select.gd" id="4_6toju"]
 [ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/entity/player/Player.tscn" id="5_mwb6i"]

@@ -10,14 +10,14 @@
 		"mage": "The hunt is on!"
 	},
 	"weapon": {
-		"tank": "res://weapon/swrod.tscn",
-		"hunter": "res://weapon/shield.tscn",
-		"mage": "res://weapon/bow.tscn"
+		"tank": "sword",
+		"hunter": "shield",
+		"mage": "bow"
 	},
 	"property": {
-		"tank": { "max_health": 120, "max_endurance": 120, "weapon_used": "SWORD" },
-		"hunter": { "max_health": 80, "max_endurance": 100, "weapon_used": "SHIELD" },
-		"mage": { "max_health": 100, "max_endurance": 60, "weapon_used": "BOW" },
+		"tank": { "price": 10, "max_health": 120, "max_endurance": 120, "weapon_used": "SWORD" },
+		"hunter": { "price": 8, "max_health": 80, "max_endurance": 100, "weapon_used": "SHIELD" },
+		"mage": { "price": 12, "max_health": 100, "max_endurance": 60, "weapon_used": "BOW" }
 	},
 	"ability": {
 		"common": {
@@ -48,7 +48,7 @@
 			"sturdy_shield": {
 				"name": "sturdy shield",
 				"description": "25% reduced endurance Lost on Shield Blocking Damage"
-			},
+			}
 		},
 		"mage": {
 			"rapid_fire": {
@@ -66,18 +66,17 @@
 				
 				"sturdy_shield": "res://texture/ability/sturdy_shield.png",
 				
-				"rapid_fire": "res://texture/ability/rapid_fire.png",
+				"rapid_fire": "res://texture/ability/rapid_fire.png"
 		}
 	},
 	"portraiture": {
 		"tank": "res://texture/ui/classes_selection/fc1f4134970a304ef4b94af9d7c8a786c9175c1e.webp",
 		"hunter": "res://texture/ui/classes_selection/396px-Garrosh_Heart_of_War.jpg",
-		"mage": "res://texture/ui/classes_selection/620px-雷克萨和米莎.jpg",
+		"mage": "res://texture/ui/classes_selection/620px-雷克萨和米莎.jpg"
 	},
 	"texture": {
 		"tank": "res://texture/characters/player/tank.png",
 		"hunter": "res://texture/characters/player/hunter.png",
-		"mage": "res://texture/characters/player/mage.png",
+		"mage": "res://texture/characters/player/mage.png"
 	}
 }
- 

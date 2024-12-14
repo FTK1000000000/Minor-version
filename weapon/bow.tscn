@@ -226,8 +226,9 @@ _data = {
 [node name="Bow" instance=ExtResource("1_3uku8")]
 script = ExtResource("2_f8v8i")
 arrow_speed = 400
-hit_ready_time = 0.5
+data_name = "bow"
 max_charge = 5
+hit_ready_time = 0.5
 
 [node name="Sprite2D" parent="." index="0"]
 rotation = -2.35619

@@ -8,17 +8,15 @@ signal endurance_changed
 signal money_changed
 
 
-const CLASSES_DATA_PATH = "res://data/classes_data.json"
 const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
 
-
-@export var classes_data: Dictionary = {}
 
 @export var player_card_inventory: Inventory
 
 @export var player: Player
 @export var player_classes: String = ""
-@export var player_weapon: String = ""
+@export var player_weapon: String
+@export var player_wealth: int = 1000
 @export var player_max_health: int = 100
 @export var player_max_endurance: int = 100
 @export var player_walk_move_speed: int = 100
@@ -48,7 +46,6 @@ const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
 
 
 func _ready() -> void:
-	get_classes_data()
 	classes_select.connect(update_classes)
 	
 	player_current_health = player_max_health
@@ -57,29 +54,28 @@ func _ready() -> void:
 	player_card_inventory = CARD_INVENTORY.duplicate()
 
 
-func get_classes_data():
-	var file = FileAccess.open(CLASSES_DATA_PATH, FileAccess.READ)
-	var json = file.get_as_text()
-	var data = JSON.parse_string(json) as Dictionary
+func compute_player_wealth():
+	var classes_price = Global.classes_data.property.get(player_classes).price
+	var weapon_price = Global.weapon_data.get(player_weapon).price
+	player_wealth = classes_price + weapon_price
 	
-	classes_data = data
-	common_ability = data.ability.common.keys()
+	print("[player_wealth] => ", player_wealth)
 
-func update_classes(classes_name, weapon, max_health, max_endurance):
+func update_classes(classes_name, weapon_data_name, max_health, max_endurance):
 	player_classes = classes_name
-	player_weapon = str(weapon)
+	player_weapon = weapon_data_name
 	player_max_health = max_health
 	player_max_endurance = max_endurance
 	player_current_health = max_health
 	player_current_endurance = max_endurance
 	player.current_health = player_max_health
 	player.current_endurance = player_max_endurance
-	player.weapon_node.add_child(load(player_weapon).instantiate())
+	player.weapon_node.add_child(load(Global.weapon_data.get(player_weapon).path).instantiate())
 	weapon_update.emit()
 	health_changed.emit()
 	endurance_changed.emit()
 	
-	remainder_ability = classes_data.ability.get(player_classes).keys()
+	remainder_ability = Global.classes_data.ability.get(player_classes).keys()
 	print("[player classes update] => ", player_classes)
 
 func get_ability(ability_name):
@@ -128,5 +124,5 @@ func update_ability():
 		rapid_fire = true
 
 func clear_date():
-	classes_data = {}
+	Global.classes_data = {}
 	player_ability = []

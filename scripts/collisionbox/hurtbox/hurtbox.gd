@@ -24,8 +24,8 @@ func take_damage(damage: int, direction: Vector2, force: int):
 	mark(damage, direction, force)
 
 func bleed(damage: int, direction: Vector2, force: int):
-	var gckf = Global.COMMON_KNOKBACK_FOREC
-	gpu_particles_2d.speed_scale = force / gckf if force > gckf else 1
+	var ckf = Common.KNOKBACK_FOREC
+	gpu_particles_2d.speed_scale = force / ckf if force > ckf else 1
 	gpu_particles_2d.rotation = direction.angle()
 	gpu_particles_2d.amount = damage
 	gpu_particles_2d.restart()

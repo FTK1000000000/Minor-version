@@ -10,6 +10,5 @@ class_name InventorySlotFromHUD
 func update(inventory_slot: InventorySlot):
 	if !inventory_slot.item:
 		item.texture = null
-		print("nullp texture")
 	else:
 		item.texture = inventory_slot.item.icon

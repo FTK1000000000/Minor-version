@@ -39,4 +39,6 @@ shape = SubResource("RectangleShape2D_rhipf")
 position = Vector2(416, 408)
 script = ExtResource("3_qhhqs")
 
+[node name="Enemys" type="Node2D" parent="." index="4"]
+
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

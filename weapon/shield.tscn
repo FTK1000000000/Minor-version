@@ -590,6 +590,7 @@ height = 34.0
 
 [node name="Shield" instance=ExtResource("1_wd54a")]
 script = ExtResource("2_cro3t")
+data_name = "shield"
 attack_consume_endurance = 25
 special_attack_consume_endurance = 0
 hit_damage = 20

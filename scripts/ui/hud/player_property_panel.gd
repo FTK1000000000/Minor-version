@@ -38,10 +38,9 @@ func _input(event: InputEvent) -> void:
 
 
 func update_style():
-	var g = GlobalPlayerState
-	if g.player_classes != "":
+	if GlobalPlayerState.player_classes != "":
 		classes.show()
-		classes.text = g.classes_data.classes_name.get(g.player_classes)
+		classes.text = Global.classes_data.classes_name.get(GlobalPlayerState.player_classes)
 	else:
 		classes.hide()
 	

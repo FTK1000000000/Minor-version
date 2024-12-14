@@ -4,20 +4,22 @@ extends Node
 const CONFIG_PATH = "user://config.ini"
 const SAVE_PATH = "user://save.json"
 
+const CLASSES_DATA_PATH = "res://data/classes_data.json"
+const WEAPON_DATA_PATH = "res://data/weapon_data.json"
 const CARD_DATA_PATH = "res://data/card_data.json"
 const ENEMY_DATA_PATH = "res://data/enemy_data.json"
 const BOSS_DATA_PATH = "res://data/boss_data.json"
 const NEUTRALITY_DATA_PATH = "res://data/neutrality_data.json"
 
+const ENEMY_DIRECTORY = "res://characters/entity/enemy/"
+
 const LEVEL_WORLD = "res://world/level.tscn"
-const ABILITY_SELECT = preload("res://ui/ability_select/ability_select.tscn")
-const CLASSES_SELECT = preload("res://ui/classes_select/classes_select.tscn")
+const ABILITY_SELECT_PANEL = preload("res://ui/ability_select/ability_select.tscn")
+const CLASSES_SELECT_PANEL = preload("res://ui/classes_select/classes_select.tscn")
 const TRADE_PANEL = preload("res://ui/trade_panel/trade_panel.tscn")
 
 const SFX_IDX = 1
 const BGM_IDX = 2
-
-const COMMON_KNOKBACK_FOREC = 500
 
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -38,6 +40,8 @@ var completed_at: int = Time.get_unix_time_from_system()
 var game_guidance: bool = true
 var game_start: bool = false
 
+var classes_data: Dictionary
+var weapon_data: Dictionary
 var card_data: Dictionary
 var enemy_data: Dictionary
 var boss_data: Dictionary
@@ -48,6 +52,8 @@ var boss
 
 func _ready():
 	config_load()
+	read_classes_data()
+	read_weapon_data()
 	read_card_data()
 	read_entity_data()
 
@@ -109,9 +115,18 @@ func erro_tip(erro_text: String):
 func camera_should_shake(amount: float):
 	GlobalPlayerState.player.camera.camera_should_shake(amount)
 
+func read_classes_data():
+	var data = JSON.parse_string(FileAccess.open(CLASSES_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
+	classes_data = data
+	GlobalPlayerState.common_ability = data.ability.common.keys()
+
+func read_weapon_data():
+	var data = JSON.parse_string(FileAccess.open(WEAPON_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
+	weapon_data = data
+
 func read_card_data():
-	var card = JSON.parse_string(FileAccess.open(CARD_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
-	card_data = card
+	var data = JSON.parse_string(FileAccess.open(CARD_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
+	card_data = data
 
 func read_entity_data():
 	var enemy = JSON.parse_string(FileAccess.open(ENEMY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary

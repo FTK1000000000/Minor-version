@@ -7,24 +7,38 @@ const ENEMY_SCENE: Dictionary = {
 	"enemy_demo2": preload("res://characters/entity/enemy/goblin_bowman.tscn")
 }
 
+enum TILE_LAYER {
+	FLOOR = 1,
+	WALL,
+	FLOORO,
+	WALLO,
+	WALL_HEAD
+}
+
+
+@onready var root: Node2D = get_parent()
 @onready var tile_map: Node2D = get_node("TileMap")
 @onready var tile_floor: Node2D = get_node("TileMap/Floor")
 @onready var tile_wall: Node2D = get_node("TileMap/Wall")
 @onready var door_container: Node2D = get_node("Doors")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
 @onready var player_detector: Area2D = get_node("PlayerDetector")
+@onready var enemys: Node2D = $Enemys
 
-var num_enemy: int
+var enemys_price: int
+var enemy_amount: int
+var enemy_group_data: Array
+var has_spawn_enemy: bool = false
 
 
-func _ready() -> void:	
+func _ready() -> void:
 	open_doors()
-	num_enemy = enemy_positions_container.get_child_count()
+	enemy_amount = enemy_positions_container.get_child_count()
 
 
 func on_enemy_killed():
-	num_enemy -= 1
-	if num_enemy == 0:
+	enemy_amount -= 1
+	if enemy_amount <= 0:
 		open_doors()
 
 func open_doors():
@@ -36,20 +50,28 @@ func close_doors():
 		door.close()
 
 func spawn_entity():
-	for enemy_positions in enemy_positions_container.get_children():
+	#read
+	enemy_group_data = root.room_enemy_group_data.pop_front()
+	print("[enemy_generator] => enemy_group_data: ", enemy_group_data)
+	
+	#spawn
+	while enemy_group_data.size() != 0:
 		var enemy: Enemy
-		if randi() % 2 == 0: enemy = ENEMY_SCENE.enemy_demo.instantiate()
-		else: enemy = ENEMY_SCENE.enemy_demo2.instantiate()
-		
-		var __ = enemy.connect("tree_exited", on_enemy_killed)
-		enemy.position = enemy_positions.position
-		#call_deferred("add_child", enemy)
-		add_child(enemy)
+		var spawn_position: Vector2i
+		var floor_layer: Array = tile_map.get_child(TILE_LAYER.FLOOR).get_used_cells()
+		spawn_position = floor_layer[randi() % floor_layer.size()] * Common.TILE_SIZE
+		enemy = load(enemy_group_data.pop_front()).instantiate()
+		enemy.position = spawn_position
+		enemy.connect("tree_exited", on_enemy_killed)
+		enemys.call_deferred("add_child", enemy)
 		
 		var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
-		spawn_explosion.position = enemy_positions.position
-		#call_deferred("add_child", spawn_explosion)
-		add_child(spawn_explosion)
+		spawn_explosion.position = enemy.position
+		enemys.call_deferred("add_child", spawn_explosion)
+		
+		print("/[spawn_enemy] => enemy:", str(enemy), " spawn_position: ", spawn_position)
+	has_spawn_enemy = true
+	
 
 
 func _on_player_detector_body_entered(_body: Player) -> void:

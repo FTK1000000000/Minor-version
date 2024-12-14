@@ -42,18 +42,15 @@ signal player_dead
 
 
 func _ready():
-	var gps = GlobalPlayerState
+	if GlobalPlayerState.player_classes:
+		body_texture.texture = load(Global.classes_data.texture.get(GlobalPlayerState.player_classes))
+	if GlobalPlayerState.player_weapon:
+		weapon_node.add_child(load(Global.weapon_data.get(GlobalPlayerState.player_weapon).path).instantiate())
 	
-	if gps.player_classes != "":
-		body_texture.texture = load(gps.classes_data.texture.get(gps.player_classes))
-	if gps.player_weapon != "":
-		weapon_node.add_child(load(gps.player_weapon).instantiate())
-	
-	gps.player = self
-	current_health = gps.player_current_health
-	current_endurance = gps.player_current_endurance
-	
-	current_move_speed = gps.player_walk_move_speed
+	GlobalPlayerState.player = self
+	current_health = GlobalPlayerState.player_current_health
+	current_endurance = GlobalPlayerState.player_current_endurance
+	current_move_speed = GlobalPlayerState.player_walk_move_speed
 	endurance_recover_timer.wait_time = endurance_recover_speed
 	end_recover_ready_timer.wait_time = endurance_recover_ready_speed
 	

@@ -112,19 +112,37 @@ enum LEVEL_SCENE {
 
 
 @export var storey_level: int = Global.storey_level
-
 @export var scene: LEVEL_SCENE
 @export var room_group_data: Array = []
-@export var max_room_number: int = 5
+@export var room_enemy_group_data: Array = []
+@export var max_room_amount: int = 5
+@export var room_amount: int = 0
 @export var room_number: int = 0
-@export var number: int = 0
+@export var sum_of_enemy_price: int = 0
 
 @onready var player: Player = $"../Player"
 
 
 func _ready() -> void:
+	compute_sum_of_enemy_price()
 	rooms_generator()
+	enemy_group_generator()
 
+
+func compute_sum_of_enemy_price():
+	GlobalPlayerState.compute_player_wealth()
+	
+	var cp = Global.classes_data.property.get(GlobalPlayerState.player_classes).price
+	var pw = GlobalPlayerState.player_wealth
+	var deviation = cp / pw
+	sum_of_enemy_price = \
+	#randi_range(
+		#pw + pw * deviation,
+		#pw - pw * deviation
+	#)
+	pw
+	
+	print("[compute_sum_of_enemy_price] => ", sum_of_enemy_price, ", deviation: ", deviation)
 
 func rooms_generator():
 	print("{rooms_generator}")
@@ -136,8 +154,8 @@ func rooms_generator():
 	
 	if !storey_data.get(storey_level).storey_class == "boss_room":
 		room_group_data = []
+		room_amount = 0
 		room_number = 0
-		number = 0
 		
 		var not_empty_room: Array = []
 		var room_door_direction: Array = []
@@ -147,12 +165,13 @@ func rooms_generator():
 		var room_direction: Vector2 = Vector2()
 		var repeat: bool = false
 		
-		while room_number < max_room_number:
+		#room generator
+		while room_amount < max_room_amount:
 			print("[room_generator]")
 			
-			if room_number == 0:
+			if room_amount == 0:
 				room_class = "from"
-			elif room_number < max_room_number - 1:
+			elif room_amount < max_room_amount - 1:
 				room_class = "fight"
 			else:
 				room_class = "end"
@@ -172,7 +191,7 @@ func rooms_generator():
 					room_position = old_room_data.position
 					room_direction = old_room_data.direction
 					room_door_direction = old_room_data.door_direction
-					room_number - 1
+					room_amount - 1
 					repeat = true
 				else:
 					repeat = false
@@ -215,7 +234,7 @@ func rooms_generator():
 				room_door_direction.push_back(v)
 			
 			if !repeat:
-				room_number += 1
+				room_amount += 1
 				old_room_position = room_position
 				old_room_door_direction = room_door_direction
 				not_empty_room.push_back(room_position)
@@ -234,15 +253,16 @@ func rooms_generator():
 				print("not_emoty_room: ", not_empty_room)
 				print("room_direction:  ", room_direction)
 				print("room_door_direction:  ", room_door_direction)
-				print("room_number: ", room_number)
+				print("room_amount: ", room_amount)
 				print("/[room_generator]")
 				print()
 		
-		if !(room_number < max_room_number):
+		#room spawn
+		if !(room_amount < max_room_amount):
 			var save_room_data = room_group_data.duplicate()
-			if save_room_data.size() == max_room_number:
-				while room_number > 1:
-					if number == max_room_number:
+			if save_room_data.size() == max_room_amount:
+				while room_amount > 1:
+					if room_number == max_room_amount:
 						break
 					else:
 						if save_room_data.size() == 0:
@@ -254,7 +274,7 @@ func rooms_generator():
 						else:
 							print("[room_spawn]")
 							
-							if number == 1:
+							if room_number == 1:
 								player_spawn_position = room.player_spawn_position
 								GlobalPlayerState.player.position = player_spawn_position
 							
@@ -269,10 +289,10 @@ func rooms_generator():
 							room = load(path[randi() % path.size()]).instantiate()
 							room.position.x = room_position.x * ROOM_SIZE
 							room.position.y = room_position.y * ROOM_SIZE
-							number += 1
+							room_number += 1
 							add_child(room)
 							
-							print("number: ", number)
+							print("room_number: ", room_number)
 							print("room_class: ", room_class)
 							print("key: ", key)
 							print("/[room_spawn]")
@@ -283,6 +303,7 @@ func rooms_generator():
 					print("(recurrence)")
 				rooms_generator()
 				print("(/recurrence)")
+		room_enemy_group_data_generator()
 	else:
 		print("[room_spawn]")
 		
@@ -297,3 +318,34 @@ func rooms_generator():
 		print()
 	
 	print("/{room_group_generator}")
+
+func room_enemy_group_data_generator():
+	print("[room_enemy_group_generator]")
+	
+	var group_fight_room_amount: int = max_room_amount - 2
+	while room_enemy_group_data.size() < group_fight_room_amount:
+		room_enemy_group_data.push_back(enemy_group_generator())
+	
+	print("/[room_enemy_group_generator] => room_enemy_group_data: ", room_enemy_group_data)
+
+func enemy_group_generator():
+	var enemy_group_data: Array
+	var group_fight_room_amount: int = max_room_amount - 2
+	var enemy_group_price = sum_of_enemy_price / group_fight_room_amount as int
+	var current_enemys_price = enemy_group_price
+	
+	while current_enemys_price > 0:
+		var enemy: String
+		var enemy_scene_file: PackedScene
+		var enemy_file_list: Dictionary = FileFunction.get_file_list(Global.ENEMY_DIRECTORY)
+		var enemy_data_list: Array = Global.enemy_data.keys()
+		var key: String = enemy_data_list[randi() % enemy_data_list.size()]
+		enemy = enemy_file_list.get(key)
+		enemy_group_data.push_back(enemy)
+		current_enemys_price -= Global.enemy_data.get(key).price
+	
+	if current_enemys_price < 0:
+		enemy_group_generator()
+	else:
+		print("/[enemy_group_data_generator] => enemy_group_data: ", enemy_group_data)
+		return enemy_group_data

@@ -32,12 +32,12 @@ func _ready() -> void:
 
 
 func get_classes_data(classes):
-	background.texture = load(GlobalPlayerState.classes_data.portraiture.get(classes))
-	classes_name.text = str(GlobalPlayerState.classes_data.classes_name.get(classes))
-	max_health_value.text = str(GlobalPlayerState.classes_data.property.get(classes).max_health)
-	max_endurance_value.text = str(GlobalPlayerState.classes_data.property.get(classes).max_endurance)
-	weapon_used_value.text = str(GlobalPlayerState.classes_data.property.get(classes).weapon_used)
-	description.text = GlobalPlayerState.classes_data.description.get(classes)
+	background.texture = load(Global.classes_data.portraiture.get(classes))
+	classes_name.text = str(Global.classes_data.classes_name.get(classes))
+	max_health_value.text = str(Global.classes_data.property.get(classes).max_health)
+	max_endurance_value.text = str(Global.classes_data.property.get(classes).max_endurance)
+	weapon_used_value.text = str(Global.classes_data.property.get(classes).weapon_used)
+	description.text = Global.classes_data.description.get(classes)
 
 
 func _on_button_down() -> void:
@@ -50,9 +50,9 @@ func _on_button_down() -> void:
 		CLASSES_OPTION.mage:
 			classes = "mage"
 	
-	var classes_name = GlobalPlayerState.classes_data.classes_name.get(classes)
-	var weapon = GlobalPlayerState.classes_data.weapon.get(classes)
-	var max_health = GlobalPlayerState.classes_data.property.get(classes).max_health
-	var max_endurance = GlobalPlayerState.classes_data.property.get(classes).max_endurance
+	var classes_name = Global.classes_data.classes_name.get(classes)
+	var weapon_data_name = (Global.classes_data.weapon.get(classes))
+	var max_health = Global.classes_data.property.get(classes).max_health
+	var max_endurance = Global.classes_data.property.get(classes).max_endurance
 	
-	GlobalPlayerState.classes_select.emit(classes_name, weapon, max_health, max_endurance)
+	GlobalPlayerState.update_classes(classes_name, weapon_data_name, max_health, max_endurance)
