@@ -21,7 +21,6 @@ enum TILE_LAYER {
 @onready var tile_floor: Node2D = get_node("TileMap/Floor")
 @onready var tile_wall: Node2D = get_node("TileMap/Wall")
 @onready var door_container: Node2D = get_node("Doors")
-@onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
 @onready var player_detector: Area2D = get_node("PlayerDetector")
 @onready var enemys: Node2D = $Enemys
 
@@ -33,7 +32,6 @@ var has_spawn_enemy: bool = false
 
 func _ready() -> void:
 	open_doors()
-	enemy_amount = enemy_positions_container.get_child_count()
 
 
 func on_enemy_killed():
@@ -70,6 +68,7 @@ func spawn_entity():
 		enemys.call_deferred("add_child", spawn_explosion)
 		
 		print("/[spawn_enemy] => enemy:", str(enemy), " spawn_position: ", spawn_position)
+	enemy_amount = enemys.get_children().size()
 	has_spawn_enemy = true
 	
 

@@ -1,0 +1,17 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=2 format=3 uid="uid://bl2phkmsdbi0"]
+
+[ext_resource type="Texture2D" uid="uid://dh7strsome7ju" path="res://particle/gradient/to_transparent.tres" id="1_v5ecl"]
+
+[resource]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 3.0
+direction = Vector3(1, 1, 1)
+spread = 180.0
+initial_velocity_min = 128.0
+initial_velocity_max = 224.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 4.0
+color = Color(0.607843, 0.121569, 0.121569, 1)
+color_ramp = ExtResource("1_v5ecl")

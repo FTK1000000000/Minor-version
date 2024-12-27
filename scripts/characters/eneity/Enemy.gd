@@ -9,8 +9,7 @@ signal health_changed
 @onready var hud: Node2D = $Texture/HUD
 @onready var health_bar: TextureProgressBar = $Texture/HUD/health_bar
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var AAP: AnimationPlayer = $AnimationPlayer
-@onready var HEAP: AnimationPlayer = $HurtEffectPlayer
+@onready var state_player: AnimationPlayer = $StatePlayer
 @onready var hurt_effect_timer: Timer = $HurtEffectTimer
 @onready var attack_timer: Timer = $AttackTimer
 @onready var hitbox: Area2D = $HitBox
@@ -41,10 +40,10 @@ signal health_changed
 
 var is_flip: bool = false
 var is_dead: bool = false
-var deading: bool = false
 
 
 func _ready():
+	super()
 	read_data()
 	current_move_speed = move_speed
 	current_health = max_health
@@ -57,11 +56,10 @@ func _ready():
 	navigation_agent.target_desired_distance = v
 	navigation_agent.path_desired_distance = 10
 
-
 func _process(_delta):
 	update_state()
 	update_animation()
-	handle_health()
+	health_handle()
 	
 	if navigation_agent.is_navigation_finished():
 		return
@@ -70,12 +68,17 @@ func _process(_delta):
 	var intended_velocity = axis * current_move_speed
 	navigation_agent.set_velocity(intended_velocity)
 
+func dead_handle():
+	state_chart.send_event("dead")
+
+func hurt_handle():
+	state_chart.send_event("hurt")
+
+
+func health_handle():
+	pass
 
 func update_state():
-	if is_dead:
-		state_chart.send_event("dead")
-		is_dead = false
-	
 	if !aggro_target:
 		state_chart.send_event("idle")
 	
@@ -97,16 +100,6 @@ func update_animation():
 		else:
 			body_texture.flip_h = false
 #纹理朝向和渲染索引
-
-func handle_health():
-	if current_health != max_health:
-		health_bar.visible = true
-	if current_health <= 0 && !deading:
-		GlobalPlayerState.player_kill += 1
-		
-		is_dead = true
-		deading = true
-#血量操作
 
 func recalc_path():
 	if aggro_target:
@@ -185,18 +178,18 @@ func _on_chase_state_exited() -> void:
 
 func _on_hurt_state_entered() -> void:
 	health_changed.emit()
-	HEAP.play("hurt_blink")
+	state_player.play("hurt_blink")
 	hurt_effect_timer.start()
 	await hurt_effect_timer.timeout
 	
-	HEAP.play("RESET")
+	state_player.play("RESET")
 
 
 func _on_dead_state_entered() -> void:
 	hud.hide()
 	current_move_speed = 0
 	hitbox.set_deferred("monitorable", false)
-	HEAP.play("dead_fog")
-	await HEAP.animation_finished
+	state_player.play("dead")
+	await state_player.animation_finished
 	
 	queue_free()

@@ -2,6 +2,8 @@ extends Neutral
 class_name Trader
 
 
+@onready var trade: Area2D = $Trade
+
 @export var trade_item_list: Array[InventoryItem]
 @export var trade_panel: Node
 
@@ -20,8 +22,11 @@ func roll_trade_list():
 	
 	while trade_item_list.size() < 3:
 		var item: InventoryItem
+		var key: String
 		var keys: Array = item_get_range.keys()
-		item = load(item_get_range.get(keys[randi() % keys.size()])).instantiate().item_resource
+		#item = load(item_get_range.get(keys[randi() % keys.size()])).instantiate().item_resource
+		key = keys[randi() % keys.size()]
+		item = load(FileFunction.get_file_list(Global.CARD_DIRECTORY).get(key)).instantiate().item_resource
 		print(item)
 		trade_item_list.push_back(item)
 

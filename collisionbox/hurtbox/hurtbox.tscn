@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bv885848x02vx"]
+[gd_scene load_steps=10 format=3 uid="uid://bv885848x02vx"]
 
 [ext_resource type="Script" path="res://scripts/collisionbox/hurtbox/hurtbox.gd" id="1_g6bxr"]
 [ext_resource type="Material" uid="uid://bdpyrb16q4aq1" path="res://particle/hurt.tres" id="2_slylt"]
 [ext_resource type="Texture2D" uid="uid://cnh0sxbcqmmc0" path="res://texture/particle/hurt.png" id="3_6mm53"]
+[ext_resource type="Material" uid="uid://bl2phkmsdbi0" path="res://particle/dead.tres" id="4_r42qp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o3u87"]
 atlas = ExtResource("3_6mm53")
@@ -50,7 +51,7 @@ visible = false
 z_index = 2
 sprite_frames = SubResource("SpriteFrames_2cwyx")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="HurtParticles" type="GPUParticles2D" parent="."]
 rotation = 6.28319
 emitting = false
 amount = 113
@@ -58,3 +59,13 @@ sub_emitter = NodePath(".")
 process_material = ExtResource("2_slylt")
 one_shot = true
 explosiveness = 0.8
+
+[node name="DeadParticles" type="GPUParticles2D" parent="."]
+rotation = 6.28319
+emitting = false
+amount = 113
+sub_emitter = NodePath(".")
+process_material = ExtResource("4_r42qp")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0

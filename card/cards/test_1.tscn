@@ -2,15 +2,21 @@
 
 [ext_resource type="PackedScene" uid="uid://c3s75akbkf5fu" path="res://card/cards/card.tscn" id="1_wyl6o"]
 [ext_resource type="Script" path="res://scripts/card/cards/test_1.gd" id="2_1gtst"]
-[ext_resource type="Resource" uid="uid://daj56mlp26rui" path="res://card/resource/test_1.tres" id="3_el70a"]
+[ext_resource type="Script" path="res://scripts/card/inventory_card.gd" id="3_bloih"]
 [ext_resource type="Shader" path="res://shader/collectible_icon.gdshader" id="4_0jbqn"]
-[ext_resource type="Texture2D" uid="uid://crgvkmjcixmvd" path="res://texture/card/test.png" id="5_vxtu8"]
+
+[sub_resource type="Resource" id="Resource_l407u"]
+script = ExtResource("3_bloih")
+data_name = ""
+name = ""
+description = ""
+price = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8w7bp"]
 resource_local_to_scene = true
 size = Vector2(14, 18)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sfm2v"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ijjl"]
 resource_local_to_scene = true
 shader = ExtResource("4_0jbqn")
 shader_parameter/highlight = true
@@ -20,11 +26,12 @@ shader_parameter/shine_size = 0.01
 
 [node name="Test1" instance=ExtResource("1_wyl6o")]
 script = ExtResource("2_1gtst")
-item_resource = ExtResource("3_el70a")
+data_name = "test_1"
+item_resource = SubResource("Resource_l407u")
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_8w7bp")
 
-[node name="Sprite2D" parent="." index="1"]
-material = SubResource("ShaderMaterial_sfm2v")
-texture = ExtResource("5_vxtu8")
+[node name="Icon" parent="." index="1"]
+material = SubResource("ShaderMaterial_0ijjl")
+texture = null

@@ -33,7 +33,7 @@ func _process(_delta: float) -> void:
 		
 		if inventory_slot.item is InventoryCard && !is_selected_card:
 			var card_data = inventory_slot.item.data_name
-			var card_instantiate = load(Global.card_data.get(card_data)).instantiate()
+			var card_instantiate = load(FileFunction.get_file_list(Global.CARD_DIRECTORY).get(card_data)).instantiate()
 			is_selected_card = card_instantiate
 			
 			add_child(is_selected_card)

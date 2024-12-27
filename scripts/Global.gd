@@ -11,6 +11,8 @@ const ENEMY_DATA_PATH = "res://data/enemy_data.json"
 const BOSS_DATA_PATH = "res://data/boss_data.json"
 const NEUTRALITY_DATA_PATH = "res://data/neutrality_data.json"
 
+const CARD_DIRECTORY = "res://card/cards/"
+const CARD_TEXTURE_DIRECTORY = "res://texture/card/"
 const ENEMY_DIRECTORY = "res://characters/entity/enemy/"
 
 const LEVEL_WORLD = "res://world/level.tscn"
@@ -22,11 +24,11 @@ const SFX_IDX = 1
 const BGM_IDX = 2
 
 
+@onready var erro_label: Label = $ErroLabel
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-@export var temporary_ui: CanvasLayer
 @export var HUD: CanvasLayer
-@export var erro_label: Label
+@export var temporary_ui: CanvasLayer
 @export var world: World
 
 var bgm_enabled: set = set_bgm_enabled, get = is_bgm_enabled
@@ -56,6 +58,8 @@ func _ready():
 	read_weapon_data()
 	read_card_data()
 	read_entity_data()
+	
+	GlobalPlayerState.player_dead.connect(game_over)
 
 
 func back_to_title():
@@ -64,15 +68,31 @@ func back_to_title():
 
 func new_game():
 	delet_save_date()
+	GlobalPlayerState.reset()
 	
 	storey_level = 0
 	started_at = Time.get_unix_time_from_system()
 	load_world("res://world/main.tscn")
 
+func load_game():
+	var save_file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if !save_file:
+		erro_tip("not have save file")
+	else:
+		Global.game_load()
+
 func complete_game():
 	storey_level = 0
 	completed_at = Time.get_unix_time_from_system()
 	load_world("res://ui/game_complete.tscn")
+
+func game_over():
+	HUD.game_over_animation()
+	delet_save_date()
+
+func back(node: CanvasLayer):
+	node.hide()
+	game_keep()
 
 func load_world(path):
 	animation_player.play_backwards("fade")
@@ -80,6 +100,21 @@ func load_world(path):
 	
 	get_tree().change_scene_to_file(path)
 	animation_player.play("fade")
+
+func game_pause():
+	get_tree().paused = true
+
+func game_keep():
+	get_tree().paused = false
+
+func erro_tip(erro_text: String):
+	print("[erro_tip] => ", erro_text)
+	erro_label.text = erro_text
+	erro_label.show()
+	
+	await get_tree().create_timer(1).timeout
+	erro_label.hide()
+	erro_label.text = ""
 
 func is_bgm_enabled():
 	return not AudioServer.is_bus_mute(BGM_IDX)
@@ -92,25 +127,6 @@ func is_sfx_enabled():
 
 func set_sfx_enabled(value):
 	AudioServer.set_bus_mute(SFX_IDX, not value)
-
-func game_pause():
-	get_tree().paused = true
-
-func game_keep():
-	get_tree().paused = false
-
-func back(node):
-	node.visible = false
-	game_keep()
-
-func erro_tip(erro_text: String):
-	print("[erro_tip] => ", erro_text)
-	erro_label.text = erro_text
-	erro_label.show()
-	
-	await get_tree().create_timer(1).timeout
-	erro_label.hide()
-	erro_label.text = ""
 
 func camera_should_shake(amount: float):
 	GlobalPlayerState.player.camera.camera_should_shake(amount)
@@ -208,10 +224,13 @@ func game_save():
 
 func game_load():
 	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
-	if not file: return
-	
+	if not file:
+		erro_tip("not have save file")
+		return
 	var json = file.get_as_text()
-	if json == "": return
+	if json == "":
+		erro_tip("not have save file")
+		return
 	var data = JSON.parse_string(json) as Dictionary
 	
 	var g = GlobalPlayerState

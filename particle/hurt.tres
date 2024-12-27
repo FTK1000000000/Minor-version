@@ -1,16 +1,22 @@
-[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://bdpyrb16q4aq1"]
+[gd_resource type="ParticleProcessMaterial" load_steps=2 format=3 uid="uid://bdpyrb16q4aq1"]
+
+[ext_resource type="Texture2D" uid="uid://dh7strsome7ju" path="res://particle/gradient/to_transparent.tres" id="1_pptrn"]
 
 [resource]
 emission_shape = 2
 emission_sphere_radius = 7.0
 angle_min = -720.0
 angle_max = 720.0
-spread = 15.0
+spread = 20.0
 initial_velocity_min = 120.0
 initial_velocity_max = 160.0
 gravity = Vector3(0, 0, 0)
 linear_accel_min = 160.0
 linear_accel_max = 200.0
-color = Color(1, 0, 0, 1)
+scale_min = 2.0
+scale_max = 4.0
+scale_over_velocity_max = 8.0
+color = Color(0.607843, 0.121569, 0.121569, 1)
+color_ramp = ExtResource("1_pptrn")
 hue_variation_min = -0.1
-hue_variation_max = 0.15
+hue_variation_max = 0.1

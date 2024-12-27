@@ -24,14 +24,16 @@ region = Rect2(0, 96, 320, 32)
 atlas = ExtResource("2_xdn0j")
 region = Rect2(0, 128, 320, 32)
 
-[node name="PlayerVariable" type="VBoxContainer"]
-offset_right = 320.0
-offset_bottom = 184.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="PlayerVariable" type="CanvasLayer"]
 script = ExtResource("1_3q67q")
 
-[node name="HealthBar" type="TextureProgressBar" parent="."]
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+offset_right = 320.0
+offset_bottom = 104.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HealthBar" type="TextureProgressBar" parent="VBoxContainer2"]
 layout_mode = 2
 value = 36.0
 stretch_margin_left = 4
@@ -40,7 +42,7 @@ stretch_margin_right = 4
 stretch_margin_bottom = 4
 texture_progress = SubResource("AtlasTexture_ludgh")
 
-[node name="Label" type="Label" parent="HealthBar"]
+[node name="Label" type="Label" parent="VBoxContainer2/HealthBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,7 +52,7 @@ grow_vertical = 2
 text = "23"
 horizontal_alignment = 1
 
-[node name="EasedHealthBar" type="TextureProgressBar" parent="HealthBar"]
+[node name="EasedHealthBar" type="TextureProgressBar" parent="VBoxContainer2/HealthBar"]
 show_behind_parent = true
 clip_children = 2
 layout_mode = 0
@@ -62,7 +64,7 @@ stretch_margin_bottom = 4
 texture_under = SubResource("AtlasTexture_qroae")
 texture_progress = SubResource("AtlasTexture_v7hy1")
 
-[node name="EnduranceBar" type="TextureProgressBar" parent="."]
+[node name="EnduranceBar" type="TextureProgressBar" parent="VBoxContainer2"]
 show_behind_parent = true
 layout_mode = 2
 value = 73.0
@@ -72,7 +74,7 @@ stretch_margin_right = 4
 stretch_margin_bottom = 4
 texture_progress = SubResource("AtlasTexture_eibq4")
 
-[node name="Label" type="Label" parent="EnduranceBar"]
+[node name="Label" type="Label" parent="VBoxContainer2/EnduranceBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,7 +84,7 @@ grow_vertical = 2
 text = "67"
 horizontal_alignment = 1
 
-[node name="EasedEnduranceBar" type="TextureProgressBar" parent="EnduranceBar"]
+[node name="EasedEnduranceBar" type="TextureProgressBar" parent="VBoxContainer2/EnduranceBar"]
 show_behind_parent = true
 clip_children = 2
 layout_mode = 0
@@ -94,19 +96,19 @@ stretch_margin_bottom = 4
 texture_under = SubResource("AtlasTexture_qroae")
 texture_progress = SubResource("AtlasTexture_fs70d")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 10
 
-[node name="Money" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Money" type="HBoxContainer" parent="VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Money"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer2/VBoxContainer/Money"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_ws3oc")
 
-[node name="Label" type="Label" parent="VBoxContainer/Money"]
+[node name="Label" type="Label" parent="VBoxContainer2/VBoxContainer/Money"]
 layout_mode = 2
 text = "250"

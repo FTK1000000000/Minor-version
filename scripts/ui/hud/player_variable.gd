@@ -1,16 +1,15 @@
-extends VBoxContainer
+extends CanvasLayer
 
 
-@onready var health_bar: TextureProgressBar = $HealthBar
-@onready var health_label: Label = $HealthBar/Label
-@onready var eased_health_bar: TextureProgressBar = $HealthBar/EasedHealthBar
-@onready var eased_health_label: Label = $HealthBar/EasedHealthBar/Label
-@onready var endurance_bar: TextureProgressBar = $EnduranceBar
-@onready var endurance_label: Label = $EnduranceBar/Label
-@onready var eased_endurance_bar: TextureProgressBar = $EnduranceBar/EasedEnduranceBar
-@onready var eased_endurance_label: Label = $EnduranceBar/Label
-@onready var money_label: Label = $VBoxContainer/Money/Label
-
+@onready var health_bar: TextureProgressBar = $VBoxContainer2/HealthBar
+@onready var health_label: Label = $VBoxContainer2/HealthBar/Label
+@onready var eased_health_bar: TextureProgressBar = $VBoxContainer2/HealthBar/EasedHealthBar
+@onready var eased_health_label: Label = $VBoxContainer2/HealthBar/EasedHealthBar/Label
+@onready var endurance_bar: TextureProgressBar = $VBoxContainer2/EnduranceBar
+@onready var endurance_label: Label = $VBoxContainer2/EnduranceBar/Label
+@onready var eased_endurance_bar: TextureProgressBar = $VBoxContainer2/EnduranceBar/EasedEnduranceBar
+@onready var eased_endurance_label: Label = $VBoxContainer2/EnduranceBar/Label
+@onready var money_label: Label = $VBoxContainer2/VBoxContainer/Money/Label
 
 @onready var target: Player = $"../../Player"
 

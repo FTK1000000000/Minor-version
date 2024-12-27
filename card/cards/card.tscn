@@ -1,14 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3s75akbkf5fu"]
+[gd_scene load_steps=6 format=3 uid="uid://c3s75akbkf5fu"]
 
 [ext_resource type="PackedScene" uid="uid://b206wlen0bkw3" path="res://collectible/collectible.tscn" id="1_5o7ds"]
 [ext_resource type="Script" path="res://scripts/card/card.gd" id="2_0klrt"]
-[ext_resource type="Texture2D" uid="uid://bs1f5fpj78sy7" path="res://texture/card/lucky_purple_shorts.png" id="3_27mgu"]
 [ext_resource type="Shader" path="res://shader/collectible_icon.gdshader" id="3_hgc5h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8euu7"]
 resource_local_to_scene = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqc0u"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6g8l4"]
 resource_local_to_scene = true
 shader = ExtResource("3_hgc5h")
 shader_parameter/highlight = true
@@ -22,6 +21,5 @@ script = ExtResource("2_0klrt")
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_8euu7")
 
-[node name="Sprite2D" parent="." index="1"]
-material = SubResource("ShaderMaterial_wqc0u")
-texture = ExtResource("3_27mgu")
+[node name="Icon" parent="." index="1"]
+material = SubResource("ShaderMaterial_6g8l4")

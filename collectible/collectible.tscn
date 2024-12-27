@@ -23,6 +23,6 @@ script = ExtResource("1_pgnew")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0mjqo")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_mc7sm")
 texture = ExtResource("3_ffqea")

@@ -15,9 +15,10 @@ shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.5
 shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
-[node name="HUD" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("show_layer")]
 process_mode = 3
 script = ExtResource("1_0wxeb")
+show_layer = [NodePath("Vignette"), NodePath("PlayerVariable")]
 
 [node name="Vignette" type="CanvasLayer" parent="."]
 
@@ -129,22 +130,3 @@ visible = false
 
 [node name="PlayerAbilityPanel" parent="." instance=ExtResource("8_v7d4u")]
 visible = false
-
-[node name="ErroLabel" type="Label" parent="."]
-z_index = 1000
-custom_minimum_size = Vector2(128, 128)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -0.5
-offset_top = -11.5
-offset_right = 0.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "It's sold out"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2

@@ -2,8 +2,9 @@ extends Area2D
 class_name Collectible
 
 
-@onready var icon: Sprite2D = $Sprite2D
+@onready var icon: Sprite2D = $Icon
 
+@export var data_name: String
 @export var item_resource: InventoryItem
 
 

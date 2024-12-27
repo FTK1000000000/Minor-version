@@ -185,12 +185,6 @@ floor_constant_speed = true
 platform_floor_layers = 4294901761
 script = ExtResource("1_hp01b")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(9.53674e-07, 8)
-rotation = 1.5708
-scale = Vector2(0.781595, 0.804121)
-shape = SubResource("CapsuleShape2D_bgyxn")
-
 [node name="Texture" type="Node2D" parent="."]
 
 [node name="Body" type="Sprite2D" parent="Texture"]
@@ -199,6 +193,7 @@ z_index = 1
 texture = ExtResource("2_sy5qe")
 hframes = 7
 vframes = 2
+frame = 2
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
@@ -211,6 +206,12 @@ offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(9.53674e-07, 8)
+rotation = 1.5708
+scale = Vector2(0.781595, 0.804121)
+shape = SubResource("CapsuleShape2D_bgyxn")
 
 [node name="PlayerHurtbox" parent="." instance=ExtResource("3_ww8by")]
 collision_mask = 2

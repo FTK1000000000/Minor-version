@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://brsyhwjqpihrl"]
+
+[ext_resource type="Shader" path="res://shader/enemy_spawn_noise.gdshader" id="1_on2kg"]
+[ext_resource type="Texture2D" uid="uid://bwd3rvj2dfyx" path="res://noise-128.png" id="2_tnpff"]
+
+[resource]
+shader = ExtResource("1_on2kg")
+shader_parameter/radius = 0.362
+shader_parameter/effectControl = 1.0
+shader_parameter/burnSpeed = 1.0
+shader_parameter/shape = 1.0
+shader_parameter/textureNoise = ExtResource("2_tnpff")

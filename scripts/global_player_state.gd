@@ -6,6 +6,7 @@ signal update_variable
 signal health_changed
 signal endurance_changed
 signal money_changed
+signal player_dead
 
 
 const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
@@ -14,7 +15,7 @@ const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
 @export var player_card_inventory: Inventory
 
 @export var player: Player
-@export var player_classes: String = ""
+@export var player_classes: String
 @export var player_weapon: String
 @export var player_wealth: int = 1000
 @export var player_max_health: int = 100
@@ -42,7 +43,6 @@ const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
 
 @export var money: int = 0
 @export var player_kill: int = 0
-@export var player_dead: bool = false
 
 
 func _ready() -> void:
@@ -54,10 +54,17 @@ func _ready() -> void:
 	player_card_inventory = CARD_INVENTORY.duplicate()
 
 
+func reset():
+	player_classes = ""
+
 func compute_player_wealth():
 	var classes_price = Global.classes_data.property.get(player_classes).price
 	var weapon_price = Global.weapon_data.get(player_weapon).price
-	player_wealth = classes_price + weapon_price
+	var card_price
+	for i in player_card_inventory.slots:
+		if i.item:
+			card_price += i.item.price
+	player_wealth = classes_price + weapon_price + card_price
 	
 	print("[player_wealth] => ", player_wealth)
 

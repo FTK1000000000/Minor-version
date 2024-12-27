@@ -4,31 +4,32 @@ class_name Hurtbox
 
 const COMMON_HURT_BLINK_TIME = 0.3
 
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
+@onready var hurt_particles: GPUParticles2D = $HurtParticles
+@onready var dead_particles: GPUParticles2D = $DeadParticles
 @onready var parent = get_node("..")
-
-
-func _ready() -> void:
-	gpu_particles_2d.emitting = false
 
 
 func take_damage(damage: int, direction: Vector2, force: int):
 	if parent is StaticBody2D:
 		parent.current_health -= damage
 	
-	parent.current_health -= damage
-	parent.velocity += direction * force
-	parent.state_chart.send_event("hurt")
-	
-	mark(damage, direction, force)
+	if damage < parent.current_health:
+		parent.current_health -= damage
+		parent.velocity += direction * force
+		parent.hurt.emit()
+		
+		mark(damage, direction, force)
+	else:
+		parent.dead.emit()
 
 func bleed(damage: int, direction: Vector2, force: int):
 	var ckf = Common.KNOKBACK_FOREC
-	gpu_particles_2d.speed_scale = force / ckf if force > ckf else 1
-	gpu_particles_2d.rotation = direction.angle()
-	gpu_particles_2d.amount = damage
-	gpu_particles_2d.restart()
+	hurt_particles.speed_scale = force / ckf if force > ckf else 1
+	hurt_particles.rotation = direction.angle()
+	hurt_particles.amount = damage
+	hurt_particles.restart()
 
 func jitter(damage: int, direction: Vector2, force: int):
 	var skew_transform = func():
@@ -59,3 +60,9 @@ func mark(damage: int, direction: Vector2, force: int):
 	
 	await animated_sprite_2d.animation_finished
 	animated_sprite_2d.visible = false
+
+func explode(damage: int, direction: Vector2, force: int):
+	var ckf = Common.KNOKBACK_FOREC
+	dead_particles.speed_scale = force / ckf if force > ckf else 1
+	dead_particles.amount = damage * 2
+	dead_particles.restart()

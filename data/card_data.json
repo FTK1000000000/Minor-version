@@ -1,5 +1,12 @@
 {
-	"lucky_purple_shorts": "res://card/cards/lucky_purple_shorts.tscn",
-	"lucky_purple_shortsa": "res://card/cards/lucky_purple_shorts.tscn",
-	"test_1": "res://card/cards/test_1.tscn",
+	"lucky_purple_shorts": {
+		"price": 3,
+		"name": "Lucky Purple Shorts",
+		"description": "color for a the lucky for a the shorts of the purple"
+	},
+	"test_1": {
+		"price": 5,
+		"name": "Test",
+		"description": "the test: price of 5"
+	}
 }

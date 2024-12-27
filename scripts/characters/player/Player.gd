@@ -1,47 +1,43 @@
-extends CharacterBody2D
+extends Entity
 class_name Player
 
-signal player_dead
 
-
+@onready var state_chart: StateChart = $StateChart
+@onready var hurt_box: Hurtbox = $Hurtbox
+@onready var weapon_node: Node2D = $Weapon
 @onready var body_texture: Node2D = $Texture/Body
+@onready var interaction_icon: AnimatedSprite2D = $InteractionIcon
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hurt_effect_player: AnimationPlayer = $HurtEffectPlayer
 @onready var endurance_recover_timer: Timer = $EnduranceRecoverTimer
 @onready var end_recover_ready_timer: Timer = $EndRecoverReadyTimer
 @onready var hurt_effect_timer: Timer = $HurtEffectTimer
-@onready var hurt_box: Hurtbox = $Hurtbox
-@onready var state_chart: StateChart = $StateChart
-@onready var interaction_icon: AnimatedSprite2D = $InteractionIcon
 @onready var camera: Camera2D = $Camera2D
-
-@onready var weapon_node: Node2D = $Weapon
 
 @export var interactable_with: Interactable
 @export var direction: Vector2 = Vector2.ZERO
 @export var current_move_speed: int
-@export var current_health: int
+#@export var current_health: int
 @export var current_endurance: int
 @export var endurance_recover_amount: int = 10
 @export var endurance_recover_ready: int = 1
 @export var endurance_recover_speed: float = 0.2
 @export var endurance_recover_ready_speed: float = 0.5
-@export var knockback_power: int = 3000
+#@export var knockback_power: int = 3000
 
+@export var weapon_flip: bool = false
 @export var is_idle: bool = true
 @export var is_walk: bool = false
 @export var is_run: bool = false
 @export var is_resist: bool = false
 @export var is_weapon_attack: bool = false
-@export var weapon_flip: bool = false
 @export var is_endurance_disable: bool = false
-@export var is_hurt: bool = false
 @export var is_flip: bool = true
-@export var is_dead: bool = false
 
 
 func _ready():
+	super()
 	if GlobalPlayerState.player_classes:
 		body_texture.texture = load(Global.classes_data.texture.get(GlobalPlayerState.player_classes))
 	if GlobalPlayerState.player_weapon:
@@ -70,6 +66,12 @@ func _process(_delta):
 	
 	weapon_node.weapon_transform()
 	weapon_node.weapon_special_attack()
+
+func dead_handle():
+	state_chart.send_event("dead")
+
+func hurt_handle():
+	state_chart.send_event("hurt")
 
 
 func update_state():
@@ -101,16 +103,13 @@ func update_state():
 	if Input.is_action_just_pressed("attack"):
 		state_chart.send_event("weapon_attack")
 	
-	if is_dead:
-		state_chart.send_event("dead")
-	
 	if Input.is_action_just_pressed("interaction") && interactable_with:
 		interactable_with.interaction()
 #更新状态
 #受伤状态由 $HurtBox 发起
 
 func update_animation():
-	if is_dead: return
+	#if is_dead: return
 	
 	interaction_icon.visible = interactable_with != null
 	
@@ -135,10 +134,7 @@ func update_animation():
 	#纹理朝向和渲染索引
 
 func handle_health():
-	if GlobalPlayerState.player_current_health <= 0:
-		is_dead = true
-		GlobalPlayerState.player_dead = true
-		player_dead.emit()
+	pass
 #处理血量
 
 func headle_endurance():
@@ -165,20 +161,25 @@ func headle_endurance():
 func endurance_recover():
 	if (
 		end_recover_ready_timer.is_stopped() &&
-		endurance_recover_timer.is_stopped() &&
-		current_endurance <= GlobalPlayerState.player_max_endurance - endurance_recover_amount
+		endurance_recover_timer.is_stopped()
 		):
-			endurance_recover_timer.start()
-			await endurance_recover_timer.timeout
-			
-			current_endurance += endurance_recover_amount
-			GlobalPlayerState.player_current_endurance = current_endurance
-			GlobalPlayerState.endurance_changed.emit()
-			print("current_endurance: ", current_endurance)
-			endurance_recover()
+			if current_endurance <= GlobalPlayerState.player_max_endurance - endurance_recover_amount:
+				endurance_recover_timer.start()
+				await endurance_recover_timer.timeout
+				
+				current_endurance += endurance_recover_amount
+				GlobalPlayerState.player_current_endurance = current_endurance
+				GlobalPlayerState.endurance_changed.emit()
+				print("current_endurance: ", current_endurance)
+				endurance_recover()
+			elif current_endurance != GlobalPlayerState.player_max_endurance:
+				current_endurance = GlobalPlayerState.player_max_endurance
+				GlobalPlayerState.player_current_endurance = current_endurance
+				GlobalPlayerState.endurance_changed.emit()
+				print("current_endurance: ", current_endurance)
 
 func get_move_direction():
-	if is_dead: return
+	#if is_dead: return
 	
 	direction = Input.get_vector("left", "right", "up", "down").normalized()
 	if direction:
@@ -241,15 +242,13 @@ func _on_hurt_state_entered() -> void:
 	print(name, " state: hurt")
 	GlobalPlayerState.player_current_health = current_health
 	GlobalPlayerState.health_changed.emit()
-	is_hurt = true
 	hurt_effect_player.play("hurt_blink")
 	hurt_effect_timer.start()
 	await hurt_effect_timer.timeout
 	
 	hurt_effect_player.play("RESET")
-	is_hurt = false
 
 
 func _on_dead_state_entered() -> void:
 	print(name, " state: dead")
-	pass
+	GlobalPlayerState.player_dead.emit()

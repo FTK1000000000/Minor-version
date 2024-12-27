@@ -45,7 +45,7 @@ tile_set = ExtResource("1_mge0c")
 tile_set = ExtResource("1_mge0c")
 
 [node name="Collectible" type="TileMapLayer" parent="Rooms/FromRoom/Node2D/TileMap"]
-tile_map_data = PackedByteArray("AAAIAA4AAQAAAAAAAgAIAA0AAQAAAAAAAgAIAA8AAQAAAAAAAQAIABAAAQAAAAAAAQAIABEAAQAAAAAAAQAHAA0AAwAAAAAAAQAGAA0AAwAAAAAAAQA=")
+tile_map_data = PackedByteArray("AAAHAA0AAgAAAAAAAQAIAA0AAgAAAAAAAgAJAA0AAgAAAAAAAgAKAA0AAgAAAAAAAgAFAA0AAgAAAAAAAQAGAA0AAgAAAAAAAQA=")
 tile_set = ExtResource("1_mge0c")
 
 [node name="Wall" type="TileMapLayer" parent="Rooms/FromRoom/Node2D/TileMap"]
@@ -96,9 +96,15 @@ position = Vector2(183, 502)
 
 [node name="Goblin" parent="." instance=ExtResource("6_77skx")]
 position = Vector2(765, 196)
+platform_floor_layers = 4294967295
+platform_wall_layers = 0
+data_name = ""
 
 [node name="RangedEnemy" parent="." instance=ExtResource("10_iek4l")]
 position = Vector2(745, 203)
+platform_floor_layers = 4294967295
+platform_wall_layers = 0
+data_name = ""
 
 [node name="TraderGoblin" parent="." instance=ExtResource("14_3w2qv")]
-position = Vector2(181, 592)
+position = Vector2(244, 618)
