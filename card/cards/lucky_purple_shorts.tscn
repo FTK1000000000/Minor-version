@@ -1,17 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bp3tiwvdb0vgo"]
+[gd_scene load_steps=7 format=3 uid="uid://bp3tiwvdb0vgo"]
 
 [ext_resource type="PackedScene" uid="uid://c3s75akbkf5fu" path="res://card/cards/card.tscn" id="1_qjcok"]
 [ext_resource type="Script" path="res://scripts/card/cards/lucky_purple_shorts.gd" id="2_1p4ga"]
-[ext_resource type="Script" path="res://scripts/card/inventory_card.gd" id="3_as5e4"]
 [ext_resource type="Shader" path="res://shader/collectible_icon.gdshader" id="4_cixhc"]
 [ext_resource type="Texture2D" uid="uid://bs1f5fpj78sy7" path="res://texture/card/lucky_purple_shorts.png" id="5_vhcy5"]
-
-[sub_resource type="Resource" id="Resource_ws6t6"]
-script = ExtResource("3_as5e4")
-data_name = ""
-name = ""
-description = ""
-price = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1lhb"]
 resource_local_to_scene = true
@@ -28,7 +20,6 @@ shader_parameter/shine_size = 0.01
 [node name="LuckyPurpleShorts" instance=ExtResource("1_qjcok")]
 script = ExtResource("2_1p4ga")
 data_name = "lucky_purple_shorts"
-item_resource = SubResource("Resource_ws6t6")
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_f1lhb")

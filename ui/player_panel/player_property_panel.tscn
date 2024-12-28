@@ -136,15 +136,15 @@ text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WalkSpeed" type="Label" parent="VBoxContainer/Panel/VBoxContainer/Player"]
+[node name="MoveSpeed" type="Label" parent="VBoxContainer/Panel/VBoxContainer/Player"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
-text = "WalkSpeed"
+text = "MoveSpeed"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WalkSpeedValue" type="Label" parent="VBoxContainer/Panel/VBoxContainer/Player"]
+[node name="MoveSpeedValue" type="Label" parent="VBoxContainer/Panel/VBoxContainer/Player"]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 0
@@ -152,19 +152,19 @@ text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RunSpeed" type="Label" parent="VBoxContainer/Panel/VBoxContainer/Player"]
+[node name="MoveSpeedMultiple" type="Label" parent="VBoxContainer/Panel/VBoxContainer/Player"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
-text = "RunSpeed"
+text = "MoveSpeedMultiple"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RunSpeedValue" type="Label" parent="VBoxContainer/Panel/VBoxContainer/Player"]
+[node name="MoveSpeedMultipleValue" type="Label" parent="VBoxContainer/Panel/VBoxContainer/Player"]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 0
-text = "100"
+text = "1.0"
 horizontal_alignment = 1
 vertical_alignment = 1
 

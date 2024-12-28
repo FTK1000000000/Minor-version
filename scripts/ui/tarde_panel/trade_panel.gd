@@ -16,6 +16,10 @@ func _ready() -> void:
 	sale_panel.hide()
 	close()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if visible && event.is_action("back"):
+		close()
+
 
 func open():
 	#Global.game_pause()

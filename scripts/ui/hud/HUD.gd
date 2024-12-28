@@ -6,11 +6,10 @@ extends CanvasLayer
 @onready var pause_layer: CanvasLayer = $Pause
 @onready var player_variable_container: CanvasLayer = $PlayerVariable
 @onready var game_over_screen: CanvasLayer = $GameOverScreen
+@onready var card_bar: CanvasLayer = $CardBar
 @onready var tips_label: Control = $TipsLabel
 @onready var player_property_panel: Panel = $PlayerPropertyPanel
 @onready var player_ability_panel: Panel = $PlayerAbilityPanel
-@onready var inventory: Control = $Inventory
-@onready var card_bar: Control = $CardBar
 @onready var erro_label: Label = $ErroLabel
 
 @onready var player: Player = $"../Player"

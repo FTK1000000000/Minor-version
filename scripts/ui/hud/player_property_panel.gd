@@ -10,8 +10,9 @@ extends Panel
 @onready var end_value: Label = $VBoxContainer/Panel/VBoxContainer/Player/EndValue
 @onready var end_recover_value: Label = $VBoxContainer/Panel/VBoxContainer/Player/EndRecoverValue
 @onready var end_recover_speed_value: Label = $VBoxContainer/Panel/VBoxContainer/Player/EndRecoverSpeedValue
-@onready var walk_speed_value: Label = $VBoxContainer/Panel/VBoxContainer/Player/WalkSpeedValue
-@onready var run_speed_value: Label = $VBoxContainer/Panel/VBoxContainer/Player/RunSpeedValue
+@onready var move_speed_value: Label = $VBoxContainer/Panel/VBoxContainer/Player/MoveSpeedValue
+@onready var move_speed_multiple_value: Label = $VBoxContainer/Panel/VBoxContainer/Player/MoveSpeedMultipleValue
+
 
 @export var panel_shift: bool = false
 
@@ -56,6 +57,6 @@ func update_panel():
 	end_value.text = (str(g.player_current_endurance) + "/" + str(g.player_max_endurance))
 	end_recover_value.text = (str(g.endurance_recover_amount))
 	end_recover_speed_value.text = (str(g.endurance_recover_speed))
-	walk_speed_value.text = (str(g.player_walk_move_speed))
-	run_speed_value.text = (str(g.player_run_move_speed))
+	move_speed_value.text = (str(g.player_move_speed))
+	move_speed_multiple_value.text = (str(g.player_current_move_speed_multiple))
 	

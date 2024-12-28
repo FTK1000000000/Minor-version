@@ -13,6 +13,7 @@ func read():
 	item_resource = InventoryCard.new()
 	var card_data = Global.card_data.get(data_name)
 	var texture = FileFunction.get_file_list(Global.CARD_TEXTURE_DIRECTORY).get(data_name)
+	if !icon: icon = get_child(1) 
 	if !texture: icon.texture = TEST_ICON
 	else: icon.texture = load(FileFunction.get_file_list(Global.CARD_TEXTURE_DIRECTORY).get(data_name))
 	item_resource.icon = icon.texture

@@ -12,16 +12,17 @@ signal player_dead
 const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
 
 
-@export var player_card_inventory: Inventory
-
 @export var player: Player
+@export var player_card_inventory: Inventory
 @export var player_classes: String
 @export var player_weapon: String
 @export var player_wealth: int = 1000
 @export var player_max_health: int = 100
 @export var player_max_endurance: int = 100
-@export var player_walk_move_speed: int = 100
-@export var player_run_move_speed: int = 200
+@export var player_move_speed: int = 100
+@export var player_walk_move_speed_multiple: float = 1.0
+@export var player_run_move_speed_multiple: float = 2.0
+@export var player_current_move_speed_multiple: float = 1.0
 
 @export var player_current_health: int
 @export var player_current_endurance: int
@@ -99,10 +100,10 @@ func get_ability(ability_name):
 		player_current_endurance += 50
 	
 	if ability_name == "more_walk_speed":
-		player_walk_move_speed += 50
+		player_move_speed += 20
 	
 	if ability_name == "more_run_speed":
-		player_run_move_speed += 50
+		player_run_move_speed_multiple += 0.25
 	
 	weapon_update.emit()
 	health_changed.emit()
@@ -116,10 +117,10 @@ func update_ability():
 		player_max_endurance += (player_ability.count("more_endurance") * 50)
 	
 	if player_ability.has("more_walk_speed"):
-		player_walk_move_speed += (player_ability.count("more_walk_speed") * 50)
+		player_move_speed += (player_ability.count("more_walk_speed") * 20)
 	
 	if player_ability.has("more_run_speed"):
-		player_run_move_speed += (player_ability.count("more_run_speed") * 50)
+		player_run_move_speed_multiple += (player_ability.count("more_run_speed") * 0.2)
 	
 	if player_ability.has("weapon_attack_twice"):
 		weapon_attack_twice = true

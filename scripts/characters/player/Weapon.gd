@@ -29,7 +29,7 @@ func weapon_transform(
 		else:
 			weapon.z_index = 0
 		
-		if player.weapon_flip:
+		if player.is_weapon_flip:
 			weapon.scale.y = -1
 		else:
 			weapon.scale.y = 1

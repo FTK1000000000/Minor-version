@@ -1,16 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://rxgg4go80tfg"]
+[gd_scene load_steps=6 format=3 uid="uid://rxgg4go80tfg"]
 
 [ext_resource type="PackedScene" uid="uid://c3s75akbkf5fu" path="res://card/cards/card.tscn" id="1_wyl6o"]
 [ext_resource type="Script" path="res://scripts/card/cards/test_1.gd" id="2_1gtst"]
-[ext_resource type="Script" path="res://scripts/card/inventory_card.gd" id="3_bloih"]
 [ext_resource type="Shader" path="res://shader/collectible_icon.gdshader" id="4_0jbqn"]
-
-[sub_resource type="Resource" id="Resource_l407u"]
-script = ExtResource("3_bloih")
-data_name = ""
-name = ""
-description = ""
-price = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8w7bp"]
 resource_local_to_scene = true
@@ -27,7 +19,6 @@ shader_parameter/shine_size = 0.01
 [node name="Test1" instance=ExtResource("1_wyl6o")]
 script = ExtResource("2_1gtst")
 data_name = "test_1"
-item_resource = SubResource("Resource_l407u")
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_8w7bp")

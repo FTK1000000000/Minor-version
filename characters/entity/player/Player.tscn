@@ -193,7 +193,6 @@ z_index = 1
 texture = ExtResource("2_sy5qe")
 hframes = 7
 vframes = 2
-frame = 2
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
@@ -269,6 +268,10 @@ one_shot = true
 one_shot = true
 
 [node name="EndRecoverReadyTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RunEnduranceConsumeTimer" type="Timer" parent="."]
+wait_time = 0.02
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -355,9 +358,13 @@ delay_in_seconds = "0.0"
 
 [connection signal="area_entered" from="PlayerHurtbox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack" to="." method="_on_walk_stack_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/WalkStack/Walk" to="." method="_on_walk_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/WalkStack/Walk" to="." method="_on_walk_state_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/Attack/WeaponAttack" to="." method="_on_weapon_attack_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_exited"]

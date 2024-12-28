@@ -25,6 +25,7 @@ signal health_changed
 @export var target_position: Vector2
 
 @export var data_name: String
+@export var knockback_power: int = 300
 @export var move_speed: int = 100
 @export var current_move_speed: int
 @export var attack_range: int

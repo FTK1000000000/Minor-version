@@ -94,17 +94,12 @@ position = Vector2(402.885, -2.41509)
 [node name="Player" parent="." instance=ExtResource("4_3d0xp")]
 position = Vector2(183, 502)
 
-[node name="Goblin" parent="." instance=ExtResource("6_77skx")]
-position = Vector2(765, 196)
-platform_floor_layers = 4294967295
-platform_wall_layers = 0
-data_name = ""
-
-[node name="RangedEnemy" parent="." instance=ExtResource("10_iek4l")]
-position = Vector2(745, 203)
-platform_floor_layers = 4294967295
-platform_wall_layers = 0
-data_name = ""
-
 [node name="TraderGoblin" parent="." instance=ExtResource("14_3w2qv")]
 position = Vector2(244, 618)
+a = []
+
+[node name="Goblin" parent="." instance=ExtResource("6_77skx")]
+position = Vector2(79, 180)
+
+[node name="GoblinBowman" parent="." instance=ExtResource("10_iek4l")]
+position = Vector2(254, 108)

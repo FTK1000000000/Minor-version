@@ -6,7 +6,7 @@ class_name Trader
 
 @export var trade_item_list: Array[InventoryItem]
 @export var trade_panel: Node
-
+@export var a: Array
 
 func _ready() -> void:
 	super()
@@ -21,14 +21,17 @@ func roll_trade_list():
 	item_get_range = card
 	
 	while trade_item_list.size() < 3:
-		var item: InventoryItem
+		var item_resource: InventoryItem
+		var item: Node
 		var key: String
 		var keys: Array = item_get_range.keys()
-		#item = load(item_get_range.get(keys[randi() % keys.size()])).instantiate().item_resource
 		key = keys[randi() % keys.size()]
-		item = load(FileFunction.get_file_list(Global.CARD_DIRECTORY).get(key)).instantiate().item_resource
-		print(item)
-		trade_item_list.push_back(item)
+		item = load(FileFunction.get_file_list(Global.CARD_DIRECTORY).get(key)).instantiate()
+		item.read()
+		item_resource = item.item_resource
+		trade_item_list.push_back(item_resource)
+		a.push_back(item_resource)
+	print("/[trader_roll_trade_list]: ", trade_item_list)
 
 func spawn_trade_panel():
 	var scene = Global.TRADE_PANEL.instantiate()

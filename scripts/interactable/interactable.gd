@@ -19,8 +19,8 @@ func interaction():
 
 
 func _on_body_entered(player: Player) -> void:
-	player.interactable_with = self
+	player.register_interactable(self)
 
 
 func _on_body_exited(player: Player) -> void:
-	player.interactable_with = null
+	player.unregister_interactable(self)
