@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cdsfjpi15f6sn"]
 
 [ext_resource type="PackedScene" uid="uid://mphpkx2kp3it" path="res://ui/ability_select/ability_select_slot.tscn" id="1_rg7nk"]
-[ext_resource type="PackedScene" uid="uid://bffk84tub3365" path="res://ui/classes_select/classes_option_slot.tscn" id="2_2aqcr"]
+[ext_resource type="PackedScene" uid="uid://bffk84tub3365" path="res://ui/classes_select/classes_option_layer.tscn" id="2_2aqcr"]
 
 [node name="Control" type="Control"]
 layout_mode = 3

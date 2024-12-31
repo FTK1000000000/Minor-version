@@ -20,6 +20,10 @@ process_mode = 3
 script = ExtResource("1_0wxeb")
 show_layer = [NodePath("Vignette"), NodePath("PlayerVariable"), NodePath("CardBar")]
 
+[node name="GameOverScreen" parent="." instance=ExtResource("7_b6b1u")]
+layer = 100
+visible = false
+
 [node name="Vignette" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="Vignette"]
@@ -32,9 +36,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
-
-[node name="GameOverScreen" parent="." instance=ExtResource("7_b6b1u")]
-visible = false
 
 [node name="OptionsMenu" parent="." instance=ExtResource("6_mw57f")]
 visible = false

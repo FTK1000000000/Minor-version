@@ -19,56 +19,6 @@
 		"hunter": { "price": 8, "max_health": 80, "max_endurance": 100, "weapon_used": "SHIELD" },
 		"mage": { "price": 12, "max_health": 100, "max_endurance": 60, "weapon_used": "BOW" }
 	},
-	"ability": {
-		"common": {
-			"more_health": {
-				"name": "more health",
-				"description": "Increases your max health by 50 and restores 50 health "
-			},
-			"more_endurance": {
-				"name": "more end",
-				"description": "Increases your max endurance by 50"
-			},
-			"more_walk_speed": {
-				"name": "more wakl speed",
-				"description": "Increases your walk speed by 50"
-			},
-			"more_run_speed": {
-				"name": "more run speed",
-				"description": "Increases your run speed by 50"
-			}
-		},
-		"tank": {
-			"weapon_attack_twice": {
-				"name": "weapon attack twice",
-				"description": "Causes your weapon to attack again after attack, This attack not consume endurance"
-			}
-		},
-		"hunter": {
-			"sturdy_shield": {
-				"name": "sturdy shield",
-				"description": "25% reduced endurance Lost on Shield Blocking Damage"
-			}
-		},
-		"mage": {
-			"rapid_fire": {
-				"name": "Rapid fire",
-				"description": "Increases the speed at which you draw a bow by 50%"
-			}
-		},
-		"icon": {
-				"more_health": "res://texture/ability/more_health.png",
-				"more_endurance": "res://texture/ability/more_endurance.png",
-				"more_walk_speed": "res://texture/ability/more_walk_speed.png",
-				"more_run_speed": "res://texture/ability/more_run_speed.png",
-				
-				"weapon_attack_twice": "res://texture/ability/weapon_attack_twice.png",
-				
-				"sturdy_shield": "res://texture/ability/sturdy_shield.png",
-				
-				"rapid_fire": "res://texture/ability/rapid_fire.png"
-		}
-	},
 	"portraiture": {
 		"tank": "res://texture/ui/classes_selection/fc1f4134970a304ef4b94af9d7c8a786c9175c1e.webp",
 		"hunter": "res://texture/ui/classes_selection/396px-Garrosh_Heart_of_War.jpg",

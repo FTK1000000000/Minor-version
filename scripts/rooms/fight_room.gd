@@ -66,9 +66,8 @@ func spawn_entity():
 		var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
 		spawn_explosion.position = enemy.position
 		enemys.call_deferred("add_child", spawn_explosion)
-		
+		enemy_amount += 1
 		print("/[spawn_enemy] => enemy:", str(enemy), " spawn_position: ", spawn_position)
-	enemy_amount = enemys.get_children().size()
 	has_spawn_enemy = true
 	
 

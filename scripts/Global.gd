@@ -5,6 +5,7 @@ const CONFIG_PATH = "user://config.ini"
 const SAVE_PATH = "user://save.json"
 
 const CLASSES_DATA_PATH = "res://data/classes_data.json"
+const ABILITY_DATA_PATH = "res://data/ability_data.json"
 const WEAPON_DATA_PATH = "res://data/weapon_data.json"
 const CARD_DATA_PATH = "res://data/card_data.json"
 const ENEMY_DATA_PATH = "res://data/enemy_data.json"
@@ -12,8 +13,10 @@ const BOSS_DATA_PATH = "res://data/boss_data.json"
 const NEUTRALITY_DATA_PATH = "res://data/neutrality_data.json"
 
 const CARD_DIRECTORY = "res://card/cards/"
-const CARD_TEXTURE_DIRECTORY = "res://texture/card/"
 const ENEMY_DIRECTORY = "res://characters/entity/enemy/"
+
+const ABILITY_TEXTURE_DIRECTORY = "res://texture/ability/"
+const CARD_TEXTURE_DIRECTORY = "res://texture/card/"
 
 const LEVEL_WORLD = "res://world/level.tscn"
 const ABILITY_SELECT_PANEL = preload("res://ui/ability_select/ability_select.tscn")
@@ -43,6 +46,7 @@ var game_guidance: bool = true
 var game_start: bool = false
 
 var classes_data: Dictionary
+var ability_data: Dictionary
 var weapon_data: Dictionary
 var card_data: Dictionary
 var enemy_data: Dictionary
@@ -55,6 +59,7 @@ var boss
 func _ready():
 	config_load()
 	read_classes_data()
+	read_ability_data()
 	read_weapon_data()
 	read_card_data()
 	read_entity_data()
@@ -68,7 +73,6 @@ func back_to_title():
 
 func new_game():
 	delet_save_date()
-	GlobalPlayerState.reset()
 	
 	storey_level = 0
 	started_at = Time.get_unix_time_from_system()
@@ -87,6 +91,7 @@ func complete_game():
 	load_world("res://ui/game_complete.tscn")
 
 func game_over():
+	GlobalPlayerState.reset()
 	HUD.game_over_animation()
 	delet_save_date()
 
@@ -108,7 +113,7 @@ func game_keep():
 	get_tree().paused = false
 
 func erro_tip(erro_text: String):
-	print("[erro_tip] => ", erro_text)
+	print("/[erro_tip] => ", erro_text)
 	erro_label.text = erro_text
 	erro_label.show()
 	
@@ -134,7 +139,11 @@ func camera_should_shake(amount: float):
 func read_classes_data():
 	var data = JSON.parse_string(FileAccess.open(CLASSES_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
 	classes_data = data
-	GlobalPlayerState.common_ability = data.ability.common.keys()
+
+func read_ability_data():
+	var data = JSON.parse_string(FileAccess.open(ABILITY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
+	ability_data = data
+	GlobalPlayerState.common_ability = ability_data.classes.common
 
 func read_weapon_data():
 	var data = JSON.parse_string(FileAccess.open(WEAPON_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
@@ -191,8 +200,8 @@ func game_save():
 	
 	if ga.has("more_health"): g.player_max_health = (g.player_max_health - ga.count("more_health") * 50)
 	if ga.has("more_endurance"): g.player_max_endurance = (g.player_max_endurance - ga.count("more_endurance") * 50)
-	if ga.has("more_walk_speed"): g.player_walk_move_speed = (g.player_walk_move_speed - ga.count("more_walk_speed") * 50)
-	if ga.has("more_run_speed"): g.player_run_move_speed = (g.player_run_move_speed - ga.count("more_run_speed") * 50)
+	if ga.has("more_walk_speed"): g.player_move_speed = (g.player_move_speed - ga.count("more_walk_speed") * 50)
+	if ga.has("more_run_speed"): g.player_run_move_speed_multiple = (g.player_run_move_speed_multiple - ga.count("more_run_speed") * 50)
 	
 	var data = {
 		game = {
@@ -202,8 +211,8 @@ func game_save():
 		player = {
 			classes = g.player_classes,
 			weapon = g.player_weapon,
-			walk_move_speed = g.player_walk_move_speed,
-			run_move_speed = g.player_run_move_speed,
+			move_speed = g.player_move_speed,
+			player_run_move_speed_multiple = g.player_run_move_speed_multiple,
 			max_health = g.player_max_health,
 			max_endurance = g.player_max_endurance,
 			current_health = g.player_current_health,

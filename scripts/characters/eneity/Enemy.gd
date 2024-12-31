@@ -39,8 +39,9 @@ signal health_changed
 @export var is_chase: bool = false
 @export var is_attack: bool = false
 
-var is_flip: bool = false
 var is_dead: bool = false
+
+var is_flip: bool = false
 
 
 func _ready():

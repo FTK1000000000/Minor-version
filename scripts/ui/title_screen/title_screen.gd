@@ -4,6 +4,7 @@ extends Control
 @onready var new_game: Button = $UI/MainMenu/NewGame
 @onready var load_game: Button = $UI/MainMenu/LoadGame
 @onready var options_menu = $OptionsMenu
+@onready var classes_select: Control = $ClassesSelect
 
 @export var bgm: AudioStream
 
@@ -17,7 +18,8 @@ func _ready() -> void:
 
 
 func _on_new_game_pressed() -> void:
-	Global.new_game()
+	#Global.new_game()
+	classes_select.show()
 
 
 func _on_load_game_button_pressed() -> void:

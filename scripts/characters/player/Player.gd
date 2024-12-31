@@ -59,13 +59,14 @@ func _ready():
 	GlobalPlayerState.endurance_changed.emit()
 
 func _process(_delta):
+	if is_dead: return
+	
 	move_and_slide()
 	get_move_direction()
 	
 	update_state()
 	update_animation()
 	
-	handle_health()
 	headle_endurance()
 	
 	weapon_node.weapon_transform()
@@ -88,16 +89,11 @@ func update_state():
 		else:
 			shift = true
 	
-	if is_still && is_walk:
-		is_idle = true
-		is_walk = false
-		is_run = false
+	if !is_idle && is_still:
 		state_chart.send_event("idle")
 	
 	if !is_still:
-		is_walk = true
-		is_idle = false
-		if !is_still && !shift:
+		if !is_walk && !is_still && !shift:
 			state_chart.send_event("walk")
 		elif !is_run && !is_still && shift && current_endurance > 0:
 			state_chart.send_event("run")
@@ -119,8 +115,6 @@ func unregister_interactable(object: Interactable):
 	interactable_with.erase(object)
 
 func update_animation():
-	#if is_dead: return
-	
 	interaction_icon.visible = !interactable_with.is_empty()
 	
 	var m = get_local_mouse_position()
@@ -134,18 +128,9 @@ func update_animation():
 	if m.y < 0: is_flip = true
 	else: is_flip = false
 	
-	if is_run:
-		animation_tree["parameters/TimeScale/scale"] = 1 * 2
-	else:
-		animation_tree["parameters/TimeScale/scale"] = 1
-	
 	animation_tree["parameters/AnimationNodeStateMachine/idle/blend_position"] = m
 	animation_tree["parameters/AnimationNodeStateMachine/walk/blend_position"] = m
 	#纹理朝向和渲染索引
-
-func handle_health():
-	pass
-#处理血量
 
 func headle_endurance():
 	if (
@@ -189,8 +174,6 @@ func endurance_recover():
 				print("current_endurance: ", current_endurance)
 
 func get_move_direction():
-	#if is_dead: return
-	
 	direction = Input.get_vector("left", "right", "up", "down").normalized()
 	if direction:
 		velocity = direction * compute_move_speed()
@@ -249,8 +232,9 @@ func _on_walk_stack_state_entered() -> void:
 
 
 func _on_walk_state_entered() -> void:
-	is_walk = true
-	print(name, " state: walk.walk")
+	if !is_walk:
+		is_walk = true
+		print(name, " state: walk.walk")
 
 
 func _on_walk_state_exited() -> void:
@@ -262,12 +246,16 @@ func _on_run_state_entered() -> void:
 		is_run = true
 		print(name, " state: walk.run")
 	move_speed_multiple = GlobalPlayerState.player_run_move_speed_multiple
+	GlobalPlayerState.player_current_move_speed_multiple = move_speed_multiple
+	animation_tree["parameters/TimeScale/scale"] = move_speed_multiple
 	run_endurance_consume()
 
 
 func _on_run_state_exited() -> void:
 	is_run = false
 	move_speed_multiple = GlobalPlayerState.player_walk_move_speed_multiple
+	GlobalPlayerState.player_current_move_speed_multiple = move_speed_multiple
+	animation_tree["parameters/TimeScale/scale"] = move_speed_multiple
 
 
 func _on_hurt_state_entered() -> void:
@@ -286,11 +274,11 @@ func _on_hurt_state_exited() -> void:
 	is_hurt = false
 
 
-
 func _on_dead_state_entered() -> void:
-	is_dead = true
-	print(name, " state: dead")
-	GlobalPlayerState.player_dead.emit()
+	if !is_dead:
+		is_dead = true
+		print(name, " state: dead")
+		GlobalPlayerState.player_dead.emit()
 
 
 func _on_weapon_attack_state_entered() -> void:

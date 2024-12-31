@@ -20,14 +20,9 @@ func _ready() -> void:
 	ability_list = GlobalPlayerState.remainder_ability.duplicate()
 	ability_list.append_array(common_ability)
 	ability = ability_list[randi() % ability_list.size()]
-	
-	if ability in common_ability:
-		ability_name = Global.classes_data.ability.common.get(ability).name
-		ability_description = Global.classes_data.ability.common.get(ability).description
-	else:
-		ability_name = Global.classes_data.ability.get(classes).get(ability).name
-		ability_description = Global.classes_data.ability.get(classes).get(ability).description
-	ability_icon = load(Global.classes_data.ability.icon.get(ability))
+	ability_name = Global.ability_data.list.get(ability).name
+	ability_description = Global.ability_data.list.get(ability).description
+	ability_icon = load(FileFunction.get_file_list(Global.ABILITY_TEXTURE_DIRECTORY).get(ability))
 	
 	ability_name_node.text = ability_name
 	ability_description_node.text = ability_description

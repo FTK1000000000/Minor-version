@@ -57,33 +57,44 @@ func _ready() -> void:
 
 func reset():
 	player_classes = ""
+	player_weapon = ""
+	player_ability = []
+	remainder_ability = []
+	print("/[reset]")
 
 func compute_player_wealth():
-	var classes_price = Global.classes_data.property.get(player_classes).price
-	var weapon_price = Global.weapon_data.get(player_weapon).price
-	var card_price
+	var classes_price: int = 0
+	var ability_price: int = 0
+	var weapon_price: int = 0
+	var card_price: int = 0
+	
+	classes_price = Global.classes_data.property.get(player_classes).price
+	weapon_price = Global.weapon_data.get(player_weapon).price
 	for i in player_card_inventory.slots:
 		if i.item:
 			card_price += i.item.price
-	player_wealth = classes_price + weapon_price + card_price
+	for i in player_ability:
+		ability_price += Global.ability_data.list.get(i).price
 	
+	player_wealth = (classes_price + weapon_price + card_price + ability_price)
 	print("[player_wealth] => ", player_wealth)
 
-func update_classes(classes_name, weapon_data_name, max_health, max_endurance):
-	player_classes = classes_name
-	player_weapon = weapon_data_name
-	player_max_health = max_health
-	player_max_endurance = max_endurance
-	player_current_health = max_health
-	player_current_endurance = max_endurance
-	player.current_health = player_max_health
-	player.current_endurance = player_max_endurance
-	player.weapon_node.add_child(load(Global.weapon_data.get(player_weapon).path).instantiate())
+func update_classes(classes):
+	player_classes = Global.classes_data.classes_name.get(classes)
+	player_weapon = Global.classes_data.weapon.get(classes)
+	player_max_health = Global.classes_data.property.get(classes).max_health
+	player_max_endurance = Global.classes_data.property.get(classes).max_endurance
+	
+	player_current_health = player_max_health
+	player_current_endurance = player_max_endurance
+	#player.current_health = player_max_health
+	#player.current_endurance = player_max_endurance
+	#player.weapon_node.add_child(load(Global.weapon_data.get(player_weapon).path).instantiate())
 	weapon_update.emit()
 	health_changed.emit()
 	endurance_changed.emit()
 	
-	remainder_ability = Global.classes_data.ability.get(player_classes).keys()
+	remainder_ability = Global.ability_data.classes.get(player_classes)
 	print("[player classes update] => ", player_classes)
 
 func get_ability(ability_name):

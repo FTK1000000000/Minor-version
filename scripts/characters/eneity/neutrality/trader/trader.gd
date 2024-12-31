@@ -43,6 +43,10 @@ func melee_animaction():
 	create_tween().tween_property(self, "global_position", target_position, 0.6)
 
 
+func _on_trade_area_exited(area: Area2D) -> void:
+	trade_panel.close()
+
+
 func _on_melee_state_entered() -> void:
 	aimline_rotation()
 	

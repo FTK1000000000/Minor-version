@@ -152,6 +152,7 @@ radius = 32.0
 [node name="Trader" node_paths=PackedStringArray("state_chart") instance=ExtResource("1_xkmbq")]
 script = ExtResource("2_bjrok")
 trade_item_list = Array[ExtResource("3_5sk7k")]([])
+a = Array[ExtResource("3_5sk7k")]([])
 state_chart = NodePath("EnemyStateChart")
 data_name = "trader_goblin"
 
@@ -180,3 +181,4 @@ script = ExtResource("4_x47lm")
 shape = SubResource("CircleShape2D_cmhu8")
 
 [connection signal="state_entered" from="EnemyStateChart/CompoundState/Attack/Melee" to="." method="_on_melee_state_entered"]
+[connection signal="area_exited" from="Trade" to="." method="_on_trade_area_exited"]

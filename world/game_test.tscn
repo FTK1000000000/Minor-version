@@ -96,7 +96,6 @@ position = Vector2(183, 502)
 
 [node name="TraderGoblin" parent="." instance=ExtResource("14_3w2qv")]
 position = Vector2(244, 618)
-a = []
 
 [node name="Goblin" parent="." instance=ExtResource("6_77skx")]
 position = Vector2(79, 180)

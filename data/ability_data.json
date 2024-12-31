@@ -1,0 +1,57 @@
+{
+    "classes": {
+        "common": [
+            "more_health",
+            "more_endurance",
+            "more_walk_speed",
+            "more_run_speed"
+        ],
+        "tank": [
+            "sturdy_shield",
+            "weapon_attack_twice"
+        ],
+        "hunter": [
+            "rapid_fire"
+        ],
+        "mage": [
+            "weapon_attack_twice"
+        ]
+    },
+    "list": {
+        "more_health": {
+            "price": 8,
+            "name": "more health",
+            "description": "Increases your max health by 50 and restores 50 health "
+        },
+        "more_endurance": {
+            "price": 8,
+            "name": "more end",
+            "description": "Increases your max endurance by 50"
+        },
+        "more_walk_speed": {
+            "price": 8,
+            "name": "more wakl speed",
+            "description": "Increases your walk speed by 50"
+        },
+        "more_run_speed": {
+            "price": 8,
+            "name": "more run speed",
+            "description": "Increases your run speed by 50"
+        },
+        "weapon_attack_twice": {
+            "price": 16,
+            "name": "weapon attack twice",
+            "description": "Causes your weapon to attack again after attack, This attack not consume endurance"
+        },
+        "sturdy_shield": {
+            "price": 16,
+            "name": "sturdy shield",
+            "description": "25% reduced endurance Lost on Shield Blocking Damage"
+        },
+        "rapid_fire": {
+            "price": 16,
+            "name": "Rapid fire",
+            "description": "Increases the speed at which you draw a bow by 50%"
+        }
+    }
+}
