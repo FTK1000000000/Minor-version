@@ -1,27 +1,6 @@
 extends Node2D
 
 
-const storey_data = {
-	0: { "scene": "goblin", "storey_class": "boss_room" },
-	1: { "scene": "goblin", "storey_class": "room_group" },
-	2: { "scene": "goblin", "storey_class": "room_group" },
-	3: { "scene": "goblin", "storey_class": "room_group" },
-	4: { "scene": "goblin", "storey_class": "room_group" },
-	5: { "scene": "goblin", "storey_class": "room_group" },
-	6: { "scene": "goblin", "storey_class": "boss_room" },
-	7: { "scene": "ogre", "storey_class": "room_group" },
-	8: { "scene": "ogre", "storey_class": "room_group" },
-	9: { "scene": "ogre", "storey_class": "room_group" },
-	10: { "scene": "ogre", "storey_class": "room_group" },
-	11: { "scene": "ogre", "storey_class": "room_group" },
-	12: { "scene": "ogre", "storey_class": "boss_room" },
-	13: { "scene": "vampire", "storey_class": "room_group" },
-	14: { "scene": "vampire", "storey_class": "room_group" },
-	15: { "scene": "vampire", "storey_class": "room_group" },
-	16: { "scene": "vampire", "storey_class": "room_group" },
-	17: { "scene": "vampire", "storey_class": "room_group" },
-	18: { "scene": "vampire", "storey_class": "boss_room" },
-}
 const room_data = {
 	"scene": {
 		"goblin": {
@@ -79,7 +58,48 @@ const room_data = {
 				],
 				"[(0, -1), (-1, 0)]": [
 					"res://rooms/fight_rooms/left,up/0.tscn",
-				]
+				],
+				
+				#"[(1, 0), (-1, 0)]": [
+					#"res://rooms/fight_rooms/left,right/0.tscn",
+					#"res://rooms/fight_rooms/left,right/1.tscn"
+				#],
+				#"[(-1, 0), (1, 0)]": [
+					#"res://rooms/fight_rooms/left,right/0.tscn",
+					#"res://rooms/fight_rooms/left,right/1.tscn"
+				#],
+				#"[(0, 1), (0, -1)]": [
+					#"res://rooms/fight_rooms/up,down/0.tscn",
+					#"res://rooms/fight_rooms/up,down/1.tscn"
+				#],
+				#"[(0, -1), (0, 1)]": [
+					#"res://rooms/fight_rooms/up,down/0.tscn",
+					#"res://rooms/fight_rooms/up,down/1.tscn"
+				#],
+				#"[(1, 0), (0, 1)]": [
+					#"res://rooms/fight_rooms/right,down/0.tscn",
+				#],
+				#"[(0, 1), (1, 0)]": [
+					#"res://rooms/fight_rooms/right,down/0.tscn",
+				#],
+				#"[(1, 0), (0, -1)]": [
+					#"res://rooms/fight_rooms/right,up/0.tscn",
+				#],
+				#"[(0, -1), (1, 0)]": [
+					#"res://rooms/fight_rooms/right,up/0.tscn",
+				#],
+				#"[(-1, 0), (0, 1)]": [
+					#"res://rooms/fight_rooms/left,down/0.tscn"
+				#],
+				#"[(0, 1), (-1, 0)]": [
+					#"res://rooms/fight_rooms/left,down/0.tscn",
+				#],
+				#"[(-1, 0), (0, -1)]": [
+					#"res://rooms/fight_rooms/left,up/0.tscn",
+				#],
+				#"[(0, -1), (-1, 0)]": [
+					#"res://rooms/fight_rooms/left,up/0.tscn",
+				#],
 			},
 			"end": {
 				"[(1, 0)]": [
@@ -111,14 +131,18 @@ enum LEVEL_SCENE {
 }
 
 
-@export var storey_level: int = Global.storey_level
-@export var scene: LEVEL_SCENE
-@export var room_group_data: Array = []
-@export var room_enemy_group_data: Array = []
-@export var max_room_amount: int = 5
-@export var room_amount: int = 0
-@export var room_number: int = 0
-@export var sum_of_enemy_price: int = 0
+var storey_data: Dictionary = Global.storey_data
+var storey_level: int = Global.storey_level
+var scene: LEVEL_SCENE
+var room_group_data: Array = []
+var room_enemy_group_data: Array = []
+var max_room_amount: int = 5
+var main_way_room_amount: int = 5
+var branch_way_room_amount: int
+var branch_way_amount: int
+var room_amount: int = 0
+var room_number: int = 0
+var sum_of_enemy_price: int = 0
 
 @onready var player: Player = $"../Player"
 
@@ -145,7 +169,7 @@ func compute_sum_of_enemy_price():
 	print("[compute_sum_of_enemy_price] => ", sum_of_enemy_price, ", deviation: ", deviation)
 
 func rooms_generator():
-	print("{rooms_generator}")
+	print("[rooms_generator]")
 	
 	var current_storey_scene: String = storey_data.get(storey_level).scene
 	var room: Node = null
@@ -157,104 +181,234 @@ func rooms_generator():
 		room_amount = 0
 		room_number = 0
 		
+		var branch_group: Array = []
 		var not_empty_room: Array = []
 		var room_door_direction: Array = []
 		var old_room_door_direction: Array = []
 		var room_position: Vector2 = Vector2()
 		var old_room_position: Vector2 = Vector2()
 		var room_direction: Vector2 = Vector2()
+		var branch_direction: Vector2 = Vector2()
 		var repeat: bool = false
 		
 		#room generator
-		while room_amount < max_room_amount:
-			print("[room_generator]")
-			
-			if room_amount == 0:
-				room_class = "from"
-			elif room_amount < max_room_amount - 1:
-				room_class = "fight"
-			else:
-				room_class = "end"
-			
-			if room_class != "from":
-				room_direction = old_room_door_direction.back()
-				room_position += room_direction
+		max_room_amount = storey_data.get(storey_level).room_amount
+		if room_amount < max_room_amount:
+			#main way
+			print("[main_way]")
+			while room_amount < main_way_room_amount:
+				print("[room_generator]")
 				
-				if room_position in not_empty_room:
-					print("[room_direction] ", room_direction)
-					print("[room_position] ", room_position)
-					print("######### repeat-break #########")
-					print()
-					
-					var old_room_data = room_group_data.pop_front()
-					room_class = old_room_data.class
-					room_position = old_room_data.position
-					room_direction = old_room_data.direction
-					room_door_direction = old_room_data.door_direction
-					room_amount - 1
-					repeat = true
+				if room_amount == 0:
+					room_class = "from"
+				elif room_amount < max_room_amount - 1:
+					room_class = "fight"
 				else:
-					repeat = false
-					room_door_direction = []
+					room_class = "end"
+				
+				if room_class != "from":
+					room_direction = old_room_door_direction.back()
+					room_position += room_direction
 					
-					while room_door_direction.size() < 2:
-						while room_door_direction.size() < 1:
-							var v
-							match old_room_door_direction.back():
-								Vector2(1, 0):
-									v = Vector2(-1, 0)
-								Vector2(-1, 0):
-									v = Vector2(1, 0)
-								Vector2(0, 1):
-									v = Vector2(0, -1)
-								Vector2(0, -1):
-									v = Vector2(0, 1)
-							room_door_direction.push_back(v)
+					if room_position in not_empty_room:
+						print("[room_direction] ", room_direction)
+						print("[room_position] ", room_position)
+						print("######### repeat-break #########")
+						print()
 						
-						if room_class == "end":
-							break
-						else:
-							var a = [Vector2(1,0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
-							var x = a[randi() % a.size()]
+						var old_room_data = room_group_data.pop_front()
+						room_class = old_room_data.class
+						room_position = old_room_data.position
+						room_direction = old_room_data.direction
+						room_door_direction = old_room_data.door_direction
+						room_amount - 1
+						repeat = true
+					else:
+						repeat = false
+						room_door_direction = []
+						
+						while room_door_direction.size() < 2:
+							while room_door_direction.size() < 1:
+								var v
+								match old_room_door_direction.back():
+									Vector2(1, 0):
+										v = Vector2(-1, 0)
+									Vector2(-1, 0):
+										v = Vector2(1, 0)
+									Vector2(0, 1):
+										v = Vector2(0, -1)
+									Vector2(0, -1):
+										v = Vector2(0, 1)
+								room_door_direction.push_back(v)
 							
-							if room_door_direction.has(x):
-								print("[room_door_direction] ", room_door_direction)
-								print("######### repeat-break #########")
-								print()
-								
-								repeat = true
+							if room_class == "end":
+								break
 							else:
-								repeat = false
-								room_door_direction.push_back(x)
-			else:
-				room_position = Vector2(0, 0)
+								var a = [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
+								var x = a[randi() % a.size()]
+								
+								if room_door_direction.has(x):
+									print("[room_door_direction] ", room_door_direction)
+									print("######### repeat-break #########")
+									print()
+									
+									repeat = true
+								else:
+									repeat = false
+									room_door_direction.push_back(x)
+				else:
+					room_position = Vector2(0, 0)
+					
+					var a = [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
+					var v = a[randi() % a.size()]
+					room_door_direction.push_back(v)
 				
-				var a = [Vector2(1,0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
-				var v = a[randi() % a.size()]
-				room_door_direction.push_back(v)
+				if !repeat:
+					room_amount += 1
+					old_room_position = room_position
+					old_room_door_direction = room_door_direction
+					not_empty_room.push_back(room_position)
+					
+					var data_group: Dictionary = {
+						"class" = room_class,
+						"position" = room_position,
+						"direction" = room_direction,
+						"door_direction" = room_door_direction,
+					}
+					room_group_data.push_back(data_group)
+					print("index: ", room_group_data.size())
+					print("room_class: ", room_class)
+					print("room_position:  ", room_position)
+					print("not_emoty_room: ", not_empty_room)
+					print("room_direction:  ", room_direction)
+					print("room_door_direction:  ", room_door_direction)
+					print("room_amount: ", room_amount)
+					print("/[room_generator]")
+					print()
+			print("/[main_way]")
+			print()
 			
-			if !repeat:
-				room_amount += 1
-				old_room_position = room_position
-				old_room_door_direction = room_door_direction
-				not_empty_room.push_back(room_position)
+			#branch way
+			print("[branch_way]")
+			branch_way_room_amount = storey_data.get(storey_level).branch_way_room_amount
+			branch_way_amount = (
+				(max_room_amount - main_way_room_amount) / branch_way_room_amount + 1
+				if (max_room_amount - main_way_room_amount) % branch_way_room_amount == 0 else
+				(max_room_amount - main_way_room_amount) / branch_way_room_amount
+			)
+			while branch_group.size() < branch_way_amount:
+				var a = branch_way_room_amount
+				var x = max_room_amount - main_way_room_amount
+				var v = (a if x % a == 0 else x % a)
+				if x % a == 0: v = a
+				else: v = x % a
+				x - v
+				branch_group.push_back(v)
+			
+			while room_amount < max_room_amount:
+				var need_room_amount = branch_group.pop_front()
+				var current_room_amount: int = 0
+				var root_room_index = (randi() % (room_group_data.size() - 2)) + 1
+				var root_room_data = room_group_data[root_room_index]
+				var empty_direction: Array = [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
+				var not_empty_direction: Array = [
+					room_group_data[root_room_index + 1].direction,
+					room_group_data[root_room_index - 1].direction
+				]
+				for i in not_empty_direction:
+					empty_direction.erase(i)
 				
-				var data_group: Dictionary = {}
-				data_group = {
-					"class" = room_class,
-					"position" = room_position,
-					"direction" = room_direction,
-					"door_direction" = room_door_direction
+				old_room_door_direction = root_room_data.door_direction
+				branch_direction = empty_direction[randi() % empty_direction.size()]
+				var change_data_group: Dictionary = {
+					"class" = root_room_data.class,
+					"position" = root_room_data.position,
+					"direction" = root_room_data.direction,
+					"door_direction" = root_room_data.door_direction.insert(root_room_data.door_direction.size() - 1 - 1, branch_direction),
 				}
-				room_group_data.push_back(data_group)
-				print("room_group_data: ", room_group_data.size())
-				print("room_class: ", room_class)
-				print("room_position:  ", room_position)
-				print("not_emoty_room: ", not_empty_room)
-				print("room_direction:  ", room_direction)
-				print("room_door_direction:  ", room_door_direction)
-				print("room_amount: ", room_amount)
-				print("/[room_generator]")
+				room_group_data.push_back(change_data_group)
+				room_group_data.remove_at(root_room_index)
+				print("/[change_room_group_data](index: " + root_room_index + ") => door_direction: " + change_data_group.door_direction)
+				
+				while current_room_amount < need_room_amount:
+					print("[room_generator]")
+					
+					room_class = ("fight" if current_room_amount < need_room_amount - 1 else "end")
+					room_direction = old_room_door_direction[old_room_door_direction.size() - 1 - 1]
+					room_position += room_direction
+					
+					if room_position in not_empty_room:
+						print("[room_direction] ", room_direction)
+						print("[room_position] ", room_position)
+						print("######### repeat-break #########")
+						print()
+						
+						var old_room_data = room_group_data.pop_front()
+						room_class = old_room_data.class
+						room_position = old_room_data.position
+						room_direction = old_room_data.direction
+						room_door_direction = old_room_data.door_direction
+						room_amount -= 1
+						current_room_amount -= 1
+						repeat = true
+					else:
+						repeat = false
+						room_door_direction = []
+						
+						while room_door_direction.size() < 2:
+							if room_door_direction.size() < 1:
+								var v
+								match old_room_door_direction.back():
+									Vector2(1, 0):
+										v = Vector2(-1, 0)
+									Vector2(-1, 0):
+										v = Vector2(1, 0)
+									Vector2(0, 1):
+										v = Vector2(0, -1)
+									Vector2(0, -1):
+										v = Vector2(0, 1)
+								room_door_direction.push_back(v)
+							
+							if room_class == "end":
+								break
+							else:
+								var a = [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
+								var x = a[randi() % a.size()]
+								
+								if room_door_direction.has(x):
+									print("[room_door_direction] ", room_door_direction)
+									print("######### repeat-break #########")
+									print()
+									
+									repeat = true
+								else:
+									repeat = false
+									room_door_direction.push_back(x)
+					
+					if !repeat:
+						room_amount += 1
+						current_room_amount += 1
+						old_room_position = room_position
+						old_room_door_direction = room_door_direction
+						not_empty_room.push_back(room_position)
+						
+						var data_group: Dictionary = {
+							"class" = room_class,
+							"position" = room_position,
+							"direction" = room_direction,
+							"door_direction" = room_door_direction,
+						}
+						room_group_data.push_back(data_group)
+						print("room_group_data: ", room_group_data.size())
+						print("room_class: ", room_class)
+						print("room_position:  ", room_position)
+						print("not_emoty_room: ", not_empty_room)
+						print("room_direction:  ", room_direction)
+						print("room_door_direction:  ", room_door_direction)
+						print("room_amount: ", room_amount)
+						print("/[room_generator]")
+						print()
+				print("/[branch_way]")
 				print()
 		
 		#room spawn
@@ -317,7 +471,7 @@ func rooms_generator():
 		print("/[room_spawn]")
 		print()
 	
-	print("/{room_group_generator}")
+	print("/[room_group_generator]")
 
 func room_enemy_group_data_generator():
 	print("[room_enemy_group_generator]")
@@ -348,4 +502,5 @@ func enemy_group_generator():
 		enemy_group_generator()
 	else:
 		print("/[enemy_group_data_generator] => enemy_group_data: ", enemy_group_data)
+		print()
 		return enemy_group_data

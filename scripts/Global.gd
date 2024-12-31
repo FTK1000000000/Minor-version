@@ -4,6 +4,7 @@ extends Node
 const CONFIG_PATH = "user://config.ini"
 const SAVE_PATH = "user://save.json"
 
+const STOREY_DATA_PATH = "res://data/storey_data.json"
 const CLASSES_DATA_PATH = "res://data/classes_data.json"
 const ABILITY_DATA_PATH = "res://data/ability_data.json"
 const WEAPON_DATA_PATH = "res://data/weapon_data.json"
@@ -45,6 +46,7 @@ var completed_at: int = Time.get_unix_time_from_system()
 var game_guidance: bool = true
 var game_start: bool = false
 
+var storey_data: Dictionary
 var classes_data: Dictionary
 var ability_data: Dictionary
 var weapon_data: Dictionary
@@ -139,6 +141,10 @@ func camera_should_shake(amount: float):
 func read_classes_data():
 	var data = JSON.parse_string(FileAccess.open(CLASSES_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
 	classes_data = data
+
+func read_storey_data():
+	var data = JSON.parse_string(FileAccess.open(STOREY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
+	storey_data = data
 
 func read_ability_data():
 	var data = JSON.parse_string(FileAccess.open(ABILITY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
