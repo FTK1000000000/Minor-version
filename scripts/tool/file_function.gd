@@ -51,3 +51,7 @@ static func get_file_name_list(path: String, extension: bool = true) -> Dictiona
 		print_debug("Failed to open:"+path)
 	
 	return files
+
+static func json_as_dictionary(path: String) -> Dictionary:
+	var data = JSON.parse_string(FileAccess.open(path, FileAccess.READ).get_as_text()) as Dictionary
+	return data

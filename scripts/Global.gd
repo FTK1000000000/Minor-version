@@ -60,6 +60,7 @@ var boss
 
 func _ready():
 	config_load()
+	read_storey_data()
 	read_classes_data()
 	read_ability_data()
 	read_weapon_data()
