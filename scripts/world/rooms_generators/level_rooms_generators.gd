@@ -138,6 +138,7 @@ var storey_data: Dictionary = Global.storey_data
 var storey_level: int = Global.storey_level
 var room_data: Dictionary = FileFunction.json_as_dictionary(ROOM_DATA_PATH)
 var room_group_data: Array = []
+var branch_way_group_data: Array = []
 var room_enemy_group_data: Array = []
 var max_room_amount: int
 var main_way_room_amount: int
@@ -184,8 +185,8 @@ func rooms_generator():
 		room_amount = 0
 		room_number = 0
 		
-		var branch_group: Array
-		var branch_amount: int
+		var branch_room_amount_group: Array
+		var branch_way_amount: int
 		var not_empty_room: Array
 		var room_door_direction: Array
 		var room_position: Vector2
@@ -222,7 +223,7 @@ func rooms_generator():
 						print("######### repeat-break #########")
 						print()
 						
-						old_room_data = room_group_data.pop_front()
+						old_room_data = room_group_data.pop_back()
 						room_class = old_room_data.class
 						room_position = old_room_data.position
 						room_direction = old_room_data.direction
@@ -301,22 +302,26 @@ func rooms_generator():
 				branch_way_room_amount = storey_data.get(str(storey_level)).branch_way_room_amount
 				branch_way_amount = (
 					(max_room_amount - main_way_room_amount) / branch_way_room_amount + 1
-					if (max_room_amount - main_way_room_amount) % branch_way_room_amount == 0 else
+					if (max_room_amount - main_way_room_amount) % branch_way_room_amount != 0 else
 					(max_room_amount - main_way_room_amount) / branch_way_room_amount
 				)
-				while branch_group.size() < branch_way_amount:
+				while branch_room_amount_group.size() < branch_way_amount:
 					var a = branch_way_room_amount
 					var x = max_room_amount - main_way_room_amount
 					var v = (a if x % a == 0 else x % a)
 					x - v
-					branch_group.push_back(v)
+					branch_room_amount_group.push_back(v)
 				
-				while room_amount < max_room_amount:
-					var branch_data: Array
-					var need_room_amount = branch_group[branch_amount]
-					var current_room_amount: int = 0
+				#way
+				var branch_data: Array
+				var current_room_amount: int = 0
+				while branch_way_group_data.size() < branch_way_amount:
+					var need_room_amount = branch_room_amount_group[branch_way_group_data.size()]
 					var root_room_index = (randi() % (room_group_data.size() - 2)) + 1
 					var root_room_data: Dictionary = room_group_data[root_room_index]
+					if root_room_data.door_direction.size() >= 4:
+						continue
+					
 					var empty_direction: Array = [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
 					var not_empty_direction: Array = root_room_data.door_direction
 					for i in not_empty_direction:
@@ -335,7 +340,7 @@ func rooms_generator():
 					root_room_data.door_direction.insert(root_room_data.door_direction.size() - 1, branch_direction)
 					
 					print("/[change_room_group_data](index: " + str(root_room_index + 1) + ") => position: " + str(root_room_data.position) + ", door_direction: " + str(root_room_data.door_direction))
-					
+					#room
 					while current_room_amount < need_room_amount:
 						print("[room_generator]")
 						
@@ -353,8 +358,6 @@ func rooms_generator():
 							print()
 							
 							#old_room_data = room_group_data.pop_back()
-							if branch_data.is_empty():
-								break
 							old_room_data = branch_data.pop_front()
 							room_class = old_room_data.class
 							room_position = old_room_data.position
@@ -362,6 +365,7 @@ func rooms_generator():
 							room_door_direction = old_room_data.door_direction
 							room_amount -= 1
 							current_room_amount -= 1
+							print(current_room_amount)
 							repeat = true
 						else:
 							repeat = false
@@ -422,15 +426,24 @@ func rooms_generator():
 							print("room_amount: ", room_amount)
 							print("/[room_generator]")
 							print()
-					room_group_data += branch_data
-					branch_amount += 1
+					print("current_room_amount", current_room_amount)
+					print("current_branch_way", branch_way_group_data.size())
+					print(branch_data)
+					
+					if branch_data.is_empty():
+						break
+					else:
+						branch_way_group_data.push_back(branch_data)
+				for way in branch_way_group_data:
+					for i in way:
+						room_group_data.push_back(i)
 				print("/[branch_way]")
 				print()
 		
-		if room_group_data[0].class != "from":
-			return recurrence()
-		else:
-			print(room_group_data[0].class)
+		#if room_group_data[0].class != "from":
+			#return recurrence()
+		#else:
+			#print(room_group_data[0].class)
 		
 		#room spawn
 		if !(room_amount < max_room_amount):
@@ -528,6 +541,7 @@ func room_enemy_group_data_generator():
 		room_enemy_group_data.push_back(enemy_group_generator())
 	
 	print("/[room_enemy_group_generator] => room_enemy_group_data: ", room_enemy_group_data)
+	print()
 
 func enemy_group_generator():
 	var enemy_group_data: Array
