@@ -73,6 +73,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Quit"
 
+[node name="Test" type="Button" parent="UI/MainMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Test"
+
 [node name="ClassesSelect" parent="." instance=ExtResource("5_djx7l")]
 visible = false
 layout_mode = 1
@@ -84,3 +89,4 @@ visible = false
 [connection signal="pressed" from="UI/MainMenu/LoadGame" to="." method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="UI/MainMenu/Options" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="UI/MainMenu/Quit" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/MainMenu/Test" to="." method="_on_test_pressed"]

@@ -9,11 +9,25 @@
 script = ExtResource("1_3273o")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.055, 0.055)
+zoom = Vector2(0.1, 0.1)
 
 [node name="TemporaryUI" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 5
+
+[node name="Button" type="Button" parent="TemporaryUI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -249.0
+offset_top = -92.0
+offset_right = -85.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "next"
 
 [node name="HUD" parent="." instance=ExtResource("5_x3b58")]
 
@@ -26,3 +40,5 @@ script = ExtResource("2_wtn4v")
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="TemporaryUI/Button" to="." method="_on_button_pressed"]

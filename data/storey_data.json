@@ -1,8 +1,9 @@
 {
 	"0": { "scene": "goblin", "storey_class": "boss_room" },
-	"1": { "scene": "goblin", "storey_class": "room_group", "room_amount": 7, "main_way_room_amount": 5, "branch_way_room_amount": 2 },
+	"1": { "scene": "goblin", "storey_class": "room_group", "room_amount": 5, "main_way_room_amount": 5, "branch_way_room_amount": 2 },
 	"2": { "scene": "goblin", "storey_class": "room_group", "room_amount": 7, "main_way_room_amount": 5, "branch_way_room_amount": 2 },
-	"4": { "scene": "goblin", "storey_class": "room_group", "room_amount": 10, "main_way_room_amount": 5, "branch_way_room_amount": 2 },
+	"3": { "scene": "goblin", "storey_class": "room_group", "room_amount": 7, "main_way_room_amount": 5, "branch_way_room_amount": 2 },
+	"4": { "scene": "goblin", "storey_class": "room_group", "room_amount": 9, "main_way_room_amount": 5, "branch_way_room_amount": 2 },
 	"5": { "scene": "goblin", "storey_class": "room_group", "room_amount": 10, "main_way_room_amount": 5, "branch_way_room_amount": 2 },
 	"6": { "scene": "goblin", "storey_class": "boss_room" },
 	"7": { "scene": "ogre", "storey_class": "room_group", "room_amount": 10, "main_way_room_amount": 5, "branch_way_room_amount": 2 },

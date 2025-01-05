@@ -193,7 +193,7 @@ z_index = 1
 texture = ExtResource("2_sy5qe")
 hframes = 7
 vframes = 2
-frame = 2
+frame = 1
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
@@ -276,7 +276,7 @@ wait_time = 0.02
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(2, 2)
 script = ExtResource("7_kt3r7")
 
 [node name="StateChart" type="Node" parent="."]
