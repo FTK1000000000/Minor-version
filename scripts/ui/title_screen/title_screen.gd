@@ -36,6 +36,6 @@ func _on_quit_button_pressed() -> void:
 
 func _on_test_pressed() -> void:
 	GlobalPlayerState.update_classes("tank")
-	Global.storey_level = 1
+	Global.storey_level = -1
 	Global.load_world("res://world/level.tscn")
 	print(Vector2(0, 1)+Vector2(0, -1))
