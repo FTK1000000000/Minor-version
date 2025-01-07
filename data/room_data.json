@@ -2,30 +2,31 @@
 	"scene": {
 		"goblin": {
 			"from": {
-				"[left]": "res://rooms/room_group_rooms/from_rooms/left/",
-				"[right]": "res://rooms/room_group_rooms/from_rooms/right/",
-				"[up]": "res://rooms/room_group_rooms/from_rooms/up/",
-				"[down]": "res://rooms/room_group_rooms/from_rooms/down/"
+				"[left]": "res://rooms/scene/goblin/room_group_rooms/from_rooms/left/",
+				"[right]": "res://rooms/scene/goblin/room_group_rooms/from_rooms/right/",
+				"[up]": "res://rooms/scene/goblin/room_group_rooms/from_rooms/up/",
+				"[down]": "res://rooms/scene/goblin/room_group_rooms/from_rooms/down/"
 			},
 			"fight": {
-				"[left, right, up, down]": "res://rooms/room_group_rooms/fight_rooms/left,right,up,down/",
-				"[left, right, up]": "res://rooms/room_group_rooms/fight_rooms/left,right,up/",
-				"[left, right, down]": "res://rooms/room_group_rooms/fight_rooms/left,right,down/",
-				"[left, up, down]": "res://rooms/room_group_rooms/fight_rooms/left,up,down/",
-				"[right, up, down]": "res://rooms/room_group_rooms/fight_rooms/right,up,down/",
-				"[left, right]": "res://rooms/room_group_rooms/fight_rooms/left,right/",
-				"[left, up]": "res://rooms/room_group_rooms/fight_rooms/left,up/",
-				"[left, down]": "res://rooms/room_group_rooms/fight_rooms/left,down/",
-				"[right, up]": "res://rooms/room_group_rooms/fight_rooms/right,up/",
-				"[right, down]": "res://rooms/room_group_rooms/fight_rooms/right,down/",
-				"[up, down]": "res://rooms/room_group_rooms/fight_rooms/up,down/"
+				"[left, right, up, down]": "res://rooms/scene/goblin/room_group_rooms/fight_rooms/left,right,up,down/",
+				"[left, right, up]": "res://rooms/scene/goblin/room_group_rooms/fight_rooms/left,right,up/",
+				"[left, right, down]": "res://rooms/scene/goblin/room_group_rooms/fight_rooms/left,right,down/",
+				"[left, up, down]": "res://rooms/scene/goblin/room_group_rooms/fight_rooms/left,up,down/",
+				"[right, up, down]": "res://rooms/scene/goblin/room_group_rooms/fight_rooms/right,up,down/",
+				"[left, right]": "res://rooms/scene/goblin/room_group_rooms/fight_rooms/left,right/",
+				"[left, up]": "res://rooms/scene/goblin/room_group_rooms/fight_rooms/left,up/",
+				"[left, down]": "res://rooms/scene/goblin/room_group_rooms/fight_rooms/left,down/",
+				"[right, up]": "res://rooms/scene/goblin/room_group_rooms/fight_rooms/right,up/",
+				"[right, down]": "res://rooms/scene/goblin/room_group_rooms/fight_rooms/right,down/",
+				"[up, down]": "res://rooms/scene/goblin/room_group_rooms/fight_rooms/up,down/"
 			},
 			"end": {
-				"[left]": "res://rooms/room_group_rooms/end_rooms/left/",
-				"[right]": "res://rooms/room_group_rooms/end_rooms/right/",
-				"[up]": "res://rooms/room_group_rooms/end_rooms/up/",
-				"[down]": "res://rooms/room_group_rooms/end_rooms/down/"
-			}
+				"[left]": "res://rooms/scene/goblin/room_group_rooms/end_rooms/left/",
+				"[right]": "res://rooms/scene/goblin/room_group_rooms/end_rooms/right/",
+				"[up]": "res://rooms/scene/goblin/room_group_rooms/end_rooms/up/",
+				"[down]": "res://rooms/scene/goblin/room_group_rooms/end_rooms/down/"
+			},
+			"boss": "res://rooms/scene/goblin/boss_rooms/"
 		}
 	}
 }

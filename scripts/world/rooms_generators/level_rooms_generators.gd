@@ -31,7 +31,6 @@ var sum_of_enemy_price: int
 func _ready() -> void:
 	compute_sum_of_enemy_price()
 	rooms_generator()
-	room_enemy_group_data_generator()
 
 
 func compute_sum_of_enemy_price():
@@ -57,6 +56,7 @@ func rooms_generator():
 	var room_class: String = ""
 	var player_spawn_position: Vector2 = Vector2()
 	
+	#room_group
 	if !storey_data.get(str(storey_level)).storey_class == "boss_room":
 		room_group_data = []
 		branch_way_group_data = []
@@ -382,12 +382,17 @@ func rooms_generator():
 					print("dir_door: ", key)
 					print("/[room_spawn]")
 					print()
-			
+		room_enemy_group_data_generator()
+	
+	#boss
 	else:
 		print("[room_spawn]")
-		
-		var range = room_data.scene.get(storey_scene).boss.values()
-		room = load(range[randi() % range.size()]).instantiate()
+		var path = FileFunction.get_file_list(room_data.scene.get(storey_scene).boss)
+		if storey_data.get(str(storey_level)).has("boss"):
+			var boss = storey_data.get(str(storey_level)).boss
+			room = load(path.get(boss)).instantiate()
+		else:
+			room = load(path.get(path.keys()[randi() % path.size()])).instantiate()
 		add_child(room)
 		
 		player_spawn_position = room.player_spawn_position

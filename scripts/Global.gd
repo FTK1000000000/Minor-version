@@ -86,7 +86,7 @@ func load_game():
 	if !save_file:
 		erro_tip("not have save file")
 	else:
-		Global.game_load()
+		game_load()
 
 func complete_game():
 	storey_level = 0
@@ -95,6 +95,7 @@ func complete_game():
 
 func game_over():
 	GlobalPlayerState.reset()
+	animation_player.play("RESET")
 	HUD.game_over_animation()
 	delet_save_date()
 

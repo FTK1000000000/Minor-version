@@ -171,7 +171,6 @@ color = Color(0.3, 0.085, 0, 0)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-visible = false
 material = SubResource("ShaderMaterial_884qf")
 anchors_preset = 15
 anchor_right = 1.0
