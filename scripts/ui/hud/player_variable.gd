@@ -13,6 +13,9 @@ extends CanvasLayer
 
 @onready var target: Player = $"../../Player"
 
+var old_health: int
+var old_endurance: int
+
 
 func _ready() -> void:
 	GlobalPlayerState.update_variable.connect(update)
@@ -27,15 +30,31 @@ func update():
 	update_money()
 
 func update_variable_bar():
-	var hv = GlobalPlayerState.player_current_health * 100.0 / GlobalPlayerState.player_max_health
-	var ev = GlobalPlayerState.player_current_endurance * 100.0 / GlobalPlayerState.player_max_endurance
-	health_bar.value = hv
-	endurance_bar.value = ev
-	health_label.text = str(GlobalPlayerState.player_current_health)
-	endurance_label.text = str(GlobalPlayerState.player_current_endurance)
+	var ch = GlobalPlayerState.player_current_health
+	var ce = GlobalPlayerState.player_current_endurance
+	var hv = ch * 100.0 / GlobalPlayerState.player_max_health
+	var ev = ce * 100.0 / GlobalPlayerState.player_max_endurance
 	
-	create_tween().tween_property(eased_health_bar, "value", hv, 0.4)
-	create_tween().tween_property(eased_endurance_bar, "value", ev, 0.4)
+	if old_health > ch:
+		health_label.text = str(ch)
+		health_bar.value = hv
+		create_tween().tween_property(eased_health_bar, "value", hv, 0.4)
+	else:
+		health_label.text = str(ch)
+		create_tween().tween_property(health_bar, "value", hv, 0.4)
+		eased_health_bar.value = hv
+	
+	if old_endurance > ce:
+		endurance_label.text = str(ce)
+		endurance_bar.value = ev
+		create_tween().tween_property(eased_endurance_bar, "value", ev, 0.4)
+	else:
+		endurance_label.text = str(ce)
+		create_tween().tween_property(endurance_bar, "value", ev, 0.4)
+		eased_endurance_bar.value = ev
+	
+	old_health = ch
+	old_endurance = ce
 
 func update_money():
 	money_label.text = str(GlobalPlayerState.money)

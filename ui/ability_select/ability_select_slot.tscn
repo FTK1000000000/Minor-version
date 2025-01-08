@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://mphpkx2kp3it"]
 
-[ext_resource type="Texture2D" uid="uid://be7j47totc1bk" path="res://texture/ui/classes_selection/396px-Garrosh_Heart_of_War.jpg" id="1_c1bih"]
 [ext_resource type="Script" path="res://scripts/ui/ability_select/ability_option_slot.gd" id="2_52ofi"]
 [ext_resource type="Theme" uid="uid://b0doaimn3yw0i" path="res://theme/main_theme.tres" id="3_brdx4"]
+[ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="3_taed0"]
 [ext_resource type="Theme" uid="uid://dke80ydpw44no" path="res://theme/classes_select.tres" id="4_s4dse"]
 
 [node name="AbilityOptionSlot" type="Button"]
@@ -29,7 +29,7 @@ offset_bottom = -128.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-texture = ExtResource("1_c1bih")
+texture = ExtResource("3_taed0")
 expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]

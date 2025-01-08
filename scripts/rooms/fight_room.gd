@@ -58,6 +58,8 @@ func spawn_entity():
 		var spawn_position: Vector2i
 		var floor_layer: Array = tile_map.get_child(TILE_LAYER.FLOOR).get_used_cells()
 		spawn_position = floor_layer[randi() % floor_layer.size()] * Common.TILE_SIZE
+		spawn_position = (spawn_position + Vector2i.LEFT if spawn_position.x < 0 else spawn_position + Vector2i.RIGHT)
+		spawn_position = (spawn_position + Vector2i.UP if spawn_position.y < 0 else spawn_position + Vector2i.DOWN)
 		enemy = load(enemy_group_data.pop_front()).instantiate()
 		enemy.position = spawn_position
 		enemy.connect("tree_exited", on_enemy_killed)

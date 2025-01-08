@@ -4,10 +4,20 @@
 		"hunter": "hunter",
 		"mage": "mage"
 	},
+	"skill": {
+		"tank": "Ignore knockback and attack are not interrupted",
+		"hunter": "Spend endurance to use dodge",
+		"mage": "Run is changed to slow and restores endurance at the same time"
+	},
+	"curse": {
+		"tank": "Hurt by hit not give Invincible time",
+		"hunter": "The only thirty minutes left to live",
+		"mage": "The max endurance regeneration is equal to current health"
+	},
 	"description": {
-		"tank": "tank is vrey tank",
-		"hunter": "The guy who holds a shield all day long. The huge shield makes the team safer, but you don't seem to have any partners to protect",
-		"mage": "The hunt is on!"
+		"tank": "Dressed in heavy plate armor made by hand, he was once a blacksmith in the kingdom",
+		"hunter": "The hunt is on!",
+		"mage": "The young royal mage, he didn't choose to share his story with others"
 	},
 	"weapon": {
 		"tank": "sword",
@@ -15,18 +25,8 @@
 		"mage": "bow"
 	},
 	"property": {
-		"tank": { "price": 10, "max_health": 120, "max_endurance": 120, "weapon_used": "SWORD" },
-		"hunter": { "price": 8, "max_health": 80, "max_endurance": 100, "weapon_used": "SHIELD" },
-		"mage": { "price": 12, "max_health": 100, "max_endurance": 60, "weapon_used": "BOW" }
-	},
-	"portraiture": {
-		"tank": "res://texture/ui/classes_selection/fc1f4134970a304ef4b94af9d7c8a786c9175c1e.webp",
-		"hunter": "res://texture/ui/classes_selection/396px-Garrosh_Heart_of_War.jpg",
-		"mage": "res://texture/ui/classes_selection/620px-雷克萨和米莎.jpg"
-	},
-	"texture": {
-		"tank": "res://texture/characters/player/tank.png",
-		"hunter": "res://texture/characters/player/hunter.png",
-		"mage": "res://texture/characters/player/mage.png"
+		"tank": { "price": 10, "max_health": 120, "max_endurance": 120 },
+		"hunter": { "price": 8, "max_health": 80, "max_endurance": 100 },
+		"mage": { "price": 12, "max_health": 100, "max_endurance": 60 }
 	}
 }

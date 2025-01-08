@@ -43,7 +43,7 @@ class_name Player
 func _ready():
 	super()
 	if GlobalPlayerState.player_classes:
-		body_texture.texture = load(Global.classes_data.texture.get(GlobalPlayerState.player_classes))
+		body_texture.texture = load(FileFunction.get_file_list("res://texture/characters/player/").get(GlobalPlayerState.player_classes))
 	if GlobalPlayerState.player_weapon:
 		weapon_node.add_child(load(Global.weapon_data.get(GlobalPlayerState.player_weapon).path).instantiate())
 	

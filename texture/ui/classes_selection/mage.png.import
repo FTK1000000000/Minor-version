@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clrr4kmd627mi"
-path="res://.godot/imported/620px-雷克萨和米莎.jpg-5144ccd34f2136878328753ab4d020ce.ctex"
+uid="uid://b3stfbfh5771v"
+path="res://.godot/imported/mage.png-65cfe3b559b1e1addb694f55414f8c1f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://texture/ui/classes_selection/620px-雷克萨和米莎.jpg"
-dest_files=["res://.godot/imported/620px-雷克萨和米莎.jpg-5144ccd34f2136878328753ab4d020ce.ctex"]
+source_file="res://texture/ui/classes_selection/mage.png"
+dest_files=["res://.godot/imported/mage.png-65cfe3b559b1e1addb694f55414f8c1f.ctex"]
 
 [params]
 

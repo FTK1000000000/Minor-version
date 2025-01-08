@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://0ug3e0fiv41v"]
+[gd_scene load_steps=27 format=3 uid="uid://0ug3e0fiv41v"]
 
 [ext_resource type="Script" path="res://scripts/characters/eneity/enemy.gd" id="1_ppt2a"]
 [ext_resource type="Texture2D" uid="uid://c5d8i6xcn162n" path="res://texture/characters/enemy/goblin.png" id="2_1hi6n"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="11_q61hu"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="12_uhg1e"]
 [ext_resource type="Material" uid="uid://dtpxlty5y8tnw" path="res://shader/material/enemy_dead.tres" id="13_dpy5u"]
+[ext_resource type="AnimationLibrary" uid="uid://crm6wu2hpiiho" path="res://animaction/enemy_state.res" id="14_bcsy2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4n8dm"]
 
@@ -73,7 +74,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("Texture/Body:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -85,7 +86,7 @@ tracks/3/keys = {
 }
 tracks/4/type = "value"
 tracks/4/imported = false
-tracks/4/enabled = true
+tracks/4/enabled = false
 tracks/4/path = NodePath("Texture/Body:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
@@ -668,12 +669,16 @@ texture = ExtResource("2_1hi6n")
 hframes = 10
 
 [node name="HurtEffect" type="ColorRect" parent="Texture/Body"]
-offset_left = -65.0
-offset_top = -65.0
-offset_right = 65.0
-offset_bottom = 65.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(1, 1, 1, 0)
-metadata/_edit_use_anchors_ = true
 
 [node name="SpawnEffect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
@@ -849,7 +854,8 @@ one_shot = true
 
 [node name="StatePlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_3g25r")
+"": SubResource("AnimationLibrary_3g25r"),
+"enemy_state": ExtResource("14_bcsy2")
 }
 autoplay = "spawn"
 

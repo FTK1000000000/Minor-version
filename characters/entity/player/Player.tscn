@@ -193,7 +193,6 @@ z_index = 1
 texture = ExtResource("2_sy5qe")
 hframes = 7
 vframes = 2
-frame = 1
 
 [node name="ColorRect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
