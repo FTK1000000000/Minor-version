@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://evjri63xmru4"]
+[gd_scene load_steps=4 format=3 uid="uid://evjri63xmru4"]
 
 [ext_resource type="Script" path="res://scripts/world/level.gd" id="1_3273o"]
 [ext_resource type="Script" path="res://scripts/world/rooms_generators/level_rooms_generators.gd" id="2_wtn4v"]
-[ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/entity/player/Player.tscn" id="3_6pk2g"]
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="5_x3b58"]
 
 [node name="World" type="Node2D"]
@@ -12,6 +11,8 @@ script = ExtResource("1_3273o")
 ignore_rotation = false
 enabled = false
 zoom = Vector2(0.05, 0.05)
+
+[node name="HUD" parent="." instance=ExtResource("5_x3b58")]
 
 [node name="TemporaryUI" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -44,11 +45,6 @@ text = "get ability"
 [node name="change_classes" type="Button" parent="TemporaryUI/HBoxContainer"]
 layout_mode = 2
 text = "change classes"
-
-[node name="HUD" parent="." instance=ExtResource("5_x3b58")]
-
-[node name="Player" parent="." instance=ExtResource("3_6pk2g")]
-position = Vector2(284, 210)
 
 [node name="RoomsGenerator" type="Node2D" parent="."]
 script = ExtResource("2_wtn4v")

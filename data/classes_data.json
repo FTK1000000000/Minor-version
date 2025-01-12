@@ -5,7 +5,7 @@
 		"mage": "mage"
 	},
 	"skill": {
-		"tank": "Ignore knockback and attack are not interrupted",
+		"tank": "Ignore knockback",
 		"hunter": "Spend endurance to use dodge",
 		"mage": "Run is changed to slow and restores endurance at the same time"
 	},
@@ -27,6 +27,22 @@
 	"property": {
 		"tank": { "price": 10, "max_health": 120, "max_endurance": 120 },
 		"hunter": { "price": 8, "max_health": 80, "max_endurance": 100 },
-		"mage": { "price": 12, "max_health": 100, "max_endurance": 60 }
+		"mage": { "price": 12, "max_health": 100, "max_endurance": 120 }
+	},
+	"note": {
+		"implementation script at": {
+			"tank": {
+				"skill": "res://scripts/collisionbox/hurtbox/player_hurtbox.gd",
+				"curse": "res://scripts/collisionbox/hitbox.gd"
+			},
+			"hunter": {
+				"skill": "",
+				"curse": ""
+			},
+			"mage": {
+				"skill": "",
+				"curse": ""
+			}
+		}
 	}
 }

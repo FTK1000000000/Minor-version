@@ -4,14 +4,15 @@ class_name PlayerHurtbox
 
 func take_damage(damage: int, direction: Vector2, force: int):
 	if damage < parent.current_health:
+		parent.velocity += (direction * force)
 		parent.current_health -= damage
-		parent.velocity += direction * force
 		parent.is_endurance_disable = true
 		parent.hurt.emit()
 		
 		Global.animation_player.play("player_hurt")
 		bleed(damage, direction, force)
 		mark(damage, direction, force)
+		ready_time()
 	else:
 		parent.dead.emit()
 		

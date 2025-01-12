@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://cqu7iy2pnjdtk"]
 
 [ext_resource type="PackedScene" uid="uid://c7r35kw8ayagu" path="res://characters/entity/enemy/boss/boss.tscn" id="1_7oqx0"]
-[ext_resource type="Script" path="res://scripts/characters/eneity/boss/slime.gd" id="2_4op1a"]
+[ext_resource type="Script" path="res://scripts/characters/entity/boss/slime.gd" id="2_4op1a"]
 [ext_resource type="Material" uid="uid://dtpxlty5y8tnw" path="res://shader/material/enemy_dead.tres" id="3_nd83w"]
 [ext_resource type="Material" uid="uid://brsyhwjqpihrl" path="res://shader/material/enemy_spawn_noise.tres" id="4_trgu3"]
 

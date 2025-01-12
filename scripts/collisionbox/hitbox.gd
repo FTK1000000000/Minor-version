@@ -11,11 +11,14 @@ class_name Hitbox
 @export var knockback_direction: Vector2 = Vector2.ZERO
 @export var ready_time: int = 1
 
+@onready var parent = get_node("..")
+
 
 func _process(delta: float) -> void:
 	if collision_ready && target_group.size() != 0:
 		for target in target_group:
-			hit(target)
+			if target.is_ready:
+				hit(target)
 		collision_ready = false
 		
 		await get_tree().create_timer(ready_time).timeout

@@ -1,4 +1,27 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=14 format=3 uid="uid://dq75qdq1t3txp"]
+[gd_resource type="AnimationNodeStateMachine" load_steps=23 format=3 uid="uid://dq75qdq1t3txp"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_byo3s"]
+animation = &"hunter/dodge"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sd1pv"]
+animation = &"hunter/dodge"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xh41t"]
+animation = &"hunter/dodge"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3d5og"]
+animation = &"hunter/dodge"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_orox6"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_byo3s")
+blend_point_0/pos = Vector2(-1, 1.1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_sd1pv")
+blend_point_1/pos = Vector2(-1, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_xh41t")
+blend_point_2/pos = Vector2(1, -1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_3d5og")
+blend_point_3/pos = Vector2(1, 1.1)
+max_space = Vector2(1, 1.1)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7xl0r"]
 animation = &"back/idle"
@@ -62,14 +85,34 @@ advance_condition = &"is_idle"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_at332"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6yiwm"]
+advance_mode = 2
+advance_condition = &"is_dodge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vwdrk"]
+advance_mode = 2
+advance_condition = &"is_dodge"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5hs8c"]
+advance_mode = 2
+advance_condition = &"is_idle"
+advance_expression = "animation_tree[\"parameters/AnimationNodeStateMachine/conditions/is_dodge\"] == false"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0vgds"]
+advance_mode = 2
+advance_condition = &"is_walk"
+advance_expression = "animation_tree[\"parameters/AnimationNodeStateMachine/conditions/is_dodge\"] == false"
+
 [resource]
 allow_transition_to_self = true
 reset_ends = true
 states/End/position = Vector2(878, 91)
 states/Start/position = Vector2(54, 91)
+states/dodge/node = SubResource("AnimationNodeBlendSpace2D_orox6")
+states/dodge/position = Vector2(192, 253.669)
 states/idle/node = SubResource("AnimationNodeBlendSpace2D_bmj77")
 states/idle/position = Vector2(192, 91)
 states/walk/node = SubResource("AnimationNodeBlendSpace2D_ycdoj")
 states/walk/position = Vector2(356, 91)
-transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_q1bbe"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_4faye"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_at332")]
-graph_offset = Vector2(-174.402, -32.3309)
+transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_q1bbe"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_4faye"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_at332"), "idle", "dodge", SubResource("AnimationNodeStateMachineTransition_6yiwm"), "walk", "dodge", SubResource("AnimationNodeStateMachineTransition_vwdrk"), "dodge", "idle", SubResource("AnimationNodeStateMachineTransition_5hs8c"), "dodge", "walk", SubResource("AnimationNodeStateMachineTransition_0vgds")]
+graph_offset = Vector2(-190.402, 44.6691)

@@ -28,7 +28,7 @@ var sum_of_enemy_price: int
 @onready var player: Player = $"../Player"
 
 
-func _ready() -> void:
+func run():
 	compute_sum_of_enemy_price()
 	rooms_generator()
 

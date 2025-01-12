@@ -16,7 +16,7 @@ const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
 @export var player_card_inventory: Inventory
 @export var player_classes: String
 @export var player_weapon: String
-@export var player_wealth: int = 1000
+@export var player_wealth: int = 100
 @export var player_max_health: int = 100
 @export var player_max_endurance: int = 100
 @export var player_move_speed: int = 100
@@ -30,20 +30,26 @@ const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
 @export var endurance_recover_ready: int = 1
 @export var endurance_recover_speed: float = 0.2
 @export var endurance_recover_ready_speed: float = 0.5
-@export var knockback_power: int = 3000
+@export var knockback_power: int = 300
 
 @export var player_ability: Array = []
 @export var remainder_ability: Array = []
 @export var common_ability: Array = []
-#tank
-@export var weapon_attack_twice = false
-#hunter
-@export var sturdy_shield = false
-#mage
-@export var rapid_fire = false
 
 @export var money: int = 0
 @export var player_kill: int = 0
+
+#for tank
+@export var weapon_attack_twice = false
+#for hunter
+@export var dodge_length: int = 1000
+@export var dodge_endurance_consume: int = 30
+@export var dodge_ready_time: float = 3
+@export var dodge_time: float = 0.2
+
+@export var sturdy_shield = false
+#for mage
+@export var rapid_fire = false
 
 
 func _ready() -> void:
@@ -54,6 +60,11 @@ func _ready() -> void:
 	
 	player_card_inventory = CARD_INVENTORY.duplicate()
 
+
+func spawn_player(node: Node, position: Vector2 = Vector2.ZERO):
+	player = load(FileFunction.get_file_list(Global.PLAYER_DIRECTORY).get(player_classes)).instantiate()
+	player.position = position
+	node.add_child(player)
 
 func reset():
 	player_classes = ""
@@ -84,7 +95,6 @@ func update_classes(classes):
 	player_weapon = Global.classes_data.weapon.get(classes)
 	player_max_health = Global.classes_data.property.get(classes).max_health
 	player_max_endurance = Global.classes_data.property.get(classes).max_endurance
-	
 	player_current_health = player_max_health
 	player_current_endurance = player_max_endurance
 	#player.current_health = player_max_health

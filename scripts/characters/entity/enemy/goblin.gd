@@ -2,7 +2,7 @@ extends Enemy
 
 
 func melee_animaction():
-	create_tween().tween_property(self, "global_position", target_position, 0.6)
+	create_tween().tween_property(self, "velocity", ((target_position - global_position).normalized() * current_move_speed), 0.6)
 
 
 func _on_melee_state_entered() -> void:

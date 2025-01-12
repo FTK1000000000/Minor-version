@@ -1,6 +1,9 @@
 extends World
 
 
+@onready var rooms_generator: Node2D = $RoomsGenerator
+
+
 func _ready() -> void:
 	super()
 	Global.game_save()
@@ -8,6 +11,7 @@ func _ready() -> void:
 	GlobalPlayerState.update_ability()
 	Global.HUD.show()
 	Global.HUD.tips_label.hide()
+	rooms_generator.run()
 
 
 func _on_next_button_up() -> void:

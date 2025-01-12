@@ -14,10 +14,12 @@ const BOSS_DATA_PATH = "res://data/boss_data.json"
 const NEUTRALITY_DATA_PATH = "res://data/neutrality_data.json"
 
 const CARD_DIRECTORY = "res://card/cards/"
+const PLAYER_DIRECTORY = "res://characters/entity/player/"
 const ENEMY_DIRECTORY = "res://characters/entity/enemy/"
 
 const ABILITY_TEXTURE_DIRECTORY = "res://texture/ability/"
 const CARD_TEXTURE_DIRECTORY = "res://texture/card/"
+const PLAYER_TEXTURE_DIRECTORY = "res://texture/characters/player/"
 
 const LEVEL_WORLD = "res://world/level.tscn"
 const ABILITY_SELECT_PANEL = preload("res://ui/ability_select/ability_select.tscn")

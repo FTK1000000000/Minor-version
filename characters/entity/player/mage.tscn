@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cn5qed5dthrn1"]
+
+[ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://characters/entity/player/Player.tscn" id="1_ms11j"]
+[ext_resource type="Script" path="res://scripts/characters/entity/player/mage.gd" id="2_laamr"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="3_wubu2"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="4_dayad"]
+
+[node name="Player" instance=ExtResource("1_ms11j")]
+script = ExtResource("2_laamr")
+
+[node name="EnduranceRecover" type="Node" parent="StateChart/CompoundState/WalkStack" index="2"]
+script = ExtResource("3_wubu2")
+
+[node name="ToEnduranceRecover" type="Node" parent="StateChart/CompoundState" index="11"]
+script = ExtResource("4_dayad")
+to = NodePath("../WalkStack/EnduranceRecover")
+event = &"endurance_recover"
+delay_in_seconds = "0.0"
+
+[connection signal="state_entered" from="StateChart/CompoundState/WalkStack/EnduranceRecover" to="." method="_on_endurance_recover_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/WalkStack/EnduranceRecover" to="." method="_on_endurance_recover_state_exited"]

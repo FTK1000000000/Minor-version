@@ -2,14 +2,19 @@ extends Area2D
 class_name Hurtbox
 
 
-const COMMON_HURT_BLINK_TIME = 0.3
-
-
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hurt_particles: GPUParticles2D = $HurtParticles
 @onready var dead_particles: GPUParticles2D = $DeadParticles
 @onready var parent = get_node("..")
 
+var is_ready: bool = true
+
+
+func ready_time():
+	is_ready = false
+	await get_tree().create_timer(parent.hurt_ready_time).timeout
+	
+	is_ready = true
 
 func take_damage(damage: int, direction: Vector2, force: int):
 	if parent is StaticBody2D:
@@ -21,8 +26,14 @@ func take_damage(damage: int, direction: Vector2, force: int):
 		parent.hurt.emit()
 		
 		mark(damage, direction, force)
+		ready_time()
 	else:
+		parent.current_health = 0
+		parent.velocity += direction * force
+		parent.hurt.emit()
 		parent.dead.emit()
+		
+		explode(damage, direction, force)
 
 func bleed(damage: int, direction: Vector2, force: int):
 	var ckf = Common.KNOKBACK_FOREC
@@ -37,19 +48,19 @@ func jitter(damage: int, direction: Vector2, force: int):
 		var ov = pbt.skew
 		var v = direction.angle()
 		
-		create_tween().tween_property(pbt, "skew", v, COMMON_HURT_BLINK_TIME)
+		create_tween().tween_property(pbt, "skew", v, Common.HURT_BLINK_TIME)
 		
-		await create_tween().tween_property(pbt, "skew", v, COMMON_HURT_BLINK_TIME)
-		create_tween().tween_property(pbt, "skew", ov, COMMON_HURT_BLINK_TIME)
+		await create_tween().tween_property(pbt, "skew", v, Common.HURT_BLINK_TIME)
+		create_tween().tween_property(pbt, "skew", ov, Common.HURT_BLINK_TIME)
 	var offset_transform = func():
 		var pbt = parent.body_texture
 		var ov = pbt.offset
 		var v = 16
 		
-		create_tween().tween_property(pbt, "offset", v, COMMON_HURT_BLINK_TIME)
+		create_tween().tween_property(pbt, "offset", v, Common.HURT_BLINK_TIME)
 		
-		await create_tween().tween_property(pbt, "offset", v, COMMON_HURT_BLINK_TIME)
-		create_tween().tween_property(pbt, "offset", ov, COMMON_HURT_BLINK_TIME)
+		await create_tween().tween_property(pbt, "offset", v, Common.HURT_BLINK_TIME)
+		create_tween().tween_property(pbt, "offset", ov, Common.HURT_BLINK_TIME)
 	skew_transform.call()
 	offset_transform.call()
 

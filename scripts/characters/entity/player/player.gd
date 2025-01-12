@@ -3,7 +3,7 @@ class_name Player
 
 
 @onready var state_chart: StateChart = $StateChart
-@onready var hurt_box: Hurtbox = $Hurtbox
+@onready var hurt_box: Hurtbox = $PlayerHurtbox
 @onready var weapon_node: Node2D = $Weapon
 @onready var body_texture: Node2D = $Texture/Body
 @onready var interaction_icon: AnimatedSprite2D = $InteractionIcon
@@ -18,6 +18,7 @@ class_name Player
 
 @export var interactable_with: Array[Interactable]
 @export var direction: Vector2 = Vector2.ZERO
+@export var old_direction: Vector2 = Vector2.ZERO
 @export var knockback_power: int = 3000
 @export var move_speed_multiple: float = 1.0
 @export var current_move_speed: int
@@ -43,7 +44,7 @@ class_name Player
 func _ready():
 	super()
 	if GlobalPlayerState.player_classes:
-		body_texture.texture = load(FileFunction.get_file_list("res://texture/characters/player/").get(GlobalPlayerState.player_classes))
+		body_texture.texture = load(FileFunction.get_file_list(Global.PLAYER_TEXTURE_DIRECTORY).get(GlobalPlayerState.player_classes))
 	if GlobalPlayerState.player_weapon:
 		weapon_node.add_child(load(Global.weapon_data.get(GlobalPlayerState.player_weapon).path).instantiate())
 	
@@ -132,6 +133,11 @@ func update_animation():
 	animation_tree["parameters/AnimationNodeStateMachine/walk/blend_position"] = m
 	#纹理朝向和渲染索引
 
+func set_current_endurance(value: int):
+	current_endurance = value
+	GlobalPlayerState.player_current_endurance = current_endurance
+	GlobalPlayerState.endurance_changed.emit()
+
 func headle_endurance():
 	if (
 		velocity == Vector2.ZERO && 
@@ -162,20 +168,17 @@ func endurance_recover():
 				endurance_recover_timer.start()
 				await endurance_recover_timer.timeout
 				
-				current_endurance += endurance_recover_amount
-				GlobalPlayerState.player_current_endurance = current_endurance
-				GlobalPlayerState.endurance_changed.emit()
+				set_current_endurance(current_endurance + endurance_recover_amount)
 				print("current_endurance: ", current_endurance)
 				endurance_recover()
 			elif current_endurance != GlobalPlayerState.player_max_endurance:
-				current_endurance = GlobalPlayerState.player_max_endurance
-				GlobalPlayerState.player_current_endurance = current_endurance
-				GlobalPlayerState.endurance_changed.emit()
+				set_current_endurance(GlobalPlayerState.player_max_endurance)
 				print("current_endurance: ", current_endurance)
 
 func get_move_direction():
 	direction = Input.get_vector("left", "right", "up", "down").normalized()
 	if direction:
+		old_direction = direction
 		velocity = direction * compute_move_speed()
 	else:
 		velocity = Vector2.ZERO
@@ -195,9 +198,7 @@ func run_endurance_consume():
 		state_chart.send_event("walk")
 		return
 	elif run_endurance_consume_timer.is_stopped():
-		current_endurance -= 1
-		GlobalPlayerState.player_current_endurance = current_endurance
-		GlobalPlayerState.endurance_changed.emit()
+		set_current_endurance(current_endurance - 1)
 		is_endurance_disable = true
 		run_endurance_consume_timer.start()
 		await run_endurance_consume_timer.timeout
