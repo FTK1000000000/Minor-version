@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://byelhp6djwkr"]
 
 [ext_resource type="PackedScene" uid="uid://d3gvaw81qlatn" path="res://weapon/weapon.tscn" id="1_3uku8"]
-[ext_resource type="Texture2D" uid="uid://jkaj0og55jy" path="res://texture/weapons/bow.png" id="2_1isj5"]
+[ext_resource type="Texture2D" uid="uid://jkaj0og55jy" path="res://texture/weapon/bow.png" id="2_1isj5"]
 [ext_resource type="Script" path="res://scripts/weapon/bow.gd" id="2_f8v8i"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06m28"]

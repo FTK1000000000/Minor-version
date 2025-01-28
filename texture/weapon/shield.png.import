@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccut64a0t787i"
-path="res://.godot/imported/more_health.png-1c68a0099ad650123eb02bc2a29e1f2d.ctex"
+uid="uid://dfngidvacqu8f"
+path="res://.godot/imported/shield.png-02de843f4f38cd1a0ccede716b977688.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://texture/ability/more_health.png"
-dest_files=["res://.godot/imported/more_health.png-1c68a0099ad650123eb02bc2a29e1f2d.ctex"]
+source_file="res://texture/weapon/shield.png"
+dest_files=["res://.godot/imported/shield.png-02de843f4f38cd1a0ccede716b977688.ctex"]
 
 [params]
 

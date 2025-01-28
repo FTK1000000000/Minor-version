@@ -20,29 +20,28 @@
 		"mage": "The young royal mage, he didn't choose to share his story with others"
 	},
 	"weapon": {
-		"tank": "sword",
-		"hunter": "shield",
-		"mage": "bow"
+		"tank": "shield",
+		"hunter": "bow",
+		"mage": "sword"
 	},
 	"property": {
-		"tank": { "price": 10, "max_health": 120, "max_endurance": 120 },
-		"hunter": { "price": 8, "max_health": 80, "max_endurance": 100 },
-		"mage": { "price": 12, "max_health": 100, "max_endurance": 120 }
+		"tank": {
+			"price": 10,
+			"max_health": 120,
+			"max_endurance": 120
+		},
+		"hunter": {
+			"price": 8,
+			"max_health": 80,
+			"max_endurance": 100
+		},
+		"mage": {
+			"price": 12,
+			"max_health": 100,
+			"max_endurance": 120
+		}
 	},
 	"note": {
-		"implementation script at": {
-			"tank": {
-				"skill": "res://scripts/collisionbox/hurtbox/player_hurtbox.gd",
-				"curse": "res://scripts/collisionbox/hitbox.gd"
-			},
-			"hunter": {
-				"skill": "",
-				"curse": ""
-			},
-			"mage": {
-				"skill": "",
-				"curse": ""
-			}
-		}
+
 	}
 }

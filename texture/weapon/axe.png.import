@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvykdm4xgwwty"
-path="res://.godot/imported/sturdy_shield.png-c4d41b74870c3df6ec6c499ab4429bea.ctex"
+uid="uid://chb060livauhm"
+path="res://.godot/imported/axe.png-b0ddd1761b605efc38080310f5e4be90.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://texture/ability/sturdy_shield.png"
-dest_files=["res://.godot/imported/sturdy_shield.png-c4d41b74870c3df6ec6c499ab4429bea.ctex"]
+source_file="res://texture/weapon/axe.png"
+dest_files=["res://.godot/imported/axe.png-b0ddd1761b605efc38080310f5e4be90.ctex"]
 
 [params]
 
