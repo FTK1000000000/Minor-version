@@ -1,5 +1,5 @@
 extends Weapon
-class_name Swrod
+#class_name Swrod
 
 
 func special_attack():
@@ -25,7 +25,4 @@ func windmill():
 		charge_comlete()
 	
 	elif Input.is_action_just_released("attack_special") && current_charge <= need_charge:
-		player.is_endurance_disable = false
-		is_special_charge = false
-		current_charge = 0
-		animation_player.play("RESET")
+		charge_comlete(false)

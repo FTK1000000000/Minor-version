@@ -1,5 +1,5 @@
 extends Weapon
-class_name Bow
+#class_name Bow
 
 
 var ammo = preload("res://ammo/arrow/arrow.tscn")
@@ -20,10 +20,7 @@ func shoot():
 		Input.is_action_just_pressed("attack_special") &&
 		GlobalPlayerState.player_current_endurance >= special_attack_consume_endurance
 		):
-			GlobalPlayerState.player_current_endurance -= special_attack_consume_endurance
-			GlobalPlayerState.endurance_changed.emit()
-			player.is_endurance_disable = true
-			is_special_charge = true
+			special_consume()
 			animation_player.play("charge")
 			charge_timer()
 	
@@ -36,14 +33,15 @@ func shoot():
 		launch()
 	
 	elif Input.is_action_just_released("attack_special") && current_charge < need_charge:
-		charge_comlete()
+		charge_comlete(false)
 
 func launch():
 	var projectile = ammo.instantiate()
 	
 	projectile.launch(
 		global_position,
-		(get_global_mouse_position() - global_position).normalized(),
-		arrow_speed
+		(
+			get_global_mouse_position() - global_position).normalized(),
+			arrow_speed
 		)
 	get_tree().current_scene.add_child(projectile)

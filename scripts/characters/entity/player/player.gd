@@ -34,6 +34,7 @@ class_name Player
 @export var is_walk: bool = false
 @export var is_run: bool = false
 @export var is_weapon_attack: bool = false
+@export var is_weapon_special_charge_attack: bool = false
 
 @export var is_endurance_disable: bool = false
 @export var is_flip: bool = false
@@ -142,6 +143,7 @@ func headle_endurance():
 	if (
 		velocity == Vector2.ZERO && 
 		!is_weapon_attack && 
+		!is_weapon_special_charge_attack && 
 		!is_resist &&
 		current_endurance < GlobalPlayerState.player_max_endurance
 		):
@@ -152,10 +154,10 @@ func headle_endurance():
 	
 	if current_endurance < 0:
 		current_endurance = 0
-	if current_endurance > GlobalPlayerState.player_max_endurance:
+	elif current_endurance > GlobalPlayerState.player_max_endurance:
 		current_endurance = GlobalPlayerState.player_max_endurance
 		is_endurance_disable = true
-	else:
+	elif current_endurance < GlobalPlayerState.player_max_endurance && !is_endurance_disable:
 		endurance_recover()
 #处理耐力
 

@@ -2,7 +2,7 @@ extends Node2D
 class_name Weapon
 
 
-@onready var player: Player = $"../.."
+@onready var player: Player = GlobalPlayerState.player
 @onready var hitbox: Hitbox = $Hitbox
 @onready var hitbox_collision: CollisionShape2D = $Hitbox/CollisionShape2D
 @onready var collision: CollisionShape2D = $Hitbox/CollisionShape2D
@@ -48,6 +48,12 @@ func read_data():
 func special_attack():
 	pass
 
+func special_consume():
+	is_special_charge = true
+	player.is_weapon_special_charge_attack = true
+	player.is_endurance_disable = true
+	player.set_current_endurance(player.current_endurance - special_attack_consume_endurance)
+
 func charge_timer():
 	if charge_attack_ready_timer.is_stopped():
 		charge_attack_ready_timer.start()
@@ -59,8 +65,10 @@ func charge_timer():
 			return
 		charge_timer()
 
-func charge_comlete():
+func charge_comlete(animation: bool = true):
 	player.is_endurance_disable = false
+	player.is_weapon_special_charge_attack = false
 	is_special_charge = false
 	current_charge = 0
-	animation_player.play("charge_complete")
+	
+	animation_player.play("charge_complete") if animation else animation_player.play("RESET")

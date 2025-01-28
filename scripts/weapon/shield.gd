@@ -1,5 +1,5 @@
 extends Weapon
-class_name Shield
+#class_name Shield
 
 
 #@export var resist_damage: int = 5

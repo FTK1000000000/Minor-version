@@ -9,7 +9,7 @@ class_name Hitbox
 @export var damage: int = 10
 @export var knockback_force: int = 300
 @export var knockback_direction: Vector2 = Vector2.ZERO
-@export var ready_time: int = 1
+@export var ready_time: float = 1
 
 @onready var parent = get_node("..")
 
