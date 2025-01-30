@@ -225,7 +225,6 @@ _data = {
 
 [node name="Bow" instance=ExtResource("1_3uku8")]
 script = ExtResource("2_f8v8i")
-arrow_speed = 400
 data_name = "bow"
 max_charge = 5
 hit_ready_time = 0.5

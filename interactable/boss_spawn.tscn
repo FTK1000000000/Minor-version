@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cnb88ls0dv85p"]
 
 [ext_resource type="Script" path="res://scripts/interactable/boss_spawn.gd" id="1_1qlqg"]
-[ext_resource type="PackedScene" uid="uid://cqu7iy2pnjdtk" path="res://characters/entity/enemy/boss/slime.tscn" id="2_0tkm4"]
+[ext_resource type="PackedScene" uid="uid://cqu7iy2pnjdtk" path="res://character/entity/enemy/boss/slime.tscn" id="2_0tkm4"]
 [ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="2_g1xef"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvxlu"]

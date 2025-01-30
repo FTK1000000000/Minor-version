@@ -4,14 +4,14 @@
 [ext_resource type="TileSet" uid="uid://xylhprfe8g5d" path="res://tile/main.tres" id="1_mge0c"]
 [ext_resource type="Script" path="res://scripts/rooms/from_room.gd" id="2_rwhxk"]
 [ext_resource type="PackedScene" uid="uid://b285px04xj0ei" path="res://interactable/exit.tscn" id="3_54g77"]
-[ext_resource type="PackedScene" uid="uid://djj4jvughdd1u" path="res://characters/entity/enemy/goblin.tscn" id="6_77skx"]
+[ext_resource type="PackedScene" uid="uid://djj4jvughdd1u" path="res://character/entity/enemy/goblin.tscn" id="6_77skx"]
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="6_yl06e"]
 [ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="7_4ftro"]
 [ext_resource type="Script" path="res://scripts/interactable/spawn_enemy_button.gd" id="7_hyg4l"]
 [ext_resource type="Script" path="res://scripts/interactable/classes_select.gd" id="8_jwxvt"]
 [ext_resource type="Script" path="res://scripts/ui/temporary_ui.gd" id="9_08mny"]
-[ext_resource type="PackedScene" uid="uid://qbvc3qdmmyt2" path="res://characters/entity/enemy/goblin_bowman.tscn" id="10_iek4l"]
-[ext_resource type="PackedScene" uid="uid://ddqaqeng53vjw" path="res://characters/entity/neutrality/trader/trader.tscn" id="14_3w2qv"]
+[ext_resource type="PackedScene" uid="uid://qbvc3qdmmyt2" path="res://character/entity/enemy/goblin_bowman.tscn" id="10_iek4l"]
+[ext_resource type="PackedScene" uid="uid://ddqaqeng53vjw" path="res://character/entity/neutrality/trader/trader.tscn" id="14_3w2qv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ty7g8"]
 size = Vector2(128, 128)

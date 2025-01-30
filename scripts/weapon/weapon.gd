@@ -17,8 +17,9 @@ class_name Weapon
 @export var special_attack_consume_endurance: int = 40
 @export var max_charge: int = 10
 @export var need_charge: int = 3
-@export var hit_damage: int = 10
 @export var hit_ready_time: float = 0.1
+@export var hit_damage: int = 10
+@export var projectile_speed: int = 0.1
 
 @export var current_charge: int = 0
 @export var is_special_charge: bool = false
@@ -42,8 +43,9 @@ func read_data():
 	special_attack_consume_endurance = data.special_attack_consume_endurance
 	max_charge = data.max_charge
 	need_charge = data.need_charge
-	hit_damage = data.hit_damage
 	hit_ready_time = data.hit_ready_time
+	hit_damage = data.hit_damage
+	projectile_speed = data.projectile_speed
 
 func special_attack():
 	pass

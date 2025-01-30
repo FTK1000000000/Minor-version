@@ -1,13 +1,12 @@
 extends Enemy
 
 
-const AMMO = preload("res://ammo/goblin_arrow.tscn")
+var ammo = preload("res://ammo/arrow/goblin_arrow.tscn")
+@export var projectile_speed: int = 200
 
 @export var max_distance_to_player: int = 160
 @export var min_distance_to_player: int = 128
 @export var distance_to_player: float
-
-@export var projectile_speed: int = 200
 
 
 func _ready():
@@ -51,7 +50,7 @@ func get_path_to_move_away_from_player():
 	navigation_agent.target_position = v
 
 func shoot():
-	var projectile = AMMO.instantiate()
+	var projectile = ammo
 	
 	projectile.launch(global_position, (target_position - global_position).normalized(), projectile_speed)
 	get_tree().current_scene.add_child(projectile)

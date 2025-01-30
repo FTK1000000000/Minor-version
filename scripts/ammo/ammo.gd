@@ -2,7 +2,7 @@ extends Hitbox
 class_name Ammo
 
 
-const HIT_EXPLOSION_SCENE: PackedScene = preload("res://characters/spawn_expansion.tscn")
+const HIT_EXPLOSION_SCENE: PackedScene = preload("res://character/spawn_expansion.tscn")
 
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -10,8 +10,7 @@ const HIT_EXPLOSION_SCENE: PackedScene = preload("res://characters/spawn_expansi
 
 @export var collision_exited: bool = false
 
-@export var direction: Vector2 = Vector2.ZERO
-@export var knife_speed: int
+@export var fly_speed: int = 200
 @export var life_cycle: float = 5
 
 
@@ -19,7 +18,7 @@ func _ready() -> void:
 	dead()
 
 func _physics_process(delta: float) -> void:
-	position += direction * knife_speed * delta
+	position += knockback_direction * fly_speed * delta
 
 func hit(area: Hurtbox):
 	if area == Resistbox:
@@ -37,14 +36,14 @@ func hit(area: Hurtbox):
 
 func dead():
 	await get_tree().create_timer(life_cycle).timeout
+	
 	queue_free()
 
 func launch(initial_position: Vector2, dir: Vector2, speed: int):
 	position = initial_position
 	rotation = dir.angle()
-	direction = dir
 	knockback_direction = dir
-	knife_speed = speed
+	fly_speed = speed if speed else fly_speed
 
 
 func _on_body_entered(body: TileMapLayer) -> void:

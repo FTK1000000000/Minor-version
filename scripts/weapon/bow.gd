@@ -3,13 +3,12 @@ extends Weapon
 
 
 var ammo = preload("res://ammo/arrow/arrow.tscn")
-@export var arrow_speed: int = 400
 
 
 func _ready() -> void:
 	super()
 	if GlobalPlayerState.rapid_fire:
-		charge_attack_ready_timer.wait_time / 2
+		charge_attack_ready_timer.wait_time /= 2
 
 func special_attack():
 	shoot()
@@ -42,6 +41,6 @@ func launch():
 		global_position,
 		(
 			get_global_mouse_position() - global_position).normalized(),
-			arrow_speed
+			projectile_speed
 		)
 	get_tree().current_scene.add_child(projectile)

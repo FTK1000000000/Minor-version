@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://kwsev51t4qmt"]
+
+[ext_resource type="PackedScene" uid="uid://cjpiml3a6o0ss" path="res://ammo/arrow/arrow.tscn" id="1_utquk"]
+
+[node name="GoblinArrow" instance=ExtResource("1_utquk")]
+collision_mask = 17

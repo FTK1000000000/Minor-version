@@ -1,27 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjpiml3a6o0ss"]
+[gd_scene load_steps=4 format=3 uid="uid://cjpiml3a6o0ss"]
 
-[ext_resource type="PackedScene" uid="uid://cvrm5ma7lgtxg" path="res://ammo/goblin_arrow.tscn" id="1_pbk8e"]
+[ext_resource type="Texture2D" uid="uid://bjf6l4cb434og" path="res://texture/ammo/enemy_arrow.png" id="2_8yujw"]
 [ext_resource type="Script" path="res://scripts/ammo/arrow/arrow.gd" id="2_dfnmd"]
-[ext_resource type="Texture2D" uid="uid://bnxnr7iccdcoa" path="res://texture/ammo/arrow.png" id="3_w0g0w"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l8uup"]
-radius = 5.0
-height = 36.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xs0jt"]
+radius = 4.0
+height = 16.0
 
-[node name="Ammo" instance=ExtResource("1_pbk8e")]
-scale = Vector2(1, 1)
+[node name="Ammo" type="Area2D"]
 collision_layer = 64
 collision_mask = 33
 script = ExtResource("2_dfnmd")
+life_cycle = 3.0
 damage = 30
 
-[node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(1, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_l8uup")
+shape = SubResource("CapsuleShape2D_xs0jt")
 
-[node name="Sprite2D" parent="." index="1"]
-modulate = Color(1, 1, 1, 1)
+[node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 0.785398
-scale = Vector2(2.2, 2.2)
-texture = ExtResource("3_w0g0w")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_8yujw")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -9,6 +9,6 @@ func _on_area_entered(area: Area2D) -> void:
 	queue_free()
 
 func _on_body_entered(body: TileMapLayer) -> void:
-	knife_speed = 0
+	fly_speed = 0
 	body.add_child(self)
 	collision_shape_2d.queue_free()

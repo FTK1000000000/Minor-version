@@ -47,7 +47,7 @@ func _ready():
 	if GlobalPlayerState.player_classes:
 		body_texture.texture = load(FileFunction.get_file_list(Global.PLAYER_TEXTURE_DIRECTORY).get(GlobalPlayerState.player_classes))
 	if GlobalPlayerState.player_weapon:
-		weapon_node.add_child(load(Global.weapon_data.get(GlobalPlayerState.player_weapon).path).instantiate())
+		weapon_node.add_child(load(FileFunction.get_file_list(Global.WEAPON_DIRECTORY).get(GlobalPlayerState.player_weapon)).instantiate())
 	
 	GlobalPlayerState.player = self
 	current_health = GlobalPlayerState.player_current_health
@@ -164,7 +164,10 @@ func headle_endurance():
 func endurance_recover():
 	if (
 		end_recover_ready_timer.is_stopped() &&
-		endurance_recover_timer.is_stopped()
+		endurance_recover_timer.is_stopped() &&
+		!is_weapon_attack && 
+		!is_weapon_special_charge_attack && 
+		!is_resist
 		):
 			if current_endurance <= GlobalPlayerState.player_max_endurance - endurance_recover_amount:
 				endurance_recover_timer.start()
