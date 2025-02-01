@@ -58,15 +58,18 @@ func headle_endurance():
 	
 	if current_endurance < 0:
 		current_endurance = 0
-	if current_endurance > GlobalPlayerState.player_current_health:
+	elif current_endurance > GlobalPlayerState.player_current_health:
 		is_endurance_disable = true
-	else:
+	elif current_endurance < GlobalPlayerState.player_current_health && !is_endurance_disable:
 		endurance_recover()
 
 func endurance_recover():
 	if (
 		end_recover_ready_timer.is_stopped() &&
-		endurance_recover_timer.is_stopped()
+		endurance_recover_timer.is_stopped() &&
+		!is_weapon_attack && 
+		!is_weapon_special_charge_attack && 
+		!is_resist
 		):
 			if current_endurance <= GlobalPlayerState.player_current_health - endurance_recover_amount:
 				endurance_recover_timer.start()
@@ -81,11 +84,12 @@ func endurance_recover():
 
 
 func endurance_recover_endurance_recover():
-	if !is_endurance_recover || current_endurance > GlobalPlayerState.player_max_endurance:
+	if !is_endurance_recover && current_endurance > GlobalPlayerState.player_max_endurance:
 		set_current_endurance(GlobalPlayerState.player_max_endurance)
+		print("aaa")
 		state_chart.send_event("walk")
 		return
-	elif run_endurance_consume_timer.is_stopped():
+	elif is_endurance_recover && run_endurance_consume_timer.is_stopped():
 		set_current_endurance(current_endurance + 1)
 		is_endurance_disable = true
 		run_endurance_consume_timer.start()

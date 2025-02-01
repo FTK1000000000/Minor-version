@@ -1,4 +1,5 @@
 {
+	"100": { "scene": "goblin", "storey_class": "event_room", "detrimental": false },
 	"-1": { "scene": "goblin", "storey_class": "room_group", "room_amount": 30, "main_way_room_amount": 15, "branch_way_room_amount": 5 },
 	"0": { "scene": "goblin", "storey_class": "boss_room", "boss": "slime" },
 	"1": { "scene": "goblin", "storey_class": "room_group", "room_amount": 5, "main_way_room_amount": 5, "branch_way_room_amount": 2 },

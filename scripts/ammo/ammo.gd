@@ -9,9 +9,10 @@ const HIT_EXPLOSION_SCENE: PackedScene = preload("res://character/spawn_expansio
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
 @export var collision_exited: bool = false
-
 @export var fly_speed: int = 200
 @export var life_cycle: float = 5
+@export var hit_piercing: int = 0
+var piercing_amount: int = 0
 
 
 func _ready() -> void:
@@ -30,8 +31,13 @@ func hit(area: Hurtbox):
 	hit_explosion_scene.position = position
 	
 	area.take_damage(damage, knockback_direction, knockback_force)
-	
-	queue_free()
+	if hit_piercing < 0:
+		return
+	else:
+		if piercing_amount < hit_piercing:
+			piercing_amount += 1
+		else:
+			queue_free()
 
 
 func dead():
@@ -44,6 +50,12 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int):
 	rotation = dir.angle()
 	knockback_direction = dir
 	fly_speed = speed if speed else fly_speed
+
+
+func _on_area_exited(area: Hurtbox) -> void:
+	super(area)
+	collision_ready = true
+	print(target_group)
 
 
 func _on_body_entered(body: TileMapLayer) -> void:

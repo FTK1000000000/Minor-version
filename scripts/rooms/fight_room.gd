@@ -1,10 +1,10 @@
 extends Node2D
 
 
-const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://characters/spawn_expansion.tscn")
+const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://character/spawn_expansion.tscn")
 const ENEMY_SCENE: Dictionary = {
-	"enemy_demo": preload("res://characters/entity/enemy/goblin.tscn"),
-	"enemy_demo2": preload("res://characters/entity/enemy/goblin_bowman.tscn")
+	"enemy_demo": preload("res://character/entity/enemy/goblin.tscn"),
+	"enemy_demo2": preload("res://character/entity/enemy/goblin_bowman.tscn")
 }
 
 enum TILE_LAYER {

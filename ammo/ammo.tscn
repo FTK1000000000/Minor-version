@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmd7qp4ciof0b"]
+
+[ext_resource type="Script" path="res://scripts/ammo/ammo.gd" id="1_3ttsn"]
+[ext_resource type="Texture2D" uid="uid://bemypf1tfoes4" path="res://texture/ammo/sword_ammo_1.png" id="2_115lt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p58in"]
+
+[node name="Ammo" type="Area2D"]
+collision_layer = 64
+collision_mask = 33
+script = ExtResource("1_3ttsn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CircleShape2D_p58in")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_115lt")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

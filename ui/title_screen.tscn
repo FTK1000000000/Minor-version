@@ -1,11 +1,39 @@
-[gd_scene load_steps=7 format=3 uid="uid://dm1miq1v72n8u"]
+[gd_scene load_steps=11 format=3 uid="uid://dm1miq1v72n8u"]
 
 [ext_resource type="Script" path="res://scripts/ui/title_screen/title_screen.gd" id="1_uxqlq"]
 [ext_resource type="Texture2D" uid="uid://bo0e2iemoe6yr" path="res://texture/ui/title/214468.png" id="2_knji7"]
-[ext_resource type="Texture2D" uid="uid://13hc3fjcnh6s" path="res://texture/ui/title/title.png" id="3_lq38j"]
+[ext_resource type="Shader" path="res://shader/balatro.gdshader" id="3_cuie1"]
+[ext_resource type="Shader" path="res://shader/ripple.gdshader" id="4_p4oe3"]
 [ext_resource type="Theme" uid="uid://b0doaimn3yw0i" path="res://theme/main_theme.tres" id="4_v8vy5"]
 [ext_resource type="PackedScene" uid="uid://cfykf5o0g2omm" path="res://ui/options_menu.tscn" id="5_6gpyt"]
 [ext_resource type="PackedScene" uid="uid://du67jchxdk4et" path="res://ui/classes_select/classes_select.tscn" id="5_djx7l"]
+[ext_resource type="Texture2D" uid="uid://7ylcug3kt4gi" path="res://texture/ui/title/IAM.png" id="5_usd0g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4v328"]
+shader = ExtResource("3_cuie1")
+shader_parameter/spin_rotation_speed = 2.0
+shader_parameter/move_speed = 7.0
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/colour_1 = Color(0.0313726, 0.101961, 0, 1)
+shader_parameter/colour_2 = Color(0.501961, 0.0666667, 0, 1)
+shader_parameter/colour_3 = Color(0.086, 0.137, 0.145, 1)
+shader_parameter/contrast = 3.5
+shader_parameter/lighting = 0.4
+shader_parameter/spin_amount = 0.25
+shader_parameter/pixel_filter = 740.0
+shader_parameter/is_rotating = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1j0l2"]
+shader = ExtResource("4_p4oe3")
+shader_parameter/color = Color(0.20664, 0.425169, 0.463562, 1)
+shader_parameter/color1 = Color(0.2204, 0.33478, 0.38, 0)
+shader_parameter/color2 = Color(0.5451, 0.79, 0.622652, 0)
+shader_parameter/num_cells = 9.0
+shader_parameter/speed = 2.0
+shader_parameter/smoothness = 2.0
+shader_parameter/angle = 120.0
+shader_parameter/enabled = true
+shader_parameter/start_time = 0.0
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -19,6 +47,7 @@ size_flags_vertical = 4
 script = ExtResource("1_uxqlq")
 
 [node name="Background" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +59,26 @@ offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_knji7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4v328")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+material = SubResource("ShaderMaterial_1j0l2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.0392157)
 
 [node name="UI" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -45,7 +94,7 @@ custom_minimum_size = Vector2(640, 320)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-texture = ExtResource("3_lq38j")
+texture = ExtResource("5_usd0g")
 
 [node name="MainMenu" type="VBoxContainer" parent="UI"]
 layout_mode = 2

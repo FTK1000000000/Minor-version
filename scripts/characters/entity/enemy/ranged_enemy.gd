@@ -50,7 +50,7 @@ func get_path_to_move_away_from_player():
 	navigation_agent.target_position = v
 
 func shoot():
-	var projectile = ammo
+	var projectile = ammo.instantiate()
 	
 	projectile.launch(global_position, (target_position - global_position).normalized(), projectile_speed)
 	get_tree().current_scene.add_child(projectile)
