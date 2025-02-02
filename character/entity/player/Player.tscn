@@ -47,7 +47,7 @@ animations = [{
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jcyqg"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_2i7lp"]
-graph_offset = Vector2(-180, 64.0365)
+graph_offset = Vector2(-227.839, 96.6441)
 nodes/AnimationNodeStateMachine/node = ExtResource("6_tldyw")
 nodes/AnimationNodeStateMachine/position = Vector2(-180, 140)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jcyqg")
@@ -390,6 +390,7 @@ delay_in_seconds = "0.0"
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/WalkStack/Run" to="." method="_on_run_state_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/Attack/WeaponAttack" to="." method="_on_weapon_attack_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/Attack/WeaponAttack" to="." method="_on_weapon_attack_state_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_exited"]

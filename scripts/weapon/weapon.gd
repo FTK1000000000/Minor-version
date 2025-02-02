@@ -70,7 +70,7 @@ func charge_timer():
 		charge_timer()
 
 func charge_comlete(animation: bool = true):
-	player.is_endurance_disable = false
+	#player.is_endurance_disable = false
 	player.is_weapon_special_charge_attack = false
 	is_special_charge = false
 	current_charge = 0

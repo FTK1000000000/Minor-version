@@ -25,7 +25,7 @@ func dodge_afterimage_spawn():
 
 func _on_dodge_state_entered() -> void:
 	print(name, " state: dodge")
-	var dodge_direction: Vector2 = (direction if direction != Vector2.ZERO else old_direction)
+	var dodge_direction: Vector2 = (move_direction if move_direction != Vector2.ZERO else old_move_direction)
 	create_tween().tween_property(self, "velocity", (dodge_direction * GlobalPlayerState.dodge_length), GlobalPlayerState.dodge_time)
 	set_current_endurance(current_endurance - GlobalPlayerState.dodge_endurance_consume)
 	is_endurance_disable = true

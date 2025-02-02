@@ -1,8 +1,9 @@
 extends CharacterBody2D
 class_name Entity
 
-signal dead
-signal hurt
+signal deading
+signal hurting
+signal attacking
 
 
 @export var max_health: int = 20
@@ -11,8 +12,8 @@ signal hurt
 
 
 func _ready() -> void:
-	dead.connect(dead_handle)
-	hurt.connect(hurt_handle)
+	deading.connect(dead_handle)
+	hurting.connect(hurt_handle)
 
 
 func dead_handle():

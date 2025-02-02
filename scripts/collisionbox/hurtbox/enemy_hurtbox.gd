@@ -8,12 +8,12 @@ func take_damage(damage: int, direction: Vector2, force: int):
 		parent.velocity += direction * force
 		parent.popup_location.popup(damage, direction)
 		parent.hud.show()
-		parent.hurt.emit()
+		parent.hurting.emit()
 		
 		bleed(damage, direction, force)
 		mark(damage, direction, force)
 		jitter(damage, direction, force)
 	else:
-		parent.dead.emit()
+		parent.deading.emit()
 		
 		explode(damage, direction, force)

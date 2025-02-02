@@ -18,7 +18,8 @@ class_name Player
 
 @export var interactable_with: Array[Interactable]
 @export var direction: Vector2 = Vector2.ZERO
-@export var old_direction: Vector2 = Vector2.ZERO
+@export var move_direction: Vector2 = Vector2.ZERO
+@export var old_move_direction: Vector2 = Vector2.ZERO
 @export var knockback_power: int = 3000
 @export var move_speed_multiple: float = 1.0
 @export var current_move_speed: int
@@ -62,14 +63,14 @@ func _ready():
 
 func _process(_delta):
 	if is_dead: return
+	update_state()
+	headle_endurance()
 	
 	move_and_slide()
-	get_move_direction()
+	move_control()
 	
-	update_state()
+	if is_weapon_attack: return
 	update_animation()
-	
-	headle_endurance()
 	
 	weapon_node.weapon_transform()
 	weapon_node.weapon_special_attack()
@@ -94,13 +95,18 @@ func update_state():
 	if !is_idle && is_still:
 		state_chart.send_event("idle")
 	
-	if !is_still:
-		if !is_walk && !is_still && !shift:
+	elif !is_still && !is_weapon_attack:
+		if !is_walk && !shift:
 			state_chart.send_event("walk")
-		elif !is_run && !is_still && shift && current_endurance > 0:
+		elif !is_run && shift && current_endurance > 0:
 			state_chart.send_event("run")
 	
-	if Input.is_action_just_pressed("attack"):
+	if (
+		Input.is_action_just_pressed("attack") &&
+		!Input.is_action_pressed("selected_card_slot") &&
+		current_endurance >= weapon_node.get_child(0).attack_consume_endurance &&
+		weapon_node.get_child(0).attack_ready_timer.is_stopped()
+		):
 		state_chart.send_event("weapon_attack")
 	
 	if Input.is_action_just_pressed("interaction") && interactable_with:
@@ -140,8 +146,14 @@ func set_current_endurance(value: int):
 	GlobalPlayerState.endurance_changed.emit()
 
 func headle_endurance():
+	var idleing: bool = false
+	if is_idle:
+		await get_tree().create_timer(0.5).timeout
+		
+		if is_idle:
+			idleing = true
 	if (
-		velocity == Vector2.ZERO && 
+		idleing &&
 		!is_weapon_attack && 
 		!is_weapon_special_charge_attack && 
 		!is_resist &&
@@ -180,14 +192,20 @@ func endurance_recover():
 				set_current_endurance(GlobalPlayerState.player_max_endurance)
 				print("current_endurance: ", current_endurance)
 
-func get_move_direction():
-	direction = Input.get_vector("left", "right", "up", "down").normalized()
-	if direction:
-		old_direction = direction
-		velocity = direction * compute_move_speed()
+func move_control():
+	if !is_weapon_attack:
+		move_direction = get_move_direction()
+		old_move_direction = move_direction
+		velocity = move_direction * compute_move_speed()
 	else:
 		velocity = Vector2.ZERO
 #移动
+
+func get_move_direction():
+	return Input.get_vector("left", "right", "up", "down").normalized()
+
+func get_direction():
+	return (get_global_mouse_position() - global_position).normalized()
 
 func compute_move_speed() -> float:
 	return current_move_speed * move_speed_multiple
@@ -220,8 +238,9 @@ func _on_hurt_box_area_entered(area):
 
 
 func _on_idle_state_entered() -> void:
-	is_idle = true
-	print(name, " state: idle")
+	if !is_idle:
+		is_idle = true
+		print(name, " state: idle")
 	animation_tree["parameters/AnimationNodeStateMachine/conditions/is_idle"] = true
 	animation_tree["parameters/AnimationNodeStateMachine/conditions/is_walk"] = false
 	
@@ -290,4 +309,16 @@ func _on_dead_state_entered() -> void:
 func _on_weapon_attack_state_entered() -> void:
 	print(name, " state: weapon_attack")
 	weapon_node.weapon_attack()
+	
+	var inertance = get_direction() * compute_move_speed() * Common.TILE_SIZE * 0.1 / 4
+	create_tween().tween_property(self, "velocity", inertance, 0.3)
+	is_weapon_attack = true
+	is_endurance_disable = true
+	
 #res://scripts/characters/player/weapon.gd
+
+
+func _on_weapon_attack_state_exited() -> void:
+	is_weapon_attack = false
+	#is_endurance_disable = false
+	#Engine.time_scale = 1

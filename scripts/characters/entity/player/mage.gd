@@ -4,20 +4,6 @@ extends Player
 var is_endurance_recover
 
 
-func _process(_delta):
-	if is_dead: return
-	
-	move_and_slide()
-	get_move_direction()
-	
-	update_state()
-	update_animation()
-	
-	headle_endurance()
-	
-	weapon_node.weapon_transform()
-	weapon_node.weapon_special_attack()
-
 func update_state():
 	var is_still = velocity == Vector2.ZERO
 	var shift: bool = false
@@ -31,25 +17,37 @@ func update_state():
 	if !is_idle && is_still:
 		state_chart.send_event("idle")
 	
-	#the skill for hunter
-	if !is_still:
-		if !is_walk && !is_still && !shift:
+	#the skill for mage
+	elif !is_still && !is_weapon_attack:
+		if !is_walk && !shift:
 			state_chart.send_event("walk")
-		elif !is_endurance_recover && !is_still && shift && current_endurance <= (GlobalPlayerState.player_max_endurance - 1):
+		elif !is_endurance_recover && shift && current_endurance <= (GlobalPlayerState.player_max_endurance - 1):
 			state_chart.send_event("endurance_recover")
 	
-	if Input.is_action_just_pressed("attack"):
+	if (
+		Input.is_action_just_pressed("attack") &&
+		!Input.is_action_pressed("selected_card_slot") &&
+		current_endurance >= weapon_node.get_child(0).attack_consume_endurance &&
+		weapon_node.get_child(0).attack_ready_timer.is_stopped()
+		):
 		state_chart.send_event("weapon_attack")
 	
 	if Input.is_action_just_pressed("interaction") && interactable_with:
 		interactable_with.back().interaction()
 
 func headle_endurance():
+	var idleing: bool = false
+	if is_idle:
+		await get_tree().create_timer(0.5).timeout
+		
+		if is_idle:
+			idleing = true
 	if (
-		velocity == Vector2.ZERO && 
+		idleing &&
 		!is_weapon_attack && 
+		!is_weapon_special_charge_attack && 
 		!is_resist &&
-		current_endurance < GlobalPlayerState.player_current_health
+		current_endurance < GlobalPlayerState.player_max_endurance
 		):
 			is_endurance_disable = false
 	
@@ -86,7 +84,6 @@ func endurance_recover():
 func endurance_recover_endurance_recover():
 	if !is_endurance_recover && current_endurance > GlobalPlayerState.player_max_endurance:
 		set_current_endurance(GlobalPlayerState.player_max_endurance)
-		print("aaa")
 		state_chart.send_event("walk")
 		return
 	elif is_endurance_recover && run_endurance_consume_timer.is_stopped():

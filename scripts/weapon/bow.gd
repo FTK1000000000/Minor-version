@@ -39,8 +39,7 @@ func launch():
 	
 	projectile.launch(
 		global_position,
-		(
-			get_global_mouse_position() - global_position).normalized(),
-			projectile_speed
-		)
+		(get_global_mouse_position() - global_position).normalized(),
+		projectile_speed
+	)
 	get_tree().current_scene.add_child(projectile)

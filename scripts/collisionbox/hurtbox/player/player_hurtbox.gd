@@ -7,14 +7,14 @@ func take_damage(damage: int, direction: Vector2, force: int):
 		parent.velocity += (direction * force)
 		parent.current_health -= damage
 		parent.is_endurance_disable = true
-		parent.hurt.emit()
+		parent.hurting.emit()
 		
 		Global.animation_player.play("player_hurt")
 		bleed(damage, direction, force)
 		mark(damage, direction, force)
 		ready_time()
 	else:
-		parent.dead.emit()
+		parent.deading.emit()
 		
 		explode(damage, direction, force)
 	
