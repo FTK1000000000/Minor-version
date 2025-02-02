@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dxd81bb0b3efb"]
+[gd_scene load_steps=11 format=3 uid="uid://dxd81bb0b3efb"]
 
 [ext_resource type="PackedScene" uid="uid://d3gvaw81qlatn" path="res://weapon/weapon.tscn" id="1_ylxel"]
 [ext_resource type="Script" path="res://scripts/weapon/swrod.gd" id="2_ru7y7"]
@@ -16,15 +16,12 @@ scale_max = 0.3
 hue_variation_min = -0.1
 hue_variation_max = 0.1
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dsdq3"]
-size = Vector2(64, 80)
-
 [sub_resource type="Animation" id="Animation_84p2f"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sword/Sprite2D:position")
+tracks/0/path = NodePath("Texture:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -36,74 +33,62 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sword/Sprite2D:offset")
+tracks/1/path = NodePath("Texture:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 16)]
+"values": [-4.71239]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sword/Sprite2D:rotation")
+tracks/2/path = NodePath("Texture/Main:offset")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-4.71239]
+"values": [Vector2(0, 16)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sword/GPUParticles2D:rotation")
+tracks/3/path = NodePath("Texture/Main/ColorRect:color")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0.001),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [-4.71239]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sword/GPUParticles2D:process_material:emission_box_extents")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 16, 1)]
-}
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Sword/Sprite2D/ColorRect:color")
+tracks/5/path = NodePath("GPUParticles2D:process_material:emission_box_extents")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Sword/Hitbox/CollisionShape2D:disabled")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [Vector3(1, 16, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_o8f3n"]
@@ -113,38 +98,26 @@ step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sword/Sprite2D:offset")
+tracks/0/path = NodePath("Texture:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.15, 0.3),
-"transitions": PackedFloat32Array(1, 1, 0.5, 1),
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 2),
 "update": 0,
-"values": [Vector2(0, 16), Vector2(0, 32), Vector2(0, 0), Vector2(0, 16)]
+"values": [-4.71239, -8.90118, -10.9956]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sword/Sprite2D:rotation")
+tracks/1/path = NodePath("Texture/Main:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(1, 1, 2),
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 0.5, 1, 2),
 "update": 0,
-"values": [-4.71239, -8.90118, -4.71239]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sword/Hitbox/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.04, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
+"values": [Vector2(0, 16), Vector2(0, 32), Vector2(0, 0), Vector2(0, 4), Vector2(0, 16)]
 }
 
 [sub_resource type="Animation" id="Animation_d0veo"]
@@ -154,7 +127,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sword/Sprite2D:rotation")
+tracks/0/path = NodePath("Texture:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -166,7 +139,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sword/Sprite2D/ColorRect:color")
+tracks/1/path = NodePath("Texture/Main/ColorRect:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -174,18 +147,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sword/Hitbox/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_q47bt"]
@@ -195,7 +156,7 @@ step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sword/Sprite2D:rotation")
+tracks/0/path = NodePath("Texture:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -207,7 +168,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sword/Sprite2D/ColorRect:color")
+tracks/1/path = NodePath("Texture/Main/ColorRect:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -215,83 +176,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_havho"]
-resource_name = "charge_complete"
-length = 0.46
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sword/Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.14, 0.2, 0.3, 0.4, 0.44, 0.46),
-"transitions": PackedFloat32Array(1, 0.5, 1, 1, 2, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-16, 10), Vector2(-12, 0.844), Vector2(0, 0), Vector2(20, -12), Vector2(20, -12), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sword/Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.14, 0.3, 0.46),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [-2.0944, 5.23599, 4.18879, -2.0944]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sword/Sprite2D/ColorRect:color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sword/Hitbox:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.14, 0.2, 0.3, 0.4, 0.44, 0.46),
-"transitions": PackedFloat32Array(1, 0.5, 1, 1, 2, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-16, 10), Vector2(-12, 0.844), Vector2(0, 0), Vector2(20, -12), Vector2(20, -12), Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sword/Hitbox:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.14, 0.3, 0.46),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 5.23599, 4.18879, 0.0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Sword/Hitbox/CollisionShape2D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.46),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_epy2l"]
@@ -299,8 +183,7 @@ _data = {
 "RESET": SubResource("Animation_84p2f"),
 "attack": SubResource("Animation_o8f3n"),
 "charge": SubResource("Animation_d0veo"),
-"charge_complete": SubResource("Animation_q47bt"),
-"charge_complete_old": SubResource("Animation_havho")
+"charge_complete": SubResource("Animation_q47bt")
 }
 
 [node name="Sword" instance=ExtResource("1_ylxel")]
@@ -309,15 +192,15 @@ data_name = "sword"
 hit_ready_time = 0.3
 hit_damage = 20
 
-[node name="Sprite2D" parent="." index="0"]
-rotation = -1.5708
+[node name="Texture" parent="." index="0"]
+rotation = -4.71239
+
+[node name="Main" parent="Texture" index="0"]
 texture = ExtResource("3_qyc3e")
 offset = Vector2(0, 16)
 
-[node name="ColorRect" parent="Sprite2D" index="0"]
-offset_left = -32.0
+[node name="ColorRect" parent="Texture/Main" index="0"]
 offset_top = -16.0
-offset_right = -32.0
 offset_bottom = -16.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." index="1"]
@@ -327,16 +210,10 @@ amount = 1
 process_material = SubResource("ParticleProcessMaterial_yl8vb")
 texture = ExtResource("4_6q5c8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(32, 0)
-shape = SubResource("RectangleShape2D_dsdq3")
-disabled = true
-
 [node name="AttackReadyTimer" parent="." index="3"]
 wait_time = 0.4
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
-root_node = NodePath("../..")
+[node name="AnimationPlayer" parent="." index="5"]
 libraries = {
 "": SubResource("AnimationLibrary_epy2l")
 }

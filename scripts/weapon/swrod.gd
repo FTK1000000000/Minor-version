@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 	if !is_special_charge:
 		return
 	
-	gpu_particles_2d.rotation = textruse.rotation
+	gpu_particles_2d.rotation = texture.rotation
 
 
 #func windmill():

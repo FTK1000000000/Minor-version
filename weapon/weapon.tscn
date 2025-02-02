@@ -1,33 +1,45 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3gvaw81qlatn"]
+[gd_scene load_steps=5 format=3 uid="uid://d3gvaw81qlatn"]
 
 [ext_resource type="Script" path="res://scripts/weapon/weapon.gd" id="1_cwbe8"]
 [ext_resource type="Texture2D" uid="uid://keslc74tlaan" path="res://texture/weapon/monado_1.png" id="2_1rnyv"]
 [ext_resource type="Script" path="res://scripts/collisionbox/hitbox.gd" id="3_58pre"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4oavw"]
+size = Vector2(64, 80)
+
 [node name="Weapon" type="Node2D"]
 script = ExtResource("1_cwbe8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Texture" type="Node2D" parent="."]
+
+[node name="Main" type="Sprite2D" parent="Texture"]
 clip_children = 2
 texture = ExtResource("2_1rnyv")
 flip_v = true
 
-[node name="ColorRect" type="ColorRect" parent="Sprite2D"]
+[node name="ColorRect" type="ColorRect" parent="Texture/Main"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -14.5
-offset_top = -14.5
-offset_right = -14.5
-offset_bottom = -14.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = -32.0
+offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="Effect" type="Sprite2D" parent="Texture"]
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 1056
 script = ExtResource("3_58pre")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(32, 0)
+shape = SubResource("RectangleShape2D_4oavw")
+disabled = true
 
 [node name="AttackReadyTimer" type="Timer" parent="."]
 wait_time = 0.3
@@ -35,6 +47,10 @@ one_shot = true
 
 [node name="ChargeAttackReadyTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="EffectPlayer" type="AnimationPlayer" parent="."]
 
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="Hitbox" method="_on_area_exited"]

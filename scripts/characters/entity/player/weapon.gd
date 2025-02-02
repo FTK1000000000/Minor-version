@@ -36,9 +36,9 @@ func weapon_transform(
 		
 		if GlobalPlayerState.player_weapon == "shield":
 			if player.is_flip:
-				weapon.textruse.frame = 1
+				weapon.main.frame = 1
 			else:
-				weapon.textruse.frame = 0
+				weapon.main.frame = 0
 			
 
 func weapon_attack():

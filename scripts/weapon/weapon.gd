@@ -6,9 +6,11 @@ class_name Weapon
 @onready var hitbox: Hitbox = $Hitbox
 @onready var hitbox_collision: CollisionShape2D = $Hitbox/CollisionShape2D
 @onready var collision: CollisionShape2D = $Hitbox/CollisionShape2D
-@onready var effect_player: AnimationPlayer = $EffectPlayer
-@onready var textruse: Sprite2D = $Sprite2D
+@onready var texture: Node2D = $Texture
+@onready var main: Sprite2D = $Texture/Main
+@onready var effect: Sprite2D = $Texture/Effect
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var effect_player: AnimationPlayer = $EffectPlayer
 @onready var attack_ready_timer: Timer = $AttackReadyTimer
 @onready var charge_attack_ready_timer: Timer = $ChargeAttackReadyTimer
 
