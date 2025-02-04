@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=4 uid="uid://c7ldvy2621icl"]
 
-[ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/scene/goblin/room_group_rooms/fight_rooms/fight_room.tscn" id="1_u8tla"]
+[ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/fight_room.tscn" id="1_u8tla"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fst5g"]
 size = Vector2(160, 64)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=4 uid="uid://jh70irqwiiy0"]
 
-[ext_resource type="PackedScene" uid="uid://bkmxb4ofg78gn" path="res://rooms/scene/goblin/room_group_rooms/end_rooms/end_room.tscn" id="1_uwv16"]
+[ext_resource type="PackedScene" uid="uid://bkmxb4ofg78gn" path="res://rooms/end_room.tscn" id="1_uwv16"]
 
 [node name="EndRoom" instance=ExtResource("1_uwv16")]
 

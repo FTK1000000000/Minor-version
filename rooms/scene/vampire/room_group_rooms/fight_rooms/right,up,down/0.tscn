@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://bk2y0phiji2wu"]
 
-[ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/scene/goblin/room_group_rooms/fight_rooms/fight_room.tscn" id="1_nj330"]
+[ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/fight_room.tscn" id="1_nj330"]
 [ext_resource type="PackedScene" uid="uid://bqrkndx6b0j15" path="res://rooms/doors/up_door.tscn" id="2_y24ct"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j3oib"]

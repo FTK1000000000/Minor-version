@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=4 uid="uid://bgb246f8l2qjp"]
 
-[ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/scene/goblin/room_group_rooms/fight_rooms/fight_room.tscn" id="1_t4qwv"]
+[ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/fight_room.tscn" id="1_t4qwv"]
 [ext_resource type="Script" path="res://godot_state_charts_examples/ant_hill/marker/marker.gd" id="2_jer8i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_367ji"]

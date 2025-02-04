@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=4 uid="uid://clc7qs15rm8f8"]
 
-[ext_resource type="PackedScene" uid="uid://pg4ww2ank14s" path="res://rooms/scene/goblin/room_group_rooms/from_rooms/from_room.tscn" id="1_lprrr"]
+[ext_resource type="PackedScene" uid="uid://pg4ww2ank14s" path="res://rooms/from_room.tscn" id="1_lprrr"]
 
 [node name="FromRoom" instance=ExtResource("1_lprrr")]
 
