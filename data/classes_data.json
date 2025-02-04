@@ -22,7 +22,7 @@
 	"weapon": {
 		"tank": "shield",
 		"hunter": "bow",
-		"mage": "sword"
+		"mage": "staff"
 	},
 	"property": {
 		"tank": {

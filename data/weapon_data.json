@@ -10,6 +10,17 @@
 		"hit_damage": 20,
 		"projectile_speed": 640
 	},
+	"staff": {
+		"name": "Staff",
+		"price": 5,
+		"attack_consume_endurance": 20,
+		"special_attack_consume_endurance": 40,
+		"max_charge": 5,
+		"need_charge": 2,
+		"hit_ready_time": 0.3,
+		"hit_damage": 20,
+		"projectile_speed": 640
+	},
 	"shield": {
 		"name": "Shield",
 		"price": 5,
