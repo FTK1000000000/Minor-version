@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://dqavb1ekyycf"]
 
 [ext_resource type="PackedScene" uid="uid://c76kqdervowc5" path="res://character/entity/player/Player.tscn" id="1_3x2rb"]
-[ext_resource type="Script" path="res://scripts/characters/entity/player/hunter.gd" id="2_efl0i"]
+[ext_resource type="Script" path="res://scripts/character/entity/player/hunter.gd" id="2_efl0i"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="3_06nel"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="4_gt1fd"]
 

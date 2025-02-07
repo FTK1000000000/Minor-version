@@ -1,0 +1,192 @@
+[gd_scene load_steps=17 format=3 uid="uid://bwpes7pcpqnhl"]
+
+[ext_resource type="PackedScene" uid="uid://c02bm6vhclraa" path="res://character/entity/entity.tscn" id="1_yq7ej"]
+[ext_resource type="Script" path="res://scripts/character/entity/enemy/enemy.gd" id="2_1te83"]
+[ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar1.png" id="2_clf26"]
+[ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar2.png" id="3_tkuq6"]
+[ext_resource type="Script" path="res://scripts/ui/hud/enemy_health_bar.gd" id="4_n3jw4"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_ne4ub"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_gcket"]
+[ext_resource type="PackedScene" uid="uid://b6v0g5ygjvg1h" path="res://collisionbox/hitbox.tscn" id="7_btllw"]
+[ext_resource type="AnimationLibrary" uid="uid://byejt2yw5ytnw" path="res://animaction/enemy.res" id="7_ckr0p"]
+[ext_resource type="AnimationLibrary" uid="uid://tmvvmy2fwmx8" path="res://animaction/entity.res" id="8_2x7p1"]
+[ext_resource type="Script" path="res://scripts/character/popup_location.gd" id="8_a7blr"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="12_uq6t3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nrq5f"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xlgen"]
+radius = 72.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3p7b6"]
+radius = 160.05
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4x8uy"]
+radius = 202.988
+
+[node name="Enemy" instance=ExtResource("1_yq7ej")]
+script = ExtResource("2_1te83")
+target_position = Vector2(0, 0)
+data_name = ""
+knockback_power = 300
+move_speed = 100
+current_move_speed = 0
+attack_range = 0
+attack_ready_time = 0.0
+attack_damage = 0
+attack_knockback_force = 0
+attack_is_ready = false
+is_can_attack = false
+is_chase = false
+is_attack = false
+
+[node name="Body" parent="Texture" index="0"]
+scale = Vector2(1, 1.2)
+
+[node name="SpawnEffect" type="ColorRect" parent="Texture/Body" index="1"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+metadata/_edit_use_anchors_ = true
+
+[node name="HUD" type="Node2D" parent="Texture" index="1"]
+visible = false
+position = Vector2(0, -25)
+scale = Vector2(0.5, 0.5)
+
+[node name="health_bar" type="TextureProgressBar" parent="Texture/HUD" index="0"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -3.0
+offset_right = 28.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("2_clf26")
+texture_progress = ExtResource("3_tkuq6")
+script = ExtResource("4_n3jw4")
+
+[node name="AimLine" type="ColorRect" parent="Texture" index="2"]
+z_index = -5
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_right = 72.0
+offset_bottom = 12.0
+grow_vertical = 2
+pivot_offset = Vector2(0, 12)
+color = Color(0.5, 0, 0, 0.5)
+metadata/_edit_use_anchors_ = true
+
+[node name="HitBox" parent="." index="3" instance=ExtResource("7_btllw")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(-2.82402e-06, -1.00746e-06)
+shape = SubResource("CircleShape2D_nrq5f")
+
+[node name="AttackRange" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" index="0"]
+shape = SubResource("CircleShape2D_xlgen")
+debug_color = Color(0.725, 0.152, 0.257, 0.346)
+
+[node name="Aggro" type="Node2D" parent="." index="5"]
+visible = false
+
+[node name="AggroRange" type="Area2D" parent="Aggro" index="0"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange" index="0"]
+shape = SubResource("CircleShape2D_3p7b6")
+debug_color = Color(0.756863, 0, 0.152941, 0.45098)
+
+[node name="DeAggroRange" type="Area2D" parent="Aggro" index="1"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange" index="0"]
+shape = SubResource("CircleShape2D_4x8uy")
+debug_color = Color(0, 0.627451, 0.494118, 0.313726)
+
+[node name="Nav" type="Node2D" parent="." index="6"]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Nav" index="0"]
+path_postprocessing = 1
+path_metadata_flags = 0
+simplify_path = true
+avoidance_enabled = true
+max_speed = 100000.0
+avoidance_layers = 2
+avoidance_mask = 2
+debug_enabled = true
+
+[node name="PathTimer" type="Timer" parent="Nav" index="1"]
+wait_time = 0.1
+autostart = true
+
+[node name="AttackTimer" type="Timer" parent="." index="7"]
+one_shot = true
+
+[node name="StatePlayer" parent="." index="9"]
+libraries = {
+"enemy": ExtResource("7_ckr0p"),
+"entity": ExtResource("8_2x7p1")
+}
+
+[node name="PopupLocation" type="Marker2D" parent="." index="10"]
+position = Vector2(0, -32)
+script = ExtResource("8_a7blr")
+
+[node name="Chase" type="Node" parent="EnemyStateChart/CompoundState" index="3"]
+script = ExtResource("6_gcket")
+
+[node name="Attack" type="Node" parent="EnemyStateChart/CompoundState" index="4"]
+script = ExtResource("5_ne4ub")
+initial_state = NodePath("Melee")
+
+[node name="Melee" type="Node" parent="EnemyStateChart/CompoundState/Attack" index="0"]
+script = ExtResource("6_gcket")
+
+[node name="Ranged" type="Node" parent="EnemyStateChart/CompoundState/Attack" index="1"]
+script = ExtResource("6_gcket")
+
+[node name="chase" type="Node" parent="EnemyStateChart/CompoundState" index="8"]
+script = ExtResource("12_uq6t3")
+to = NodePath("../Chase")
+event = &"chase"
+delay_in_seconds = "0.0"
+
+[node name="melee" type="Node" parent="EnemyStateChart/CompoundState" index="9"]
+script = ExtResource("12_uq6t3")
+to = NodePath("../Attack/Melee")
+event = &"melee"
+delay_in_seconds = "0.0"
+
+[node name="ranged" type="Node" parent="EnemyStateChart/CompoundState" index="10"]
+script = ExtResource("12_uq6t3")
+to = NodePath("../Attack/Ranged")
+event = &"ranged"
+delay_in_seconds = "0.0"
+
+[connection signal="velocity_computed" from="Nav/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Nav/PathTimer" to="." method="_on_path_timer_timeout"]

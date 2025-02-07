@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://dxd81bb0b3efb"]
 
 [ext_resource type="PackedScene" uid="uid://d3gvaw81qlatn" path="res://weapon/weapon.tscn" id="1_vjx5r"]
-[ext_resource type="Script" path="res://scripts/weapon/swrod.gd" id="2_6nawc"]
+[ext_resource type="Script" path="res://scripts/weapon/staff.gd" id="2_6nawc"]
 [ext_resource type="Texture2D" uid="uid://c7irsbta5l05j" path="res://texture/weapon/staff.png" id="2_ns0wc"]
 [ext_resource type="Texture2D" uid="uid://bemypf1tfoes4" path="res://texture/ammo/sword_ammo_1.png" id="4_ksr0h"]
 [ext_resource type="Texture2D" uid="uid://qctycn430t10" path="res://texture/effect/weapon/sword_attack_effect.png" id="4_t22bs"]

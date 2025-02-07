@@ -1,0 +1,12 @@
+{
+	"flame": {
+		"type": "trigger",
+		"description": "this is fire!",
+		"trigger_ready_time": 1,
+		"trigger_damage": 5
+	},
+	"flame_immune": {
+		"type": "static",
+		"description": "immune for flame"
+	}
+}

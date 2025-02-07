@@ -1,9 +1,9 @@
 [gd_scene load_steps=31 format=3 uid="uid://c76kqdervowc5"]
 
-[ext_resource type="Script" path="res://scripts/characters/entity/player/player.gd" id="1_nfhyc"]
-[ext_resource type="Texture2D" uid="uid://eis7cusnmhio" path="res://texture/character/player/tank.png" id="2_v74dq"]
+[ext_resource type="Script" path="res://scripts/character/entity/player/player.gd" id="1_hyybh"]
+[ext_resource type="Texture2D" uid="uid://eis7cusnmhio" path="res://texture/character/entity/player/tank.png" id="2_v74dq"]
 [ext_resource type="PackedScene" uid="uid://b5an3p11uidjl" path="res://collisionbox/hurtbox/player_hurtbox.tscn" id="3_ku32m"]
-[ext_resource type="Script" path="res://scripts/characters/entity/player/weapon.gd" id="4_62q2f"]
+[ext_resource type="Script" path="res://scripts/character/entity/player/weapon.gd" id="4_62q2f"]
 [ext_resource type="Texture2D" uid="uid://bqk0s6js2v1q1" path="res://texture/ui/hud/key_icon.png" id="5_mcl3x"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dq75qdq1t3txp" path="res://Player.tres" id="6_tldyw"]
 [ext_resource type="Script" path="res://scripts/camera/shaky_camera.gd" id="7_sc5yl"]
@@ -47,7 +47,6 @@ animations = [{
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_jcyqg"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_2i7lp"]
-graph_offset = Vector2(-227.839, 96.6441)
 nodes/AnimationNodeStateMachine/node = ExtResource("6_tldyw")
 nodes/AnimationNodeStateMachine/position = Vector2(-180, 140)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jcyqg")
@@ -165,11 +164,11 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Texture/Body/ColorRect:color")
+tracks/0/path = NodePath("Texture/Body/HurtEffect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.001),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
@@ -183,7 +182,7 @@ step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Texture/Body/ColorRect:color")
+tracks/0/path = NodePath("Texture/Body/HurtEffect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -203,9 +202,10 @@ _data = {
 z_index = 10
 collision_layer = 4
 collision_mask = 9
+motion_mode = 1
 floor_constant_speed = true
 platform_floor_layers = 4294901760
-script = ExtResource("1_nfhyc")
+script = ExtResource("1_hyybh")
 
 [node name="Texture" type="Node2D" parent="."]
 
@@ -216,7 +216,7 @@ texture = ExtResource("2_v74dq")
 hframes = 7
 vframes = 2
 
-[node name="ColorRect" type="ColorRect" parent="Texture/Body"]
+[node name="HurtEffect" type="ColorRect" parent="Texture/Body"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -264,7 +264,7 @@ frame_progress = 0.595892
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendTree_2i7lp")
 advance_expression_base_node = NodePath("..")
-anim_player = NodePath("../AnimationPlayer")
+anim_player = NodePath("../StatePlayer")
 parameters/AnimationNodeStateMachine/conditions/is_dodge = false
 parameters/AnimationNodeStateMachine/conditions/is_idle = false
 parameters/AnimationNodeStateMachine/conditions/is_walk = false
@@ -273,7 +273,7 @@ parameters/AnimationNodeStateMachine/idle/blend_position = Vector2(-0.488525, 0.
 parameters/AnimationNodeStateMachine/walk/blend_position = Vector2(0, 0)
 parameters/TimeScale/scale = 1.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="StatePlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_4m0qe"),
 "back": SubResource("AnimationLibrary_qkebf"),

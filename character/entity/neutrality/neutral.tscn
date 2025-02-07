@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=3 uid="uid://cf65rii0fou3y"]
 
-[ext_resource type="Script" path="res://scripts/characters/entity/neutrality/neutrality.gd" id="1_da1ia"]
-[ext_resource type="Texture2D" uid="uid://c5d8i6xcn162n" path="res://texture/character/enemy/goblin.png" id="2_f6qnx"]
+[ext_resource type="Script" path="res://scripts/character/entity/neutrality/neutrality.gd" id="1_da1ia"]
+[ext_resource type="Texture2D" uid="uid://c5d8i6xcn162n" path="res://texture/character/entity/enemy/goblin.png" id="2_f6qnx"]
 [ext_resource type="Material" uid="uid://brsyhwjqpihrl" path="res://shader/material/enemy_spawn_noise.tres" id="3_2txwb"]
 [ext_resource type="Texture2D" uid="uid://26hhl2lrcmvm" path="res://texture/effect/dead_fog.png" id="3_vr6er"]
 [ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar1.png" id="4_jwo7r"]
@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="10_uprji"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="11_l34xa"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="12_r43j0"]
-[ext_resource type="Script" path="res://scripts/characters/popup_location.gd" id="13_kqxrl"]
+[ext_resource type="Script" path="res://scripts/character/popup_location.gd" id="13_kqxrl"]
 [ext_resource type="Material" uid="uid://dtpxlty5y8tnw" path="res://shader/material/enemy_dead.tres" id="14_tqq1s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4n8dm"]
@@ -771,72 +771,72 @@ debug_enabled = true
 wait_time = 0.1
 autostart = true
 
-[node name="EnemyStateChart" type="Node" parent="."]
+[node name="StateChart" type="Node" parent="."]
 script = ExtResource("9_n0udu")
 
-[node name="CompoundState" type="Node" parent="EnemyStateChart"]
+[node name="CompoundState" type="Node" parent="StateChart"]
 script = ExtResource("10_uprji")
 initial_state = NodePath("Idle")
 
-[node name="Attack" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="Attack" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("10_uprji")
 initial_state = NodePath("Melee")
 
-[node name="Melee" type="Node" parent="EnemyStateChart/CompoundState/Attack"]
+[node name="Melee" type="Node" parent="StateChart/CompoundState/Attack"]
 script = ExtResource("11_l34xa")
 
-[node name="Ranged" type="Node" parent="EnemyStateChart/CompoundState/Attack"]
+[node name="Ranged" type="Node" parent="StateChart/CompoundState/Attack"]
 script = ExtResource("11_l34xa")
 
-[node name="Idle" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="Idle" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("11_l34xa")
 
-[node name="Chase" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="Chase" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("11_l34xa")
 
-[node name="Hurt" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="Hurt" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("11_l34xa")
 
-[node name="Dead" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="Dead" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("11_l34xa")
 
-[node name="attack" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="attack" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("12_r43j0")
 to = NodePath("../Attack")
 event = &"attack"
 delay_in_seconds = "0.0"
 
-[node name="melee" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="melee" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("12_r43j0")
 to = NodePath("../Attack/Melee")
 event = &"melee"
 delay_in_seconds = "0.0"
 
-[node name="ranged" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="ranged" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("12_r43j0")
 to = NodePath("../Attack/Ranged")
 event = &"ranged"
 delay_in_seconds = "0.0"
 
-[node name="idle" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="idle" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("12_r43j0")
 to = NodePath("../Idle")
 event = &"idle"
 delay_in_seconds = "0.0"
 
-[node name="chase" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="chase" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("12_r43j0")
 to = NodePath("../Chase")
 event = &"chase"
 delay_in_seconds = "0.0"
 
-[node name="hurt" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="hurt" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("12_r43j0")
 to = NodePath("../Hurt")
 event = &"hurt"
 delay_in_seconds = "0.0"
 
-[node name="dead" type="Node" parent="EnemyStateChart/CompoundState"]
+[node name="dead" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("12_r43j0")
 to = NodePath("../Dead")
 event = &"dead"
@@ -864,8 +864,8 @@ script = ExtResource("13_kqxrl")
 [connection signal="area_exited" from="Aggro/DeAggroRange" to="." method="_on_de_aggro_range_area_exited"]
 [connection signal="velocity_computed" from="Nav/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Nav/PathTimer" to="." method="_on_timer_timeout"]
-[connection signal="state_entered" from="EnemyStateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
-[connection signal="state_entered" from="EnemyStateChart/CompoundState/Chase" to="." method="_on_chase_state_entered"]
-[connection signal="state_exited" from="EnemyStateChart/CompoundState/Chase" to="." method="_on_chase_state_exited"]
-[connection signal="state_entered" from="EnemyStateChart/CompoundState/Hurt" to="." method="_on_hurt_state_entered"]
-[connection signal="state_entered" from="EnemyStateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/Chase" to="." method="_on_chase_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/Chase" to="." method="_on_chase_state_exited"]
+[connection signal="state_entered" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_entered"]
+[connection signal="state_entered" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]

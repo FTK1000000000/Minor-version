@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b206wlen0bkw3"]
 
-[ext_resource type="Script" path="res://scripts/collectibles/collectible.gd" id="1_pgnew"]
+[ext_resource type="Script" path="res://scripts/collectible/collectible.gd" id="1_pgnew"]
 [ext_resource type="Texture2D" uid="uid://bbxallwadqmji" path="res://icon.svg" id="3_ffqea"]
 [ext_resource type="Shader" path="res://shader/collectible_icon.gdshader" id="3_uw6n5"]
 

@@ -1,0 +1,135 @@
+[gd_scene load_steps=12 format=3 uid="uid://c02bm6vhclraa"]
+
+[ext_resource type="Script" path="res://scripts/character/entity/entity.gd" id="1_87d3g"]
+[ext_resource type="Texture2D" uid="uid://c5d8i6xcn162n" path="res://texture/character/entity/enemy/goblin.png" id="1_jlax4"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_8y4su"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_sm2ub"]
+[ext_resource type="PackedScene" uid="uid://bi5axov6yw1n0" path="res://character/effectMachine.tscn" id="5_7ylwn"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_t8hls"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_681pu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yo7xp"]
+
+[sub_resource type="Animation" id="Animation_82twu"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture/Body/HurtEffect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.001),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_arpku"]
+resource_name = "hurt_blink"
+length = 0.4
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture/Body/HurtEffect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.670588, 0, 0, 0.498039), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hifb3"]
+_data = {
+"RESET": SubResource("Animation_82twu"),
+"hurt_blink": SubResource("Animation_arpku")
+}
+
+[node name="Entity" type="CharacterBody2D"]
+z_index = 10
+floor_constant_speed = true
+platform_floor_layers = 4294901760
+script = ExtResource("1_87d3g")
+
+[node name="Texture" type="Node2D" parent="."]
+
+[node name="Body" type="Sprite2D" parent="Texture"]
+clip_children = 2
+texture = ExtResource("1_jlax4")
+hframes = 10
+
+[node name="HurtEffect" type="ColorRect" parent="Texture/Body"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yo7xp")
+
+[node name="HurtEffectTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="StatePlayer" type="AnimationPlayer" parent="."]
+autoplay = "spawn"
+
+[node name="HurtEffectPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hifb3")
+}
+
+[node name="EffectMachine" parent="." instance=ExtResource("5_7ylwn")]
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_8y4su")
+
+[node name="CompoundState" type="Node" parent="StateChart"]
+script = ExtResource("4_sm2ub")
+initial_state = NodePath("Idle")
+
+[node name="Dead" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("5_t8hls")
+
+[node name="Hurt" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("5_t8hls")
+
+[node name="Idle" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("5_t8hls")
+
+[node name="dead" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("6_681pu")
+to = NodePath("../Dead")
+event = &"dead"
+delay_in_seconds = "0.0"
+
+[node name="hurt" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("6_681pu")
+to = NodePath("../Hurt")
+event = &"hurt"
+delay_in_seconds = "0.0"
+
+[node name="idle" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("6_681pu")
+to = NodePath("../Idle")
+event = &"idle"
+delay_in_seconds = "0.0"
+
+[connection signal="state_entered" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/Dead" to="." method="_on_dead_state_exited"]
+[connection signal="state_entered" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/Hurt" to="." method="_on_hurt_state_exited"]
+[connection signal="state_entered" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_exited" from="StateChart/CompoundState/Idle" to="." method="_on_idle_state_exited"]

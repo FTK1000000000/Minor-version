@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c7r35kw8ayagu"]
 
 [ext_resource type="PackedScene" uid="uid://0ug3e0fiv41v" path="res://character/entity/enemy/enemy.tscn" id="1_1t488"]
-[ext_resource type="Script" path="res://scripts/characters/entity/boss/boss.gd" id="2_bqk0s"]
+[ext_resource type="Script" path="res://scripts/character/entity/boss/boss.gd" id="2_bqk0s"]
 [ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar1.png" id="3_stgfj"]
 [ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar2.png" id="4_axqf1"]
 [ext_resource type="Script" path="res://scripts/ui/hud/boss_health_bar.gd" id="5_65gsw"]

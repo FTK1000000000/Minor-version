@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://km2dm7hfre4r"]
 
-[ext_resource type="Texture2D" uid="uid://dgpqafe74i3w5" path="res://texture/character/enemy/spawn_expansion.png" id="1_yv54m"]
-[ext_resource type="Script" path="res://scripts/characters/spawn_expansion.gd" id="2_47855"]
+[ext_resource type="Texture2D" uid="uid://dgpqafe74i3w5" path="res://texture/character/entity/enemy/spawn_expansion.png" id="1_yv54m"]
+[ext_resource type="Script" path="res://scripts/character/spawn_expansion.gd" id="2_47855"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_omc0e"]
 atlas = ExtResource("1_yv54m")

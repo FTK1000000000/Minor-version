@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi5axov6yw1n0"]
+
+[ext_resource type="Script" path="res://scripts/character/effect_machine.gd" id="1_pfnqd"]
+
+[node name="EffectMachine" type="Node"]
+script = ExtResource("1_pfnqd")

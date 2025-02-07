@@ -20,7 +20,7 @@ const ENEMY_DIRECTORY = "res://character/entity/enemy/"
 
 const ABILITY_TEXTURE_DIRECTORY = "res://texture/ability/"
 const CARD_TEXTURE_DIRECTORY = "res://texture/card/"
-const PLAYER_TEXTURE_DIRECTORY = "res://texture/character/player/"
+const PLAYER_TEXTURE_DIRECTORY = "res://texture/character/entity/player/"
 
 const LEVEL_WORLD = "res://world/level.tscn"
 const ABILITY_SELECT_PANEL = preload("res://ui/ability_select/ability_select.tscn")

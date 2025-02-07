@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://ddqaqeng53vjw"]
 
 [ext_resource type="PackedScene" uid="uid://cf65rii0fou3y" path="res://character/entity/neutrality/neutral.tscn" id="1_xkmbq"]
-[ext_resource type="Texture2D" uid="uid://cogr4ubeeti58" path="res://texture/character/neutrality/trader/trader_goblin.png" id="2_1iywg"]
-[ext_resource type="Script" path="res://scripts/characters/entity/neutrality/trader/trader.gd" id="2_bjrok"]
+[ext_resource type="Texture2D" uid="uid://cogr4ubeeti58" path="res://texture/character/entity/neutrality/trader/trader_goblin.png" id="2_1iywg"]
+[ext_resource type="Script" path="res://scripts/character/entity/neutrality/trader/trader.gd" id="2_bjrok"]
 [ext_resource type="Script" path="res://scripts/inventory/inventory_item.gd" id="3_5sk7k"]
 [ext_resource type="Script" path="res://scripts/interactable/trade.gd" id="4_x47lm"]
 

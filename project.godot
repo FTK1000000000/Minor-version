@@ -32,6 +32,7 @@ SoundManager="*res://sound_manager.tscn"
 window/size/viewport_width=1080
 window/size/viewport_height=720
 window/size/initial_position_type=0
+window/size/always_on_top=true
 window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="res://texture/ui/cursor/cursor.png"
 window/bg_color=Color(0, 0, 0, 1)
@@ -186,7 +187,6 @@ locale/locale_filter_mode=0
 2d_physics/layer_8="enemyammo"
 2d_physics/layer_9="playerammohurtbox"
 2d_physics/layer_10="enemyammohurtbox"
-2d_physics/layer_11="coverhurt"
 avoidance/layer_1="player"
 avoidance/layer_2="enemy"
 
