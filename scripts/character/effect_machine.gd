@@ -2,7 +2,7 @@ extends Node
 class_name EffectMachine
 
 
-var effects: Array = []
+@export var effects: Array = []
 
 
 func update_effects():
@@ -10,15 +10,20 @@ func update_effects():
 	for effect in get_children():
 		var data_name = effect.data_name
 		var time_left = effect.life_cycle_timer.time_left
-		effects.push_back([data_name, time_left])
+		effects.push_back({
+			"data_name": data_name,
+			"time_left": time_left
+		})
 
 func add_effect(effect_name: String, time: float = 5):
-	if effect_name in effects:
-		remove_effect(effect_name)
+	for effect in effects:
+		if effect.data_name == effect_name:
+			remove_effect(effect_name)
 	
 	var effect: Effect
-	effect.life_cycle_timer.wait_time = time
+	effect = load(FileFunction.get_file_list(Global.EFFECT_DIRECTORY).get(effect_name)).instantiate()
 	add_child(effect)
+	effect.life_cycle_timer.wait_time = time
 	
 	update_effects()
 

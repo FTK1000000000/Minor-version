@@ -30,7 +30,9 @@ func hit(area: Hurtbox):
 	area.add_child(hit_explosion_scene)
 	hit_explosion_scene.position = position
 	
-	area.take_damage(damage, knockback_direction, knockback_force)
+	area.take_damage(damage_type, damage, knockback_direction, knockback_force)
+	give_effect(area.owner)
+	
 	if hit_piercing < 0:
 		return
 	else:

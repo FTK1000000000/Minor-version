@@ -1,0 +1,20 @@
+{
+	"goblin": {
+		"name": "Goblin",
+		"price": 1,
+		"move_speed": 75,
+		"max_health": 50,
+		"attack_damage": 15,
+		"attack_knockback_force": 500,
+		"attack_ready_time": 1.5
+	},
+	"goblin_bowman": {
+		"name": "Goblin Bowman",
+		"price": 1,
+		"move_speed": 125,
+		"max_health": 50,
+		"attack_damage": 15,
+		"attack_knockback_force": 300,
+		"attack_ready_time": 1.5
+	}
+}

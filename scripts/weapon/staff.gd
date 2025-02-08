@@ -4,12 +4,12 @@ extends Weapon
 
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
 
-var ammo = preload("res://ammo/sword_ammo.tscn")
-var ammo_fram: Array = [
-	"res://texture/ammo/sword_ammo_1.png",
-	"res://texture/ammo/sword_ammo_2.png",
-	"res://texture/ammo/sword_ammo_3.png"
-]
+var ammo = preload("res://ammo/fire_ball.tscn")
+#var ammo_fram: Array = [
+	#"res://texture/ammo/sword_ammo_1.png",
+	#"res://texture/ammo/sword_ammo_2.png",
+	#"res://texture/ammo/sword_ammo_3.png"
+#]
 var ammo_frame_value: int = 1
 
 
@@ -80,6 +80,9 @@ func launch():
 		)
 	get_tree().current_scene.add_child(projectile)
 	
-	projectile.sprite_2d.texture = load(ammo_fram[ammo_frame_value - 1])
-	#gpu_particles_2d.texture = load(ammo_fram[ammo_frame_value - 1])
-	ammo_frame_value += 1 if ammo_frame_value < 2 else -2
+	#projectile.sprite_2d.texture = load(ammo_fram[ammo_frame_value - 1])
+	##gpu_particles_2d.texture = load(ammo_fram[ammo_frame_value - 1])
+	#ammo_frame_value += 1 if ammo_frame_value < 2 else -2
+
+func a():
+	get_tree().quit()

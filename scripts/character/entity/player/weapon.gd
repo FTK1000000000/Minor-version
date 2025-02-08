@@ -63,7 +63,11 @@ func weapon_attack():
 				weapon.attack_ready_timer.start()
 				#player.is_weapon_attack = true
 				#player.is_endurance_disable = true
-				await weapon.attack_ready_timer.timeout
+				#await weapon.attack_ready_timer.timeout
+				if weapon.animation_player.is_playing():
+					await weapon.animation_player.animation_finished
+				else:
+					await weapon.attack_ready_timer.timeout
 				
 				weapon.animation_player.play("RESET")
 				player.state_chart.send_event("idle")
@@ -83,7 +87,11 @@ func weapon_attack():
 				GlobalPlayerState.endurance_changed.emit()
 				#player.is_weapon_attack = true
 				#player.is_endurance_disable = true
-				await weapon.attack_ready_timer.timeout
+				#await weapon.attack_ready_timer.timeout
+				if weapon.animation_player.is_playing():
+					await weapon.animation_player.animation_finished
+				else:
+					await weapon.attack_ready_timer.timeout
 				
 				if GlobalPlayerState.player_weapon == "shield" && player.is_flip:
 					weapon.animation_player.play("RESET_flip")

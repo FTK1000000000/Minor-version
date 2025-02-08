@@ -94,17 +94,14 @@ pivot_offset = Vector2(0, 12)
 color = Color(0.5, 0, 0, 0.5)
 metadata/_edit_use_anchors_ = true
 
-[node name="CollisionShape2D" parent="." index="1"]
-disabled = true
-
 [node name="EnemyHurtbox" parent="." index="2" instance=ExtResource("7_ldjus")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtbox" index="3"]
 shape = SubResource("CircleShape2D_sss1u")
 
-[node name="HitBox" parent="." index="3" instance=ExtResource("8_wlvxk")]
+[node name="Hitbox" parent="." index="3" instance=ExtResource("8_wlvxk")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(-2.82402e-06, -1.00746e-06)
 shape = SubResource("CircleShape2D_nrq5f")
 

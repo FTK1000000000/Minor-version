@@ -307,8 +307,10 @@ func _on_weapon_attack_state_entered() -> void:
 	print(name, " state: weapon_attack")
 	weapon_node.weapon_attack()
 	
-	var inertance = get_direction() * compute_move_speed() * Common.TILE_SIZE * 0.1 / 4
-	create_tween().tween_property(self, "velocity", inertance, 0.3)
+	#var inertance = get_direction() * compute_move_speed() * Common.TILE_SIZE * 0.1 / 4
+	var inertance = get_direction() * compute_move_speed() * Common.TILE_SIZE * 0.001
+	var time = weapon_node.weapon.attack_animation_length + 0.1
+	create_tween().tween_property(self, "velocity", inertance, time)
 	is_weapon_attack = true
 	is_endurance_disable = true
 	

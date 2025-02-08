@@ -2,7 +2,7 @@ extends Hurtbox
 class_name StaticEntityHurtbox
 
 
-func take_damage(damage: int, direction: Vector2, force: int):
+func take_damage(type: String, damage: int, direction: Vector2 = Vector2.ZERO, force: int = 0):
 	var tex: Texture2D = parent.body_texture.texture
 	var color: Color = tex.get_image().get_pixel(tex.get_height() / 2, tex.get_width() / 2)
 	hurt_particles.process_material.color = color

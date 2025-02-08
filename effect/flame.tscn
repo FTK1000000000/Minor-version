@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://clu32f0x3acn8"]
+
+[ext_resource type="PackedScene" uid="uid://c71y743pcviuv" path="res://effect/effect.tscn" id="1_ee7r0"]
+[ext_resource type="Script" path="res://scripts/effect/flame.gd" id="2_rgihu"]
+
+[node name="Flame" instance=ExtResource("1_ee7r0")]
+script = ExtResource("2_rgihu")
+data_name = "flame"

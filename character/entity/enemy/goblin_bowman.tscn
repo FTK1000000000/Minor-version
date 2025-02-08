@@ -1,17 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://qbvc3qdmmyt2"]
+[gd_scene load_steps=15 format=3 uid="uid://qbvc3qdmmyt2"]
 
 [ext_resource type="PackedScene" uid="uid://bwpes7pcpqnhl" path="res://character/entity/enemy/enemy.tscn" id="1_o28rv"]
 [ext_resource type="Script" path="res://scripts/character/entity/enemy/ranged_enemy.gd" id="2_4yjms"]
 [ext_resource type="Texture2D" uid="uid://cyyjcs4p0onoe" path="res://texture/character/entity/enemy/goblin_bowman.png" id="3_1vrm1"]
 [ext_resource type="AnimationLibrary" uid="uid://b1ipseiv5yfi0" path="res://animaction/enemy.res" id="4_57vl1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5iejg"]
-radius = 14.0089
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_m2odl"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_1fcjq"]
 radius = 16.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1fcjq"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_m2odl"]
 radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qivoj"]
@@ -22,96 +19,6 @@ radius = 256.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p1xny"]
 radius = 320.0
-
-[sub_resource type="Animation" id="Animation_hikxf"]
-resource_name = "idle"
-length = 0.5
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Texture/Body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_k2hgm"]
-resource_name = "ranged"
-step = 0.05
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"shoot"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Texture/Body:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.6, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [4, 5, 6, 7, 8]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Texture/AimLine:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Texture/AimLine:color")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.5, 0, 0, 0), Color(0.5, 0, 0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_h2yed"]
-resource_name = "walk"
-length = 0.4
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Texture/Body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [2, 3]
-}
 
 [sub_resource type="Animation" id="Animation_eoo5i"]
 resource_name = "RESET"
@@ -347,7 +254,7 @@ tracks/18/keys = {
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("HitBox:monitoring")
+tracks/19/path = NodePath("Hitbox:monitoring")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
@@ -359,7 +266,7 @@ tracks/19/keys = {
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("HitBox:monitorable")
+tracks/20/path = NodePath("Hitbox:monitorable")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
@@ -429,6 +336,96 @@ tracks/25/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_hikxf"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture/Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_k2hgm"]
+resource_name = "ranged"
+step = 0.05
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture/Body:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Texture/AimLine:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Texture/AimLine:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.5, 0, 0, 0), Color(0.5, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_h2yed"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture/Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4s48m"]
 _data = {
 "RESET": SubResource("Animation_eoo5i"),
@@ -451,18 +448,16 @@ texture = ExtResource("3_1vrm1")
 hframes = 9
 
 [node name="AimLine" parent="Texture" index="2"]
-color = Color(0.5, 0, 0, 1)
+visible = true
+color = Color(0.5, 0, 0, 0)
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, 3.5)
-shape = SubResource("CircleShape2D_5iejg")
+shape = SubResource("CircleShape2D_1fcjq")
 disabled = false
 
 [node name="CollisionShape2D" parent="EnemyHurtbox" index="3"]
 shape = SubResource("CircleShape2D_m2odl")
-
-[node name="CollisionShape2D" parent="HitBox" index="0"]
-shape = SubResource("CircleShape2D_1fcjq")
 
 [node name="CollisionShape2D" parent="AttackRange" index="0"]
 shape = SubResource("CircleShape2D_qivoj")

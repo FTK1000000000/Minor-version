@@ -15,6 +15,7 @@ class_name Weapon
 @onready var charge_attack_ready_timer: Timer = $ChargeAttackReadyTimer
 
 @export var data_name: String
+@export var attack_animation_length: float = 0.3
 @export var attack_consume_endurance: int = 20
 @export var special_attack_consume_endurance: int = 40
 @export var max_charge: int = 10

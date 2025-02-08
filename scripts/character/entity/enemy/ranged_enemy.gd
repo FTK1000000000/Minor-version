@@ -46,7 +46,7 @@ func recalc_path():
 
 func get_path_to_move_away_from_player():
 	var dir: Vector2 = (global_position - aggro_target.position).normalized()
-	var v = aggro_target.global_position + dir * (min_distance_to_player + body_collision.shape.radius * 2)
+	var v = aggro_target.global_position + dir * (min_distance_to_player + collision_shape_2d.shape.radius * 2)
 	navigation_agent.target_position = v
 
 func shoot():

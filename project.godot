@@ -39,6 +39,7 @@ window/bg_color=Color(0, 0, 0, 1)
 
 [editor]
 
+movie_writer/movie_file="D:/我的资料库/OneDrive/Videos/gm.avi"
 naming/use_hidden_project_data_directory=true
 naming/use_custom_user_dir=false
 

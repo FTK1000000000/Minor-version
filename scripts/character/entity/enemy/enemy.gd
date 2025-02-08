@@ -8,11 +8,13 @@ signal health_changed
 @onready var hud: Node2D = $Texture/HUD
 @onready var health_bar: TextureProgressBar = $Texture/HUD/health_bar
 @onready var attack_timer: Timer = $AttackTimer
-@onready var hitbox: Area2D = $HitBox
+@onready var hurtbox: EnemyHurtbox = $EnemyHurtbox
+@onready var hitbox: Hitbox = $Hitbox
 @onready var navigation_agent : NavigationAgent2D = $Nav/NavigationAgent2D
 @onready var path_timer: Timer = $Nav/PathTimer
 @onready var attack_ranged_collision: CollisionShape2D = $AttackRange/CollisionShape2D
-@onready var body_collision: CollisionShape2D = $CollisionShape2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
 @onready var popup_location: Marker2D = $PopupLocation
 
 @export var aggro_target: CharacterBody2D
@@ -47,7 +49,7 @@ func _ready():
 	aim_line.size.x = attack_ranged_collision.shape.radius
 	attack_is_ready = true
 	
-	var v = attack_ranged_collision.shape.radius - body_collision.shape.radius * 2
+	var v = attack_ranged_collision.shape.radius - collision_shape_2d.shape.radius * 2
 	navigation_agent.target_desired_distance = v
 	navigation_agent.path_desired_distance = 10
 	

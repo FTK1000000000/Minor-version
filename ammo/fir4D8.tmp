@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxlxf8oc56dxv"]
+
+[ext_resource type="PackedScene" uid="uid://cmd7qp4ciof0b" path="res://ammo/ammo.tscn" id="1_2qiej"]
+[ext_resource type="Texture2D" uid="uid://dy572yri32cf" path="res://texture/ammo/fireball.png" id="2_gh2rq"]
+
+[node name="FireBall" instance=ExtResource("1_2qiej")]
+effects = Array[Dictionary]([{
+"data_name": "flame",
+"time": "3"
+}])
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_gh2rq")

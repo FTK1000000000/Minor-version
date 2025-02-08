@@ -41,7 +41,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 16)]
+"values": [Vector2(0, 4)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -118,7 +118,7 @@ tracks/7/keys = {
 
 [sub_resource type="Animation" id="Animation_o8f3n"]
 resource_name = "attack"
-length = 0.3
+length = 0.5
 step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -127,7 +127,7 @@ tracks/0/path = NodePath("Texture/Main:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
+"times": PackedFloat32Array(0, 0.25, 0.5),
 "transitions": PackedFloat32Array(1, 1, 2),
 "update": 0,
 "values": [-4.71239, -8.90118, -10.9956]
@@ -139,10 +139,10 @@ tracks/1/path = NodePath("Texture/Main:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.15, 0.25, 0.3),
-"transitions": PackedFloat32Array(1, 1, 0.5, 1, 2),
+"times": PackedFloat32Array(0, 0.15, 0.25, 0.4),
+"transitions": PackedFloat32Array(1, 2, 1, 2),
 "update": 0,
-"values": [Vector2(0, 16), Vector2(0, 32), Vector2(0, 0), Vector2(0, 4), Vector2(0, 16)]
+"values": [Vector2(0, 4), Vector2(24, 16), Vector2(12, 24), Vector2(0, 4)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -151,7 +151,7 @@ tracks/2/path = NodePath("Texture/Effect:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.1, 0.15, 0.25),
+"times": PackedFloat32Array(0.25, 0.35, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
@@ -163,7 +163,7 @@ tracks/3/path = NodePath("Texture/Effect:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.1, 0.3),
+"times": PackedFloat32Array(0.25, 0.45),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -175,10 +175,24 @@ tracks/4/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.05, 0.15),
+"times": PackedFloat32Array(0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"a"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_d0veo"]
@@ -250,13 +264,21 @@ _data = {
 [node name="staff" instance=ExtResource("1_vjx5r")]
 script = ExtResource("2_6nawc")
 data_name = "sword"
+attack_animation_length = 0.4
+attack_consume_endurance = null
+special_attack_consume_endurance = null
+max_charge = null
+need_charge = null
 hit_ready_time = 0.3
 hit_damage = 20
+projectile_speed = null
+current_charge = null
+is_special_charge = null
 
 [node name="Main" parent="Texture" index="0"]
 rotation = -4.71239
 texture = ExtResource("2_ns0wc")
-offset = Vector2(0, 16)
+offset = Vector2(0, 4)
 
 [node name="ColorRect" parent="Texture/Main" index="0"]
 offset_top = -16.0
@@ -281,3 +303,6 @@ wait_time = 0.4
 libraries = {
 "": SubResource("AnimationLibrary_epy2l")
 }
+
+[node name="Camera2D" type="Camera2D" parent="." index="7"]
+zoom = Vector2(7, 7)

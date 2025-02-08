@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/collisionbox/hitbox.gd" id="1_0yfcq"]
 
-[node name="HitBox" type="Area2D"]
+[node name="Hitbox" type="Area2D"]
 scale = Vector2(0.997275, 0.976194)
 collision_layer = 0
 collision_mask = 16

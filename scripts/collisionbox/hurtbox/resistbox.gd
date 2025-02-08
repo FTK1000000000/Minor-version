@@ -2,7 +2,7 @@ extends Hurtbox
 class_name Resistbox
 
 
-func take_damage(damage: int, direction: Vector2, force: int):
+func take_damage(type: String, damage: int, direction: Vector2 = Vector2.ZERO, force: int = 0):
 	var player = GlobalPlayerState.player
 	damage = damage * 0.75 as int
 	

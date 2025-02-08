@@ -6,6 +6,8 @@ class_name Hitbox
 @export var target_group: Array[Hurtbox]
 #@export var target: Hurtbox = null
 
+@export var effects: Array[Dictionary]
+@export var damage_type: String = "none"
 @export var damage: int = 10
 @export var knockback_force: int = 300
 @export var knockback_direction: Vector2 = Vector2.ZERO
@@ -27,7 +29,14 @@ func _process(delta: float) -> void:
 
 func hit(area: Hurtbox):
 	knockback_direction = (area.global_position - global_position).normalized()
-	area.take_damage(damage, knockback_direction, knockback_force)
+	area.take_damage(damage_type, damage, knockback_direction, knockback_force)
+	give_effect(area.owner)
+
+func give_effect(target: Entity):
+	if !effects.is_empty():
+		for effect in effects:
+			var effect_machine: EffectMachine = target.effect_machine
+			effect_machine.add_effect(effect.data_name, effect.time as float)
 
 
 func _on_area_entered(area: Hurtbox) -> void:

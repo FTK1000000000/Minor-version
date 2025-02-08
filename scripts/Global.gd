@@ -9,12 +9,14 @@ const CLASSES_DATA_PATH = "res://data/classes_data.json"
 const ABILITY_DATA_PATH = "res://data/ability_data.json"
 const WEAPON_DATA_PATH = "res://data/weapon_data.json"
 const CARD_DATA_PATH = "res://data/card_data.json"
+const EFFECT_DATA_PATH = "res://data/effect_data.json"
 const ENEMY_DATA_PATH = "res://data/enemy_data.json"
 const BOSS_DATA_PATH = "res://data/boss_data.json"
 const NEUTRALITY_DATA_PATH = "res://data/neutrality_data.json"
 
 const CARD_DIRECTORY = "res://card/cards/"
 const WEAPON_DIRECTORY = "res://weapon/"
+const EFFECT_DIRECTORY = "res://effect/"
 const PLAYER_DIRECTORY = "res://character/entity/player/"
 const ENEMY_DIRECTORY = "res://character/entity/enemy/"
 
@@ -31,7 +33,7 @@ const SFX_IDX = 1
 const BGM_IDX = 2
 
 
-@onready var erro_label: Label = $ErroLabel
+@onready var erro_label: Label = $ParallaxBackground/ErroLabel
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var HUD: CanvasLayer
