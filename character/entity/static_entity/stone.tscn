@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnlbcnmi17f7v"]
+[gd_scene load_steps=4 format=3 uid="uid://cnlbcnmi17f7v"]
 
 [ext_resource type="PackedScene" uid="uid://dpmslkcun2six" path="res://character/entity/static_entity/static_entity.tscn" id="1_367if"]
+[ext_resource type="Material" uid="uid://dtpxlty5y8tnw" path="res://shader/material/enemy_dead.tres" id="2_o5oul"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5l0ko"]
 size = Vector2(32, 32)
 
 [node name="Stone" instance=ExtResource("1_367if")]
+
+[node name="Body" parent="Texture" index="0"]
+material = ExtResource("2_o5oul")
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_5l0ko")

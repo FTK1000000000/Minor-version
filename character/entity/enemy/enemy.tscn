@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://bwpes7pcpqnhl"]
+[gd_scene load_steps=19 format=3 uid="uid://bwpes7pcpqnhl"]
 
 [ext_resource type="Script" path="res://scripts/character/entity/enemy/enemy.gd" id="1_ppt2a"]
 [ext_resource type="PackedScene" uid="uid://c02bm6vhclraa" path="res://character/entity/entity.tscn" id="1_sqidf"]
+[ext_resource type="Material" uid="uid://dtpxlty5y8tnw" path="res://shader/material/enemy_dead.tres" id="3_c22h0"]
 [ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar1.png" id="4_1rh0l"]
 [ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar2.png" id="5_jsiu4"]
 [ext_resource type="Script" path="res://scripts/ui/hud/enemy_health_bar.gd" id="6_53jjb"]
@@ -41,6 +42,9 @@ attack_range = 0
 attack_ready_time = 0.0
 attack_damage = 0
 attack_knockback_force = 0
+
+[node name="Body" parent="Texture" index="0"]
+material = ExtResource("3_c22h0")
 
 [node name="SpawnEffect" type="ColorRect" parent="Texture/Body" index="1"]
 anchors_preset = 15
@@ -93,6 +97,9 @@ grow_vertical = 2
 pivot_offset = Vector2(0, 12)
 color = Color(0.5, 0, 0, 0.5)
 metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" parent="." index="1"]
+disabled = true
 
 [node name="EnemyHurtbox" parent="." index="2" instance=ExtResource("7_ldjus")]
 
