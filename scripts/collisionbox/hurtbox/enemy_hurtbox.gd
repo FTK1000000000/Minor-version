@@ -3,6 +3,7 @@ class_name EnemyHurtbox
 
 
 func take_damage(type: String, damage: int, direction: Vector2 = Vector2.ZERO, force: int = 0):
+	if owner.is_dead: return
 	if damage < parent.current_health:
 		parent.current_health -= damage
 		parent.velocity += direction * force

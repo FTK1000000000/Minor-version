@@ -11,14 +11,14 @@ radius = 16.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_m2odl"]
 radius = 16.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_qivoj"]
-radius = 331.604
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_6v1qq"]
 radius = 256.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p1xny"]
 radius = 320.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qivoj"]
+radius = 331.604
 
 [sub_resource type="Animation" id="Animation_eoo5i"]
 resource_name = "RESET"
@@ -454,16 +454,9 @@ color = Color(0.5, 0, 0, 0)
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, 3.5)
 shape = SubResource("CircleShape2D_1fcjq")
-disabled = false
 
 [node name="CollisionShape2D" parent="EnemyHurtbox" index="3"]
 shape = SubResource("CircleShape2D_m2odl")
-
-[node name="CollisionShape2D" parent="AttackRange" index="0"]
-shape = SubResource("CircleShape2D_qivoj")
-
-[node name="Aggro" parent="." index="5"]
-visible = true
 
 [node name="CollisionShape2D" parent="Aggro/AggroRange" index="0"]
 shape = SubResource("CircleShape2D_6v1qq")
@@ -471,6 +464,9 @@ debug_color = Color(0.66916, 0.610788, 0.0882345, 0.211)
 
 [node name="CollisionShape2D" parent="Aggro/DeAggroRange" index="0"]
 shape = SubResource("CircleShape2D_p1xny")
+
+[node name="CollisionShape2D" parent="AttackRange" index="0"]
+shape = SubResource("CircleShape2D_qivoj")
 
 [node name="StatePlayer" parent="." index="10"]
 libraries = {

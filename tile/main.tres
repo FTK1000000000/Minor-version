@@ -113,7 +113,7 @@ scenes/2/scene = ExtResource("4_q8mjm")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_dbr3j"]
 resource_name = "static_entity"
-scenes/1/scene = ExtResource("6_qrf28")
+scenes/2/scene = ExtResource("6_qrf28")
 
 [resource]
 tile_size = Vector2i(32, 32)

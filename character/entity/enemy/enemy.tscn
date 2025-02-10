@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://scripts/character/entity/enemy/enemy.gd" id="1_ppt2a"]
 [ext_resource type="PackedScene" uid="uid://c02bm6vhclraa" path="res://character/entity/entity.tscn" id="1_sqidf"]
-[ext_resource type="Material" uid="uid://dtpxlty5y8tnw" path="res://shader/material/enemy_dead.tres" id="3_c22h0"]
 [ext_resource type="Texture2D" uid="uid://ded06eyigw6io" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar1.png" id="4_1rh0l"]
 [ext_resource type="Texture2D" uid="uid://d3vduish3n3mv" path="res://texture/ui/hud/enemy_variable_bar/enemyHealthBar2.png" id="5_jsiu4"]
 [ext_resource type="Script" path="res://scripts/ui/hud/enemy_health_bar.gd" id="6_53jjb"]
 [ext_resource type="PackedScene" uid="uid://74b36ijn5xry" path="res://collisionbox/hurtbox/enemy_hurtbox.tscn" id="7_ldjus"]
 [ext_resource type="PackedScene" uid="uid://b6v0g5ygjvg1h" path="res://collisionbox/hitbox.tscn" id="8_wlvxk"]
+[ext_resource type="AnimationLibrary" uid="uid://31gix57stba0" path="res://animaction/enemy_hurtblink.res" id="10_cv1qk"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="10_pwj0v"]
 [ext_resource type="PackedScene" uid="uid://dwsbymttet7g0" path="res://character/popup_location.tscn" id="10_uwdq1"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="11_q61hu"]
@@ -20,31 +20,27 @@ radius = 16.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_nrq5f"]
 radius = 16.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xlgen"]
-radius = 72.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_3p7b6"]
-radius = 160.05
+radius = 160.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4x8uy"]
-radius = 202.988
+radius = 192.0
 
-[node name="Enemy" instance=ExtResource("1_sqidf")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xlgen"]
+radius = 96.0
+
+[node name="Enemy" node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_sqidf")]
 collision_layer = 8
 collision_mask = 5
 script = ExtResource("1_ppt2a")
 target_position = Vector2(0, 0)
 data_name = ""
-knockback_power = 300
 move_speed = 100
 current_move_speed = 0
-attack_range = 0
 attack_ready_time = 0.0
-attack_damage = 0
-attack_knockback_force = 0
-
-[node name="Body" parent="Texture" index="0"]
-material = ExtResource("3_c22h0")
+collision_knockback_force = 0
+collision_damage = 0
+hurtbox = NodePath("EnemyHurtbox")
 
 [node name="SpawnEffect" type="ColorRect" parent="Texture/Body" index="1"]
 anchors_preset = 15
@@ -98,9 +94,6 @@ pivot_offset = Vector2(0, 12)
 color = Color(0.5, 0, 0, 0.5)
 metadata/_edit_use_anchors_ = true
 
-[node name="CollisionShape2D" parent="." index="1"]
-disabled = true
-
 [node name="EnemyHurtbox" parent="." index="2" instance=ExtResource("7_ldjus")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtbox" index="3"]
@@ -112,16 +105,7 @@ shape = SubResource("CircleShape2D_sss1u")
 position = Vector2(-2.82402e-06, -1.00746e-06)
 shape = SubResource("CircleShape2D_nrq5f")
 
-[node name="AttackRange" type="Area2D" parent="." index="4"]
-collision_layer = 0
-collision_mask = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" index="0"]
-shape = SubResource("CircleShape2D_xlgen")
-debug_color = Color(0.725, 0.152, 0.257, 0.346)
-
-[node name="Aggro" type="Node2D" parent="." index="5"]
-visible = false
+[node name="Aggro" type="Node2D" parent="." index="4"]
 
 [node name="AggroRange" type="Area2D" parent="Aggro" index="0"]
 collision_layer = 0
@@ -138,6 +122,14 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange" index="0"]
 shape = SubResource("CircleShape2D_4x8uy")
 debug_color = Color(0, 0.627451, 0.494118, 0.313726)
+
+[node name="AttackRange" type="Area2D" parent="." index="5"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" index="0"]
+shape = SubResource("CircleShape2D_xlgen")
+debug_color = Color(0.725, 0.152, 0.257, 0.346)
 
 [node name="Nav" type="Node2D" parent="." index="6"]
 
@@ -165,6 +157,11 @@ libraries = {
 "enemy": ExtResource("13_8ipbv")
 }
 autoplay = ""
+
+[node name="HurtEffectPlayer" parent="." index="11"]
+libraries = {
+"": ExtResource("10_cv1qk")
+}
 
 [node name="Chase" type="Node" parent="StateChart/CompoundState" index="3"]
 script = ExtResource("11_q61hu")
@@ -203,10 +200,10 @@ to = NodePath("../Attack/Ranged")
 event = &"ranged"
 delay_in_seconds = "0.0"
 
-[connection signal="area_entered" from="AttackRange" to="." method="_on_attack_range_area_entered"]
-[connection signal="area_exited" from="AttackRange" to="." method="_on_attack_range_area_exited"]
 [connection signal="area_entered" from="Aggro/AggroRange" to="." method="_on_aggro_range_area_entered"]
 [connection signal="area_exited" from="Aggro/DeAggroRange" to="." method="_on_de_aggro_range_area_exited"]
+[connection signal="area_entered" from="AttackRange" to="." method="_on_attack_range_area_entered"]
+[connection signal="area_exited" from="AttackRange" to="." method="_on_attack_range_area_exited"]
 [connection signal="velocity_computed" from="Nav/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="Nav/PathTimer" to="." method="_on_path_timer_timeout"]
 [connection signal="state_entered" from="StateChart/CompoundState/Chase" to="." method="_on_chase_state_entered"]

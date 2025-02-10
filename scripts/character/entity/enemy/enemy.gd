@@ -8,13 +8,14 @@ signal health_changed
 @onready var hud: Node2D = $Texture/HUD
 @onready var health_bar: TextureProgressBar = $Texture/HUD/health_bar
 @onready var attack_timer: Timer = $AttackTimer
-@onready var hurtbox: EnemyHurtbox = $EnemyHurtbox
 @onready var hitbox: Hitbox = $Hitbox
 @onready var navigation_agent : NavigationAgent2D = $Nav/NavigationAgent2D
 @onready var path_timer: Timer = $Nav/PathTimer
 @onready var attack_ranged_collision: CollisionShape2D = $AttackRange/CollisionShape2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
-
+@onready var aggro_range: CollisionShape2D = $Aggro/AggroRange/CollisionShape2D
+@onready var de_aggro_range: CollisionShape2D = $Aggro/DeAggroRange/CollisionShape2D
+@onready var attack_range: CollisionShape2D = $AttackRange/CollisionShape2D
 @onready var popup_location: Marker2D = $PopupLocation
 
 @export var aggro_target: CharacterBody2D
@@ -22,15 +23,15 @@ signal health_changed
 @export var target_position: Vector2
 
 @export var data_name: String
-@export var knockback_power: int = 300
 @export var move_speed: int = 100
 @export var current_move_speed: int
-@export var attack_range: int
 @export var attack_ready_time: float
-@export var attack_damage: int
-@export var attack_knockback_force: int
 
-var attack_is_ready: bool = false
+
+@export var collision_knockback_force: int
+@export var collision_damage: int
+
+var attack_is_ready: bool = true
 var is_can_attack: bool = false
 var is_flip: bool = false
 
@@ -40,14 +41,12 @@ var is_attack: bool = false
 
 func _ready():
 	super()
-	
 	read_data()
 	current_move_speed = move_speed
 	current_health = max_health
-	hitbox.damage = attack_damage
-	hitbox.knockback_force = attack_knockback_force
+	hitbox.knockback_force = collision_knockback_force
+	hitbox.damage = collision_damage
 	aim_line.size.x = attack_ranged_collision.shape.radius
-	attack_is_ready = true
 	
 	var v = attack_ranged_collision.shape.radius - collision_shape_2d.shape.radius * 2
 	navigation_agent.target_desired_distance = v
@@ -107,15 +106,15 @@ func get_path_to_player():
 	navigation_agent.target_position = aggro_target.global_position
 
 func read_data():
-	if !data_name:
-		return
-	
+	if !data_name: return
 	var data = Global.enemy_data.get(data_name)
-	
-	move_speed = data.move_speed
+	move_speed = data.move_speed_multiple * Common.move_speed
 	max_health = data.max_health
-	attack_damage = data.attack_damage
-	attack_knockback_force = data.attack_knockback_force
+	collision_knockback_force = data.collision.knockback_force
+	collision_damage = data.collision.damage
+	aggro_range.shape.radius = data.aggro_range
+	de_aggro_range.shape.radius = data.de_aggro_range
+	attack_range.shape.radius = data.attack_range
 	attack_ready_time = data.attack_ready_time
 	attack_timer.wait_time = attack_ready_time
 
@@ -174,7 +173,7 @@ func _on_chase_state_exited() -> void:
 
 func _on_hurt_state_entered() -> void:
 	health_changed.emit()
-	hurt_effect_player.play("hurt_blinka")
+	hurt_effect_player.play("hurt_blink")
 	hurt_effect_timer.start()
 	await hurt_effect_timer.timeout
 	

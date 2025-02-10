@@ -1,15 +1,26 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnlbcnmi17f7v"]
 
 [ext_resource type="PackedScene" uid="uid://dpmslkcun2six" path="res://character/entity/static_entity/static_entity.tscn" id="1_367if"]
-[ext_resource type="Material" uid="uid://dtpxlty5y8tnw" path="res://shader/material/enemy_dead.tres" id="2_o5oul"]
+[ext_resource type="Texture2D" uid="uid://cc02rhj1f4xyy" path="res://texture/character/entity/static_entity/stone.png" id="2_18id3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5l0ko"]
 size = Vector2(32, 32)
 
 [node name="Stone" instance=ExtResource("1_367if")]
 
-[node name="Body" parent="Texture" index="0"]
-material = ExtResource("2_o5oul")
-
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_5l0ko")
+
+[node name="Sprite2D" type="Sprite2D" parent="PopupFragments" index="0"]
+position = Vector2(-5, -16)
+texture = ExtResource("2_18id3")
+centered = false
+region_enabled = true
+region_rect = Rect2(75, 0, 19, 21)
+
+[node name="Sprite2D2" type="Sprite2D" parent="PopupFragments" index="1"]
+position = Vector2(-12, -3)
+texture = ExtResource("2_18id3")
+centered = false
+region_enabled = true
+region_rect = Rect2(100, 13, 9, 14)

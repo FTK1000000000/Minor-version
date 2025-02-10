@@ -3,6 +3,7 @@ class_name StaticEntityHurtbox
 
 
 func take_damage(type: String, damage: int, direction: Vector2 = Vector2.ZERO, force: int = 0):
+	if owner.is_dead: return
 	var tex: Texture2D = parent.body_texture.texture
 	var color: Color = tex.get_image().get_pixel(tex.get_height() / 2, tex.get_width() / 2)
 	hurt_particles.process_material.color = color
@@ -13,7 +14,7 @@ func take_damage(type: String, damage: int, direction: Vector2 = Vector2.ZERO, f
 		parent.hurting.emit()
 		
 		bleed(damage, direction, force)
-		mark(damage, direction, force)
+		#mark(damage, direction, force)
 	else:
 		parent.deading.emit()
 		

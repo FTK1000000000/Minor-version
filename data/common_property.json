@@ -1,0 +1,9 @@
+{
+	"tile_size": 32,
+	"move_speed": 100,
+	"knokback_forec": 500,
+	"max_health": 100,
+	"attack_damage": 20,
+	"hurt_ready_time": 0.3,
+	"hurt_blink_time": 0.3
+}

@@ -40,16 +40,16 @@ const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
 @export var player_kill: int = 0
 
 #for tank
-@export var weapon_attack_twice = false
+var weapon_attack_twice = false
 #for hunter
 @export var dodge_length: int = 1000
 @export var dodge_endurance_consume: int = 30
 @export var dodge_ready_time: float = 3
 @export var dodge_time: float = 0.2
 
-@export var sturdy_shield = false
+var sturdy_shield = false
 #for mage
-@export var rapid_fire = false
+var rapid_fire = false
 
 
 func _ready() -> void:

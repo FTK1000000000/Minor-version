@@ -2,18 +2,16 @@ extends Area2D
 class_name Hitbox
 
 
-@export var collision_ready: bool = true
-@export var target_group: Array[Hurtbox]
-#@export var target: Hurtbox = null
+@onready var parent = get_node("..")
 
+@export var target_group: Array[Hurtbox]
 @export var effects: Array[Dictionary]
 @export var damage_type: String = "none"
 @export var damage: int = 10
-@export var knockback_force: int = 300
+@export var knockback_force: int = Common.knokback_forec
 @export var knockback_direction: Vector2 = Vector2.ZERO
 @export var ready_time: float = 1
-
-@onready var parent = get_node("..")
+var collision_ready: bool = true
 
 
 func _process(delta: float) -> void:

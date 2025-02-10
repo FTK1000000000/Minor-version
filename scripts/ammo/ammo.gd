@@ -8,11 +8,12 @@ const HIT_EXPLOSION_SCENE: PackedScene = preload("res://character/spawn_expansio
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
-@export var collision_exited: bool = false
+@export var data_name: String
 @export var fly_speed: int = 200
 @export var life_cycle: float = 5
 @export var hit_piercing: int = 0
 var piercing_amount: int = 0
+var collision_exited: bool = false
 
 
 func _ready() -> void:
@@ -41,6 +42,15 @@ func hit(area: Hurtbox):
 		else:
 			queue_free()
 
+
+func read_data():
+	var data = Global.ammo_data.get(data_name)
+	knockback_force = data.knockback_force_multiple * Common.knokback_forec
+	fly_speed = data.fly_speed_multiple * Common.move_speed
+	life_cycle = data.life_cycle
+	hit_piercing = data.hit_piercing
+	if data.effects: effects = data.effects
+	
 
 func dead():
 	await get_tree().create_timer(life_cycle).timeout

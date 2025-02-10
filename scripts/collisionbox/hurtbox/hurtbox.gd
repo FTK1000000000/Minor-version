@@ -17,6 +17,7 @@ func ready_time():
 	is_ready = true
 
 func take_damage(type: String, damage: int, direction: Vector2 = Vector2.ZERO, force: int = 0):
+	if owner.is_dead: return
 	if parent is StaticBody2D:
 		parent.current_health -= damage
 	
@@ -36,7 +37,9 @@ func take_damage(type: String, damage: int, direction: Vector2 = Vector2.ZERO, f
 		explode(damage, direction, force)
 
 func bleed(damage: int, direction: Vector2, force: int):
-	var ckf = Common.KNOKBACK_FOREC
+	if direction == Vector2.ZERO:
+		direction = Vector2(randi_range(-10, 10), randi_range(-10, 10))
+	var ckf = Common.knokback_forec
 	hurt_particles.speed_scale = force / ckf if force > ckf else 1
 	hurt_particles.rotation = direction.angle()
 	hurt_particles.amount = damage
@@ -48,23 +51,25 @@ func jitter(damage: int, direction: Vector2, force: int):
 		var ov = pbt.skew
 		var v = direction.angle()
 		
-		create_tween().tween_property(pbt, "skew", v, Common.HURT_BLINK_TIME)
+		create_tween().tween_property(pbt, "skew", v, Common.hurt_blink_time)
 		
-		await create_tween().tween_property(pbt, "skew", v, Common.HURT_BLINK_TIME)
-		create_tween().tween_property(pbt, "skew", ov, Common.HURT_BLINK_TIME)
+		await create_tween().tween_property(pbt, "skew", v, Common.hurt_blink_time)
+		create_tween().tween_property(pbt, "skew", ov, Common.hurt_blink_time)
 	var offset_transform = func():
 		var pbt = parent.body_texture
 		var ov = pbt.offset
 		var v = 16
 		
-		create_tween().tween_property(pbt, "offset", v, Common.HURT_BLINK_TIME)
+		create_tween().tween_property(pbt, "offset", v, Common.hurt_blink_time)
 		
-		await create_tween().tween_property(pbt, "offset", v, Common.HURT_BLINK_TIME)
-		create_tween().tween_property(pbt, "offset", ov, Common.HURT_BLINK_TIME)
+		await create_tween().tween_property(pbt, "offset", v, Common.hurt_blink_time)
+		create_tween().tween_property(pbt, "offset", ov, Common.hurt_blink_time)
 	skew_transform.call()
 	offset_transform.call()
 
 func mark(damage: int, direction: Vector2, force: int):
+	if direction == Vector2.ZERO:
+		direction = Vector2(randi_range(-10, 10), randi_range(-10, 10))
 	animated_sprite_2d.rotation = direction.angle()
 	animated_sprite_2d.visible = true
 	animated_sprite_2d.play("default")
@@ -73,7 +78,7 @@ func mark(damage: int, direction: Vector2, force: int):
 	animated_sprite_2d.visible = false
 
 func explode(damage: int, direction: Vector2, force: int):
-	var ckf = Common.KNOKBACK_FOREC
+	var ckf = Common.knokback_forec
 	dead_particles.speed_scale = force / ckf if force > ckf else 1
 	dead_particles.amount = damage * 2
 	dead_particles.restart()

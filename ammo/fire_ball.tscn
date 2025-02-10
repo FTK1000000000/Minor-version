@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dy572yri32cf" path="res://texture/ammo/fireball.png" id="2_gh2rq"]
 
 [node name="FireBall" instance=ExtResource("1_2qiej")]
+data_name = "fire_ball"
 effects = Array[Dictionary]([{
 "data_name": "flame",
 "time": "3"

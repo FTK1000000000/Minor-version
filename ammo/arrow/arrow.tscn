@@ -10,6 +10,7 @@ height = 16.0
 
 [node name="Arrow" instance=ExtResource("1_imr7n")]
 script = ExtResource("2_dfnmd")
+data_name = "arrow"
 life_cycle = 3.0
 damage = 30
 

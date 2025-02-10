@@ -308,7 +308,7 @@ func _on_weapon_attack_state_entered() -> void:
 	weapon_node.weapon_attack()
 	
 	#var inertance = get_direction() * compute_move_speed() * Common.TILE_SIZE * 0.1 / 4
-	var inertance = get_direction() * compute_move_speed() * Common.TILE_SIZE * 0.001
+	var inertance = get_direction() * compute_move_speed() * Common.tile_size * 0.001
 	var time = weapon_node.weapon.attack_animation_length + 0.1
 	create_tween().tween_property(self, "velocity", inertance, time)
 	is_weapon_attack = true

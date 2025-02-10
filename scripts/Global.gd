@@ -4,16 +4,7 @@ extends Node
 const CONFIG_PATH = "user://config.ini"
 const SAVE_PATH = "user://save.json"
 
-const STOREY_DATA_PATH = "res://data/storey_data.json"
-const CLASSES_DATA_PATH = "res://data/classes_data.json"
-const ABILITY_DATA_PATH = "res://data/ability_data.json"
-const WEAPON_DATA_PATH = "res://data/weapon_data.json"
-const CARD_DATA_PATH = "res://data/card_data.json"
-const EFFECT_DATA_PATH = "res://data/effect_data.json"
-const ENEMY_DATA_PATH = "res://data/enemy_data.json"
-const BOSS_DATA_PATH = "res://data/boss_data.json"
-const NEUTRALITY_DATA_PATH = "res://data/neutrality_data.json"
-
+const DATA_DIRECTORY = "res://data/"
 const CARD_DIRECTORY = "res://card/cards/"
 const WEAPON_DIRECTORY = "res://weapon/"
 const EFFECT_DIRECTORY = "res://effect/"
@@ -51,26 +42,23 @@ var completed_at: int = Time.get_unix_time_from_system()
 var game_guidance: bool = true
 var game_start: bool = false
 
-var storey_data: Dictionary
-var classes_data: Dictionary
 var ability_data: Dictionary
-var weapon_data: Dictionary
 var card_data: Dictionary
+var effect_data: Dictionary
+var ammo_data: Dictionary
+var classes_data: Dictionary
+var weapon_data: Dictionary
 var enemy_data: Dictionary
 var boss_data: Dictionary
 var neutrality_data: Dictionary
+var storey_data: Dictionary
 
 var boss
 
 
 func _ready():
 	config_load()
-	read_storey_data()
-	read_classes_data()
-	read_ability_data()
-	read_weapon_data()
-	read_card_data()
-	read_entity_data()
+	read_config_data()
 	
 	GlobalPlayerState.player_dead.connect(game_over)
 
@@ -145,34 +133,21 @@ func set_sfx_enabled(value):
 func camera_should_shake(amount: float):
 	GlobalPlayerState.player.camera.camera_should_shake(amount)
 
-func read_classes_data():
-	var data = JSON.parse_string(FileAccess.open(CLASSES_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
-	classes_data = data
+func read_classes_data(classes: String):
+	return FileFunction.json_as_dictionary(FileFunction.get_file_list(DATA_DIRECTORY).get(classes + "_data"))
 
-func read_storey_data():
-	var data = JSON.parse_string(FileAccess.open(STOREY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
-	storey_data = data
-
-func read_ability_data():
-	var data = JSON.parse_string(FileAccess.open(ABILITY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
-	ability_data = data
-	GlobalPlayerState.common_ability = ability_data.classes.common
-
-func read_weapon_data():
-	var data = JSON.parse_string(FileAccess.open(WEAPON_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
-	weapon_data = data
-
-func read_card_data():
-	var data = JSON.parse_string(FileAccess.open(CARD_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
-	card_data = data
-
-func read_entity_data():
-	var enemy = JSON.parse_string(FileAccess.open(ENEMY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
-	var boss = JSON.parse_string(FileAccess.open(BOSS_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
-	var neutrality = JSON.parse_string(FileAccess.open(NEUTRALITY_DATA_PATH, FileAccess.READ).get_as_text()) as Dictionary
-	enemy_data = enemy
-	boss_data = boss
-	neutrality_data = neutrality
+func read_config_data():
+	Common.read_data()
+	ability_data = read_classes_data("ability")
+	card_data = read_classes_data("card")
+	effect_data = read_classes_data("effect")
+	ammo_data = read_classes_data("ammo")
+	classes_data = read_classes_data("classes")
+	weapon_data = read_classes_data("weapon")
+	enemy_data = read_classes_data("enemy")
+	boss_data = read_classes_data("boss")
+	neutrality_data = read_classes_data("neutrality")
+	storey_data = read_classes_data("storey")
 
 func config_save():
 	var file = ConfigFile.new()

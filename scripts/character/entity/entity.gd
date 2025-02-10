@@ -13,9 +13,11 @@ signal attacking
 @onready var state_player: AnimationPlayer = $StatePlayer
 @onready var hurt_effect_player: AnimationPlayer = $HurtEffectPlayer
 
+@export var hurtbox: Hurtbox
+
 @export var max_health: int = 20
 @export var current_health: int = 20
-@export var hurt_ready_time: float = Common.HURT_READY_TIME
+@export var hurt_ready_time: float = Common.hurt_ready_time
 
 var is_dead: bool = false
 var is_hurt: bool = false

@@ -13,6 +13,9 @@ class_name Effect
 #func _ready() -> void:
 	#timer.start()
 
+func read_data():
+	var data = Global.effect_data.get(data_name)
+	trigger_timer.wait_time = data.trigger_ready_time
 
 func effect():
 	print("effect: " + data_name + " => ", target.name)

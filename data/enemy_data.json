@@ -2,19 +2,34 @@
 	"goblin": {
 		"name": "Goblin",
 		"price": 1,
-		"move_speed": 75,
+		"move_speed_multiple": 0.75,
 		"max_health": 50,
-		"attack_damage": 15,
-		"attack_knockback_force": 500,
+		"collision": {
+			"ready_time": 1,
+			"knockback_force": 1,
+			"damage": 15,
+			"effects": [
+				{"data_name": "flame", "time": 3}
+			]
+		},
+		"aggro_range": 160,
+		"de_aggro_range": 192,
+		"attack_range": 96,
 		"attack_ready_time": 1.5
 	},
 	"goblin_bowman": {
-		"name": "Goblin Bowman",
+		"name": "GoblinBowman",
 		"price": 1,
-		"move_speed": 125,
+		"move_speed_multiple": 1.2,
 		"max_health": 50,
-		"attack_damage": 15,
-		"attack_knockback_force": 300,
+		"collision": {
+			"ready_time": 1,
+			"knockback_force": 1,
+			"damage": 15
+		},
+		"aggro_range": 192,
+		"de_aggro_range": 224,
+		"attack_range": 192,
 		"attack_ready_time": 1.5
 	}
 }
