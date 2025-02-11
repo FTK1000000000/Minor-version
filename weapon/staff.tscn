@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dxd81bb0b3efb"]
+[gd_scene load_steps=13 format=3 uid="uid://dxd81bb0b3efb"]
 
 [ext_resource type="PackedScene" uid="uid://d3gvaw81qlatn" path="res://weapon/weapon.tscn" id="1_vjx5r"]
 [ext_resource type="Script" path="res://scripts/weapon/staff.gd" id="2_6nawc"]
 [ext_resource type="Texture2D" uid="uid://c7irsbta5l05j" path="res://texture/weapon/staff.png" id="2_ns0wc"]
 [ext_resource type="Texture2D" uid="uid://bemypf1tfoes4" path="res://texture/ammo/sword_ammo_1.png" id="4_ksr0h"]
 [ext_resource type="Texture2D" uid="uid://qctycn430t10" path="res://texture/effect/weapon/sword_attack_effect.png" id="4_t22bs"]
+[ext_resource type="Texture2D" uid="uid://dy572yri32cf" path="res://texture/ammo/fireball.png" id="5_wf8kj"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yl8vb"]
 particle_flag_disable_z = true
@@ -22,14 +23,14 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Texture/Main:rotation")
+tracks/0/path = NodePath("Texture:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-4.71239]
+"values": [0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -115,6 +116,54 @@ tracks/7/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Texture/FireBall:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Texture/FireBall:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Texture/FireBall:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Texture/Main:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-4.71239]
+}
 
 [sub_resource type="Animation" id="Animation_o8f3n"]
 resource_name = "attack"
@@ -180,20 +229,6 @@ tracks/4/keys = {
 "update": 1,
 "values": [false, true]
 }
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = false
-tracks/5/path = NodePath(".")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"a"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_d0veo"]
 resource_name = "charge"
@@ -202,14 +237,14 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Texture/Main:rotation")
+tracks/0/path = NodePath("Texture:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [-4.71239, -1.5708]
+"values": [0.0, 3.14159]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -223,6 +258,42 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Texture/FireBall:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Texture/FireBall:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = false
+tracks/4/path = NodePath("Texture/FireBall:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.5, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_q47bt"]
 resource_name = "charge_complete"
@@ -231,14 +302,14 @@ step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Texture/Main:rotation")
+tracks/0/path = NodePath("Texture:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 2),
 "update": 0,
-"values": [-1.5708, 1.5708]
+"values": [3.14159, 6.28319]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -251,6 +322,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Texture/FireBall:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_epy2l"]
@@ -281,13 +364,20 @@ texture = ExtResource("2_ns0wc")
 offset = Vector2(0, 4)
 
 [node name="ColorRect" parent="Texture/Main" index="0"]
-offset_top = -16.0
-offset_bottom = -16.0
+offset_top = -28.0
+offset_bottom = -28.0
 
 [node name="Effect" parent="Texture" index="1"]
 visible = false
 texture = ExtResource("4_t22bs")
 hframes = 3
+
+[node name="FireBall" type="Sprite2D" parent="Texture" index="2"]
+visible = false
+position = Vector2(-32, 3.81595e-07)
+rotation = 3.14159
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("5_wf8kj")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." index="1"]
 rotation = -4.71239
@@ -303,6 +393,3 @@ wait_time = 0.4
 libraries = {
 "": SubResource("AnimationLibrary_epy2l")
 }
-
-[node name="Camera2D" type="Camera2D" parent="." index="7"]
-zoom = Vector2(7, 7)
