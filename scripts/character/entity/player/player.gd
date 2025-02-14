@@ -98,7 +98,6 @@ func update_state():
 			state_chart.send_event("run")
 	
 	if (
-		weapon_node.weapon &&
 		Input.is_action_just_pressed("attack") &&
 		!Input.is_action_pressed("selected_card_slot") &&
 		current_endurance >= weapon_node.get_child(0).attack_consume_endurance &&
