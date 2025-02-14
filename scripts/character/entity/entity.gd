@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Entity
 
+signal health_changed
+
 signal deading
 signal hurting
 signal attacking
@@ -34,6 +36,10 @@ func dead_handle():
 
 func hurt_handle():
 	state_chart.send_event("hurt")
+
+func set_current_health(value: int):
+	current_health = value
+	health_changed.emit()
 
 
 func _on_idle_state_entered() -> void:

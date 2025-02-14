@@ -1,8 +1,6 @@
 extends Entity
 class_name Enemy
 
-signal health_changed
-
 
 @onready var aim_line: ColorRect = $Texture/AimLine
 @onready var hud: Node2D = $Texture/HUD

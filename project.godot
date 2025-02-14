@@ -47,6 +47,10 @@ naming/use_custom_user_dir=false
 
 enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
 
+[gui]
+
+theme/custom_font="res://font/VonwaonBitmap-16px.ttf"
+
 [input]
 
 back={

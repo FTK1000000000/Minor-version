@@ -5,34 +5,34 @@ class_name Hurtbox
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var hurt_particles: GPUParticles2D = $HurtParticles
 @onready var dead_particles: GPUParticles2D = $DeadParticles
-@onready var parent = get_node("..")
+@onready var target = get_node("..")
 
 var is_ready: bool = true
 
 
 func ready_time():
 	is_ready = false
-	await get_tree().create_timer(parent.hurt_ready_time).timeout
+	await get_tree().create_timer(target.hurt_ready_time).timeout
 	
 	is_ready = true
 
 func take_damage(type: String, damage: int, direction: Vector2 = Vector2.ZERO, force: int = 0):
 	if owner.is_dead: return
-	if parent is StaticBody2D:
-		parent.current_health -= damage
+	if target is static_entity:
+		target.current_health -= damage
 	
-	if damage < parent.current_health:
-		parent.current_health -= damage
-		parent.velocity += direction * force
-		parent.hurt.emit()
+	if damage < target.current_health:
+		target.current_health(target.current_health - damage)
+		target.velocity += direction * force
+		target.hurt.emit()
 		
 		mark(damage, direction, force)
 		ready_time()
 	else:
-		parent.current_health = 0
-		parent.velocity += direction * force
-		parent.hurt.emit()
-		parent.dead.emit()
+		target.current_health(0)
+		target.velocity += direction * force
+		target.hurt.emit()
+		target.dead.emit()
 		
 		explode(damage, direction, force)
 
@@ -47,7 +47,7 @@ func bleed(damage: int, direction: Vector2, force: int):
 
 func jitter(damage: int, direction: Vector2, force: int):
 	var skew_transform = func():
-		var pbt = parent.body_texture
+		var pbt = target.body_texture
 		var ov = pbt.skew
 		var v = direction.angle()
 		
@@ -56,7 +56,7 @@ func jitter(damage: int, direction: Vector2, force: int):
 		await create_tween().tween_property(pbt, "skew", v, Common.hurt_blink_time)
 		create_tween().tween_property(pbt, "skew", ov, Common.hurt_blink_time)
 	var offset_transform = func():
-		var pbt = parent.body_texture
+		var pbt = target.body_texture
 		var ov = pbt.offset
 		var v = 16
 		

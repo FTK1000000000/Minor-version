@@ -67,6 +67,16 @@ func _process(_delta):
 	weapon_node.weapon_transform()
 	weapon_node.weapon_special_attack()
 
+func set_current_health(value: int):
+	current_health = value
+	GlobalPlayerState.player_current_health = current_health
+	GlobalPlayerState.health_changed.emit()
+
+
+func set_current_endurance(value: int):
+	current_endurance = value
+	GlobalPlayerState.player_current_endurance = current_endurance
+	GlobalPlayerState.endurance_changed.emit()
 
 func update_state():
 	var is_still = velocity == Vector2.ZERO
@@ -136,11 +146,6 @@ func update_animation():
 	animation_tree["parameters/AnimationNodeStateMachine/idle/blend_position"] = m
 	animation_tree["parameters/AnimationNodeStateMachine/walk/blend_position"] = m
 	#纹理朝向和渲染索引
-
-func set_current_endurance(value: int):
-	current_endurance = value
-	GlobalPlayerState.player_current_endurance = current_endurance
-	GlobalPlayerState.endurance_changed.emit()
 
 func headle_endurance():
 	var idleing: bool = false

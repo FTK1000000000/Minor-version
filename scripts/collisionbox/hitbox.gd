@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 func hit(area: Hurtbox):
 	knockback_direction = (area.global_position - global_position).normalized()
 	area.take_damage(damage_type, damage, knockback_direction, knockback_force)
-	give_effect(area.owner)
+	give_effect(area.target)
 
 func give_effect(target: Entity):
 	if !effects.is_empty():
