@@ -66,19 +66,19 @@ script = ExtResource("5_t8hls")
 [node name="Idle" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("5_t8hls")
 
-[node name="dead" type="Node" parent="StateChart/CompoundState"]
+[node name="ToDead" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("6_681pu")
 to = NodePath("../Dead")
 event = &"dead"
 delay_in_seconds = "0.0"
 
-[node name="hurt" type="Node" parent="StateChart/CompoundState"]
+[node name="ToHurt" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("6_681pu")
 to = NodePath("../Hurt")
 event = &"hurt"
 delay_in_seconds = "0.0"
 
-[node name="idle" type="Node" parent="StateChart/CompoundState"]
+[node name="ToIdle" type="Node" parent="StateChart/CompoundState"]
 script = ExtResource("6_681pu")
 to = NodePath("../Idle")
 event = &"idle"
