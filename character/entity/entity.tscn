@@ -12,6 +12,7 @@
 
 [node name="Entity" type="CharacterBody2D"]
 z_index = 10
+motion_mode = 1
 floor_constant_speed = true
 platform_floor_layers = 4294901760
 script = ExtResource("1_87d3g")

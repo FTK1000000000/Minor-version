@@ -435,6 +435,7 @@ _data = {
 }
 
 [node name="GoblinBowman" instance=ExtResource("1_o28rv")]
+motion_mode = 0
 floor_constant_speed = false
 script = ExtResource("2_4yjms")
 projectile_speed = 200

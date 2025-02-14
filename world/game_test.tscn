@@ -125,6 +125,7 @@ position = Vector2(456, 331)
 [node name="GoblinBowman" parent="." instance=ExtResource("12_qpb14")]
 z_index = 0
 position = Vector2(184, 576)
+motion_mode = 0
 
 [node name="Stone" parent="." instance=ExtResource("12_nbcwx")]
 position = Vector2(154, 230)

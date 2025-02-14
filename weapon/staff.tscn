@@ -348,15 +348,8 @@ _data = {
 script = ExtResource("2_6nawc")
 data_name = "sword"
 attack_animation_length = 0.4
-attack_consume_endurance = null
-special_attack_consume_endurance = null
-max_charge = null
-need_charge = null
 hit_ready_time = 0.3
 hit_damage = 20
-projectile_speed = null
-current_charge = null
-is_special_charge = null
 
 [node name="Main" parent="Texture" index="0"]
 rotation = -4.71239

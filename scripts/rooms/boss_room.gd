@@ -15,11 +15,7 @@ const LEVEL_EXIT = preload("res://interactable/level_exit.tscn")
 
 
 func _ready() -> void:
-	var file = FileAccess.open(Global.BOSS_DATA_PATH, FileAccess.READ)
-	var json = file.get_as_text()
-	var data = JSON.parse_string(json) as Dictionary
-	
-	boss_name = data.get(boss).name
+	boss_name = Global.boss_data.get(boss).name
 	print("[boos spawn] => ",boss_name)
 
 

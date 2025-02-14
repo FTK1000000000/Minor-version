@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://scripts/collisionbox/hurtbox/player/tank_hurtbox.gd" id="3_ie80f"]
 
 [node name="Player" instance=ExtResource("1_ajyg4")]
+motion_mode = 0
 script = ExtResource("2_4jlyi")
 
 [node name="PlayerHurtbox" parent="." index="2"]

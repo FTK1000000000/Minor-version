@@ -15,5 +15,5 @@ func read_data():
 	
 	move_speed = data.move_speed
 	max_health = data.max_health
-	attack_damage = data.attack_damage
+	collision_damage = data.attack_damage
 	attack_ready_time = data.attack_ready_time

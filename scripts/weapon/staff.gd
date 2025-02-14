@@ -66,7 +66,8 @@ func shoot():
 		gpu_particles_2d.emitting = false
 	
 	elif Input.is_action_just_released("attack_special") && current_charge < need_charge:
-		charge_comlete()
+		charge_comlete(false)
+		#create_tween().tween_property(texture, "rotation", 0, 0.4)
 		gpu_particles_2d.emitting = false
 
 func launch():
@@ -83,6 +84,3 @@ func launch():
 	#projectile.sprite_2d.texture = load(ammo_fram[ammo_frame_value - 1])
 	##gpu_particles_2d.texture = load(ammo_fram[ammo_frame_value - 1])
 	#ammo_frame_value += 1 if ammo_frame_value < 2 else -2
-
-func a():
-	get_tree().quit()
