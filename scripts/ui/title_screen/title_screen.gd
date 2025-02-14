@@ -5,6 +5,7 @@ extends Control
 @onready var load_game: Button = $UI/MainMenu/LoadGame
 @onready var options_menu = $OptionsMenu
 @onready var classes_select: Control = $ClassesSelect
+@onready var line_edit: LineEdit = $LineEdit
 
 @export var bgm: AudioStream
 
@@ -39,3 +40,7 @@ func _on_test_pressed() -> void:
 	Global.storey_level = 0
 	Global.load_world("res://world/level.tscn")
 	print(Vector2(0, 1)+Vector2(0, -1))
+
+
+func _on_line_edit_text_changed(new_text: String) -> void:
+	Global.set_seed(line_edit.text)

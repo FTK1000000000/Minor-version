@@ -9,4 +9,4 @@ func interaction():
 		Global.storey_level += 1
 		Global.temporary_ui.add_child(Global.ABILITY_SELECT_PANEL.instantiate())
 	else:
-		Global.complete_game()
+		Global.game_complete()

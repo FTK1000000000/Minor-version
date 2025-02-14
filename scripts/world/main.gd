@@ -7,5 +7,5 @@ extends World
 func _on_button_button_up() -> void:
 	button.visible = false
 	
-	Global.game_guidance = false
+	Global.is_game_guidance = false
 	Global.load_world("res://world/main.tscn")

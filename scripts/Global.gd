@@ -31,16 +31,17 @@ const BGM_IDX = 2
 @export var temporary_ui: CanvasLayer
 @export var world: World
 
+var rng = RandomNumberGenerator.new()
+var game_started_on: int
+var game_completed_on: int
 var bgm_enabled: set = set_bgm_enabled, get = is_bgm_enabled
 var sfx_enabled: set = set_sfx_enabled, get = is_sfx_enabled
-var started_at: int = Time.get_unix_time_from_system()
-var completed_at: int = Time.get_unix_time_from_system()
 
 @export var storey_level: int
 @export var room_index: int
 
-var game_guidance: bool = true
-var game_start: bool = false
+var is_game_guidance: bool = true
+var is_game_start: bool = false
 
 var ability_data: Dictionary
 var card_data: Dictionary
@@ -63,51 +64,13 @@ func _ready():
 	GlobalPlayerState.player_dead.connect(game_over)
 
 
+func set_seed(value: Variant):
+	rng.seed = hash(value)
+	rng.state = 100
+
 func back_to_title():
 	storey_level = 0
 	load_world("res://ui/title_screen.tscn")
-
-func new_game():
-	delet_save_date()
-	
-	storey_level = 0
-	started_at = Time.get_unix_time_from_system()
-	load_world("res://world/main.tscn")
-
-func load_game():
-	var save_file = FileAccess.open(SAVE_PATH, FileAccess.READ)
-	if !save_file:
-		erro_tip("not have save file")
-	else:
-		game_load()
-
-func complete_game():
-	storey_level = 0
-	completed_at = Time.get_unix_time_from_system()
-	load_world("res://ui/game_complete.tscn")
-
-func game_over():
-	GlobalPlayerState.reset()
-	animation_player.play("RESET")
-	HUD.game_over_animation()
-	delet_save_date()
-
-func back(node: CanvasLayer):
-	node.hide()
-	game_keep()
-
-func load_world(path):
-	animation_player.play_backwards("fade")
-	await animation_player.animation_finished
-	
-	get_tree().change_scene_to_file(path)
-	animation_player.play("fade")
-
-func game_pause():
-	get_tree().paused = true
-
-func game_keep():
-	get_tree().paused = false
 
 func erro_tip(erro_text: String):
 	print("/[erro_tip] => ", erro_text)
@@ -117,6 +80,48 @@ func erro_tip(erro_text: String):
 	await get_tree().create_timer(1).timeout
 	erro_label.hide()
 	erro_label.text = ""
+
+func game_pause():
+	get_tree().paused = true
+
+func game_keep():
+	get_tree().paused = false
+
+func game_start():
+	game_started_on = Time.get_unix_time_from_system()
+	print("game started => ", game_started_on)
+
+func game_complete():
+	storey_level = 0
+	game_completed_on = Time.get_unix_time_from_system()
+	print("game completed => ", game_completed_on)
+	load_world("res://ui/game_complete.tscn")
+
+func game_over():
+	GlobalPlayerState.reset()
+	animation_player.play("RESET")
+	HUD.game_over_animation()
+	delet_save_date()
+
+func new_game():
+	delet_save_date()
+	game_start()
+	storey_level = 0
+	load_world("res://world/main.tscn")
+
+func load_game():
+	var save_file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if !save_file:
+		erro_tip("not have save file")
+	else:
+		game_load()
+
+func load_world(path):
+	animation_player.play_backwards("fade")
+	await animation_player.animation_finished
+	
+	get_tree().change_scene_to_file(path)
+	animation_player.play("fade")
 
 func is_bgm_enabled():
 	return not AudioServer.is_bus_mute(BGM_IDX)
@@ -193,7 +198,7 @@ func game_save():
 	
 	var data = {
 		game = {
-			game_guidance = game_guidance
+			is_game_guidance = is_game_guidance
 		},
 		ability_list = g,
 		player = {
@@ -232,7 +237,7 @@ func game_load():
 	
 	var g = GlobalPlayerState
 	
-	game_guidance = data.game.game_guidance
+	is_game_guidance = data.game.is_game_guidance
 	
 	g.player_classes = data.player.classes
 	g.player_weapon = data.player.weapon

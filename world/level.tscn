@@ -53,6 +53,9 @@ script = ExtResource("2_wtn4v")
 visible = false
 color = Color(0, 0, 0, 1)
 
+[node name="Camera2D2" type="Camera2D" parent="."]
+zoom = Vector2(0.09, 0.09)
+
 [connection signal="button_up" from="TemporaryUI/HBoxContainer/next" to="." method="_on_next_button_up"]
 [connection signal="button_up" from="TemporaryUI/HBoxContainer/reload" to="." method="_on_reload_button_up"]
 [connection signal="button_up" from="TemporaryUI/HBoxContainer/get_ability" to="." method="_on_get_ability_button_up"]

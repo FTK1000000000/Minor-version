@@ -131,6 +131,14 @@ text = "Test"
 visible = false
 layout_mode = 1
 
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 757.0
+offset_top = 487.0
+offset_right = 987.0
+offset_bottom = 609.0
+text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
 [node name="OptionsMenu" parent="." instance=ExtResource("5_6gpyt")]
 visible = false
 
@@ -139,3 +147,4 @@ visible = false
 [connection signal="pressed" from="UI/MainMenu/Options" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="UI/MainMenu/Quit" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="UI/MainMenu/Test" to="." method="_on_test_pressed"]
+[connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]

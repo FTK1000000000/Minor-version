@@ -24,7 +24,7 @@ func _ready():
 	Global.erro_label.hide()
 	Global.erro_label.text = ""
 	
-	if Global.game_guidance:
+	if Global.is_game_guidance:
 		tips_label.show()
 	else:
 		tips_label.hide()
