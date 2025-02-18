@@ -2,7 +2,8 @@ extends Button
 class_name InventorySlotFromHUD
 
 
-@onready var inventory = GlobalPlayerState.player_card_inventory
+@onready var inventory = Global.deck.head_pile
+
 @onready var container = $CenterContainer
 @onready var item: Sprite2D = $CenterContainer/Panel/Item
 

@@ -31,7 +31,8 @@ const BGM_IDX = 2
 @export var temporary_ui: CanvasLayer
 @export var world: World
 
-var rng = RandomNumberGenerator.new()
+var deck: Deck
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var game_started_on: int
 var game_completed_on: int
 var bgm_enabled: set = set_bgm_enabled, get = is_bgm_enabled
@@ -88,16 +89,19 @@ func game_keep():
 	get_tree().paused = false
 
 func game_start():
+	#deck = Deck.new()
 	game_started_on = Time.get_unix_time_from_system()
-	print("game started => ", game_started_on)
+	print("game started => ", Time.get_datetime_dict_from_system())
 
 func game_complete():
+	#deck.free()
 	storey_level = 0
 	game_completed_on = Time.get_unix_time_from_system()
 	print("game completed => ", game_completed_on)
 	load_world("res://ui/game_complete.tscn")
 
 func game_over():
+	#deck.free()
 	GlobalPlayerState.reset()
 	animation_player.play("RESET")
 	HUD.game_over_animation()

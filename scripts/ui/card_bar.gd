@@ -1,8 +1,10 @@
 extends Control
 
 
-@onready var player_card_inventory: Inventory = GlobalPlayerState.player_card_inventory
+@onready var player_head_car = Global.deck
+@onready var player_head_card: Inventory = Global.deck.head_pile
 @onready var slots: Array = $HBoxContainer.get_children()
+
 @onready var card_description: VBoxContainer = $CardDescription
 @onready var card_description_name: Label = $CardDescription/Name
 @onready var card_description_description: Label = $CardDescription/Description
@@ -12,7 +14,7 @@ extends Control
 
 
 func _ready():
-	player_card_inventory.update.connect(update)
+	player_head_card.update.connect(update)
 	update()
 	
 	#card_description.text = ""
@@ -28,7 +30,7 @@ func _process(_delta: float) -> void:
 			i.item.scale = not_selected_size
 		slot.item.scale = is_selected_size
 		
-		var inventory_slot: InventorySlot = player_card_inventory.slots[is_selected_card_slot_index]
+		var inventory_slot: InventorySlot = player_head_card.slots[is_selected_card_slot_index]
 		var item: InventoryItem = inventory_slot.item
 		
 		if inventory_slot.item is InventoryCard && !is_selected_card:
@@ -58,9 +60,9 @@ func _process(_delta: float) -> void:
 			is_selected_card.play()
 			is_selected_card = null
 			
-			player_card_inventory.remove(is_selected_card_slot_index)
+			player_head_card.remove(is_selected_card_slot_index)
 			var ui_slot = slots[is_selected_card_slot_index]
-			ui_slot.update(player_card_inventory.slots[is_selected_card_slot_index])
+			ui_slot.update(player_head_card.slots[is_selected_card_slot_index])
 	else:
 		#card_description.text = ""
 		card_description.hide()
@@ -84,8 +86,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func update():
-	for i in range(player_card_inventory.slots.size()):
-		var inventory_slot: InventorySlot = player_card_inventory.slots[i]
+	for i in range(player_head_card.slots.size()):
+		var inventory_slot: InventorySlot = player_head_card.slots[i]
+		print(player_head_card.slots[i])
+		print(player_head_card.slots)
+		print(player_head_card)
+		print(player_head_car)
+		print(Global.deck.head_pile)
+		print(i)
 		#if !inventory_slot.item: continue
 		
 		var slot = slots[i]
@@ -98,7 +106,7 @@ func remove_card():
 
 #func update_description():
 	#if is_selected_card:
-		#var inventory_slot: InventorySlot = player_card_inventory.slots[is_selected_card_slot_index]
+		#var inventory_slot: InventorySlot = player_head_card.slots[is_selected_card_slot_index]
 		#var item: InventoryItem = inventory_slot.item
 		#
 		#card_description.text = \

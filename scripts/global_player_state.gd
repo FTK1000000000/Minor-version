@@ -9,11 +9,8 @@ signal money_changed
 signal player_dead
 
 
-const CARD_INVENTORY = preload("res://card/player_card_inventory.tres")
-
-
 @export var player: Player
-@export var player_card_inventory: Inventory
+@export var player_max_head_card_amount: int = 7
 @export var player_classes: String
 @export var player_weapon: String
 @export var player_wealth: int = 100
@@ -55,10 +52,9 @@ var rapid_fire = false
 func _ready() -> void:
 	classes_select.connect(update_classes)
 	
+	Global.deck = Deck.new()
 	player_current_health = player_max_health
 	player_current_endurance = player_max_endurance
-	
-	player_card_inventory = CARD_INVENTORY.duplicate()
 
 
 func spawn_player(node: Node, position: Vector2 = Vector2.ZERO):
@@ -81,7 +77,7 @@ func compute_player_wealth():
 	
 	classes_price = Global.classes_data.property.get(player_classes).price
 	weapon_price = Global.weapon_data.get(player_weapon).price
-	for i in player_card_inventory.slots:
+	for i in Global.deck.head_pile.slots:
 		if i.item:
 			card_price += i.item.price
 	for i in player_ability:

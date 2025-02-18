@@ -46,6 +46,10 @@ text = "get ability"
 layout_mode = 2
 text = "change classes"
 
+[node name="def_deck" type="Button" parent="TemporaryUI/HBoxContainer"]
+layout_mode = 2
+text = "def deck"
+
 [node name="RoomsGenerator" type="Node2D" parent="."]
 script = ExtResource("2_wtn4v")
 
@@ -60,3 +64,4 @@ zoom = Vector2(0.09, 0.09)
 [connection signal="button_up" from="TemporaryUI/HBoxContainer/reload" to="." method="_on_reload_button_up"]
 [connection signal="button_up" from="TemporaryUI/HBoxContainer/get_ability" to="." method="_on_get_ability_button_up"]
 [connection signal="button_up" from="TemporaryUI/HBoxContainer/change_classes" to="." method="_on_change_classes_button_up"]
+[connection signal="button_up" from="TemporaryUI/HBoxContainer/def_deck" to="." method="_on_def_deck_button_up"]

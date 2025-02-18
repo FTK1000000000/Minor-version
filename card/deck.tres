@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="Deck" load_steps=2 format=3 uid="uid://dsvjbjw8mkfy8"]
+
+[ext_resource type="Script" path="res://scripts/card/deck.gd" id="1_qu1da"]
+
+[resource]
+script = ExtResource("1_qu1da")

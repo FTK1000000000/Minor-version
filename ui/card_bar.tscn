@@ -83,3 +83,15 @@ layout_mode = 2
 
 [node name="Slot3" parent="HBoxContainer" instance=ExtResource("2_4snt5")]
 layout_mode = 2
+
+[node name="Slot4" parent="HBoxContainer" instance=ExtResource("2_4snt5")]
+layout_mode = 2
+
+[node name="Slot5" parent="HBoxContainer" instance=ExtResource("2_4snt5")]
+layout_mode = 2
+
+[node name="Slot6" parent="HBoxContainer" instance=ExtResource("2_4snt5")]
+layout_mode = 2
+
+[node name="Slot7" parent="HBoxContainer" instance=ExtResource("2_4snt5")]
+layout_mode = 2

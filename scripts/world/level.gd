@@ -3,6 +3,8 @@ extends World
 
 @onready var rooms_generator: Node2D = $RoomsGenerator
 
+@export var cards: Array = [Card]
+
 
 func _ready() -> void:
 	super()
@@ -31,3 +33,7 @@ func _on_change_classes_button_up() -> void:
 	var a = GlobalPlayerState.player_classes
 	a = ("hunter" if a=="tank" else ("mage" if a=="hunter" else "tank"))
 	GlobalPlayerState.update_classes(a)
+
+
+func _on_def_deck_button_up() -> void:
+	Global.deck.draw_pile + cards
