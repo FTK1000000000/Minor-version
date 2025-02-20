@@ -24,3 +24,7 @@ func take_damage(type: String, damage: int, direction: Vector2 = Vector2.ZERO, f
 	await get_tree().create_timer(0.03, true, false, true).timeout
 	
 	Engine.time_scale = 1
+
+
+func _on_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.

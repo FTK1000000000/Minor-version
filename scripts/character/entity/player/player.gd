@@ -231,11 +231,11 @@ func run_endurance_consume():
 		run_endurance_consume()
 
 
-func _on_hurt_box_area_entered(area):
-	if area.has_method("collect"):
-		area.collect(GlobalPlayerState.player_card_inventory)
+func _on_hurt_box_area_entered(collectible: Collectible):
+	var inventory: Array = Global.deck.head_pile
+	collectible.collect(inventory)
 	
-	print(name, " pickup: ", area.name, " => ", area)
+	print(name, " pickup: ", collectible.name, " => ", collectible)
 #拾取物品
 
 

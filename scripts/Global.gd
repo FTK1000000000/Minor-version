@@ -31,7 +31,7 @@ const BGM_IDX = 2
 @export var temporary_ui: CanvasLayer
 @export var world: World
 
-var deck: Deck
+var deck: Deck = Deck.new()
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var game_started_on: int
 var game_completed_on: int
@@ -90,6 +90,7 @@ func game_keep():
 
 func game_start():
 	#deck = Deck.new()
+	deck.max_head_card_amount = GlobalPlayerState.player_max_head_card_amount
 	game_started_on = Time.get_unix_time_from_system()
 	print("game started => ", Time.get_datetime_dict_from_system())
 

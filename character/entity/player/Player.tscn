@@ -272,7 +272,7 @@ to = NodePath("../Attack/WeaponAttack")
 event = &"weapon_attack"
 delay_in_seconds = "0.0"
 
-[connection signal="area_exited" from="PlayerHurtbox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="PlayerHurtbox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack" to="." method="_on_walk_stack_state_entered"]
 [connection signal="state_entered" from="StateChart/CompoundState/WalkStack/Walk" to="." method="_on_walk_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/WalkStack/Walk" to="." method="_on_walk_state_exited"]

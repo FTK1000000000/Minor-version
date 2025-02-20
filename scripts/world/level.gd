@@ -3,7 +3,7 @@ extends World
 
 @onready var rooms_generator: Node2D = $RoomsGenerator
 
-@export var cards: Array = [Card]
+@export var cards: Array = [InventoryItem]
 
 
 func _ready() -> void:

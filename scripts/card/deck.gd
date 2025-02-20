@@ -1,19 +1,17 @@
 extends Object
 class_name Deck
 
+signal update
 
-var draw_pile: Array[Card]
-var discard_pile: Array[Card]
-var head_pile: Inventory = load("res://card/head_card_inventory.tres")
-var max_head_card_amount: int = GlobalPlayerState.player_max_head_card_amount
+
+var draw_pile: Array[InventoryCard]
+var discard_pile: Array[InventoryCard]
+var head_pile: Array[InventoryCard]
+var max_head_card_amount: int
 
 
 func _init() -> void:
-	head_pile.slots.clear()
-	
-	var slot: InventorySlot
-	while head_pile.slots.size() < max_head_card_amount:
-		head_pile.slots.append(slot)
+	head_pile.clear()
 
 
 func shuffle():
@@ -39,3 +37,7 @@ func draw_to_amount(amount: int = 1):
 				discard(card)
 			else:
 				head_pile.push_front(card)
+
+func add_to_head_pile(item):
+	head_pile.push_front(item)
+	update.emit()

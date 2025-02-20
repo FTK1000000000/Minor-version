@@ -77,9 +77,10 @@ func compute_player_wealth():
 	
 	classes_price = Global.classes_data.property.get(player_classes).price
 	weapon_price = Global.weapon_data.get(player_weapon).price
-	for i in Global.deck.head_pile.slots:
-		if i.item:
-			card_price += i.item.price
+	for i in Global.deck.head_pile:
+		if i:
+			if i.item:
+				card_price += i.item.price
 	for i in player_ability:
 		ability_price += Global.ability_data.list.get(i).price
 	

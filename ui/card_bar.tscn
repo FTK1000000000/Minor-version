@@ -9,12 +9,11 @@ font_size = 21
 
 [node name="CardBar" type="Control"]
 layout_mode = 3
-anchors_preset = 2
+anchors_preset = 12
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -96.0
-offset_right = 40.0
-offset_bottom = -56.0
+grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_kwji5")
 
@@ -68,11 +67,15 @@ expand_mode = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(192, 64)
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.8
-anchor_bottom = 0.8
-offset_top = -64.0
-offset_right = 200.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -460.0
+offset_top = -128.0
+offset_right = 460.0
+grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Slot" parent="HBoxContainer" instance=ExtResource("2_4snt5")]

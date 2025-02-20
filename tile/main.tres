@@ -1,7 +1,6 @@
-[gd_resource type="TileSet" load_steps=12 format=3 uid="uid://xylhprfe8g5d"]
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://xylhprfe8g5d"]
 
 [ext_resource type="Texture2D" uid="uid://bsfqwu8uwfl3g" path="res://texture/tile/main.png" id="1_ovcla"]
-[ext_resource type="PackedScene" uid="uid://u04khf3gp2st" path="res://collectible/weapons/axe.tscn" id="2_tb02y"]
 [ext_resource type="PackedScene" uid="uid://g60u21fdrpc6" path="res://collectible/life_pot.tscn" id="3_w1516"]
 [ext_resource type="PackedScene" uid="uid://bp3tiwvdb0vgo" path="res://card/cards/lucky_purple_shorts.tscn" id="4_q8mjm"]
 [ext_resource type="PackedScene" uid="uid://rxgg4go80tfg" path="res://card/cards/test_1.tscn" id="5_jy7ft"]
@@ -103,7 +102,6 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_8gxea"]
 resource_name = "collectibles"
-scenes/1/scene = ExtResource("2_tb02y")
 scenes/2/scene = ExtResource("3_w1516")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_u5r57"]
