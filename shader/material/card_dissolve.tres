@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bqqbgq6howqym"]
+
+[ext_resource type="Shader" path="res://shader/dissolve.gdshader" id="1_lsdhf"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5mkon"]
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wy1vm"]
+width = 16
+height = 16
+noise = SubResource("FastNoiseLite_5mkon")
+
+[resource]
+shader = ExtResource("1_lsdhf")
+shader_parameter/position = Vector2(0.26, -0.075)
+shader_parameter/radius = 0.0736257
+shader_parameter/borderWidth = 0.02
+shader_parameter/burnMult = 0.135
+shader_parameter/burnColor = null
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_wy1vm")

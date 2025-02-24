@@ -24,20 +24,21 @@ func discard(card):
 	elif card in head_pile: head_pile.erase(card)
 	discard_pile.push_front(card)
 
-func draw_to_amount(amount: int = 1):
-	var target_amount = head_pile.size() + amount
+func add_to_head_pile(item: InventoryCard):
+	head_pile.push_back(item)
+	update.emit()
+
+func draw_amount(amount: int = 1):
+	var target_amount = amount
 	
-	while head_pile.size() < target_amount:
+	while target_amount > 0:
 		if draw_pile.is_empty():
 			shuffle()
 		else:
-			var card = draw_pile.front()
+			var card = draw_pile.pop_front()
 			
 			if head_pile.size() >= max_head_card_amount:
 				discard(card)
 			else:
-				head_pile.push_front(card)
-
-func add_to_head_pile(item):
-	head_pile.push_front(item)
-	update.emit()
+				add_to_head_pile(card)
+			target_amount -= 1

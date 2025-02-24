@@ -1,13 +1,92 @@
-[gd_scene load_steps=3 format=3 uid="uid://1vhwnqa5g1p3"]
+[gd_scene load_steps=7 format=3 uid="uid://1vhwnqa5g1p3"]
 
 [ext_resource type="Script" path="res://scripts/ui/inventory/slot.gd" id="1_kopdt"]
+[ext_resource type="Material" uid="uid://bqqbgq6howqym" path="res://shader/material/card_dissolve.tres" id="3_3lwvi"]
 [ext_resource type="Texture2D" uid="uid://bs1f5fpj78sy7" path="res://texture/card/lucky_purple_shorts.png" id="3_7er8c"]
+
+[sub_resource type="Animation" id="Animation_n1gjw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/Panel/Item:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/Panel/Item:material:shader_parameter/radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5wrpb"]
+resource_name = "disappear"
+length = 0.6
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/Panel/Item:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_3lwvi")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/Panel/Item:material:shader_parameter/radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"rand_disappear_position"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_foxsn"]
+_data = {
+"RESET": SubResource("Animation_n1gjw"),
+"disappear": SubResource("Animation_5wrpb")
+}
 
 [node name="Slot" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(128, 128)
-offset_right = 8.0
-offset_bottom = 8.0
+custom_minimum_size = Vector2(96, 128)
+offset_right = 96.0
+offset_bottom = 128.0
+pivot_offset = Vector2(48, 64)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_kopdt")
@@ -26,3 +105,8 @@ layout_mode = 2
 [node name="Item" type="Sprite2D" parent="CenterContainer/Panel"]
 scale = Vector2(8, 8)
 texture = ExtResource("3_7er8c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_foxsn")
+}
