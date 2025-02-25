@@ -13,7 +13,7 @@ noise = SubResource("FastNoiseLite_5mkon")
 [resource]
 shader = ExtResource("1_lsdhf")
 shader_parameter/position = Vector2(0.26, -0.075)
-shader_parameter/radius = 0.0736257
+shader_parameter/radius = 0.0
 shader_parameter/borderWidth = 0.02
 shader_parameter/burnMult = 0.135
 shader_parameter/burnColor = null
