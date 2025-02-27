@@ -9,10 +9,9 @@ const IS_SELECT_CARD_SLOT = preload("res://shader/material/is_select_card_slot.t
 @onready var slots: Control = $Slots
 @onready var show_position: Vector2 = slots.position
 
-@onready var card_description: VBoxContainer = $CardDescription
-@onready var card_description_name: Label = $CardDescription/Name
-@onready var card_description_description: Label = $CardDescription/Description
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var card_description: VBoxContainer = $Background/CardDescription
+@onready var card_description_name: Label = $Background/CardDescription/Name
+@onready var card_description_description: Label = $Background/CardDescription/Description
 
 @export var is_selected_card_slot_index: int = 0
 @export var is_selected_card: Card
@@ -23,7 +22,7 @@ var is_show: bool = false
 
 
 func _ready():
-	Global.deck.max_head_card_amount = GlobalPlayerState.player_max_head_card_amount
+	Global.deck.max_head_card_amount = GlobalPlayerState.max_head_card_amount
 	Global.deck.update.connect(update.bind(false))
 	card_description.hide()
 	hide_animation()
@@ -32,16 +31,16 @@ func _ready():
 func _process(_delta: float) -> void:
 	update_card_bar_state()
 
-func _unhandled_input(event: InputEvent) -> void:
-	#if event.is_action_pressed("down"):
-		#var a: InventoryCard = InventoryCard.new()
-		#a.data_name = "test_1"
-		#a.name = "test_1"
-		#a.description = "test_1"
-		#a.price = 1
-		#a.icon = preload("res://texture/card/test.png")
-		#Global.deck.draw_pile = [a,a]
-		#Global.deck.draw_amount()
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("down"):
+		var a: InventoryCard = InventoryCard.new()
+		a.data_name = "test_1"
+		a.name = "test_1"
+		a.description = "test_1"
+		a.price = 1
+		a.icon = preload("res://texture/card/test.png")
+		Global.deck.draw_pile = [a,a]
+		Global.deck.draw_amount()
 	
 	if event.is_action_released("selected_card_slot"):
 		if !is_show:
@@ -68,6 +67,16 @@ func _unhandled_input(event: InputEvent) -> void:
 				is_selected_card_slot_index -= 1
 			
 			remove_card()
+		
+		if event.is_action_released("play_is_selected_card"):
+			is_selected_card.play()
+			player_head_card.remove_at(is_selected_card_slot_index)
+			var ui_slot: InventorySlotFromHUD = slots.get_children()[is_selected_card_slot_index]
+			ui_slot.animation_player.play("play")
+			await ui_slot.animation_player.animation_finished
+			
+			update(false)
+			get_viewport().set_input_as_handled()
 
 
 func remove_card():
@@ -97,9 +106,11 @@ func style_change(animation: bool = true):
 			slot.position = position_value
 
 func update(animation: bool = true):
-	for slot: Node in slots.get_children():
-		#slot.queue_free()
-		slot.free()
+	for slot: InventorySlotFromHUD in slots.get_children():
+		slot.queue_free()
+		#slot.free()
+	await get_tree().process_frame
+	
 	for item: InventoryItem in player_head_card:
 		var slot_ins = CARD_SLOT.instantiate()
 		slots.add_child(slot_ins)
@@ -110,7 +121,8 @@ func show_animation():
 	create_tween().tween_property(slots, "position", show_position, 0.5)
 
 func hide_animation():
-	remove_card()
+	if is_selected_card != null:
+		remove_card()
 	
 	create_tween().tween_property(slots, "position:y", show_position.y + hide_range, 0.5)
 
@@ -122,7 +134,8 @@ func update_card_bar_state():
 		var slot = slots.get_children()[is_selected_card_slot_index]
 		for i in slots.get_children():
 			i.item_texture.scale = not_selected_size
-			i.item_texture.material = null
+			if i.item_texture.material == IS_SELECT_CARD_SLOT:
+				i.item_texture.material = null
 		slot.item_texture.scale = is_selected_size
 		slot.item_texture.material = IS_SELECT_CARD_SLOT
 		
@@ -137,30 +150,14 @@ func update_card_bar_state():
 				is_selected_card.monitorable = false
 				is_selected_card.scale = Vector2(3, 3)
 				is_selected_card.icon.material.set_shader_parameter("highlight", false)
-				#show_animation()
 		
-		elif !Input.is_action_pressed("selected_card_slot") || !Input.is_action_pressed("play_is_selected_card"):
-			slot.item_texture.scale = not_selected_size
-			slot.item_texture.material = null
-			
-			remove_card()
-		
-		if is_selected_card:
+		if is_selected_card != null:
 			is_selected_card.global_position = get_global_mouse_position()
 			
 			var item = is_selected_card.item_resource
 			card_description_name.text = item.name if item.name else item.data_name
 			card_description_description.text = item.description if item.description else item.data_name
 			card_description.show()
-			
-			if Input.is_action_just_pressed("play_is_selected_card"):
-				is_selected_card.play()
-				player_head_card.remove_at(is_selected_card_slot_index)
-				var ui_slot: InventorySlotFromHUD = slots.get_children()[is_selected_card_slot_index]
-				ui_slot.animation_player.play("disappear")
-				await ui_slot.animation_player.animation_finished
-				
-				update(false)
 		else:
 			card_description.hide()
 	elif is_show:

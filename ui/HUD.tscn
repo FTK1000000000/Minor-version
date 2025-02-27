@@ -18,7 +18,7 @@ shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 [node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("show_layer")]
 process_mode = 3
 script = ExtResource("1_0wxeb")
-show_layer = [NodePath("Vignette"), NodePath("PlayerVariable"), NodePath("CardBar")]
+show_layer = [NodePath("Vignette"), NodePath("PlayerVariable")]
 
 [node name="GameOverScreen" parent="." instance=ExtResource("7_b6b1u")]
 layer = 100
@@ -59,9 +59,7 @@ text = "PUASE"
 
 [node name="PlayerVariable" parent="." instance=ExtResource("5_owdq0")]
 
-[node name="CardBar" type="CanvasLayer" parent="."]
-
-[node name="CardBar" parent="CardBar" instance=ExtResource("9_d3ifq")]
+[node name="CardBar" parent="." instance=ExtResource("9_d3ifq")]
 
 [node name="TipsLabel" type="Control" parent="."]
 visible = false

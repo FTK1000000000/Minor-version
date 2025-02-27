@@ -9,7 +9,7 @@ extends Button
 
 
 func _ready() -> void:
-	var classes = GlobalPlayerState.player_classes
+	var classes = GlobalPlayerState.classes
 	var common_ability: Array
 	var ability_list: Array
 	var ability_name: String

@@ -30,6 +30,7 @@ class_name Weapon
 
 func _ready() -> void:
 	read_data()
+	GlobalPlayerState.weapon = self
 	
 	hitbox.damage = hit_damage
 	hitbox.ready_time = hit_ready_time as float

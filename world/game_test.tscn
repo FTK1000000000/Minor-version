@@ -52,8 +52,9 @@ text = "get ability"
 layout_mode = 2
 text = "change classes"
 
-[node name="HUD" parent="." instance=ExtResource("6_yl06e")]
+[node name="HUD" parent="." node_paths=PackedStringArray("show_layer") instance=ExtResource("6_yl06e")]
 visible = false
+show_layer = [NodePath("Vignette"), NodePath("PlayerVariable"), null]
 
 [node name="Rooms" type="Node2D" parent="."]
 

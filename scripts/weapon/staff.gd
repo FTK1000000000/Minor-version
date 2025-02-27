@@ -48,7 +48,7 @@ func _process(delta: float) -> void:
 func shoot():
 	if (
 		Input.is_action_just_pressed("attack_special") &&
-		GlobalPlayerState.player_current_endurance >= special_attack_consume_endurance
+		GlobalPlayerState.current_endurance >= special_attack_consume_endurance
 		):
 			special_consume()
 			animation_player.play("charge")

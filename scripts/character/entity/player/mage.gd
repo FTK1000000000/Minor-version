@@ -21,14 +21,14 @@ func update_state():
 	elif !is_still && !is_weapon_attack:
 		if !is_walk && !shift:
 			state_chart.send_event("walk")
-		elif !is_endurance_recover && shift && current_endurance <= (GlobalPlayerState.player_max_endurance - 1):
+		elif !is_endurance_recover && shift && current_endurance <= (GlobalPlayerState.max_endurance - 1):
 			state_chart.send_event("endurance_recover")
 	
 	if (
 		Input.is_action_just_pressed("attack") &&
-		!Input.is_action_pressed("selected_card_slot") &&
-		current_endurance >= weapon_node.get_child(0).attack_consume_endurance &&
-		weapon_node.get_child(0).attack_ready_timer.is_stopped()
+		!Global.HUD.card_bar.is_show &&
+		GlobalPlayerState.weapon.attack_ready_timer.is_stopped() &&
+		current_endurance >= weapon_node.get_child(0).attack_consume_endurance
 		):
 		state_chart.send_event("weapon_attack")
 	
@@ -47,7 +47,7 @@ func headle_endurance():
 		!is_weapon_attack && 
 		!is_weapon_special_charge_attack && 
 		!is_resist &&
-		current_endurance < GlobalPlayerState.player_max_endurance
+		current_endurance < GlobalPlayerState.max_endurance
 		):
 			is_endurance_disable = false
 	
@@ -56,9 +56,9 @@ func headle_endurance():
 	
 	if current_endurance < 0:
 		current_endurance = 0
-	elif current_endurance > GlobalPlayerState.player_current_health:
+	elif current_endurance > GlobalPlayerState.current_health:
 		is_endurance_disable = true
-	elif current_endurance < GlobalPlayerState.player_current_health && !is_endurance_disable:
+	elif current_endurance < GlobalPlayerState.current_health && !is_endurance_disable:
 		endurance_recover()
 
 func endurance_recover():
@@ -69,21 +69,21 @@ func endurance_recover():
 		!is_weapon_special_charge_attack && 
 		!is_resist
 		):
-			if current_endurance <= GlobalPlayerState.player_current_health - endurance_recover_amount:
+			if current_endurance <= GlobalPlayerState.current_health - endurance_recover_amount:
 				endurance_recover_timer.start()
 				await endurance_recover_timer.timeout
 				
 				set_current_endurance(current_endurance + endurance_recover_amount)
 				print("current_endurance: ", current_endurance)
 				endurance_recover()
-			elif current_endurance != GlobalPlayerState.player_current_health:
-				set_current_endurance(GlobalPlayerState.player_current_health)
+			elif current_endurance != GlobalPlayerState.current_health:
+				set_current_endurance(GlobalPlayerState.current_health)
 				print("current_endurance: ", current_endurance)
 
 
 func endurance_recover_endurance_recover():
-	if !is_endurance_recover && current_endurance > GlobalPlayerState.player_max_endurance:
-		set_current_endurance(GlobalPlayerState.player_max_endurance)
+	if !is_endurance_recover && current_endurance > GlobalPlayerState.max_endurance:
+		set_current_endurance(GlobalPlayerState.max_endurance)
 		state_chart.send_event("walk")
 		return
 	elif is_endurance_recover && run_endurance_consume_timer.is_stopped():
@@ -99,14 +99,14 @@ func _on_endurance_recover_state_entered() -> void:
 	if !is_endurance_recover:
 		is_endurance_recover = true
 		print(name, " state: walk.endurance_recover")
-	move_speed_multiple = GlobalPlayerState.player_run_move_speed_multiple / 2 / 2
-	GlobalPlayerState.player_current_move_speed_multiple = move_speed_multiple
+	move_speed_multiple = GlobalPlayerState.run_move_speed_multiple / 2 / 2
+	GlobalPlayerState.current_move_speed_multiple = move_speed_multiple
 	animation_tree["parameters/TimeScale/scale"] = move_speed_multiple
 	endurance_recover_endurance_recover()
 
 
 func _on_endurance_recover_state_exited() -> void:
 	is_endurance_recover = false
-	move_speed_multiple = GlobalPlayerState.player_walk_move_speed_multiple
-	GlobalPlayerState.player_current_move_speed_multiple = move_speed_multiple
+	move_speed_multiple = GlobalPlayerState.walk_move_speed_multiple
+	GlobalPlayerState.current_move_speed_multiple = move_speed_multiple
 	animation_tree["parameters/TimeScale/scale"] = move_speed_multiple

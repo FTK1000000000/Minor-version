@@ -11,7 +11,7 @@ const ABILITY_SLOT = preload("res://ui/player_panel/ability_slot.tscn")
 
 
 func _ready() -> void:
-	ability_list = GlobalPlayerState.player_ability.duplicate()
+	ability_list = GlobalPlayerState.current_ability.duplicate()
 	ability_number = ability_list.size()
 	
 	generate()

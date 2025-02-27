@@ -33,7 +33,7 @@ func weapon_transform(
 		else:
 			weapon.scale.y = 1
 		
-		if GlobalPlayerState.player_weapon == "shield":
+		if GlobalPlayerState.weapon.data_name == "shield":
 			if player.is_flip:
 				weapon.main.frame = 1
 			else:
@@ -52,7 +52,7 @@ func weapon_attack():
 				weapon.animation_player.play("attack")
 				weapon.attack_ready_timer.start()
 				player.current_endurance -= weapon.attack_consume_endurance
-				GlobalPlayerState.player_current_endurance = player.current_endurance
+				GlobalPlayerState.current_endurance = player.current_endurance
 				GlobalPlayerState.endurance_changed.emit()
 				#player.is_weapon_attack = true
 				#player.is_endurance_disable = true
@@ -76,14 +76,14 @@ func weapon_attack():
 				#player.is_weapon_attack = false
 			
 			else:
-				if GlobalPlayerState.player_weapon == "shield" && player.is_flip:
+				if GlobalPlayerState.weapon.data_name == "shield" && player.is_flip:
 					weapon.animation_player.play("attack_flip")
 				else:
 					weapon.animation_player.play("attack")
 				
 				weapon.attack_ready_timer.start()
 				player.current_endurance -= weapon.attack_consume_endurance
-				GlobalPlayerState.player_current_endurance = player.current_endurance
+				GlobalPlayerState.current_endurance = player.current_endurance
 				GlobalPlayerState.endurance_changed.emit()
 				#player.is_weapon_attack = true
 				#player.is_endurance_disable = true
@@ -93,7 +93,7 @@ func weapon_attack():
 				else:
 					await weapon.attack_ready_timer.timeout
 				
-				if GlobalPlayerState.player_weapon == "shield" && player.is_flip:
+				if GlobalPlayerState.weapon.data_name == "shield" && player.is_flip:
 					weapon.animation_player.play("RESET_flip")
 				else:
 					weapon.animation_player.play("RESET")

@@ -36,8 +36,8 @@ func run():
 func compute_sum_of_enemy_price():
 	GlobalPlayerState.compute_player_wealth()
 	
-	var cp = Global.classes_data.property.get(GlobalPlayerState.player_classes).price
-	var pw = GlobalPlayerState.player_wealth
+	var cp = Global.classes_data.property.get(GlobalPlayerState.classes).price
+	var pw = GlobalPlayerState.wealth
 	var deviation = cp / pw
 	sum_of_enemy_price = \
 	#randi_range(

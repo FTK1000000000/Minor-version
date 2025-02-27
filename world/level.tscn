@@ -13,7 +13,8 @@ ignore_rotation = false
 enabled = false
 zoom = Vector2(0.05, 0.05)
 
-[node name="HUD" parent="." instance=ExtResource("5_x3b58")]
+[node name="HUD" parent="." node_paths=PackedStringArray("show_layer") instance=ExtResource("5_x3b58")]
+show_layer = [NodePath("Vignette"), NodePath("PlayerVariable"), null]
 
 [node name="TemporaryUI" type="CanvasLayer" parent="."]
 process_mode = 3

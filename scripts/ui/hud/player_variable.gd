@@ -30,10 +30,10 @@ func update():
 	update_money()
 
 func update_variable_bar():
-	var ch = GlobalPlayerState.player_current_health
-	var ce = GlobalPlayerState.player_current_endurance
-	var hv = ch * 100.0 / GlobalPlayerState.player_max_health
-	var ev = ce * 100.0 / GlobalPlayerState.player_max_endurance
+	var ch = GlobalPlayerState.current_health
+	var ce = GlobalPlayerState.current_endurance
+	var hv = ch * 100.0 / GlobalPlayerState.max_health
+	var ev = ce * 100.0 / GlobalPlayerState.max_endurance
 	
 	if old_health > ch:
 		health_label.text = str(ch)

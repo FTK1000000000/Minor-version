@@ -39,9 +39,9 @@ func _input(event: InputEvent) -> void:
 
 
 func update_style():
-	if GlobalPlayerState.player_classes != "":
+	if GlobalPlayerState.classes != "":
 		classes.show()
-		classes.text = Global.classes_data.classes_name.get(GlobalPlayerState.player_classes)
+		classes.text = Global.classes_data.classes_name.get(GlobalPlayerState.classes)
 	else:
 		classes.hide()
 	
@@ -53,10 +53,10 @@ func update_style():
 
 func update_panel():
 	var g = GlobalPlayerState
-	health_value.text = (str(g.player_current_health) + "/" + str(g.player_max_health))
-	end_value.text = (str(g.player_current_endurance) + "/" + str(g.player_max_endurance))
+	health_value.text = (str(g.current_health) + "/" + str(g.max_health))
+	end_value.text = (str(g.current_endurance) + "/" + str(g.max_endurance))
 	end_recover_value.text = (str(g.endurance_recover_amount))
 	end_recover_speed_value.text = (str(g.endurance_recover_speed))
-	move_speed_value.text = (str(g.player_move_speed))
-	move_speed_multiple_value.text = (str(g.player_current_move_speed_multiple))
+	move_speed_value.text = (str(g.move_speed))
+	move_speed_multiple_value.text = (str(g.current_move_speed_multiple))
 	

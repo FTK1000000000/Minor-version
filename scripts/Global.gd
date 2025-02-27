@@ -90,7 +90,7 @@ func game_keep():
 
 func game_start():
 	#deck = Deck.new()
-	deck.max_head_card_amount = GlobalPlayerState.player_max_head_card_amount
+	deck.max_head_card_amount = GlobalPlayerState.max_head_card_amount
 	game_started_on = Time.get_unix_time_from_system()
 	print("game started => ", Time.get_datetime_dict_from_system())
 
@@ -194,12 +194,12 @@ func config_load():
 func game_save():
 	var scene: World = get_tree().current_scene
 	var g = GlobalPlayerState
-	var ga = GlobalPlayerState.player_ability
+	var ga = GlobalPlayerState.current_ability
 	
-	if ga.has("more_health"): g.player_max_health = (g.player_max_health - ga.count("more_health") * 50)
-	if ga.has("more_endurance"): g.player_max_endurance = (g.player_max_endurance - ga.count("more_endurance") * 50)
-	if ga.has("more_walk_speed"): g.player_move_speed = (g.player_move_speed - ga.count("more_walk_speed") * 50)
-	if ga.has("more_run_speed"): g.player_run_move_speed_multiple = (g.player_run_move_speed_multiple - ga.count("more_run_speed") * 50)
+	if ga.has("more_health"): g.max_health = (g.max_health - ga.count("more_health") * 50)
+	if ga.has("more_endurance"): g.max_endurance = (g.max_endurance - ga.count("more_endurance") * 50)
+	if ga.has("more_walk_speed"): g.move_speed = (g.move_speed - ga.count("more_walk_speed") * 50)
+	if ga.has("more_run_speed"): g.run_move_speed_multiple = (g.run_move_speed_multiple - ga.count("more_run_speed") * 50)
 	
 	var data = {
 		game = {
@@ -207,16 +207,16 @@ func game_save():
 		},
 		ability_list = g,
 		player = {
-			classes = g.player_classes,
-			weapon = g.player_weapon,
-			move_speed = g.player_move_speed,
-			player_run_move_speed_multiple = g.player_run_move_speed_multiple,
-			max_health = g.player_max_health,
-			max_endurance = g.player_max_endurance,
-			current_health = g.player_current_health,
-			ability = g.player_ability,
+			classes = g.classes,
+			weapon = g.weapon.data_name,
+			move_speed = g.move_speed,
+			run_move_speed_multiple = g.run_move_speed_multiple,
+			max_health = g.max_health,
+			max_endurance = g.max_endurance,
+			current_health = g.current_health,
+			current_ability = g.current_ability,
 			remainder_ability = g.remainder_ability,
-			kill = g.player_kill
+			kill = g.kill
 		},
 		world = {
 			storey_level = storey_level,
@@ -244,14 +244,14 @@ func game_load():
 	
 	is_game_guidance = data.game.is_game_guidance
 	
-	g.player_classes = data.player.classes
-	g.player_weapon = data.player.weapon
-	g.player_max_health = data.player.max_health
-	g.player_max_endurance = data.player.max_endurance
-	g.player_current_health = data.player.current_health
-	g.player_ability = data.player.ability
+	g.classes = data.player.classes
+	g.weapon = data.player.weapon
+	g.max_health = data.player.max_health
+	g.max_endurance = data.player.max_endurance
+	g.current_health = data.player.current_health
+	g.ability = data.player.ability
 	g.remainder_ability = data.player.remainder_ability
-	g.player_kill = data.player.kill
+	g.kill = data.player.kill
 	
 	g.update_ability()
 	load_world("res://world/level.tscn")

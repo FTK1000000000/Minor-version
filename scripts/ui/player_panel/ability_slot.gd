@@ -11,7 +11,7 @@ extends Panel
 
 
 func _ready() -> void:
-	var classes = GlobalPlayerState.player_classes
+	var classes = GlobalPlayerState.classes
 	var common_ability = GlobalPlayerState.common_ability
 	var ability_list = player_ability_panel.ability_list
 	var ability_name: String
