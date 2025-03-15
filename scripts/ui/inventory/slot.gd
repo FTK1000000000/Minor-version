@@ -2,17 +2,25 @@ extends Button
 class_name InventorySlotFromHUD
 
 
+const TEST_ICON = preload("res://texture/card/test.png")
+
+
 @onready var item_texture: Sprite2D = $CenterContainer/Panel/Item
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+var playing: bool = false
 
 
 func update(inventory_item: InventoryItem):
 	if !inventory_item:
-		item_texture.texture = null
+		item_texture.texture = TEST_ICON
 	else:
 		item_texture.texture = inventory_item.icon
 
 func rand_disappear_position():
-	var tex: Texture2D = item_texture.texture
-	var pos: Vector2 = Vector2(randi_range(0, tex.get_width()), randi_range(0, tex.get_height()))
-	item_texture.material.set_shader_parameter("position", pos)
+	var pos: Vector2 = Vector2(randf_range(0, 1), randf_range(0, 1))
+	var shader: ShaderMaterial = item_texture.material
+	shader.set_shader_parameter("position", pos)
+
+func play():
+	animation_player.play("play")

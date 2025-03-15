@@ -11,9 +11,19 @@ signal player_dead
 
 var player: Player
 var weapon: Weapon
-@export var max_head_card_amount: int = 7
 @export var classes: String
-@export var wealth: int = 100
+@export var max_head_card_amount: int = 7
+@export var wealth: int = 100:
+	set(v):
+		wealth = v
+		
+		#dark styem
+		var vignette = Global.HUD.vignette
+		var dark_level
+		for i in vignette.level_intensity:
+			if i.get("price") <= wealth:
+				dark_level = i
+		vignette.level = dark_level
 @export var max_health: int = 100
 @export var max_endurance: int = 100
 @export var move_speed: int = 100

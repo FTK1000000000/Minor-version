@@ -21,3 +21,6 @@ extends Card
 	#for i in v:
 		#var collisionbox = i.collider
 		#print(collisionbox)
+
+func ability():
+	pass

@@ -1,12 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhipmf7vpf1db"]
+[gd_scene load_steps=5 format=3 uid="uid://dhipmf7vpf1db"]
 
 [ext_resource type="Script" path="res://scripts/world/main.gd" id="1_mqshf"]
 [ext_resource type="PackedScene" uid="uid://lwop5d7oso6m" path="res://interactable/level_exit.tscn" id="4_vd50b"]
 [ext_resource type="Script" path="res://scripts/ui/temporary_ui.gd" id="6_cp0lg"]
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="7_tgnu7"]
-
-[sub_resource type="Environment" id="Environment_cbwgi"]
-glow_enabled = true
 
 [node name="StartWorld" type="Node2D"]
 script = ExtResource("1_mqshf")
@@ -33,9 +30,6 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 23
 text = "skip guidance"
 metadata/_edit_use_anchors_ = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_cbwgi")
 
 [node name="LevelExit" parent="." instance=ExtResource("4_vd50b")]
 position = Vector2(7, 1)

@@ -1,12 +1,31 @@
 {
-	"lucky_purple_shorts": {
-		"price": 3,
-		"name": "Lucky Purple Shorts",
-		"description": "color for a the lucky for a the shorts of the purple"
-	},
+	"type": [
+		"deck",
+		"ability",
+		"expendable"
+	],
 	"test_1": {
-		"price": 5,
-		"name": "Test",
-		"description": "the test: price of 5"
+		"type": "deck",
+		"name": "Test 1",
+		"description": "the test: give 5 money",
+		"price": 5
+	},
+	"test_2": {
+		"type": "expendable",
+		"name": "Test 2",
+		"description": "the test: give 5 money",
+		"price": 5
+	},
+	"test_3": {
+		"type": "ability",
+		"name": "Test 3",
+		"description": "the test: give 5 money for on taket",
+		"price": 5
+	},
+	"lucky_purple_shorts": {
+		"type": "expendable",
+		"name": "Lucky Purple Shorts",
+		"description": "color for a the lucky for a the shorts of the purple",
+		"price": 3
 	}
 }

@@ -19,9 +19,10 @@ func shuffle():
 	draw_pile += cards
 	discard_pile.clear()
 
-func discard(card):
-	if card in draw_pile: draw_pile.erase(card)
-	elif card in head_pile: head_pile.erase(card)
+func discard(card: InventoryCard, pile: int = 0):
+	match pile:
+		0: head_pile.erase(card)
+		1: draw_pile.erase(card)
 	discard_pile.push_front(card)
 
 func add_to_head_pile(item: InventoryCard):

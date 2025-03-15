@@ -19,7 +19,7 @@ class_name Collectible
 	#queue_free()
 
 func collect(inventory: Array):
-	if inventory.size() >= GlobalPlayerState.player_max_head_card_amount: return
+	if inventory.size() >= GlobalPlayerState.max_head_card_amount: return
 	
 	inventory.push_front(item_resource)
 	Global.deck.update.emit()
