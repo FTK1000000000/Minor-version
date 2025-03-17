@@ -17,14 +17,16 @@ var level_intensity: Dictionary = {
 
 
 func _ready() -> void:
-	update()
+	update(false)
 
 
-func update():
-	#var shader: ShaderMaterial = color_rect.material
+func update(animation: bool = true):
 	var iv = level_intensity.get(level).get("i")
 	var ov = level_intensity.get(level).get("o")
-	create_tween().tween_property(color_rect, "material:shader_parameter/vignette_intensity", iv, 6)
-	create_tween().tween_property(color_rect, "material:shader_parameter/vignette_opacity", ov, 6)
-	#shader.set_shader_parameter("vignette_intensity", iv)
-	#shader.set_shader_parameter("vignette_opacity", ov)
+	if animation:
+		create_tween().tween_property(color_rect, "material:shader_parameter/vignette_intensity", iv, 6)
+		create_tween().tween_property(color_rect, "material:shader_parameter/vignette_opacity", ov, 6)
+	else:
+		var shader: ShaderMaterial = color_rect.material
+		shader.set_shader_parameter("vignette_intensity", iv)
+		shader.set_shader_parameter("vignette_opacity", ov)

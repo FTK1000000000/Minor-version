@@ -17,7 +17,7 @@ const IS_SELECT_CARD_SLOT = preload("res://shader/material/is_select_card_slot.t
 @export var is_selected_card_slot_index: int = 0
 @export var is_selected_card: Card
 var hide_range: int = 160
-var is_selected_size = Vector2(12, 12)
+var is_selected_size = Vector2(10, 10)
 var not_selected_size = Vector2(8, 8)
 var is_show: bool = false
 var is_playing: bool = false

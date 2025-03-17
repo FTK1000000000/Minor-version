@@ -31,8 +31,8 @@ const BGM_IDX = 2
 @export var temporary_ui: CanvasLayer
 @export var world: World
 
-var deck: Deck = Deck.new()
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var deck: Deck = Deck.new()
 var game_started_on: int
 var game_completed_on: int
 var bgm_enabled: set = set_bgm_enabled, get = is_bgm_enabled

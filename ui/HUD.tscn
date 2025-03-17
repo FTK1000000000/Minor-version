@@ -29,8 +29,6 @@ visible = false
 script = ExtResource("3_wx7k4")
 
 [node name="ColorRect" type="ColorRect" parent="Vignette"]
-z_index = -13
-z_as_relative = false
 material = SubResource("ShaderMaterial_soh2g")
 anchors_preset = 15
 anchor_right = 1.0

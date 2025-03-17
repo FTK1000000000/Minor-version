@@ -21,7 +21,7 @@ var weapon: Weapon
 		var vignette = Global.HUD.vignette
 		var dark_level
 		for i in vignette.level_intensity:
-			if i.get("price") <= wealth:
+			if vignette.level_intensity.get(i).get("price") <= wealth:
 				dark_level = i
 		vignette.level = dark_level
 @export var max_health: int = 100

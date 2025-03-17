@@ -24,11 +24,13 @@ var branch_way_amount: int
 var room_amount: int
 var room_number: int
 var sum_of_enemy_price: int
+var rng: RandomNumberGenerator = Global.rng
 
 @onready var player: Player = $"../Player"
 
 
 func run():
+	rng.state = rng.seed
 	compute_sum_of_enemy_price()
 	rooms_generator()
 
@@ -40,13 +42,18 @@ func compute_sum_of_enemy_price():
 	var pw = GlobalPlayerState.wealth
 	var deviation = cp / pw
 	sum_of_enemy_price = \
-	#randi_range(
+	#rng.randi_range(
 		#pw + pw * deviation,
 		#pw - pw * deviation
 	#)
 	pw
 	
 	print("/[compute_sum_of_enemy_price] => ", sum_of_enemy_price, ", deviation: ", deviation)
+
+func rand_direction() -> Vector2:
+	var a = [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
+	var x = a[rng.randi() % a.size()]
+	return x
 
 func rooms_generator():
 	print("[rooms_generator]")
@@ -131,22 +138,20 @@ func rooms_generator():
 							if room_class == "end":
 								break
 							else:
-								var a = [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
-								var x = a[randi() % a.size()]
-								
-								if room_door_direction.has(x):
+								var direction = rand_direction()
+								if direction in room_door_direction:
 									print("break => repeat.dir")
 									print()
 									
 									repeat = true
 								else:
 									repeat = false
-									room_door_direction.push_back(x)
+									room_door_direction.push_back(direction)
 				else:
 					room_position = Vector2(0, 0)
 					
 					var a = [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
-					var v = a[randi() % a.size()]
+					var v = a[rng.randi() % a.size()]
 					room_door_direction.push_back(v)
 				
 				if !repeat:
@@ -205,8 +210,8 @@ func rooms_generator():
 						if i.class == "fight":
 							midway_room_index.push_back(i.index)
 					
-					#var root_room_index = (randi() % (room_group_data.size() - 2)) + 1
-					var root_room_index = midway_room_index[randi() % midway_room_index.size()]
+					#var root_room_index = (rng.randi() % (room_group_data.size() - 2)) + 1
+					var root_room_index = midway_room_index[rng.randi() % midway_room_index.size()]
 					var root_room_data: Dictionary = room_group_data[root_room_index - 1]
 					if root_room_data.door_direction.size() >= 4:
 						return recurrence()
@@ -228,7 +233,7 @@ func rooms_generator():
 					room_position = root_room_data.position
 					old_room_position = root_room_data.position
 					old_room_door_direction = root_room_data.door_direction
-					branch_direction = empty_direction[randi() % empty_direction.size()]
+					branch_direction = empty_direction[rng.randi() % empty_direction.size()]
 					room_direction = branch_direction
 					root_room_data.door_direction.insert(root_room_data.door_direction.size() - 1, branch_direction)
 					
@@ -282,10 +287,8 @@ func rooms_generator():
 								if room_class == "end":
 									break
 								else:
-									var a = [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
-									var x = a[randi() % a.size()]
-									
-									if room_door_direction.has(x):
+									var direction = rand_direction()
+									if direction in room_door_direction:
 										#print("[room_door_direction] ", room_door_direction)
 										print("break => repeat.dir")
 										print()
@@ -293,7 +296,7 @@ func rooms_generator():
 										repeat = true
 									else:
 										repeat = false
-										room_door_direction.push_back(x)
+										room_door_direction.push_back(direction)
 						
 						if !repeat:
 							room_amount += 1
@@ -370,7 +373,7 @@ func rooms_generator():
 						return v
 					var key = compute_key.call(room_door_direction)
 					var path = FileFunction.get_file_list(room_data.scene.get(storey_scene).get(room_class).get(key))
-					room = load(path.get(path.keys()[randi() % path.size()])).instantiate()
+					room = load(path.get(path.keys()[rng.randi() % path.size()])).instantiate()
 					room.position.x = room_position.x * ROOM_SIZE
 					room.position.y = room_position.y * ROOM_SIZE
 					room_number += 1
@@ -392,7 +395,7 @@ func rooms_generator():
 			var boss = storey_data.get(str(storey_level)).boss
 			room = load(path.get(boss)).instantiate()
 		else:
-			room = load(path.get(path.keys()[randi() % path.size()])).instantiate()
+			room = load(path.get(path.keys()[rng.randi() % path.size()])).instantiate()
 		add_child(room)
 		
 		player_spawn_position = room.player_spawn_position
@@ -430,7 +433,7 @@ func enemy_group_generator():
 		var enemy_scene_file: PackedScene
 		var enemy_file_list: Dictionary = FileFunction.get_file_list(Global.ENEMY_DIRECTORY)
 		var enemy_data_list: Array = Global.enemy_data.keys()
-		var key: String = enemy_data_list[randi() % enemy_data_list.size()]
+		var key: String = enemy_data_list[rng.randi() % enemy_data_list.size()]
 		enemy = enemy_file_list.get(key)
 		enemy_group_data.push_back(enemy)
 		current_enemys_price -= Global.enemy_data.get(key).price
