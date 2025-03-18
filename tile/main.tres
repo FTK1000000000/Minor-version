@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://rxgg4go80tfg" path="res://card/cards/test_1.tscn" id="5_jy7ft"]
 [ext_resource type="PackedScene" uid="uid://cnlbcnmi17f7v" path="res://character/entity/static_entity/stone.tscn" id="6_qrf28"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_eqr1m"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_n46p1"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
@@ -16,9 +16,11 @@ agent_radius = 0.0
 texture = ExtResource("1_ovcla")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_eqr1m")
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 4:0/0 = 0
+4:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 5:0/0 = 0
+5:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 6:0/0 = 0
 6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(6.75, -16, 16, -16, 16, 16, 6.5, 16)
 7:0/0 = 0
@@ -33,9 +35,13 @@ texture_region_size = Vector2i(32, 32)
 13:0/0 = 0
 13:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 0:1/0 = 0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 1:1/0 = 0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 4:1/0 = 0
+4:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 5:1/0 = 0
+5:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 6:1/0 = 0
 6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(6.75, -16, 16, -16, 16, 16, 6.5, 16)
 10:1/0 = 0
@@ -63,8 +69,11 @@ texture_region_size = Vector2i(32, 32)
 13:4/0 = 0
 13:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, 16, 16, 16, 16, -16, 16)
 3:0/0 = 0
+3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 2:1/0 = 0
+2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 3:1/0 = 0
+3:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 1:3/0 = 0
 0:3/0 = 0
 12:3/0 = 0
@@ -72,15 +81,23 @@ texture_region_size = Vector2i(32, 32)
 13:3/0 = 0
 13:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 0:2/0 = 0
+0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 1:2/0 = 0
+1:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 2:2/0 = 0
+2:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 1:0/0 = 0
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 2:0/0 = 0
+2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 0:4/0 = 0
 1:4/0 = 0
 3:2/0 = 0
+3:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 4:2/0 = 0
+4:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 5:2/0 = 0
+5:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_n46p1")
 6:2/0 = 0
 6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(6.75, -16, 16, -16, 16, 16, 6.5, 16)
 6:3/0 = 0
@@ -104,6 +121,10 @@ texture_region_size = Vector2i(32, 32)
 11:4/0 = 0
 11:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_dbr3j"]
+resource_name = "static_entity"
+scenes/0/scene = ExtResource("6_qrf28")
+
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_8gxea"]
 resource_name = "collectibles"
 scenes/2/scene = ExtResource("3_w1516")
@@ -113,16 +134,12 @@ resource_name = "card"
 scenes/1/scene = ExtResource("5_jy7ft")
 scenes/2/scene = ExtResource("4_q8mjm")
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_dbr3j"]
-resource_name = "static_entity"
-scenes/2/scene = ExtResource("6_qrf28")
-
 [resource]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_l1f7f")
-sources/1 = SubResource("TileSetScenesCollectionSource_8gxea")
-sources/2 = SubResource("TileSetScenesCollectionSource_u5r57")
-sources/3 = SubResource("TileSetScenesCollectionSource_dbr3j")
+sources/1 = SubResource("TileSetScenesCollectionSource_dbr3j")
+sources/2 = SubResource("TileSetScenesCollectionSource_8gxea")
+sources/3 = SubResource("TileSetScenesCollectionSource_u5r57")

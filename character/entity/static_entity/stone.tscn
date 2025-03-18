@@ -9,7 +9,11 @@ size = Vector2(32, 32)
 [node name="Stone" instance=ExtResource("1_367if")]
 
 [node name="CollisionShape2D" parent="." index="1"]
+visible = false
 shape = SubResource("RectangleShape2D_5l0ko")
+
+[node name="CollisionShape2D" parent="StaticEntityHurtbox" index="3"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="PopupFragments" index="0"]
 position = Vector2(-5, -16)

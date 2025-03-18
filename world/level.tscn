@@ -9,6 +9,7 @@ script = ExtResource("1_3273o")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 ignore_rotation = false
+enabled = false
 zoom = Vector2(0.05, 0.05)
 
 [node name="HUD" parent="." node_paths=PackedStringArray("show_layer") instance=ExtResource("5_x3b58")]
