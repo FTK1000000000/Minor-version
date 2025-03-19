@@ -67,7 +67,7 @@ func _ready():
 
 func set_seed(value: Variant):
 	rng.seed = hash(value)
-	rng.state = 100
+	rng.state = rng.seed
 
 func back_to_title():
 	storey_level = 0
