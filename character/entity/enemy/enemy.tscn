@@ -31,7 +31,7 @@ radius = 96.0
 
 [node name="Enemy" node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_sqidf")]
 collision_layer = 8
-collision_mask = 5
+collision_mask = 13
 script = ExtResource("1_ppt2a")
 target_position = Vector2(0, 0)
 data_name = ""
@@ -141,7 +141,6 @@ avoidance_enabled = true
 max_speed = 100000.0
 avoidance_layers = 2
 avoidance_mask = 2
-debug_enabled = true
 
 [node name="PathTimer" type="Timer" parent="Nav" index="1"]
 wait_time = 0.1

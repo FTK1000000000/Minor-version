@@ -35,15 +35,15 @@ func _process(_delta: float) -> void:
 	update_card_bar_state()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("down"):
-		var a: InventoryCard = InventoryCard.new()
-		a.data_name = "test_1"
-		a.name = "test_1"
-		a.description = "test_1"
-		a.price = 1
-		a.icon = preload("res://texture/card/test.png")
-		Global.deck.draw_pile = [a,a]
-		Global.deck.draw_amount()
+	#if event.is_action_pressed("down"):
+		#var a: InventoryCard = InventoryCard.new()
+		#a.data_name = "test_1"
+		#a.name = "test_1"
+		#a.description = "test_1"
+		#a.price = 1
+		#a.icon = preload("res://texture/card/test.png")
+		#Global.deck.draw_pile = [a,a]
+		#Global.deck.draw_amount()
 	
 	if event.is_action_released("selected_card_slot"):
 		if !is_show:

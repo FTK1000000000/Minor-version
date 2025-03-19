@@ -102,7 +102,9 @@ position = Vector2(402.885, -2.41509)
 
 [node name="Goblin" parent="." instance=ExtResource("6_77skx")]
 position = Vector2(467, 387)
+collision_mask = 5
 
 [node name="GoblinBowman" parent="." instance=ExtResource("12_qpb14")]
 z_index = 0
 position = Vector2(471, 531)
+collision_mask = 5

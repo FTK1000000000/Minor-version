@@ -32,6 +32,5 @@ text = "skip guidance"
 metadata/_edit_use_anchors_ = true
 
 [node name="LevelExit" parent="." instance=ExtResource("4_vd50b")]
-position = Vector2(7, 1)
 
 [connection signal="button_up" from="HUD/Button" to="." method="_on_button_button_up"]
