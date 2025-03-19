@@ -57,7 +57,7 @@ func spawn_entity():
 		var enemy: Enemy
 		var spawn_position: Vector2i
 		var floor_layer: Array = tile_map.get_child(TILE_LAYER.FLOOR).get_used_cells()
-		spawn_position = floor_layer[randi() % floor_layer.size()] * Common.tile_size
+		spawn_position = floor_layer[Global.rng.randi() % floor_layer.size()] * Common.tile_size
 		spawn_position = (spawn_position + Vector2i.LEFT if spawn_position.x < 0 else spawn_position + Vector2i.RIGHT)
 		spawn_position = (spawn_position + Vector2i.UP if spawn_position.y < 0 else spawn_position + Vector2i.DOWN)
 		enemy = load(enemy_group_data.pop_front()).instantiate()

@@ -17,7 +17,7 @@ func _ready() -> void:
 	var seconds = duration % 60
 	time_value.text = "%d:%d" % [minuets, seconds]
 	
-	kill_value.text = str(GlobalPlayerState.player_kill)
+	kill_value.text = str(GlobalPlayerState.kill)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):

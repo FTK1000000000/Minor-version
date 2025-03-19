@@ -30,7 +30,6 @@ var rng: RandomNumberGenerator = Global.rng
 
 
 func run():
-	rng.state = rng.seed
 	compute_sum_of_enemy_price()
 	rooms_generator()
 

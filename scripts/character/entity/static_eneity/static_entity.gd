@@ -9,8 +9,8 @@ func broken():
 	for fragment in popup_fragments.get_children():
 		var launch_tween = create_tween()
 		var launch_position = Vector2(
-			randi_range(-Common.tile_size, Common.tile_size),
-			randi_range(-Common.tile_size, Common.tile_size)
+			Global.rng.randi_range(-Common.tile_size, Common.tile_size),
+			Global.rng.randi_range(-Common.tile_size, Common.tile_size)
 		)
 		launch_tween.tween_property(fragment, "position", launch_position, 0.5)
 	
