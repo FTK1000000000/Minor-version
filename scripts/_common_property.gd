@@ -21,3 +21,8 @@ static func read_data():
 	attack_damage = data.attack_damage
 	hurt_ready_time = data.hurt_ready_time
 	hurt_blink_time = data.hurt_blink_time
+
+static func compute_clamp_value(base_1: float, base_2: float, max: float):
+	return base_2 if base_1 < base_2 + max && base_1 > base_2 - max else (
+		base_2 + max if base_1 - base_2 > 0 else base_2 - max
+		)

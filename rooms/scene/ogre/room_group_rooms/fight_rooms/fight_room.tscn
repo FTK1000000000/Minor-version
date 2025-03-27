@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c2m7un3utsm6x" path="res://rooms/room.tscn" id="1_eacui"]
 [ext_resource type="Script" path="res://scripts/rooms/fight_room.gd" id="2_q8uoc"]
-[ext_resource type="PackedScene" uid="uid://bqrkndx6b0j15" path="res://rooms/doors/up_door.tscn" id="3_6ud5p"]
+[ext_resource type="PackedScene" uid="uid://bqrkndx6b0j15" path="res://tile/ward.tscn" id="3_6ud5p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rhipf"]
 size = Vector2(64, 160)

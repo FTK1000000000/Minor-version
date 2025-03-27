@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="prison"
+config/name="blind curse"
 config/name_localized={
 "cn": "头盔骑士",
 "en": "Knight of Helmet"
@@ -32,6 +32,7 @@ SoundManager="*res://sound_manager.tscn"
 window/size/viewport_width=1080
 window/size/viewport_height=720
 window/size/initial_position_type=0
+window/size/always_on_top=true
 window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="res://texture/ui/cursor/cursor.png"
 window/bg_color=Color(0, 0, 0, 1)
@@ -44,7 +45,7 @@ naming/use_custom_user_dir=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+enabled=PackedStringArray()
 
 [gui]
 

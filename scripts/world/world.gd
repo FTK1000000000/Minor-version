@@ -18,3 +18,4 @@ func _ready() -> void:
 	Global.HUD = hud
 	
 	GlobalPlayerState.spawn_player(self)
+	GlobalPlayerState.player.firefly.restart()

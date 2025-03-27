@@ -5,7 +5,10 @@ class_name StaticEntityHurtbox
 func take_damage(type: String, damage: int, direction: Vector2 = Vector2.ZERO, force: int = 0):
 	if owner.is_dead: return
 	var tex: Texture2D = target.body_texture.texture
-	var color: Color = tex.get_image().get_pixel(tex.get_height() / 2, tex.get_width() / 2)
+	var color: Color = tex.get_image().get_pixel(
+			randi_range(0, tex.get_height()),
+			randi_range(0, tex.get_width())
+		)
 	hurt_particles.process_material.color = color
 	dead_particles.process_material.color = color
 	

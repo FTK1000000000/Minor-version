@@ -9,6 +9,7 @@ class_name Player
 @onready var endurance_recover_timer: Timer = $EnduranceRecoverTimer
 @onready var end_recover_ready_timer: Timer = $EndRecoverReadyTimer
 @onready var run_endurance_consume_timer: Timer = $RunEnduranceConsumeTimer
+@onready var firefly: GPUParticles2D = $Firefly
 @onready var camera: Camera2D = $Camera2D
 
 @export var interactable_with: Array[Interactable]

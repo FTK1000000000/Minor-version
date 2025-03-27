@@ -41,6 +41,9 @@ func set_current_health(value: int):
 	current_health = value
 	health_changed.emit()
 
+func get_current_state() -> String:
+	return state_chart._state._active_state.name
+
 
 func _on_idle_state_entered() -> void:
 	is_idle = true

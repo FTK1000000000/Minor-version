@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c76kqdervowc5"]
+[gd_scene load_steps=31 format=3 uid="uid://c76kqdervowc5"]
 
 [ext_resource type="PackedScene" uid="uid://c02bm6vhclraa" path="res://character/entity/entity.tscn" id="1_gp5ur"]
 [ext_resource type="PackedScene" uid="uid://b5an3p11uidjl" path="res://collisionbox/hurtbox/player_hurtbox.tscn" id="2_nonjc"]
@@ -9,7 +9,11 @@
 [ext_resource type="Script" path="res://scripts/camera/shaky_camera.gd" id="5_syllx"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://dq75qdq1t3txp" path="res://Player.tres" id="6_if7x0"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="7_275eu"]
+[ext_resource type="Material" uid="uid://sjjqo1h8i8hp" path="res://particle/firefly.tres" id="7_kfx5y"]
+[ext_resource type="PackedScene" uid="uid://daqytvy7sw1uw" path="res://light/player_light.tscn" id="7_sa0mf"]
+[ext_resource type="Texture2D" uid="uid://dvckjfms2if3c" path="res://texture/particle/firefly.png" id="8_4gh67"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="8_doywg"]
+[ext_resource type="Script" path="res://scripts/ui/firefly.gd" id="9_1glqv"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="9_y2so8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xdyhc"]
@@ -214,18 +218,31 @@ one_shot = true
 wait_time = 0.02
 one_shot = true
 
-[node name="Camera2D" type="Camera2D" parent="." index="10"]
+[node name="PlayerLight" parent="." index="10" instance=ExtResource("7_sa0mf")]
+visible = false
+
+[node name="Firefly" type="GPUParticles2D" parent="." index="11"]
+emitting = false
+amount = 3
+process_material = ExtResource("7_kfx5y")
+texture = ExtResource("8_4gh67")
+lifetime = 6.0
+randomness = 1.0
+draw_order = 0
+script = ExtResource("9_1glqv")
+
+[node name="Camera2D" type="Camera2D" parent="." index="12"]
 zoom = Vector2(2, 2)
 script = ExtResource("5_syllx")
 
-[node name="StatePlayer" parent="." index="11"]
+[node name="StatePlayer" parent="." index="13"]
 libraries = {
 "": SubResource("AnimationLibrary_4m0qe"),
 "back": SubResource("AnimationLibrary_qkebf"),
 "front": SubResource("AnimationLibrary_pl718")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="13"]
+[node name="AnimationTree" type="AnimationTree" parent="." index="15"]
 tree_root = SubResource("AnimationNodeBlendTree_smdr3")
 advance_expression_base_node = NodePath("../StatePlayer")
 anim_player = NodePath("../StatePlayer")

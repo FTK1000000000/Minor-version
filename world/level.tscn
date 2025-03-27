@@ -1,65 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://evjri63xmru4"]
+[gd_scene load_steps=5 format=3 uid="uid://c27230ppeyely"]
 
+[ext_resource type="PackedScene" uid="uid://chcqcdcguc21s" path="res://world/world.tscn" id="1_25th5"]
 [ext_resource type="Script" path="res://scripts/world/level.gd" id="1_3273o"]
 [ext_resource type="Script" path="res://scripts/world/rooms_generators/level_rooms_generators.gd" id="2_wtn4v"]
-[ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="5_x3b58"]
+[ext_resource type="TileSet" uid="uid://ba5ngk5m2c1sr" path="res://tile/background_tile.tres" id="4_8fml8"]
 
-[node name="World" type="Node2D"]
+[node name="Level" instance=ExtResource("1_25th5")]
 script = ExtResource("1_3273o")
+cards = null
 
-[node name="Camera2D" type="Camera2D" parent="."]
-ignore_rotation = false
-enabled = false
-zoom = Vector2(0.05, 0.05)
-
-[node name="HUD" parent="." node_paths=PackedStringArray("show_layer") instance=ExtResource("5_x3b58")]
-show_layer = [NodePath("Vignette"), NodePath("PlayerVariable"), null]
-
-[node name="TemporaryUI" type="CanvasLayer" parent="."]
-process_mode = 3
-layer = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TemporaryUI"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="next" type="Button" parent="TemporaryUI/HBoxContainer"]
-layout_mode = 2
-text = "next"
-
-[node name="reload" type="Button" parent="TemporaryUI/HBoxContainer"]
-layout_mode = 2
-text = "reload"
-
-[node name="get_ability" type="Button" parent="TemporaryUI/HBoxContainer"]
-layout_mode = 2
-text = "get ability"
-
-[node name="change_classes" type="Button" parent="TemporaryUI/HBoxContainer"]
-layout_mode = 2
-text = "change classes"
-
-[node name="def_deck" type="Button" parent="TemporaryUI/HBoxContainer"]
-layout_mode = 2
-text = "def deck"
-
-[node name="RoomsGenerator" type="Node2D" parent="."]
+[node name="RoomsGenerator" type="Node2D" parent="." index="5"]
 script = ExtResource("2_wtn4v")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color(0, 0, 0, 1)
+[node name="BackgroundTile" type="TileMapLayer" parent="." index="6"]
+z_index = -10
+tile_set = ExtResource("4_8fml8")
 
-[connection signal="button_up" from="TemporaryUI/HBoxContainer/next" to="." method="_on_next_button_up"]
-[connection signal="button_up" from="TemporaryUI/HBoxContainer/reload" to="." method="_on_reload_button_up"]
-[connection signal="button_up" from="TemporaryUI/HBoxContainer/get_ability" to="." method="_on_get_ability_button_up"]
-[connection signal="button_up" from="TemporaryUI/HBoxContainer/change_classes" to="." method="_on_change_classes_button_up"]
-[connection signal="button_up" from="TemporaryUI/HBoxContainer/def_deck" to="." method="_on_def_deck_button_up"]
+[node name="Camera2D" type="Camera2D" parent="." index="7"]
+enabled = false
+zoom = Vector2(0.08, 0.08)

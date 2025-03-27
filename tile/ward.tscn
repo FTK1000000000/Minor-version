@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqrkndx6b0j15"]
+
+[ext_resource type="Script" path="res://scripts/rooms/ward.gd" id="1_wlwlr"]
+[ext_resource type="Texture2D" uid="uid://dvc5u5i0xb02m" path="res://texture/tile/ward.png" id="2_3ajfc"]
+[ext_resource type="Material" uid="uid://r2tkvyo0oi7n" path="res://particle/ward.tres" id="3_3bit6"]
+[ext_resource type="Texture2D" uid="uid://dd8d4txan3u3k" path="res://texture/particle/ward.png" id="3_ntv1r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ej86t"]
+size = Vector2(45.2708, 40.8641)
+
+[node name="Ward" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_wlwlr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+position = Vector2(32, 32)
+texture = ExtResource("2_3ajfc")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(32, 32)
+amount = 3
+process_material = ExtResource("3_3bit6")
+texture = ExtResource("3_ntv1r")
+lifetime = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(32, 32)
+rotation = -3.14159
+scale = Vector2(1.41371, -1.56617)
+shape = SubResource("RectangleShape2D_ej86t")

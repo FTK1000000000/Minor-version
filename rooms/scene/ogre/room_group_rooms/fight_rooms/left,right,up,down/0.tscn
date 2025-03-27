@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=4 uid="uid://v2nxuocjjd7s"]
 
 [ext_resource type="PackedScene" uid="uid://bk6pqsdpq3jg2" path="res://rooms/fight_room.tscn" id="1_e1niq"]
-[ext_resource type="PackedScene" uid="uid://bqrkndx6b0j15" path="res://rooms/doors/up_door.tscn" id="2_jpl7n"]
+[ext_resource type="PackedScene" uid="uid://bqrkndx6b0j15" path="res://tile/ward.tscn" id="2_jpl7n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rwlw5"]
 size = Vector2(160, 64)

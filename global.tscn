@@ -14,7 +14,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = false
-tracks/0/path = NodePath("CanvasLayer:visible")
+tracks/0/path = NodePath("SceneTransition:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -26,7 +26,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/1/path = NodePath("SceneTransition/ColorRect:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -38,7 +38,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CanvasLayer/ColorRect:material:shader_parameter/cutoff")
+tracks/2/path = NodePath("SceneTransition/ColorRect:material:shader_parameter/cutoff")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -79,7 +79,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = false
-tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/path = NodePath("SceneTransition/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -91,7 +91,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer:visible")
+tracks/1/path = NodePath("SceneTransition:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -103,7 +103,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CanvasLayer/ColorRect:material:shader_parameter/cutoff")
+tracks/2/path = NodePath("SceneTransition/ColorRect:material:shader_parameter/cutoff")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -158,6 +158,7 @@ autoplay = true
 bus = &"BGM"
 
 [node name="PlayerHurt" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="ColorRect" type="ColorRect" parent="PlayerHurt"]
 visible = false
@@ -168,9 +169,10 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.3, 0.085, 0, 0)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="SceneTransition" type="CanvasLayer" parent="."]
+layer = 3
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="SceneTransition"]
 material = SubResource("ShaderMaterial_884qf")
 anchors_preset = 15
 anchor_right = 1.0
@@ -179,23 +181,8 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_888t5")
-}
-autoplay = "fade"
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
-z_index = -100
-z_as_relative = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.247059, 0.247059, 0.247059, 1)
+layer = 100
 
 [node name="ErroLabel" type="Label" parent="ParallaxBackground"]
 z_index = 1000
@@ -215,3 +202,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_888t5")
+}
+autoplay = "fade"

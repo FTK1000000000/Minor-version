@@ -13,11 +13,12 @@ func _ready():
 	super()
 	var v = 10
 	navigation_agent.target_desired_distance = v
+	print(can_attack_range.shape.radius)
 
 func update_state():
-	if is_dead:
-		state_chart.send_event("dead")
-		is_dead = false
+	#if is_dead:
+		#state_chart.send_event("dead")
+		#is_dead = false
 	
 	if !aggro_target:
 		state_chart.send_event("idle")
@@ -25,7 +26,7 @@ func update_state():
 	else:
 		current_move_speed = move_speed
 		if attack_target && is_can_attack:
-			state_chart.send_event("attack")
+			state_chart.send_event("range")
 		elif attack_is_ready:
 			state_chart.send_event("chase")
 		else:
@@ -36,7 +37,7 @@ func recalc_path():
 		distance_to_player = (aggro_target.position - global_position).length()
 		if distance_to_player > max_distance_to_player:
 			is_can_attack = false
-			get_path_to_player()
+			get_path_to_target()
 		elif distance_to_player < min_distance_to_player:
 			is_can_attack = false
 			get_path_to_move_away_from_player()
@@ -46,7 +47,7 @@ func recalc_path():
 
 func get_path_to_move_away_from_player():
 	var dir: Vector2 = (global_position - aggro_target.position).normalized()
-	var v = aggro_target.global_position + dir * (min_distance_to_player + body_collision.shape.radius * 2)
+	var v = aggro_target.global_position + dir * (min_distance_to_player + compute_collision_shape_use_size())
 	navigation_agent.target_position = v
 
 func shoot():
@@ -64,8 +65,8 @@ func _on_ranged_state_entered() -> void:
 		target_position = attack_target.global_position
 		is_attack = true
 		
-		animation_player.play("ranged")
-		await animation_player.animation_finished
+		state_player.play("ranged")
+		await state_player.animation_finished
 		
 		attack_is_ready = false
 		if attack_timer.is_stopped():

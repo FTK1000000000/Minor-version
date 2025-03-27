@@ -2,13 +2,16 @@ extends Enemy
 
 
 func melee_animaction():
-	#navigation_agent.target_position = target_position
-	var tween = create_tween()
-	tween.tween_property(self, "global_position", target_position, 0.6)
-	
+	state_tween = create_tween()
+	state_tween.tween_property(self, "global_position", target_position, 0.6)
 
 
 func _on_melee_state_entered() -> void:
+	if !is_melee:
+		is_melee = true
+	
+	if is_melee_area_rotation:
+		melee_area_rotation()
 	aimline_rotation()
 	
 	if attack_is_ready:

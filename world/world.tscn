@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://chcqcdcguc21s"]
+[gd_scene load_steps=5 format=3 uid="uid://chcqcdcguc21s"]
 
 [ext_resource type="Script" path="res://scripts/world/world.gd" id="1_iebtx"]
 [ext_resource type="Script" path="res://scripts/ui/temporary_ui.gd" id="1_k4hx6"]
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="2_hrcwx"]
+[ext_resource type="PackedScene" uid="uid://c7ap46hsy4t2n" path="res://ui/lens.tscn" id="4_sas7k"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_iebtx")
@@ -41,3 +42,22 @@ layout_mode = 2
 text = "change classes"
 
 [node name="HUD" parent="." instance=ExtResource("2_hrcwx")]
+
+[node name="Lens" parent="." instance=ExtResource("4_sas7k")]
+layer = 100
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
+z_index = -100
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.247059, 0.247059, 0.247059, 1)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.5, 0.5, 0.5, 1)

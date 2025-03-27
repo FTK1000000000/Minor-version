@@ -38,6 +38,7 @@ var game_completed_on: int
 var bgm_enabled: set = set_bgm_enabled, get = is_bgm_enabled
 var sfx_enabled: set = set_sfx_enabled, get = is_sfx_enabled
 
+@export var dark_level: int
 @export var storey_level: int
 @export var room_index: int
 
