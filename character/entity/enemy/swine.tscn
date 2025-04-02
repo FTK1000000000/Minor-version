@@ -1,24 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://c128kbm7j5yel"]
+[gd_scene load_steps=12 format=3 uid="uid://b2lcmxiwf1vje"]
 
-[ext_resource type="PackedScene" uid="uid://bwpes7pcpqnhl" path="res://character/entity/enemy/enemy.tscn" id="1_8onwv"]
-[ext_resource type="Script" path="res://scripts/character/entity/enemy/goblin_brat.gd" id="2_02pub"]
-[ext_resource type="Texture2D" uid="uid://urjmf6ixhlfa" path="res://texture/character/entity/enemy/goblin_brat.png" id="2_f34c2"]
-[ext_resource type="AnimationLibrary" uid="uid://b1ipseiv5yfi0" path="res://animaction/enemy.res" id="4_357e1"]
-[ext_resource type="PackedScene" uid="uid://b6v0g5ygjvg1h" path="res://collisionbox/hitbox.tscn" id="4_lowx0"]
+[ext_resource type="PackedScene" uid="uid://bwpes7pcpqnhl" path="res://character/entity/enemy/enemy.tscn" id="1_7b6k4"]
+[ext_resource type="Script" path="res://scripts/character/entity/enemy/swine.gd" id="2_g13pj"]
+[ext_resource type="Texture2D" uid="uid://dx2fcrb3rf7cs" path="res://texture/character/entity/enemy/swine.png" id="2_mhiif"]
+[ext_resource type="AnimationLibrary" uid="uid://b1ipseiv5yfi0" path="res://animaction/enemy.res" id="3_2jawr"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2kbox"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_8rk4q"]
 radius = 16.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rjk5l"]
-radius = 0.01
+[sub_resource type="CircleShape2D" id="CircleShape2D_1oml2"]
+radius = 16.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_he1r8"]
-size = Vector2(32.0873, 32.7803)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_6gl04"]
-radius = 0.01
-
-[sub_resource type="Animation" id="Animation_d5l40"]
+[sub_resource type="Animation" id="Animation_hi4xv"]
 resource_name = "RESET"
 length = 0.001
 tracks/0/type = "value"
@@ -322,11 +315,10 @@ tracks/24/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_j8l5c"]
-resource_name = "idle"
-length = 0.6
-loop_mode = 1
-step = 0.1
+[sub_resource type="Animation" id="Animation_u8wqo"]
+resource_name = "hurt"
+length = 0.4
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -334,81 +326,33 @@ tracks/0/path = NodePath("Texture/Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+
+[sub_resource type="Animation" id="Animation_j8l5c"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture/Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
 }
 
-[sub_resource type="Animation" id="Animation_2den7"]
-resource_name = "melee"
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Texture/Body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.55, 0.7, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [12, 13, 14, 15, 16, 17]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.55),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"melee_animaction"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Melee/Hitboxs/Hitbox/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.55, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [true, false, false, true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Texture/AimLine:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Texture/AimLine:color")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.55, 0.6),
-"transitions": PackedFloat32Array(0.5, 1, 1),
-"update": 0,
-"values": [Color(0.5, 0, 0, 0), Color(0.5, 0, 0, 1), Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_yuh6m"]
 resource_name = "walk"
-length = 0.4
+length = 0.8
 loop_mode = 1
 step = 0.05
 tracks/0/type = "value"
@@ -418,54 +362,42 @@ tracks/0/path = NodePath("Texture/Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [6, 7]
+"values": [4, 5, 6, 7]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5y2e5"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v7qno"]
 _data = {
-"RESET": SubResource("Animation_d5l40"),
+"RESET": SubResource("Animation_hi4xv"),
+"hurt": SubResource("Animation_u8wqo"),
 "idle": SubResource("Animation_j8l5c"),
-"melee": SubResource("Animation_2den7"),
 "walk": SubResource("Animation_yuh6m")
 }
 
-[node name="GoblinBrat" instance=ExtResource("1_8onwv")]
-script = ExtResource("2_02pub")
-data_name = "goblin_brat"
+[node name="Swine" node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_7b6k4")]
+script = ExtResource("2_g13pj")
+data_name = "swine"
+hurtbox = NodePath("EnemyHurtbox")
 
 [node name="Body" parent="Texture" index="0"]
-texture = ExtResource("2_f34c2")
-hframes = 6
+texture = ExtResource("2_mhiif")
+hframes = 4
 vframes = 3
 
 [node name="AimLine" parent="Texture" index="2"]
 visible = true
-offset_top = -16.0
-offset_right = 48.0
-offset_bottom = 16.0
 color = Color(0.5, 0, 0, 0)
 
+[node name="CollisionShape2D" parent="EnemyHurtbox" index="3"]
+shape = SubResource("CircleShape2D_8rk4q")
+
 [node name="CollisionShape2D" parent="CollisionHitbox" index="0"]
-shape = SubResource("CircleShape2D_2kbox")
-
-[node name="CollisionShape2D" parent="Melee/AttackRange" index="0"]
-shape = SubResource("CircleShape2D_rjk5l")
-
-[node name="Hitbox" parent="Melee/Hitboxs" index="0" instance=ExtResource("4_lowx0")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Melee/Hitboxs/Hitbox" index="0"]
-position = Vector2(16.0438, -1.34328e-05)
-shape = SubResource("RectangleShape2D_he1r8")
-disabled = true
-
-[node name="CollisionShape2D" parent="Range/AttackRange" index="0"]
-shape = SubResource("CircleShape2D_6gl04")
+shape = SubResource("CircleShape2D_1oml2")
 
 [node name="StatePlayer" parent="." index="9"]
 libraries = {
-"": SubResource("AnimationLibrary_5y2e5"),
-"enemy": ExtResource("4_357e1")
+"": SubResource("AnimationLibrary_v7qno"),
+"enemy": ExtResource("3_2jawr")
 }

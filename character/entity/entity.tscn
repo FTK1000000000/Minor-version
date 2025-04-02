@@ -37,7 +37,7 @@ grow_vertical = 2
 color = Color(0.67, 0, 0, 0)
 metadata/_edit_use_anchors_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BodyCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_yo7xp")
 
 [node name="HurtEffectTimer" type="Timer" parent="."]

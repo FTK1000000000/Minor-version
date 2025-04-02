@@ -26,7 +26,7 @@ var weapon: Weapon
 		vignette.level = dark_level
 @export var max_health: int = 100
 @export var max_endurance: int = 100
-@export var move_speed: int = 100
+@export var move_speed: int = Common.move_speed
 @export var walk_move_speed_multiple: float = 1.0
 @export var run_move_speed_multiple: float = 2.0
 @export var current_move_speed_multiple: float = 1.0
@@ -87,6 +87,7 @@ func reset():
 	current_ability = []
 	current_ability = []
 	remainder_ability = []
+	Global.deck = Deck.new()
 	print("/[reset]")
 
 func compute_player_wealth():

@@ -2,12 +2,12 @@
 	"goblin": {
 		"name": "Goblin",
 		"price": 1,
-		"move_speed_multiple": 0.75,
+		"move_speed_multiple": 0.6,
 		"max_health": 90,
 		"collision": {
-			"ready_time": 1,
+			"ready_time": 0.5,
 			"knockback_force": 1,
-			"damage": 1,
+			"damage": 5,
 			"effects": [
 				{
 					"data_name": "flame",
@@ -16,46 +16,62 @@
 			]
 		},
 		"melee": {
-			"damage": 20,
-			"is_melee_area_rotation": true
+			"attack_range": 48,
+			"ready_time": 1,
+			"knockback_force": 0.5,
+			"damage": 20
 		},
-		"attack_ready_time": 1.5,
 		"aggro_range": 160,
-		"de_aggro_range": 192,
-		"can_attack_range": 128
+		"de_aggro_range": 192
 	},
 	"goblin_bowman": {
 		"name": "GoblinBowman",
-		"price": 1,
-		"move_speed_multiple": 1.2,
-		"max_health": 50,
-		"collision": {
-			"ready_time": 1,
-			"knockback_force": 1,
-			"damage": 15
-		},
-		"attack_ready_time": 1.5,
-		"aggro_range": 192,
-		"de_aggro_range": 224,
-		"can_attack_range": 192
-	},
-	"goblin_brat": {
-		"name": "GoblinBrat",
 		"price": 1,
 		"move_speed_multiple": 1,
 		"max_health": 50,
 		"collision": {
 			"ready_time": 1,
 			"knockback_force": 1,
-			"damage": 10
+			"damage": 5
+		},
+		"range": {
+			"attack_range": 192,
+			"ready_time": 1,
+			"projectile": "goblin_arrow"
+		},
+		"aggro_range": 192,
+		"de_aggro_range": 224
+	},
+	"goblin_brat": {
+		"name": "GoblinBrat",
+		"price": 1,
+		"move_speed_multiple": 0.8,
+		"max_health": 50,
+		"collision": {
+			"ready_time": 0.5,
+			"knockback_force": 0.5,
+			"damage": 5
 		},
 		"melee": {
-			"damage": 20,
-			"is_melee_area_rotation": true
+			"attack_range": 48,
+			"ready_time": 1,
+			"knockback_force": 1,
+			"damage": 20
 		},
-		"attack_ready_time": 1.5,
-		"aggro_range": 160,
-		"de_aggro_range": 192,
-		"can_attack_range": 96
+		"aggro_range": 128,
+		"de_aggro_range": 128
+	},
+	"swine": {
+		"name": "Swine",
+		"price": 1,
+		"move_speed_multiple": 0.6,
+		"max_health": 200,
+		"collision": {
+			"ready_time": 0.5,
+			"knockback_force": 0.5,
+			"damage": 30
+		},
+		"aggro_range": 192,
+		"de_aggro_range": 256
 	}
 }

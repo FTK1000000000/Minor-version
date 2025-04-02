@@ -5,8 +5,8 @@
 
 [resource]
 shader = ExtResource("1_on2kg")
-shader_parameter/radius = 0.959876
+shader_parameter/radius = 0.898097
 shader_parameter/effectControl = 1.0
-shader_parameter/burnSpeed = 0.031445
+shader_parameter/burnSpeed = 0.0798611
 shader_parameter/shape = 1.0
 shader_parameter/textureNoise = ExtResource("2_tnpff")

@@ -159,7 +159,7 @@ nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_jcyqg")
 nodes/TimeScale/position = Vector2(120, 140)
 node_connections = [&"TimeScale", 0, &"AnimationNodeStateMachine", &"output", 0, &"TimeScale"]
 
-[node name="Player" node_paths=PackedStringArray("interactable_with") instance=ExtResource("1_gp5ur")]
+[node name="Player" node_paths=PackedStringArray("interactable_with", "hurtbox") instance=ExtResource("1_gp5ur")]
 collision_layer = 4
 collision_mask = 9
 script = ExtResource("2_twsf0")
@@ -175,6 +175,7 @@ endurance_recover_amount = 10
 endurance_recover_ready = 1
 endurance_recover_speed = 0.2
 endurance_recover_ready_speed = 0.5
+hurtbox = NodePath("PlayerHurtbox")
 
 [node name="Body" parent="Texture" index="0"]
 z_index = 1

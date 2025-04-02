@@ -2,42 +2,39 @@ extends Entity
 class_name Enemy
 
 
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
-@onready var collision_hitbox: Hitbox = $CollisionHitbox
-@onready var can_attack_ranged_collision: CollisionShape2D = $CanAttackRange/CollisionShape2D
-@onready var melee_attack_hitbox: Node2D = $MeleeAttackHitbox
-@onready var aggro_range: CollisionShape2D = $Aggro/AggroRange/CollisionShape2D
-@onready var de_aggro_range: CollisionShape2D = $Aggro/DeAggroRange/CollisionShape2D
-@onready var can_attack_range: CollisionShape2D = $CanAttackRange/CollisionShape2D
-@onready var navigation_agent : NavigationAgent2D = $Nav/NavigationAgent2D
-@onready var popup_location: Marker2D = $PopupLocation
 @onready var hud: Node2D = $Texture/HUD
 @onready var health_bar: TextureProgressBar = $Texture/HUD/health_bar
+@onready var popup_location: Marker2D = $Texture/HUD/PopupLocation
 @onready var aim_line: ColorRect = $Texture/AimLine
-@onready var attack_timer: Timer = $AttackTimer
-@onready var path_timer: Timer = $Nav/PathTimer
+@onready var body_collision: CollisionShape2D = $BodyCollision
+@onready var collision_hitbox: Hitbox = $CollisionHitbox
+@onready var aggro_range: CollisionShape2D = $Aggro/AggroRange/CollisionShape2D
+@onready var de_aggro_range: CollisionShape2D = $Aggro/DeAggroRange/CollisionShape2D
+@onready var navigation_agent : NavigationAgent2D = $Navigation/NavigationAgent2D
+@onready var melee_attack_range: CollisionShape2D = $Melee/AttackRange/CollisionShape2D
+@onready var melee_attack_timer: Timer = $Melee/AttackTimer
+@onready var melee_attack_hitboxs: Node2D = $Melee/Hitboxs
+@onready var range_attack_range: CollisionShape2D = $Range/AttackRange/CollisionShape2D
+@onready var range_attack_timer: Timer = $Range/AttackTimer
 
-@export var aggro_target: CharacterBody2D
-@export var attack_target: CharacterBody2D
-@export var target_position: Vector2
+var aggro_target: Array[CharacterBody2D]
+var attack_target: CharacterBody2D
+var attack_position: Vector2
 var state_tween: Tween
 
 @export var data_name: String
-@export var move_speed: int = 100
-@export var current_move_speed: int
+var move_speed: int = 100
+var current_move_speed: int
+var attack_range: Dictionary
+var attack_ready_time: Dictionary
+var attack_knockback: Dictionary
+var attack_damage: Dictionary
 
-var collision_knockback_force: int
-var collision_damage: int
-
-var attack_ready_time: float
-var melee_attack_damage: int
-
-@export var is_melee_area_rotation: bool = false
-var attack_is_ready: bool = true
-var is_can_attack: bool = false
+var can_attack: bool = false
+var can_melee: bool = false
+var can_range: bool = false
 var is_flip: bool = false
-
-var is_spawn: bool = false
+@export var is_spawn: bool = false
 var is_chase: bool = false
 var is_attack: bool = false
 var is_melee: bool = false
@@ -47,28 +44,41 @@ var is_range: bool = false
 func _ready():
 	super()
 	read_data()
+	aggro_range.shape = aggro_range.shape.duplicate()
+	de_aggro_range.shape = de_aggro_range.shape.duplicate()
+	melee_attack_range.shape = melee_attack_range.shape.duplicate()
+	range_attack_range.shape = range_attack_range.shape.duplicate()
+	
 	current_move_speed = move_speed
 	current_health = max_health
-	collision_hitbox.knockback_force = collision_knockback_force
-	collision_hitbox.damage = collision_damage
+	collision_hitbox.ready_time = attack_ready_time.collision
+	collision_hitbox.knockback_force = attack_knockback.collision
+	collision_hitbox.damage = attack_damage.collision
+	if "melee" in attack_ready_time:
+		melee_attack_range.shape.radius = attack_range.melee
+		melee_attack_timer.wait_time = attack_ready_time.melee
+		for node: Hitbox in melee_attack_hitboxs.get_children():
+			node.ready_time = attack_ready_time.melee
+			node.knockback_force = attack_knockback.melee
+			node.damage = attack_damage.melee
+	if "range" in attack_ready_time:
+		range_attack_range.shape.radius = attack_range.range
+		range_attack_timer.wait_time = attack_ready_time.range
 	
 	navigation_agent.target_desired_distance = \
-		can_attack_ranged_collision.shape.radius - compute_collision_shape_use_size()
-	navigation_agent.path_desired_distance = 10
+		melee_attack_range.shape.radius - compute_collision_shape_use_size()
 
 func _process(_delta):
 	if is_dead || is_spawn: return
 	update_state()
 	update_animation()
-	
-	if navigation_agent.is_navigation_finished(): return
-	
-	var axis = to_local(navigation_agent.get_next_path_position()).normalized()
-	var intended_velocity = axis * current_move_speed
-	navigation_agent.set_velocity(intended_velocity)
 
 func _physics_process(delta: float) -> void:
-	move_and_slide()
+	if is_dead || is_spawn: return
+	if navigation_agent.is_navigation_finished(): return
+	var axis = to_local(navigation_agent.get_next_path_position()).normalized()
+	var intended_velocity = axis * current_move_speed
+	navigation_agent.velocity = intended_velocity
 
 func dead_handle():
 	state_chart.send_event("dead")
@@ -80,17 +90,19 @@ func hurt_handle():
 func read_data():
 	if !data_name: return
 	var data = Global.enemy_data.get(data_name)
+	var find_and_definition = func f(v: String, ps: Array) -> Dictionary:
+		var rv: Dictionary = {}
+		for p: String in ps:
+			if p in data: rv.merge({p: data.get(p).get(v)})
+		return rv
+	attack_range = find_and_definition.call("attack_range", ["melee", "range"])
+	attack_ready_time = find_and_definition.call("ready_time", ["collision", "melee", "range"])
+	attack_knockback = find_and_definition.call("knockback_force", ["collision", "melee"])
+	attack_damage = find_and_definition.call("damage", ["collision", "melee"])
 	move_speed = data.move_speed_multiple * Common.move_speed
 	max_health = data.max_health
-	collision_knockback_force = data.collision.knockback_force
-	collision_damage = data.collision.damage
-	melee_attack_damage = data.melee.damage if "melee" in data else 0
-	is_melee_area_rotation = data.melee.is_melee_area_rotation if "melee" in data else false
 	aggro_range.shape.radius = data.aggro_range
 	de_aggro_range.shape.radius = data.de_aggro_range
-	can_attack_range.shape.radius = data.can_attack_range
-	attack_ready_time = data.attack_ready_time
-	attack_timer.wait_time = attack_ready_time
 	
 	if "effects" in data.collision:
 		var collision_effects: Array = []
@@ -107,19 +119,20 @@ func read_data():
 		collision_hitbox.effects.append_array(collision_effects)
 
 func update_state():
-	if !aggro_target && !is_idle:
+	can_attack = (can_melee || can_range)
+	is_attack = (is_melee || is_range)
+	if !attack_target && !is_idle:
 		state_chart.send_event("idle")
 	else:
-		if attack_target && !is_attack:
+		if can_attack && !is_attack && melee_attack_timer.is_stopped():
 			state_chart.send_event("attack")
-		elif attack_is_ready && !is_chase:
+		elif attack_target && !can_attack && !is_attack && !is_chase:
 			state_chart.send_event("chase")
 #更新状态
 
 func update_animation():
-	if aggro_target:
-		var m = (global_position - aggro_target.position).normalized()
-		
+	if attack_target:
+		var m = (global_position - attack_target.position).normalized()
 		if m.x > 0:
 			body_texture.flip_h = true
 		else:
@@ -127,73 +140,73 @@ func update_animation():
 #纹理朝向和渲染索引
 
 func recalc_path():
-	if aggro_target:
+	if !attack_target && !aggro_target.is_empty():
+		var min: float = -1
+		for target in aggro_target:
+			if min == -1 || min > (target.global_position - global_position).length():
+				attack_target = target
+	if attack_target:
 		get_path_to_target()
 	else:
 		navigation_agent.target_position = position
 
 func get_path_to_target():
-	navigation_agent.target_position = aggro_target.global_position
+	navigation_agent.target_position = attack_target.global_position
 
 func compute_collision_shape_use_size() -> float:
 	var v
-	match collision_shape_2d.shape.get_class():
+	match body_collision.shape.get_class():
 		"CircleShape2D":
-			v = collision_shape_2d.shape.radius * 2
+			v = body_collision.shape.radius * 2
 		"RectangleShape2D":
-			if collision_shape_2d.shape.size.x < collision_shape_2d.shape.size.y:
-				v = collision_shape_2d.shape.size.x
+			if body_collision.shape.size.x < body_collision.shape.size.y:
+				v = body_collision.shape.size.x
 			else:
-				v = collision_shape_2d.shape.size.y
+				v = body_collision.shape.size.y
 	return v as float if !(v is float) else v
-
-func update_aimline_size():
-	var x = global_position.x - target_position.x
-	var y = global_position.y - target_position.y
-	if x < 0: x = x - x - x
-	if y < 0: y = y - y - y
-	var v = x if x > y else y
-	aim_line.size.x = v
 
 func aimline_rotation():
 	var tg = attack_target.global_position
 	var g = global_position
 	var tr: Vector2 = (tg - g).normalized()
-	
-	if attack_target && attack_is_ready:
-		aim_line.rotation = tr.angle()
+	aim_line.rotation = tr.angle()
 
 func melee_area_rotation():
 	var tg = attack_target.global_position
 	var g = global_position
 	var tr: Vector2 = (tg - g).normalized()
-	
-	if attack_target && attack_is_ready:
-		melee_attack_hitbox.rotation = tr.angle()
+	melee_attack_hitboxs.rotation = tr.angle()
 
 
 func _on_path_timer_timeout():
 	recalc_path()
 
 
-func _on_attack_range_area_entered(area: PlayerHurtbox) -> void:
-	attack_is_ready = true
-	attack_target = area.owner
+func _on_melee_attack_range_area_entered(area: PlayerHurtbox) -> void:
+	can_melee = true
 
 
-func _on_attack_range_area_exited(area: PlayerHurtbox) -> void:
-	attack_is_ready = false
-	if area.owner == attack_target:
-		attack_target = null
+func _on_melee_attack_range_area_exited(area: PlayerHurtbox) -> void:
+	can_melee = false
+
+
+func _on_range_attack_range_area_entered(area: PlayerHurtbox) -> void:
+	can_range = true
+
+
+func _on_range_attack_range_area_exited(area: PlayerHurtbox) -> void:
+	can_range = false
 
 
 func _on_aggro_range_area_entered(area):
-	aggro_target = area.owner
+	aggro_target.append(area.owner)
 
 
 func _on_de_aggro_range_area_exited(area):
-	if area.owner == aggro_target:
-		aggro_target = null
+	if area.owner in aggro_target:
+		aggro_target.erase(area.owner)
+		if attack_target == area.owner:
+			attack_target = null
 
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):

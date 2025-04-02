@@ -14,36 +14,32 @@
 [ext_resource type="AnimationLibrary" uid="uid://b1ipseiv5yfi0" path="res://animaction/enemy.res" id="13_8ipbv"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="13_ecrms"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpbc8"]
-size = Vector2(16, 24)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_sss1u"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_jp7ri"]
 radius = 16.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_nrq5f"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_00ux3"]
 radius = 16.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3p7b6"]
-radius = 160.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_omm3k"]
+radius = 0.01
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4x8uy"]
-radius = 192.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_uwn1y"]
+radius = 0.01
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xlgen"]
-radius = 96.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_emlr4"]
+radius = 0.01
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n48lw"]
+radius = 0.01
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5t4rh"]
 
-[node name="Enemy" node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_sqidf")]
+[node name="Enemy" instance=ExtResource("1_sqidf")]
 collision_layer = 8
 collision_mask = 13
 script = ExtResource("1_ppt2a")
-target_position = Vector2(0, 0)
 data_name = ""
-move_speed = 100
-current_move_speed = 0
-is_melee_area_rotation = false
-hurtbox = NodePath("EnemyHurtbox")
+is_spawn = false
 
 [node name="SpawnEffect" type="ColorRect" parent="Texture/Body" index="1"]
 anchors_preset = 15
@@ -83,6 +79,10 @@ texture_under = ExtResource("4_1rh0l")
 texture_progress = ExtResource("5_jsiu4")
 script = ExtResource("6_53jjb")
 
+[node name="PopupLocation" parent="Texture/HUD" index="1" instance=ExtResource("10_uwdq1")]
+position = Vector2(0, -14)
+scale = Vector2(2, 2)
+
 [node name="AimLine" type="ColorRect" parent="Texture" index="2"]
 visible = false
 z_index = -5
@@ -97,33 +97,27 @@ pivot_offset = Vector2(0, 12)
 color = Color(0.5, 0, 0, 0.5)
 metadata/_edit_use_anchors_ = true
 
-[node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(0, 4)
-shape = SubResource("RectangleShape2D_qpbc8")
-
 [node name="EnemyHurtbox" parent="." index="2" instance=ExtResource("7_ldjus")]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtbox" index="3"]
-shape = SubResource("CircleShape2D_sss1u")
+shape = SubResource("CircleShape2D_jp7ri")
 
 [node name="CollisionHitbox" parent="." index="3" instance=ExtResource("8_wlvxk")]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionHitbox" index="0"]
 position = Vector2(-2.82402e-06, -1.00746e-06)
-shape = SubResource("CircleShape2D_nrq5f")
+shape = SubResource("CircleShape2D_00ux3")
 
-[node name="MeleeAttackHitbox" type="Node2D" parent="." index="4"]
-
-[node name="Aggro" type="Node2D" parent="." index="5"]
+[node name="Aggro" type="Node2D" parent="." index="4"]
 
 [node name="AggroRange" type="Area2D" parent="Aggro" index="0"]
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/AggroRange" index="0"]
-shape = SubResource("CircleShape2D_3p7b6")
+shape = SubResource("CircleShape2D_omm3k")
 debug_color = Color(1, 0.5, 0, 0)
 
 [node name="DeAggroRange" type="Area2D" parent="Aggro" index="1"]
@@ -131,20 +125,12 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro/DeAggroRange" index="0"]
-shape = SubResource("CircleShape2D_4x8uy")
+shape = SubResource("CircleShape2D_uwn1y")
 debug_color = Color(0, 1, 0.783333, 0)
 
-[node name="CanAttackRange" type="Area2D" parent="." index="6"]
-collision_layer = 0
-collision_mask = 16
+[node name="Navigation" type="Node2D" parent="." index="5"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanAttackRange" index="0"]
-shape = SubResource("CircleShape2D_xlgen")
-debug_color = Color(1, 0, 0.183333, 0)
-
-[node name="Nav" type="Node2D" parent="." index="7"]
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Nav" index="0"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Navigation" index="0"]
 path_postprocessing = 1
 path_metadata_flags = 0
 simplify_path = true
@@ -153,23 +139,46 @@ max_speed = 100000.0
 avoidance_layers = 2
 avoidance_mask = 2
 
-[node name="PathTimer" type="Timer" parent="Nav" index="1"]
+[node name="PathTimer" type="Timer" parent="Navigation" index="1"]
 wait_time = 0.1
 autostart = true
 
-[node name="PopupLocation" parent="." index="8" instance=ExtResource("10_uwdq1")]
+[node name="Melee" type="Node2D" parent="." index="6"]
 
-[node name="AttackTimer" type="Timer" parent="." index="10"]
+[node name="AttackRange" type="Area2D" parent="Melee" index="0"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Melee/AttackRange" index="0"]
+shape = SubResource("CircleShape2D_emlr4")
+debug_color = Color(1, 0, 0.0166664, 0)
+
+[node name="AttackTimer" type="Timer" parent="Melee" index="1"]
 one_shot = true
 
-[node name="StatePlayer" parent="." index="11"]
+[node name="Hitboxs" type="Node2D" parent="Melee" index="2"]
+
+[node name="Range" type="Node2D" parent="." index="7"]
+
+[node name="AttackRange" type="Area2D" parent="Range" index="0"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range/AttackRange" index="0"]
+shape = SubResource("CircleShape2D_n48lw")
+debug_color = Color(1, 0, 1, 0)
+
+[node name="AttackTimer" type="Timer" parent="Range" index="1"]
+one_shot = true
+
+[node name="StatePlayer" parent="." index="9"]
 libraries = {
 "": SubResource("AnimationLibrary_5t4rh"),
 "enemy": ExtResource("13_8ipbv")
 }
 autoplay = ""
 
-[node name="HurtEffectPlayer" parent="." index="12"]
+[node name="HurtEffectPlayer" parent="." index="10"]
 libraries = {
 "": ExtResource("10_cv1qk")
 }
@@ -225,10 +234,12 @@ delay_in_seconds = "0.0"
 
 [connection signal="area_entered" from="Aggro/AggroRange" to="." method="_on_aggro_range_area_entered"]
 [connection signal="area_exited" from="Aggro/DeAggroRange" to="." method="_on_de_aggro_range_area_exited"]
-[connection signal="area_entered" from="CanAttackRange" to="." method="_on_attack_range_area_entered"]
-[connection signal="area_exited" from="CanAttackRange" to="." method="_on_attack_range_area_exited"]
-[connection signal="velocity_computed" from="Nav/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
-[connection signal="timeout" from="Nav/PathTimer" to="." method="_on_path_timer_timeout"]
+[connection signal="velocity_computed" from="Navigation/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Navigation/PathTimer" to="." method="_on_path_timer_timeout"]
+[connection signal="area_entered" from="Melee/AttackRange" to="." method="_on_melee_attack_range_area_entered"]
+[connection signal="area_exited" from="Melee/AttackRange" to="." method="_on_melee_attack_range_area_exited"]
+[connection signal="area_entered" from="Range/AttackRange" to="." method="_on_range_attack_range_area_entered"]
+[connection signal="area_exited" from="Range/AttackRange" to="." method="_on_range_attack_range_area_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/Spawn" to="." method="_on_spawn_state_entered"]
 [connection signal="state_exited" from="StateChart/CompoundState/Spawn" to="." method="_on_spawn_state_exited"]
 [connection signal="state_entered" from="StateChart/CompoundState/Chase" to="." method="_on_chase_state_entered"]
