@@ -376,15 +376,15 @@ _data = {
 "walk": SubResource("Animation_yuh6m")
 }
 
-[node name="Swine" node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_7b6k4")]
+[node name="Swine" instance=ExtResource("1_7b6k4")]
 script = ExtResource("2_g13pj")
 data_name = "swine"
-hurtbox = NodePath("EnemyHurtbox")
 
 [node name="Body" parent="Texture" index="0"]
 texture = ExtResource("2_mhiif")
 hframes = 4
 vframes = 3
+frame = 8
 
 [node name="AimLine" parent="Texture" index="2"]
 visible = true

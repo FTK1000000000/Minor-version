@@ -5,7 +5,7 @@
 		"move_speed_multiple": 0.6,
 		"max_health": 90,
 		"collision": {
-			"ready_time": 0.5,
+			"ready_time": 1,
 			"knockback_force": 1,
 			"damage": 5,
 			"effects": [
@@ -37,9 +37,12 @@
 		"range": {
 			"attack_range": 192,
 			"ready_time": 1,
-			"projectile": "goblin_arrow"
+			"projectile": "goblin_arrow",
+			"projectile_speed": 250,
+			"max_range_attack_distance": 192,
+			"min_range_attack_distance": 112
 		},
-		"aggro_range": 192,
+		"aggro_range": 224,
 		"de_aggro_range": 224
 	},
 	"goblin_brat": {
@@ -48,7 +51,7 @@
 		"move_speed_multiple": 0.8,
 		"max_health": 50,
 		"collision": {
-			"ready_time": 0.5,
+			"ready_time": 1,
 			"knockback_force": 0.5,
 			"damage": 5
 		},
@@ -67,9 +70,9 @@
 		"move_speed_multiple": 0.6,
 		"max_health": 200,
 		"collision": {
-			"ready_time": 0.5,
+			"ready_time": 1,
 			"knockback_force": 0.5,
-			"damage": 30
+			"damage": 25
 		},
 		"aggro_range": 192,
 		"de_aggro_range": 256

@@ -34,12 +34,13 @@ radius = 0.01
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5t4rh"]
 
-[node name="Enemy" instance=ExtResource("1_sqidf")]
+[node name="Enemy" node_paths=PackedStringArray("hurtbox") instance=ExtResource("1_sqidf")]
 collision_layer = 8
 collision_mask = 13
 script = ExtResource("1_ppt2a")
 data_name = ""
 is_spawn = false
+hurtbox = NodePath("EnemyHurtbox")
 
 [node name="SpawnEffect" type="ColorRect" parent="Texture/Body" index="1"]
 anchors_preset = 15

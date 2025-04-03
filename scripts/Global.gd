@@ -10,6 +10,7 @@ const WEAPON_DIRECTORY = "res://weapon/"
 const EFFECT_DIRECTORY = "res://effect/"
 const PLAYER_DIRECTORY = "res://character/entity/player/"
 const ENEMY_DIRECTORY = "res://character/entity/enemy/"
+const AMMO_DIRECTORY = "res://ammo/"
 
 const ABILITY_TEXTURE_DIRECTORY = "res://texture/ability/"
 const CARD_TEXTURE_DIRECTORY = "res://texture/card/"
@@ -62,6 +63,7 @@ var boss
 func _ready():
 	config_load()
 	read_config_data()
+	RenderingServer.set_default_clear_color(Color(000000))
 	
 	GlobalPlayerState.player_dead.connect(game_over)
 

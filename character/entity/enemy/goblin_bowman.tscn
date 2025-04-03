@@ -426,10 +426,6 @@ _data = {
 motion_mode = 0
 floor_constant_speed = false
 script = ExtResource("2_4yjms")
-projectile_speed = 200
-max_distance_to_player = 160
-min_distance_to_player = 128
-distance_to_player = 0.0
 data_name = "goblin_bowman"
 
 [node name="Body" parent="Texture" index="0"]
@@ -437,8 +433,10 @@ texture = ExtResource("3_1vrm1")
 hframes = 9
 
 [node name="AimLine" parent="Texture" index="2"]
-visible = true
-color = Color(0.5, 0, 0, 0)
+offset_top = -8.0
+offset_right = 192.0
+offset_bottom = 8.0
+color = Color(0.5, 0, 0, 1)
 
 [node name="CollisionShape2D" parent="EnemyHurtbox" index="3"]
 shape = SubResource("CircleShape2D_m2odl")

@@ -18,7 +18,7 @@ config/name_localized={
 run/main_scene="res://ui/title_screen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 run/max_fps=60
-boot_splash/bg_color=Color(0.247059, 0.247059, 0.247059, 1)
+boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
 
 [autoload]

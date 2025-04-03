@@ -39,7 +39,6 @@ func setup_ui_sounds(node: Node):
 	
 	for child in node.get_children():
 		setup_ui_sounds(child)
-#音效自动装配
 
 func get_volume(bus_index: int):
 	var db = AudioServer.get_bus_volume_db(bus_index)

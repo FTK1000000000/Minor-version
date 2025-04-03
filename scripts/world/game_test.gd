@@ -2,10 +2,7 @@ extends World
 
 
 func _ready() -> void:
-	#GlobalPlayerState.player_classes = "tank"
 	GlobalPlayerState.update_classes("tank")
-	GlobalPlayerState.spawn_player(self, Vector2(200,200))
-	#Global.load_world("res://world/game_test.tscn")
-	Global.HUD.show()
+	super()
 	Global.HUD.tips_label.hide()
-	
+	GlobalPlayerState.player.global_position = Vector2(200, 200)

@@ -25,6 +25,10 @@ var state_tween: Tween
 @export var data_name: String
 var move_speed: int = 100
 var current_move_speed: int
+var projectile: PackedScene
+var projectile_speed: int
+var max_range_attack_distance: int
+var min_range_attack_distance: int
 var attack_range: Dictionary
 var attack_ready_time: Dictionary
 var attack_knockback: Dictionary
@@ -104,6 +108,13 @@ func read_data():
 	aggro_range.shape.radius = data.aggro_range
 	de_aggro_range.shape.radius = data.de_aggro_range
 	
+	if "range" in data:
+		var path = data.range
+		projectile = load(FileFunction.get_file_list(Global.AMMO_DIRECTORY).get(path.projectile))
+		projectile_speed = path.projectile_speed
+		max_range_attack_distance = path.max_range_attack_distance
+		min_range_attack_distance = path.min_range_attack_distance
+	
 	if "effects" in data.collision:
 		var collision_effects: Array = []
 		for new_effect: Dictionary in data.collision.effects:
@@ -137,6 +148,10 @@ func update_animation():
 			body_texture.flip_h = true
 		else:
 			body_texture.flip_h = false
+	if is_attack:
+		aimline_rotation()
+		if !melee_attack_hitboxs.get_children().is_empty():
+			melee_attack_hitboxs_rotation()
 #纹理朝向和渲染索引
 
 func recalc_path():
@@ -146,12 +161,36 @@ func recalc_path():
 			if min == -1 || min > (target.global_position - global_position).length():
 				attack_target = target
 	if attack_target:
-		get_path_to_target()
+		if (max_range_attack_distance == 0 && min_range_attack_distance == 0):
+			get_path_to_target()
+		else:
+			if (attack_target.global_position - global_position).length() > max_range_attack_distance:
+				can_range = false
+				get_path_to_target()
+			elif (attack_target.global_position - global_position).length() < min_range_attack_distance:
+				can_range = false
+				get_path_to_away_target()
+			else:
+				can_range = true
 	else:
 		navigation_agent.target_position = position
 
 func get_path_to_target():
 	navigation_agent.target_position = attack_target.global_position
+
+func get_path_to_away_target():
+	var dir: Vector2 = (global_position - attack_target.position).normalized()
+	navigation_agent.target_position = attack_target.global_position\
+			+ dir * (min_range_attack_distance + compute_collision_shape_use_size())
+
+func shoot():
+	var ammo = projectile.instantiate()
+	ammo.launch(
+		global_position,
+		(attack_target.global_position - global_position).normalized(),
+		projectile_speed
+		)
+	get_tree().current_scene.add_child(ammo)
 
 func compute_collision_shape_use_size() -> float:
 	var v
@@ -171,7 +210,7 @@ func aimline_rotation():
 	var tr: Vector2 = (tg - g).normalized()
 	aim_line.rotation = tr.angle()
 
-func melee_area_rotation():
+func melee_attack_hitboxs_rotation():
 	var tg = attack_target.global_position
 	var g = global_position
 	var tr: Vector2 = (tg - g).normalized()

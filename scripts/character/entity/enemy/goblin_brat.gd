@@ -18,9 +18,6 @@ func melee_animaction():
 
 func _on_melee_state_entered() -> void:
 	super()
-	melee_area_rotation()
-	aimline_rotation()
-	
 	if melee_attack_timer.is_stopped():
 		attack_position = attack_target.global_position
 		current_move_speed = 0
