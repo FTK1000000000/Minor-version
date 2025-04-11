@@ -20,26 +20,3 @@ func _ready() -> void:
 	#for x in range(-5000, 5000):
 		#for y in range(-5000, 5000):
 			#t.set_cell(t.local_to_map(Vector2(x, y)), 0, Vector2i(0, 0))
-
-
-func _on_next_button_up() -> void:
-	Global.storey_level += 1
-	Global.load_world("res://world/level.tscn")
-
-
-func _on_reload_button_up() -> void:
-	Global.load_world("res://world/level.tscn")
-
-
-func _on_get_ability_button_up() -> void:
-	Global.temporary_ui.add_child(Global.ABILITY_SELECT_PANEL.instantiate())
-
-
-func _on_change_classes_button_up() -> void:
-	var a = GlobalPlayerState.player_classes
-	a = ("hunter" if a=="tank" else ("mage" if a=="hunter" else "tank"))
-	GlobalPlayerState.update_classes(a)
-
-
-func _on_def_deck_button_up() -> void:
-	Global.deck.draw_pile + cards

@@ -1,0 +1,38 @@
+{
+    "chest": {
+        "title": "The Chest",
+        "description": "you see a chest at the wall, but is locked",
+        "opations": [
+            {
+                "ation": "hit it",
+                "property": {
+                    "give": [],
+                    "lose": [{"current_health": 10}]
+                },
+                "item": {
+                    "give": [{"card": "rand"}],
+                    "lose": []
+                },
+                "effect": {
+                    "give": [],
+                    "lose": []
+                }
+            },
+            {
+                "ation": "try open the lock",
+                "property": {
+                    "give": [],
+                    "lose": []
+                },
+                "item": {
+                    "give": [{"card": "rand"}],
+                    "lose": []
+                },
+                "effect": {
+                    "give": [],
+                    "lose": []
+                }
+            }
+        ]
+    }
+}

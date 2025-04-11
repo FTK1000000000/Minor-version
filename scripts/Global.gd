@@ -11,6 +11,7 @@ const EFFECT_DIRECTORY = "res://effect/"
 const PLAYER_DIRECTORY = "res://character/entity/player/"
 const ENEMY_DIRECTORY = "res://character/entity/enemy/"
 const AMMO_DIRECTORY = "res://ammo/"
+const EVENT_DIRECTORY = "res://event/"
 
 const ABILITY_TEXTURE_DIRECTORY = "res://texture/ability/"
 const CARD_TEXTURE_DIRECTORY = "res://texture/card/"
@@ -34,6 +35,7 @@ const BGM_IDX = 2
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var deck: Deck = Deck.new()
+var event_control: EventControl = EventControl.new()
 var game_started_on: int
 var game_completed_on: int
 var bgm_enabled: set = set_bgm_enabled, get = is_bgm_enabled
@@ -45,7 +47,9 @@ var sfx_enabled: set = set_sfx_enabled, get = is_sfx_enabled
 
 var is_game_guidance: bool = true
 var is_game_start: bool = false
+var debug: bool = false
 
+var event_data: Dictionary
 var ability_data: Dictionary
 var card_data: Dictionary
 var effect_data: Dictionary
@@ -151,6 +155,7 @@ func read_classes_data(classes: String):
 
 func read_config_data():
 	Common.read_data()
+	event_data = read_classes_data("event")
 	ability_data = read_classes_data("ability")
 	card_data = read_classes_data("card")
 	effect_data = read_classes_data("effect")

@@ -1,9 +1,4 @@
 {
-	"type": [
-		"deck",
-		"ability",
-		"expendable"
-	],
 	"test_1": {
 		"type": "deck",
 		"name": "Test 1",

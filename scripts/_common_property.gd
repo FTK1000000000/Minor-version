@@ -11,6 +11,10 @@ static var attack_damage: int = 20
 static var hurt_ready_time: float = 0.3
 static var hurt_blink_time: float = 0.3
 
+static var key: Dictionary = {
+	"rand": "rand"
+}
+
 
 static func read_data():
 	var data = FileFunction.json_as_dictionary(data_path)

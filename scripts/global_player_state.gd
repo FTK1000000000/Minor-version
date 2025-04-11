@@ -31,8 +31,16 @@ var weapon: Weapon
 @export var run_move_speed_multiple: float = 2.0
 @export var current_move_speed_multiple: float = 1.0
 
-@export var current_health: int
-@export var current_endurance: int
+@export var current_health: int:
+	set(v):
+		current_health = v
+		if player:
+			player.current_health = v
+@export var current_endurance: int:
+	set(v):
+		current_endurance = v
+		if player:
+			player.current_endurance = v
 @export var endurance_recover_amount: int = 10
 @export var endurance_recover_ready: int = 1
 @export var endurance_recover_speed: float = 0.2

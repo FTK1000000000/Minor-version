@@ -177,11 +177,11 @@ func endurance_recover():
 				await endurance_recover_timer.timeout
 				
 				set_current_endurance(current_endurance + endurance_recover_amount)
-				print("current_endurance: ", current_endurance)
+				if Global.debug: print("current_endurance: ", current_endurance)
 				endurance_recover()
 			elif current_endurance != GlobalPlayerState.max_endurance:
 				set_current_endurance(GlobalPlayerState.max_endurance)
-				print("current_endurance: ", current_endurance)
+				if Global.debug: print("current_endurance: ", current_endurance)
 
 func move_control():
 	if !is_weapon_attack:
@@ -224,14 +224,14 @@ func _on_hurt_box_area_entered(collectible: Collectible):
 	var inventory: Array = Global.deck.head_pile
 	collectible.collect(inventory)
 	
-	print(name, " pickup: ", collectible.name, " => ", collectible)
+	if Global.debug: print(name, " pickup: ", collectible.name, " => ", collectible)
 #拾取物品
 
 
 func _on_idle_state_entered() -> void:
 	if !is_idle:
 		is_idle = true
-		print(name, " state: idle")
+		if Global.debug: print(name, " state: idle")
 	animation_tree["parameters/AnimationNodeStateMachine/conditions/is_idle"] = true
 	animation_tree["parameters/AnimationNodeStateMachine/conditions/is_walk"] = false
 	
@@ -250,7 +250,7 @@ func _on_walk_stack_state_entered() -> void:
 func _on_walk_state_entered() -> void:
 	if !is_walk:
 		is_walk = true
-		print(name, " state: walk.walk")
+		if Global.debug: print(name, " state: walk.walk")
 
 
 func _on_walk_state_exited() -> void:
@@ -260,7 +260,7 @@ func _on_walk_state_exited() -> void:
 func _on_run_state_entered() -> void:
 	if !is_run:
 		is_run = true
-		print(name, " state: walk.run")
+		if Global.debug: print(name, " state: walk.run")
 	move_speed_multiple = GlobalPlayerState.run_move_speed_multiple
 	GlobalPlayerState.current_move_speed_multiple = move_speed_multiple
 	animation_tree["parameters/TimeScale/scale"] = move_speed_multiple
@@ -276,7 +276,7 @@ func _on_run_state_exited() -> void:
 
 func _on_hurt_state_entered() -> void:
 	is_hurt = true
-	print(name, " state: hurt")
+	if Global.debug: print(name, " state: hurt")
 	GlobalPlayerState.current_health = current_health
 	GlobalPlayerState.health_changed.emit()
 	hurt_effect_player.play("hurt_blink")
@@ -293,12 +293,12 @@ func _on_hurt_state_exited() -> void:
 func _on_dead_state_entered() -> void:
 	if !is_dead:
 		is_dead = true
-		print(name, " state: dead")
+		if Global.debug: print(name, " state: dead")
 		GlobalPlayerState.player_dead.emit()
 
 
 func _on_weapon_attack_state_entered() -> void:
-	print(name, " state: weapon_attack")
+	if Global.debug: print(name, " state: weapon_attack")
 	weapon_node.weapon_attack()
 	
 	#var inertance = get_direction() * compute_move_speed() * Common.TILE_SIZE * 0.1 / 4

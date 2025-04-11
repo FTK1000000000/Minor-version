@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://chcqcdcguc21s"]
+[gd_scene load_steps=4 format=3 uid="uid://chcqcdcguc21s"]
 
 [ext_resource type="Script" path="res://scripts/world/world.gd" id="1_iebtx"]
 [ext_resource type="Script" path="res://scripts/ui/temporary_ui.gd" id="1_k4hx6"]
 [ext_resource type="PackedScene" uid="uid://cak2vpn16lujs" path="res://ui/HUD.tscn" id="2_hrcwx"]
-[ext_resource type="PackedScene" uid="uid://c7ap46hsy4t2n" path="res://ui/lens.tscn" id="4_sas7k"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_iebtx")
@@ -41,10 +40,11 @@ text = "get ability"
 layout_mode = 2
 text = "change classes"
 
-[node name="HUD" parent="." instance=ExtResource("2_hrcwx")]
+[node name="spawn_event" type="Button" parent="TemporaryUI/HBoxContainer"]
+layout_mode = 2
+text = "spawn_event"
 
-[node name="Lens" parent="." instance=ExtResource("4_sas7k")]
-layer = 100
+[node name="HUD" parent="." instance=ExtResource("2_hrcwx")]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -61,3 +61,9 @@ color = Color(0.247059, 0.247059, 0.247059, 1)
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color(0.5, 0.5, 0.5, 1)
+
+[connection signal="button_up" from="TemporaryUI/HBoxContainer/next" to="." method="_on_next_button_up"]
+[connection signal="button_up" from="TemporaryUI/HBoxContainer/reload" to="." method="_on_reload_button_up"]
+[connection signal="button_up" from="TemporaryUI/HBoxContainer/get_ability" to="." method="_on_get_ability_button_up"]
+[connection signal="button_up" from="TemporaryUI/HBoxContainer/change_classes" to="." method="_on_change_classes_button_up"]
+[connection signal="button_up" from="TemporaryUI/HBoxContainer/spawn_event" to="." method="_on_spawn_event_button_up"]
