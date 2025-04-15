@@ -34,6 +34,7 @@ const BGM_IDX = 2
 @export var world: World
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var ig: ItemGenerator = ItemGenerator.new()
 var deck: Deck = Deck.new()
 var event_control: EventControl = EventControl.new()
 var game_started_on: int

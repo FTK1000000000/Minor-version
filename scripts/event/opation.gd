@@ -25,31 +25,24 @@ func _ready() -> void:
 	ation.text = ation_text
 
 
-func analysis_word():
+func analysis_item():
 	var give_card: Array[InventoryCard]
 	var range: Array = [property, item, effect]
 	for item: Dictionary in range:
 		for n: int in range(item.give.size()):
 			if item.give[n].get(item.give[n].keys()[n]) == Common.key.rand:
 				match item.give[n].keys()[n]:
-					"card": give_card.append(definition_card())
+					"card": give_card.append(roll_card())
 	
 	Global.deck.head_pile.append_array(give_card)
 	Global.deck.update.emit()
 
-func definition_card() -> InventoryCard:
+func roll_card() -> InventoryCard:
 	var path = Global.card_data
 	var key = path.keys()[Global.rng.randi() % path.size()]
 	var card_data = path.get(key)
-	var card_res: InventoryCard = InventoryCard.new()
-	card_res.data_name = key
-	card_res.name = card_data.name
-	card_res.type = card_data.type
-	card_res.description = card_data.description
-	card_res.price = card_data.price
-	card_res.icon = FileFunction.get_file_list(Global.CARD_TEXTURE_DIRECTORY).get(card_data.name)
 	
-	return card_res
+	return Global.ig.definition_item(key)
 
 func selected() -> void:
 	var property_quation = func(opation: Array) -> void:
@@ -71,8 +64,13 @@ func selected() -> void:
 	property_quation.call(property.give)
 	property_quation.call(property.lose)
 	
+	var save_effects: Array[Node]
+	for effect: Node in GlobalPlayerState.player.effect_machine.get_children():
+		save_effects.append(effect)
+	GlobalPlayerState.effects.clear()
+	GlobalPlayerState.effects.append_array(save_effects)
 	
-	analysis_word()
+	analysis_item()
 
 
 func _on_ation_button_up() -> void:

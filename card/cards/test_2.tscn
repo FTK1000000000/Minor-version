@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2ksv8hejukuy"]
+
+[ext_resource type="PackedScene" uid="uid://c3s75akbkf5fu" path="res://card/cards/card.tscn" id="1_vb2ma"]
+[ext_resource type="Script" path="res://scripts/card/cards/test_1.gd" id="2_pkfwg"]
+[ext_resource type="Shader" path="res://shader/collectible_icon.gdshader" id="3_pkfft"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w7bp"]
+resource_local_to_scene = true
+size = Vector2(14, 18)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ijjl"]
+resource_local_to_scene = true
+shader = ExtResource("3_pkfft")
+shader_parameter/highlight = true
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_speed = 3.0
+shader_parameter/shine_size = 0.01
+
+[node name="Test1" instance=ExtResource("1_vb2ma")]
+script = ExtResource("2_pkfwg")
+data_name = "test_1"
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_8w7bp")
+
+[node name="Icon" parent="." index="1"]
+material = SubResource("ShaderMaterial_0ijjl")
+texture = null

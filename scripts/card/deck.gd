@@ -4,6 +4,13 @@ class_name Deck
 signal update
 
 
+enum PILE {
+	DEAW,
+	DISCARD,
+	HEAD,
+}
+
+
 var draw_pile: Array[InventoryCard]
 var discard_pile: Array[InventoryCard]
 var head_pile: Array[InventoryCard]
@@ -15,11 +22,12 @@ func shuffle():
 	draw_pile += cards
 	discard_pile.clear()
 
-func discard(card: InventoryCard, pile: int = 0):
+func discard(card: InventoryCard, pile: PILE = 0):
 	match pile:
-		0: head_pile.erase(card)
-		1: draw_pile.erase(card)
-	discard_pile.push_front(card)
+		PILE.HEAD: head_pile.erase(card)
+		PILE.DEAW: draw_pile.erase(card)
+	discard_pile.push_back(card)
+	update.emit()
 
 func add_to_head_pile(item: InventoryCard):
 	head_pile.push_back(item)
