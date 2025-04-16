@@ -34,6 +34,24 @@ func analysis_item():
 				match item.give[n].keys()[n]:
 					"card": give_card.append(roll_card())
 	
+	for lose in item.lose:
+		for key in lose:
+			match key:
+				Common.key.all:
+					Global.deck.clear()
+				Common.key.rand:
+					var t = Global.deck.draw_pile
+					t.erase(t[randi() % t.size()])
+	
+	for lose in effect.lose:
+		for key in lose:
+			match key:
+				Common.key.all:
+					GlobalPlayerState.clear_effect()
+				Common.key.rand:
+					var t = GlobalPlayerState.effects
+					t.erase(t[randi() % t.size()])
+	
 	Global.deck.head_pile.append_array(give_card)
 	Global.deck.update.emit()
 

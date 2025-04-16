@@ -17,6 +17,11 @@ var head_pile: Array[InventoryCard]
 var max_head_card_amount: int
 
 
+func clear() -> void:
+	draw_pile.clear()
+	discard_pile.clear()
+	head_pile.clear()
+
 func shuffle():
 	var cards = discard_pile
 	draw_pile += cards

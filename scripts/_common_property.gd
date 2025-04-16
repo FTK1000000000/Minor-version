@@ -12,7 +12,8 @@ static var hurt_ready_time: float = 0.3
 static var hurt_blink_time: float = 0.3
 
 static var key: Dictionary = {
-	"rand": "rand"
+	"rand": "rand",
+	"all": "all"
 }
 
 

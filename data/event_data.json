@@ -10,12 +10,12 @@
                     "lose": [{"current_health": 10}]
                 },
                 "item": {
-                    "give": [{"card": "rand"}],
-                    "lose": []
+                    "give": [],
+                    "lose": ["all"]
                 },
                 "effect": {
                     "give": [],
-                    "lose": []
+                    "lose": ["all"]
                 }
             },
             {

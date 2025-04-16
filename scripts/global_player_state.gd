@@ -90,6 +90,12 @@ func spawn_player(node: Node, position: Vector2 = Vector2.ZERO):
 	player.position = position
 	node.add_child(player)
 
+func clear_effect() -> void:
+	effects.clear()
+
+func clear_item() -> void:
+	effects.clear()
+
 func reset():
 	classes = ""
 	#weapon = null
