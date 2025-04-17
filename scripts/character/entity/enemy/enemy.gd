@@ -205,12 +205,14 @@ func compute_collision_shape_use_size() -> float:
 	return v as float if !(v is float) else v
 
 func aimline_rotation():
+	if !attack_target: return
 	var tg = attack_target.global_position
 	var g = global_position
 	var tr: Vector2 = (tg - g).normalized()
 	aim_line.rotation = tr.angle()
 
 func melee_attack_hitboxs_rotation():
+	if !attack_target: return
 	var tg = attack_target.global_position
 	var g = global_position
 	var tr: Vector2 = (tg - g).normalized()

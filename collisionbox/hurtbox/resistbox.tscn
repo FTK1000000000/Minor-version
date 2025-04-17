@@ -5,3 +5,7 @@
 
 [node name="Resistbox" instance=ExtResource("1_em0kd")]
 script = ExtResource("2_whrqm")
+
+[node name="PerfectParryTimer" type="Timer" parent="." index="3"]
+wait_time = 0.1
+one_shot = true

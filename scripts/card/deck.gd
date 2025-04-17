@@ -5,9 +5,9 @@ signal update
 
 
 enum PILE {
-	DEAW,
-	DISCARD,
 	HEAD,
+	DEAW,
+	DISCARD
 }
 
 

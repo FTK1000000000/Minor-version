@@ -11,11 +11,11 @@
                 },
                 "item": {
                     "give": [],
-                    "lose": ["all"]
+                    "lose": [{"card": "all"}]
                 },
                 "effect": {
                     "give": [],
-                    "lose": ["all"]
+                    "lose": [{"buff": "all"}]
                 }
             },
             {

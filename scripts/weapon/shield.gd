@@ -1,9 +1,7 @@
 extends Weapon
-#class_name Shield
 
 
-#@export var resist_damage: int = 5
-#var old_hit_damage = hit_damage
+@onready var resistbox: Resistbox = $Resistbox
 
 
 func special_attack():
@@ -21,6 +19,7 @@ func resist():
 			player.is_endurance_disable = true
 			is_special_charge = true
 			animation_player.play("resist")
+			perfect_parry_time()
 	
 	elif Input.is_action_just_released("attack_special") && current_charge >= need_charge:
 		#hitbox.damage = old_hit_damage
@@ -28,6 +27,7 @@ func resist():
 		player.is_endurance_disable = false
 		is_special_charge = false
 		animation_player.play("recover")
+		perfect_parry_time()
 	
 	elif Input.is_action_just_released("attack_special") && current_charge <= need_charge:
 		#hitbox.damage = old_hit_damage
@@ -35,3 +35,7 @@ func resist():
 		player.is_endurance_disable = false
 		is_special_charge = false
 		animation_player.play("recover")
+		perfect_parry_time()
+
+func perfect_parry_time() -> void:
+	resistbox.perfect_parry_timer.start()

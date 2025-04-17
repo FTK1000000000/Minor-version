@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://253omdf6kji3"]
+
+[ext_resource type="Shader" path="res://shader/waves.gdshader" id="1_h2g3b"]
+
+[resource]
+shader = ExtResource("1_h2g3b")
+shader_parameter/c = Color(1, 0.656, 0.14, 1)
+shader_parameter/amplitude = 0.32
+shader_parameter/frequency = 4.0
+shader_parameter/rippleRate = 24.0
+shader_parameter/waveAmplitude = 0.1
+shader_parameter/waveFrequency = 4.0
+shader_parameter/blendingAmount = 0.6
